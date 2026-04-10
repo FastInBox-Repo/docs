@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Documentacao central do projeto FastInbox para Projeto Integrador III no CEUB.">
-    <title>FastInbox | Documentacao do Projeto</title>
+    <meta name="description" content="Hub tecnico oficial do FastInBox com documentos completos de arquitetura, produto e operacao.">
+    <title>FastInBox Docs | Neo Brutal B&W</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="./styles.css">
 </head>
@@ -15,8 +15,8 @@
     <nav class="navbar" id="navbar">
         <div class="container nav-wrap">
             <a href="#inicio" class="logo" aria-label="Ir para o inicio">
-                <i class="fa-solid fa-box-open"></i>
-                <span>FastInbox</span>
+                <i class="fa-solid fa-box"></i>
+                <span>FASTINBOX DOCS</span>
             </a>
             <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-controls="nav-links" aria-expanded="false">
                 <span></span>
@@ -25,146 +25,102 @@
             </button>
             <ul class="nav-links" id="nav-links">
                 <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#maturidade">Maturidade</a></li>
+                <li><a href="#idv">IDV</a></li>
+                <li><a href="#stack">Stack</a></li>
                 <li><a href="#documentos">Documentos</a></li>
             </ul>
         </div>
     </nav>
 
     <header id="inicio" class="hero">
-        <div class="hero-bg" aria-hidden="true">
-            <span class="shape shape-a"></span>
-            <span class="shape shape-b"></span>
-            <span class="shape shape-c"></span>
-        </div>
         <div class="container hero-content reveal">
-            <h1>Documentacao Central do Projeto</h1>
+            <p class="kicker">IDV VERSION 2.0 | NEO BRUTAL | BLACK + WHITE</p>
+            <h1>Hub tecnico oficial do FastInBox</h1>
             <p>
-                Acesso consolidado a arquitetura de referencia, requisitos funcionais, trilha de sprint,
-                governanca de dados e plano evolutivo da plataforma FastInbox. O foco desta documentacao e
-                demonstrar rastreabilidade tecnica ponta a ponta, da regra de negocio ao deploy em producao.
+                Esta base concentra a documentacao completa de produto, arquitetura, engenharia e operacao da plataforma.
+                O padrao visual segue uma linha neo-brutal preto e branco, com foco em contraste, leitura rapida e
+                rastreabilidade tecnica para apresentacao academica e governanca de desenvolvimento.
             </p>
             <a href="#documentos" class="cta-button">
-                <span>Explorar Documentos</span>
-                <i class="fa-solid fa-chevron-down"></i>
+                Abrir biblioteca de documentos
             </a>
 
             <div class="hero-metrics">
                 <article class="metric-chip">
-                    <span class="metric-value">1 deploy</span>
-                    <span class="metric-label">Vercel front-only na Sprint 1</span>
+                    <strong>10 documentos</strong>
+                    <span>Paginas completas em formato tecnico</span>
                 </article>
                 <article class="metric-chip">
-                    <span class="metric-value">2 canais</span>
-                    <span class="metric-label">Aplicacao web + docs via GitHub Pages</span>
+                    <strong>1 fluxo E2E</strong>
+                    <span>Criacao -> pagamento -> producao -> entrega</span>
                 </article>
                 <article class="metric-chip">
-                    <span class="metric-value">4 perfis</span>
-                    <span class="metric-label">Nutricionista, Paciente, Fabrica e Admin</span>
+                    <strong>2 canais publicos</strong>
+                    <span>App Vercel e documentacao GitHub Pages</span>
                 </article>
             </div>
         </div>
     </header>
 
     <main>
-        <section id="sobre" class="about-section">
+        <section id="idv" class="idv-section">
             <div class="container">
                 <div class="section-header reveal">
-                    <h2>Nossa Equipe</h2>
+                    <h2>Diretriz de Identidade Visual</h2>
                     <p>
-                        Somos uma equipe de PI III focada em transformar o fluxo manual de pedidos de marmitas
-                        em uma operacao digital white label, com foco em clareza, rastreabilidade e escala.
+                        O layout foi atualizado para um modelo neo-brutal com gramatica visual direta: blocos retangulares,
+                        borda forte, sombra dura, tipografia sem ornamento e distribuicao hierarquica orientada por criticidade.
                     </p>
                 </div>
-
-                <div class="team-grid">
-                    <article class="team-card reveal">
-                        <div class="team-avatar"><i class="fa-solid fa-user-circle"></i></div>
-                        <h3>Thiago</h3>
-                        <p>Produto tecnico, full-stack e QA de apoio.</p>
-                        <a class="team-link" href="https://github.com/FastInBox-Repo" target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-github"></i> Organizacao FastInBox
-                        </a>
+                <div class="idv-grid">
+                    <article class="idv-card reveal">
+                        <h3>Principio de contraste</h3>
+                        <p>Base monocromatica para reduzir ruido cognitivo e reforcar legibilidade em leitura tecnica extensa.</p>
                     </article>
-
-                    <article class="team-card reveal">
-                        <div class="team-avatar"><i class="fa-solid fa-user-circle"></i></div>
-                        <h3>Joao Vitor</h3>
-                        <p>DevOps e infraestrutura de deploy.</p>
-                        <a class="team-link" href="https://github.com/FastInBox-Repo" target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-github"></i> Organizacao FastInBox
-                        </a>
+                    <article class="idv-card reveal">
+                        <h3>Composicao estrutural</h3>
+                        <p>Cards e secoes operam como blocos semanticos de leitura; cada bloco representa um artefato de engenharia.</p>
                     </article>
-
-                    <article class="team-card reveal">
-                        <div class="team-avatar"><i class="fa-solid fa-user-circle"></i></div>
-                        <h3>Gabriel</h3>
-                        <p>Design, direcao visual e consistencia de interface.</p>
-                        <a class="team-link" href="https://github.com/FastInBox-Repo" target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-github"></i> Organizacao FastInBox
-                        </a>
-                    </article>
-
-                    <article class="team-card reveal">
-                        <div class="team-avatar"><i class="fa-solid fa-chalkboard-user"></i></div>
-                        <h3>Orientacao Academica</h3>
-                        <p>Projeto Integrador III com orientacao da professora Kadidja Valeria.</p>
-                        <a class="team-link" href="#inicio">
-                            <i class="fa-solid fa-school"></i> CEUB
-                        </a>
+                    <article class="idv-card reveal">
+                        <h3>Referencial de qualidade</h3>
+                        <p>A referencia de benchmark foi de clareza objetiva de informacao, mantendo autoria e linguagem FastInBox.</p>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section id="maturidade" class="engineering-section">
+        <section id="stack" class="stack-section">
             <div class="container">
                 <div class="section-header reveal">
-                    <h2>Maturidade Tecnica da Solucao</h2>
+                    <h2>Baseline Tecnico da Plataforma</h2>
                     <p>
-                        Estrutura de engenharia pensada para MVP academico com qualidade de demonstracao,
-                        mantendo base preparada para evolucao em sprints futuras sem refatoracao disruptiva.
+                        Arquitetura orientada a camadas: front-end de experiencia, back-end de regras e repositorio de docs como
+                        camada de governanca. A Sprint 1 opera com deploy unico no front para reduzir complexidade de demonstracao.
                     </p>
                 </div>
-
-                <div class="engineering-grid">
-                    <article class="engineering-card reveal">
-                        <h3>Arquitetura de Execucao</h3>
-                        <p>
-                            Frontend em Next.js com roteamento de jornadas por perfil, camada de estado centralizada
-                            para Sprint 1 e separacao clara entre layout, paginas e dominio de negocio.
-                        </p>
+                <div class="stack-grid">
+                    <article class="stack-card reveal">
+                        <h3>Aplicacao</h3>
                         <ul>
-                            <li>Store local com serializacao no navegador para persistencia de sessao e pedidos.</li>
-                            <li>Fluxo transacional: cadastro -> pedido -> pagamento -> producao -> entrega.</li>
-                            <li>Contratos de dados padronizados para facilitar migracao futura para API real.</li>
+                            <li>Next.js 15 + React 19</li>
+                            <li>TypeScript como base de contratos</li>
+                            <li>Estado local persistente para MVP academico</li>
                         </ul>
                     </article>
-
-                    <article class="engineering-card reveal">
-                        <h3>Governanca e Confiabilidade</h3>
-                        <p>
-                            Processo de entrega com validacao tecnica recorrente para reduzir regressao funcional
-                            e aumentar previsibilidade durante a apresentacao academica.
-                        </p>
+                    <article class="stack-card reveal">
+                        <h3>API e dominio</h3>
                         <ul>
-                            <li>Build de front e back executados antes de publicacao.</li>
-                            <li>Repositorio segmentado por responsabilidade (front, back, docs, org profile).</li>
-                            <li>Rastreabilidade via commits semanticos e pipeline GitHub Actions para Pages.</li>
+                            <li>NestJS 11 para evolucao de regras server-side</li>
+                            <li>Modelo de entidades pronto para migracao gradual</li>
+                            <li>Separacao por perfis e trilha de status operacional</li>
                         </ul>
                     </article>
-
-                    <article class="engineering-card reveal">
-                        <h3>Estrategia de Evolucao</h3>
-                        <p>
-                            O MVP foi desenhado com acoplamento controlado para permitir evolucao gradual para
-                            persistencia server-side, telemetria e regras avancadas de producao.
-                        </p>
+                    <article class="stack-card reveal">
+                        <h3>Entrega e governanca</h3>
                         <ul>
-                            <li>Backend NestJS mantido pronto para acoplamento nas proximas sprints.</li>
-                            <li>Camada de pedidos modelada para suportar eventos de producao e pagamentos.</li>
-                            <li>Documentacao tecnica versionada como ativo de governanca do produto.</li>
+                            <li>Vercel para aplicacao demonstravel</li>
+                            <li>GitHub Pages para documentacao tecnica publica</li>
+                            <li>Versionamento por repositorio e commits semanticos</li>
                         </ul>
                     </article>
                 </div>
@@ -174,189 +130,24 @@
         <section id="documentos" class="documents-section">
             <div class="container">
                 <div class="section-header reveal">
-                    <h2>Documentos de Projeto</h2>
-                    <p>Repositorio oficial de artefatos tecnicos, baseline de requisitos e diretrizes de implementacao.</p>
+                    <h2>Biblioteca de Documentos Completos</h2>
+                    <p>
+                        Cada documento foi expandido para pagina dedicada no estilo termo tecnico, com estrutura formal,
+                        secoes completas e detalhamento suficiente para banca, auditoria e continuidade de sprint.
+                    </p>
                 </div>
 
                 <div class="documents-grid">
-                    <article class="document-card reveal">
-                        <div class="card-icon"><i class="fa-solid fa-network-wired"></i></div>
-                        <h3>Arquitetura UML</h3>
-                        <p>Diagramas de classe, sequencia e visao geral do sistema.</p>
-                        <button class="toggle-doc" data-target="doc-uml" aria-expanded="false">Ler no site</button>
-                        <div class="doc-body" id="doc-uml" hidden>
-                            <h4>Visao da arquitetura</h4>
-                            <p>O sistema foi dividido em quatro dominios centrais: nutricionista, paciente, cozinha e administracao.</p>
-                            <ul>
-                                <li>Classes principais: User, Patient, MealOrder, MealItem, Payment, ProductionStatus.</li>
-                                <li>Sequencia principal: criacao de pedido -> revisao do paciente -> pagamento -> producao -> entrega.</li>
-                                <li>Separacao de responsabilidades para manter seguranca e rastreabilidade por perfil.</li>
-                            </ul>
-                        </div>
-                    </article>
-
-                    <article class="document-card reveal">
-                        <div class="card-icon"><i class="fa-solid fa-chart-pie"></i></div>
-                        <h3>Business Model Canvas</h3>
-                        <p>Proposta de valor, canais e estrutura de custos da operacao.</p>
-                        <button class="toggle-doc" data-target="doc-canvas" aria-expanded="false">Ler no site</button>
-                        <div class="doc-body" id="doc-canvas" hidden>
-                            <h4>Resumo do modelo de negocio</h4>
-                            <ul>
-                                <li>Proposta de valor: operacao white label de marmitas personalizadas para clinicas.</li>
-                                <li>Segmentos: nutricionistas parceiros, pacientes finais e cozinhas operacionais.</li>
-                                <li>Canais: plataforma web, compartilhamento por codigo de pedido e suporte direto.</li>
-                                <li>Receita: comissionamento por pedido e expansao para planos recorrentes.</li>
-                            </ul>
-                            <a href="./fastinbox-mvp-canvas-paulo-caroli.md" target="_blank" rel="noopener noreferrer">Ver fonte completa em markdown</a>
-                        </div>
-                    </article>
-
-                    <article class="document-card reveal">
-                        <div class="card-icon"><i class="fa-solid fa-users-gear"></i></div>
-                        <h3>Sprint Review</h3>
-                        <p>Resultados das sprints, entregaveis e feedback dos stakeholders.</p>
-                        <button class="toggle-doc" data-target="doc-sprint" aria-expanded="false">Ler no site</button>
-                        <div class="doc-body" id="doc-sprint" hidden>
-                            <h4>Sprint 1 (MVP funcional)</h4>
-                            <ul>
-                                <li>Login por perfil (nutricionista, paciente e fabrica/cozinha).</li>
-                                <li>Criacao de pedido de marmita pelo nutricionista, vinculado ao paciente.</li>
-                                <li>Painel da cozinha no formato kanban para mover pedidos por etapa.</li>
-                                <li>Cards de acompanhamento para nutricionista e paciente.</li>
-                            </ul>
-                            <p>Feedback principal: manter simplicidade do fluxo e reforcar visibilidade de status em tempo real.</p>
-                        </div>
-                    </article>
-
-                    <article class="document-card reveal">
-                        <div class="card-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
-                        <h3>Documentacao 5W2H</h3>
-                        <p>Plano de acao detalhado: o que, quem, onde, quando e porque.</p>
-                        <button class="toggle-doc" data-target="doc-5w2h" aria-expanded="false">Ler no site</button>
-                        <div class="doc-body" id="doc-5w2h" hidden>
-                            <h4>Plano de acao resumido</h4>
-                            <table>
-                                <thead>
-                                    <tr><th>Pergunta</th><th>Resposta FastInbox</th></tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td>What</td><td>Entregar o fluxo digital de pedido de marmitas white label.</td></tr>
-                                    <tr><td>Why</td><td>Reduzir operacao manual e aumentar confianca no processo.</td></tr>
-                                    <tr><td>Where</td><td>Plataforma web com acesso para clinica, paciente e cozinha.</td></tr>
-                                    <tr><td>When</td><td>Sprint 1 focada no nucleo funcional e validacao de uso.</td></tr>
-                                    <tr><td>Who</td><td>Time PI III (produto, devops e design).</td></tr>
-                                    <tr><td>How</td><td>Implementacao incremental com dashboards por perfil.</td></tr>
-                                    <tr><td>How much</td><td>Escopo MVP com custo controlado e sem dependencia externa complexa.</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </article>
-
-                    <article class="document-card reveal">
-                        <div class="card-icon"><i class="fa-solid fa-book-open"></i></div>
-                        <h3>Documentacao Geral</h3>
-                        <p>Manual completo do projeto abrangendo produto, design e tecnologia.</p>
-                        <button class="toggle-doc" data-target="doc-geral" aria-expanded="false">Ler no site</button>
-                        <div class="doc-body" id="doc-geral" hidden>
-                            <h4>Escopo consolidado</h4>
-                            <p>O FastInbox conecta nutricionistas, pacientes e cozinhas em um fluxo unificado de venda, pagamento e producao.</p>
-                            <ul>
-                                <li>Jornada nutricionista: cadastro de paciente, composicao e envio de pedido.</li>
-                                <li>Jornada paciente: revisao, confirmacao, pagamento e acompanhamento.</li>
-                                <li>Jornada cozinha: fila kanban, producao e atualizacao de entrega.</li>
-                                <li>Jornada administrativa: visao global e governanca operacional.</li>
-                            </ul>
-                        </div>
-                    </article>
-
-                    <article class="document-card reveal">
-                        <div class="card-icon"><i class="fa-solid fa-bullseye"></i></div>
-                        <h3>Documento de Visao</h3>
-                        <p>Necessidades do mercado e visao estrategica global do produto.</p>
-                        <button class="toggle-doc" data-target="doc-visao" aria-expanded="false">Ler no site</button>
-                        <div class="doc-body" id="doc-visao" hidden>
-                            <h4>Visao estrategica</h4>
-                            <p>
-                                Ser a infraestrutura padrao para clinicas de nutricao venderem marmitas personalizadas com
-                                marca propria, mantendo o paciente em uma experiencia confiavel e sem ruido operacional.
-                            </p>
-                            <ul>
-                                <li>Prioridade white label para fortalecer a marca da clinica.</li>
-                                <li>Fluxo ponta a ponta rastreavel para reduzir falhas manuais.</li>
-                                <li>Base pronta para recorrencia, previsao de demanda e escala.</li>
-                            </ul>
-                        </div>
-                    </article>
-
-                    <article class="document-card reveal">
-                        <div class="card-icon"><i class="fa-solid fa-clipboard-list"></i></div>
-                        <h3>Requisitos de Software</h3>
-                        <p>Especificacao detalhada de funcoes e restricoes do sistema.</p>
-                        <button class="toggle-doc" data-target="doc-ers" aria-expanded="false">Ler no site</button>
-                        <div class="doc-body" id="doc-ers" hidden>
-                            <h4>Requisitos-chave</h4>
-                            <ul>
-                                <li>RF-001: autenticacao por perfil com fluxo seguro.</li>
-                                <li>RF-003: criacao de pedido com multiplas marmitas e codigo unico.</li>
-                                <li>RF-007: pagamento integrado sem redirecionamento externo.</li>
-                                <li>RF-010 e RF-011: painel de cozinha com atualizacao de status operacional.</li>
-                            </ul>
-                            <p>Regra critica: nenhum pedido segue para producao sem confirmacao e pagamento aprovado.</p>
-                            <a href="./fastinbox-software-requirements-specification.md" target="_blank" rel="noopener noreferrer">Ver fonte completa em markdown</a>
-                        </div>
-                    </article>
-
-                    <article class="document-card reveal">
-                        <div class="card-icon"><i class="fa-solid fa-calendar-check"></i></div>
-                        <h3>Plano de Projeto</h3>
-                        <p>Cronograma de atividades, marcos e gestao de riscos.</p>
-                        <button class="toggle-doc" data-target="doc-plano" aria-expanded="false">Ler no site</button>
-                        <div class="doc-body" id="doc-plano" hidden>
-                            <h4>Faseamento recomendado</h4>
-                            <ol>
-                                <li>Fundacao: arquitetura base, autenticacao e setup de design system.</li>
-                                <li>Nucleo comercial: pacientes, pedidos e regras de comissao.</li>
-                                <li>Conversao e operacao: revisao, pagamento e painel de cozinha.</li>
-                                <li>Governanca minima: dashboard administrativo, logs e hardening.</li>
-                            </ol>
-                            <p>Risco principal: atraso na definicao de pagamento e regras logisticas.</p>
-                        </div>
-                    </article>
-
-                    <article class="document-card reveal">
-                        <div class="card-icon"><i class="fa-solid fa-file-shield"></i></div>
-                        <h3>Termos Legais</h3>
-                        <p>Termos de anuencia, privacidade e conformidade regulamentar.</p>
-                        <button class="toggle-doc" data-target="doc-legais" aria-expanded="false">Ler no site</button>
-                        <div class="doc-body" id="doc-legais" hidden>
-                            <h4>Diretrizes minimas</h4>
-                            <ul>
-                                <li>Uso de dados pessoais somente para execucao do pedido e operacao do servico.</li>
-                                <li>Controle de acesso por perfil para reduzir exposicao indevida de informacoes.</li>
-                                <li>Registro auditavel de mudancas de status e acoes sensiveis.</li>
-                                <li>Comunicacao clara sobre pagamentos, cancelamentos e responsabilidades.</li>
-                            </ul>
-                        </div>
-                    </article>
-
-                    <article class="document-card reveal">
-                        <div class="card-icon"><i class="fa-solid fa-database"></i></div>
-                        <h3>Esquema do Banco de Dados</h3>
-                        <p>Diagrama entidade-relacionamento e estrutura das tabelas do sistema.</p>
-                        <button class="toggle-doc" data-target="doc-db" aria-expanded="false">Ler no site</button>
-                        <div class="doc-body" id="doc-db" hidden>
-                            <h4>Modelo de dados resumido</h4>
-                            <ul>
-                                <li>users: dados de autenticacao e perfil de acesso.</li>
-                                <li>patients: dados do paciente vinculados ao nutricionista.</li>
-                                <li>orders e order_items: pedido, composicao de marmitas e valores.</li>
-                                <li>payments: status financeiro e confirmacao de transacao.</li>
-                                <li>production_events: trilha de status da cozinha ate a entrega.</li>
-                            </ul>
-                            <p>A modelagem prioriza rastreabilidade de ponta a ponta para auditoria operacional.</p>
-                        </div>
-                    </article>
+                    <article class="document-card reveal"><h3>Arquitetura UML</h3><p>Modelo de componentes, fluxo de interacao e contratos de dominio.</p><a href="./documents/arquitetura-uml.html">Abrir documento completo</a></article>
+                    <article class="document-card reveal"><h3>Business Model Canvas</h3><p>Modelo de negocio, proposta de valor e viabilidade operacional.</p><a href="./documents/business-model-canvas.html">Abrir documento completo</a></article>
+                    <article class="document-card reveal"><h3>Sprint Review</h3><p>Evidencias de entrega, validacao e riscos de continuidade por sprint.</p><a href="./documents/sprint-review.html">Abrir documento completo</a></article>
+                    <article class="document-card reveal"><h3>Documentacao 5W2H</h3><p>Plano executivo de acao com responsabilidades e checkpoints.</p><a href="./documents/documentacao-5w2h.html">Abrir documento completo</a></article>
+                    <article class="document-card reveal"><h3>Documentacao Geral</h3><p>Manual tecnico consolidado de produto, sistema e operacao.</p><a href="./documents/documentacao-geral.html">Abrir documento completo</a></article>
+                    <article class="document-card reveal"><h3>Documento de Visao</h3><p>Norte estrategico, objetivos, principios e posicionamento de produto.</p><a href="./documents/documento-visao.html">Abrir documento completo</a></article>
+                    <article class="document-card reveal"><h3>Requisitos de Software</h3><p>ERS completa com regras, atores, restricoes e requisitos nao funcionais.</p><a href="./documents/requisitos-software.html">Abrir documento completo</a></article>
+                    <article class="document-card reveal"><h3>Plano de Projeto</h3><p>Roadmap de execucao, riscos, governanca e plano de qualidade.</p><a href="./documents/plano-projeto.html">Abrir documento completo</a></article>
+                    <article class="document-card reveal"><h3>Termos Legais</h3><p>Privacidade, conformidade, responsabilidade contratual e seguranca.</p><a href="./documents/termos-legais.html">Abrir documento completo</a></article>
+                    <article class="document-card reveal"><h3>Esquema de Banco</h3><p>Modelo relacional, indices, integridade e trilha de auditoria.</p><a href="./documents/esquema-banco-dados.html">Abrir documento completo</a></article>
                 </div>
             </div>
         </section>
@@ -364,11 +155,12 @@
 
     <footer class="footer">
         <div class="container">
-            <p>© <span id="current-year"></span> FastInbox.</p>
+            <p>© <span id="current-year"></span> FastInBox | Technical Documentation Hub</p>
             <ul class="footer-links">
                 <li><a href="https://github.com/FastInBox-Repo/front" target="_blank" rel="noopener noreferrer">Frontend</a></li>
                 <li><a href="https://github.com/FastInBox-Repo/back" target="_blank" rel="noopener noreferrer">Backend</a></li>
-                <li><a href="https://github.com/FastInBox-Repo/docs" target="_blank" rel="noopener noreferrer">Repositorio Docs</a></li>
+                <li><a href="https://github.com/FastInBox-Repo/docs" target="_blank" rel="noopener noreferrer">Docs Repo</a></li>
+                <li><a href="https://front-chi-flame.vercel.app" target="_blank" rel="noopener noreferrer">App em producao</a></li>
             </ul>
         </div>
     </footer>

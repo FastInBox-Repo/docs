@@ -83,48 +83,6 @@ function setupRevealAnimation() {
     revealEls.forEach((el) => observer.observe(el));
 }
 
-function setupDocumentToggles() {
-    const toggles = document.querySelectorAll(".toggle-doc");
-
-    toggles.forEach((button) => {
-        button.addEventListener("click", () => {
-            const targetId = button.getAttribute("data-target");
-            if (!targetId) {
-                return;
-            }
-
-            const target = document.getElementById(targetId);
-            if (!target) {
-                return;
-            }
-
-            const isOpening = target.hasAttribute("hidden");
-
-            toggles.forEach((otherButton) => {
-                const otherTargetId = otherButton.getAttribute("data-target");
-                if (!otherTargetId) {
-                    return;
-                }
-
-                const otherTarget = document.getElementById(otherTargetId);
-                if (!otherTarget) {
-                    return;
-                }
-
-                otherTarget.setAttribute("hidden", "hidden");
-                otherButton.textContent = "Ler no site";
-                otherButton.setAttribute("aria-expanded", "false");
-            });
-
-            if (isOpening) {
-                target.removeAttribute("hidden");
-                button.textContent = "Fechar";
-                button.setAttribute("aria-expanded", "true");
-            }
-        });
-    });
-}
-
 window.addEventListener("scroll", handleNavbarScroll);
 window.addEventListener("DOMContentLoaded", () => {
     setCurrentYear();
@@ -132,5 +90,4 @@ window.addEventListener("DOMContentLoaded", () => {
     setupMobileMenu();
     setupSmoothScroll();
     setupRevealAnimation();
-    setupDocumentToggles();
 });

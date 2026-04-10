@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Sprint Review</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="../content/sprint-1-project-tasks.md" target="_blank" rel="noopener noreferrer">Tasks Sprint 1</a>
+            <a href="./plano-projeto.html">Ver plano de projeto</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Sprint governance</p>
+            <h1>Sprint Review Tecnica</h1>
+            <p>Periodo analisado: Sprint 1 | Status: Encerrada com aceite funcional</p>
+            <p>Documento de review com evidencias de implementacao, conformidade de requisitos, riscos remanescentes e recomendacoes de evolucao para proxima iteracao.</p>
+        </header>
+
+        <section>
+            <h2>1. Escopo comprometido</h2>
+            <ul>
+                <li>Autenticacao e cadastro por perfil: nutricionista, paciente e fabrica.</li>
+                <li>Criacao de pedido vinculado a paciente com codigo unico.</li>
+                <li>Fluxo de pagamento simplificado e mudanca de status transacional.</li>
+                <li>Painel da fabrica em formato kanban com drag-and-drop.</li>
+                <li>Dashboards por perfil e acompanhamento em cards.</li>
+                <li>Deploy unico no front para demonstracao academica.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Entregaveis efetivamente concluidos</h2>
+            <table>
+                <thead><tr><th>Entregavel</th><th>Resultado</th><th>Observacao tecnica</th></tr></thead>
+                <tbody>
+                    <tr><td>Store de dominio</td><td>Concluido</td><td>Estado centralizado com persistencia local.</td></tr>
+                    <tr><td>Login e cadastro por perfil</td><td>Concluido</td><td>Controle de sessao por role e fallback demo.</td></tr>
+                    <tr><td>Fluxo nutricionista</td><td>Concluido</td><td>Criacao de paciente e pedido com envio para fabrica.</td></tr>
+                    <tr><td>Fluxo paciente</td><td>Concluido</td><td>Dashboard, pagamento e trilha de status.</td></tr>
+                    <tr><td>Fluxo fabrica</td><td>Concluido</td><td>Kanban operacional com transicao de status.</td></tr>
+                    <tr><td>Documentacao publica</td><td>Concluido</td><td>Pages no ar com workflow de deploy automatizado.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Validacao de qualidade</h2>
+            <h3>3.1 Indicadores de conformidade</h3>
+            <ul>
+                <li>Build front e back executados com sucesso no baseline de entrega.</li>
+                <li>Repositorios sincronizados em main sem conflitos abertos.</li>
+                <li>Deploy Vercel e GitHub Pages respondendo HTTP 200.</li>
+                <li>Fluxo E2E validado em ambiente de apresentacao.</li>
+            </ul>
+            <h3>3.2 Evidencia de rastreabilidade</h3>
+            <p>Os commits da sprint foram estruturados com escopo semantico e cada incremento critico foi publicado em repositorio especifico, permitindo auditoria por artefato sem ambiguidade de responsabilidade.</p>
+        </section>
+
+        <section>
+            <h2>4. Riscos identificados ao fim da sprint</h2>
+            <table>
+                <thead><tr><th>Risco</th><th>Severidade</th><th>Plano de mitigacao</th></tr></thead>
+                <tbody>
+                    <tr><td>Persistencia local nao colaborativa</td><td>Media</td><td>Migrar store para API e banco na Sprint 2.</td></tr>
+                    <tr><td>Ausencia de telemetria funcional</td><td>Media</td><td>Introduzir eventos de observabilidade por jornada.</td></tr>
+                    <tr><td>Acoplamento visual com dados mock remanescentes</td><td>Baixa</td><td>Concluir limpeza de fixtures e contratos de API.</td></tr>
+                    <tr><td>Dependencia de runtime local para demos</td><td>Baixa</td><td>Padronizar ambiente em documentacao de execucao.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Decisoes tecnicas aprovadas</h2>
+            <ol>
+                <li>Manter deploy unico de front durante fase academica inicial para reduzir risco de infraestrutura.</li>
+                <li>Preservar backend no repositorio para evolucao planejada e reuso de modelagem.</li>
+                <li>Priorizar evidencias visiveis de fluxo de negocio sobre features perifericas.</li>
+                <li>Concentrar documentacao formal no GitHub Pages para facilitar avaliacao da banca.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>6. Plano recomendado para Sprint 2</h2>
+            <ul>
+                <li>Integrar API real para autenticar e persistir pedidos em banco relacional.</li>
+                <li>Criar camada de auditoria para eventos sensiveis (pagamento, status, exclusoes).</li>
+                <li>Introduzir testes automatizados de regressao nos fluxos por perfil.</li>
+                <li>Adicionar relatorios de lead time por etapa de fabrica.</li>
+                <li>Reforcar governanca de dados pessoais e politica de retencao.</li>
+            </ul>
+            <div class="note">Conclusao de review: sprint aprovada para apresentacao com maturidade de MVP, mantendo backlog tecnico claro para transicao para fase de consolidacao.</div>
+        </section>
+
+        <footer class="footer">
+            Documento de sprint review associado ao plano de projeto e ao quadro de tasks da organizacao.
+        </footer>
+    </main>
+</body>
+</html>

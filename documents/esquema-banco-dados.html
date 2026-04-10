@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Esquema do Banco de Dados</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./arquitetura-uml.html">Arquitetura UML</a>
+            <a href="./requisitos-software.html">Requisitos</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Dados e persistencia</p>
+            <h1>Esquema de Banco de Dados</h1>
+            <p>Versao: 1.0 estrutural | Objetivo: baseline relacional para migracao da persistencia local</p>
+            <p>Documento tecnico de modelagem com entidades, cardinalidade, integridade e diretrizes de indexacao para suportar o fluxo de pedidos white label da plataforma.</p>
+        </header>
+
+        <section>
+            <h2>1. Premissas de modelagem</h2>
+            <ul>
+                <li>Modelo relacional com foco em consistencia transacional.</li>
+                <li>Eventos operacionais registrados para rastreabilidade.</li>
+                <li>Separacao entre identidade, pedido, pagamento e producao.</li>
+                <li>Preparado para consultas por perfil e timeline de status.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Entidades principais</h2>
+            <table>
+                <thead><tr><th>Tabela</th><th>Objetivo</th><th>Chave primaria</th></tr></thead>
+                <tbody>
+                    <tr><td>users</td><td>Identidade e autorizacao</td><td>user_id (UUID)</td></tr>
+                    <tr><td>clinics</td><td>Dados de marca e operacao da clinica</td><td>clinic_id (UUID)</td></tr>
+                    <tr><td>patients</td><td>Cadastro de paciente</td><td>patient_id (UUID)</td></tr>
+                    <tr><td>orders</td><td>Cabecalho transacional do pedido</td><td>order_id (UUID)</td></tr>
+                    <tr><td>order_items</td><td>Itens individuais do pedido</td><td>order_item_id (UUID)</td></tr>
+                    <tr><td>payments</td><td>Eventos de pagamento e conciliacao</td><td>payment_id (UUID)</td></tr>
+                    <tr><td>production_events</td><td>Historico de status operacional</td><td>production_event_id (UUID)</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Relacionamentos</h2>
+            <ul>
+                <li>clinics 1:N users (nutricionistas da clinica)</li>
+                <li>users (nutricionista) 1:N patients</li>
+                <li>patients 1:N orders</li>
+                <li>orders 1:N order_items</li>
+                <li>orders 1:N payments (suporte a reprocessamento futuro)</li>
+                <li>orders 1:N production_events</li>
+            </ul>
+            <p>A relacao orders -> production_events garante trilha temporal completa do ciclo operacional.</p>
+        </section>
+
+        <section>
+            <h2>4. Regras de integridade</h2>
+            <table>
+                <thead><tr><th>Regra</th><th>Implementacao sugerida</th><th>Motivo</th></tr></thead>
+                <tbody>
+                    <tr><td>Codigo de pedido unico</td><td>UNIQUE (order_code)</td><td>Evitar colisao no acesso do paciente</td></tr>
+                    <tr><td>Pagamento valido para producao</td><td>Constraint de transicao de status</td><td>Bloquear operacao sem autorizacao</td></tr>
+                    <tr><td>Status coerente</td><td>Enum + validacao de transicao</td><td>Evitar salto de etapa invalido</td></tr>
+                    <tr><td>Exclusao protegida</td><td>Soft delete ou restricao referencial</td><td>Preservar historico de auditoria</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Indexacao recomendada</h2>
+            <ul>
+                <li>users(email), patients(email), orders(order_code) para busca direta.</li>
+                <li>orders(status, delivery_date) para fila operacional.</li>
+                <li>production_events(order_id, created_at) para timeline.</li>
+                <li>payments(order_id, payment_status) para conciliacao.</li>
+            </ul>
+            <div class="note">A estrategia de indice prioriza consultas de tela e governanca, mantendo equilibrio entre leitura rapida e custo de escrita.</div>
+        </section>
+
+        <section>
+            <h2>6. Politica de evolucao de schema</h2>
+            <ol>
+                <li>Versionar migracoes com rollback explicito.</li>
+                <li>Evitar mudancas destrutivas sem janela de compatibilidade.</li>
+                <li>Formalizar dicionario de dados com semantica de campos.</li>
+                <li>Adicionar trilhas de auditoria em tabelas sensiveis.</li>
+            </ol>
+            <p>Essa abordagem reduz risco de quebra em sprint e facilita reproducao de ambiente em avaliacao tecnica.</p>
+        </section>
+
+        <footer class="footer">
+            Documento de modelagem para base relacional do FastInBox. Deve ser alinhado com a ERS e com a arquitetura UML a cada release de dominio.
+        </footer>
+    </main>
+</body>
+</html>

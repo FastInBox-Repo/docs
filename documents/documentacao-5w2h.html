@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Documentacao 5W2H</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./plano-projeto.html">Ver plano de projeto</a>
+            <a href="./sprint-review.html">Ver sprint review</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Planejamento executivo</p>
+            <h1>Documentacao 5W2H Completa</h1>
+            <p>Versao: 2.0 | Status: Em execucao controlada</p>
+            <p>Documento de planejamento tatico-operacional estruturado em 5W2H para garantir clareza de objetivo, dono, prazo, metodo e custo tecnico da plataforma.</p>
+        </header>
+
+        <section>
+            <h2>1. Premissas de planejamento</h2>
+            <p>O 5W2H do FastInBox foi construido para reduzir ambiguidade de backlog e alinhar time tecnico com objetivo de negocio. Cada resposta foi desdobrada em acao verificavel, criterio de aceite e risco associado.</p>
+            <ul>
+                <li>Horizonte primario: validacao do fluxo E2E em ambiente academico.</li>
+                <li>Horizonte secundario: preparar transicao para persistencia server-side.</li>
+                <li>Premissa de qualidade: toda entrega deve ser demonstravel e rastreavel.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Matriz 5W2H</h2>
+            <table>
+                <thead>
+                    <tr><th>Dimensao</th><th>Definicao executiva</th><th>Resultado tecnico esperado</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>What</td><td>Plataforma white label para venda de marmitas personalizadas.</td><td>Fluxo funcional por perfil com status integrado.</td></tr>
+                    <tr><td>Why</td><td>Eliminar operacao manual fragmentada e elevar previsibilidade.</td><td>Reducao de retrabalho e rastreabilidade de pedido.</td></tr>
+                    <tr><td>Where</td><td>Canal digital web, acesso desktop e mobile.</td><td>Interfaces responsivas e navegacao consistente.</td></tr>
+                    <tr><td>When</td><td>Execucao em sprints incrementais.</td><td>Entregas parciais com validacao ao fim de cada ciclo.</td></tr>
+                    <tr><td>Who</td><td>Time PI III com papeis tecnicos e de design.</td><td>Responsabilidades distribuidas por dominio.</td></tr>
+                    <tr><td>How</td><td>Arquitetura modular com repositorios segregados.</td><td>Build, deploy e docs controlados por repositorio.</td></tr>
+                    <tr><td>How much</td><td>Escopo MVP de baixo custo de infraestrutura.</td><td>Deploy unico na Sprint 1 e evolucao progressiva.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Desdobramento por pacote de trabalho</h2>
+            <h3>3.1 Pacote A - Jornada do nutricionista</h3>
+            <ul>
+                <li>Cadastro e gestao de pacientes.</li>
+                <li>Criacao de pedido com itens e preco.</li>
+                <li>Geracao de codigo unico para paciente.</li>
+            </ul>
+            <h3>3.2 Pacote B - Jornada do paciente</h3>
+            <ul>
+                <li>Acesso por codigo, revisao e confirmacao.</li>
+                <li>Pagamento simplificado no proprio fluxo.</li>
+                <li>Acompanhamento de status do pedido.</li>
+            </ul>
+            <h3>3.3 Pacote C - Jornada da fabrica</h3>
+            <ul>
+                <li>Painel kanban de producao.</li>
+                <li>Mudanca de estado auditavel.</li>
+                <li>Visibilidade de itens e janela de entrega.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. Governanca de execucao</h2>
+            <table>
+                <thead><tr><th>Responsavel</th><th>Escopo principal</th><th>Criterio de conclusao</th></tr></thead>
+                <tbody>
+                    <tr><td>Produto tecnico</td><td>Regras de dominio, integracao de jornadas e QA</td><td>Fluxo completo sem quebra de navegacao</td></tr>
+                    <tr><td>DevOps</td><td>Pipeline, deploy e estabilidade de ambiente</td><td>Publicacao confiavel e rastreavel</td></tr>
+                    <tr><td>Design</td><td>Padrao visual e consistencia de interface</td><td>Leitura clara em desktop e mobile</td></tr>
+                </tbody>
+            </table>
+            <p>As decisoes de escopo sao registradas por sprint para evitar mudanca silenciosa de criterio durante o desenvolvimento.</p>
+        </section>
+
+        <section>
+            <h2>5. Riscos taticos e contingencia</h2>
+            <ul>
+                <li>Risco de expansao de escopo antes da validacao do nucleo: mitigado por gate de sprint.</li>
+                <li>Risco de regressao visual entre telas: mitigado por padrao unificado de componentes.</li>
+                <li>Risco de inconsistencias de status: mitigado por transicoes controladas no dominio.</li>
+                <li>Risco de indisponibilidade de ambiente: mitigado por deploy publico duplicado (app + docs).</li>
+            </ul>
+            <div class="note">Este 5W2H funciona como contrato operacional entre negocio e engenharia: toda alteracao de premissa deve ser registrada com impacto tecnico explicito.</div>
+        </section>
+
+        <footer class="footer">
+            Documento de planejamento vinculado ao plano de projeto e ao sprint review para fechamento de ciclo e replanejamento continuo.
+        </footer>
+    </main>
+</body>
+</html>

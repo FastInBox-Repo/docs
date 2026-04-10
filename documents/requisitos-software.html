@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Requisitos de Software</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="../fastinbox-software-requirements-specification.md" target="_blank" rel="noopener noreferrer">ERS fonte completa</a>
+            <a href="./arquitetura-uml.html">Ver arquitetura</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Engenharia de requisitos</p>
+            <h1>Especificacao de Requisitos de Software</h1>
+            <p>Versao de consulta publica: 2.0 | Documento tecnico para banca</p>
+            <p>Esta pagina consolida os requisitos funcionais e nao funcionais criticos da plataforma, mantendo coerencia com a ERS base e traduzindo os pontos de implementacao para leitura objetiva de avaliacao.</p>
+        </header>
+
+        <section>
+            <h2>1. Escopo funcional principal</h2>
+            <ul>
+                <li>Autenticacao por perfil com rotas segregadas.</li>
+                <li>Cadastro e gestao de pacientes por nutricionista.</li>
+                <li>Criacao de pedido com multiplas marmitas e codigo unico.</li>
+                <li>Revisao e pagamento pelo paciente sem fluxo paralelo.</li>
+                <li>Painel da fabrica com mudanca de status operacional.</li>
+                <li>Visao administrativa para governanca e acompanhamento.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Requisitos funcionais criticos (RFC)</h2>
+            <table>
+                <thead><tr><th>ID</th><th>Requisito</th><th>Criterio de aceite</th></tr></thead>
+                <tbody>
+                    <tr><td>RF-001</td><td>Login por perfil com sessao valida</td><td>Usuario autenticado acessa somente seu escopo</td></tr>
+                    <tr><td>RF-003</td><td>Criacao de pedido com codigo unico</td><td>Pedido salvo com identificador nao colidente</td></tr>
+                    <tr><td>RF-006</td><td>Revisao e confirmacao de pedido pelo paciente</td><td>Status muda para aguardando pagamento</td></tr>
+                    <tr><td>RF-007</td><td>Pagamento integrado e liberacao operacional</td><td>Somente pago entra no fluxo de fabrica</td></tr>
+                    <tr><td>RF-010</td><td>Painel de producao para fabrica</td><td>Status atualizavel com persistencia de estado</td></tr>
+                    <tr><td>RF-011</td><td>Acompanhamento de status para cliente</td><td>Timeline coerente com ultima transicao registrada</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Regras de negocio mandatórias</h2>
+            <ol>
+                <li>Nenhum pedido segue para producao sem confirmacao de pagamento.</li>
+                <li>Codigo de pedido deve ser unico para evitar colisao de acesso.</li>
+                <li>Transicao de status deve manter sequencia valida no fluxo operacional.</li>
+                <li>Dados visiveis devem respeitar role e contexto do usuario autenticado.</li>
+                <li>Acoes sensiveis devem gerar evidencias para auditoria futura.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>4. Requisitos nao funcionais</h2>
+            <table>
+                <thead><tr><th>Categoria</th><th>Diretriz</th><th>Aplicacao atual</th></tr></thead>
+                <tbody>
+                    <tr><td>Usabilidade</td><td>Fluxos curtos, linguagem clara e feedback imediato</td><td>Telas por perfil com cards e passos objetivos</td></tr>
+                    <tr><td>Confiabilidade</td><td>Persistencia de estado e previsibilidade de transicao</td><td>Store central com serializacao local na Sprint 1</td></tr>
+                    <tr><td>Performance</td><td>Tempo de resposta adequado para navegacao operacional</td><td>Build otimizado e entrega via CDN</td></tr>
+                    <tr><td>Seguranca</td><td>Separacao de acesso e protecao de dados sensiveis</td><td>Rotas segregadas e evolucao prevista para backend</td></tr>
+                    <tr><td>Manutenibilidade</td><td>Codigo modular e contratos tipados</td><td>Separacao por dominio e componentes reutilizaveis</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Matriz de rastreabilidade</h2>
+            <table>
+                <thead><tr><th>Requisito</th><th>Tela/Modulo</th><th>Evidencia</th></tr></thead>
+                <tbody>
+                    <tr><td>RF-001</td><td>Login publico</td><td>Autenticacao por perfil funcional</td></tr>
+                    <tr><td>RF-003</td><td>Novo pedido nutricionista</td><td>Codigo gerado e exibido ao finalizar</td></tr>
+                    <tr><td>RF-007</td><td>Pagamento paciente</td><td>Status atualizado para pago</td></tr>
+                    <tr><td>RF-010</td><td>Dashboard fabrica</td><td>Kanban com drag-and-drop</td></tr>
+                    <tr><td>RF-011</td><td>Status paciente</td><td>Timeline refletindo etapa atual</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>6. Lacunas conhecidas e plano</h2>
+            <ul>
+                <li>Persistencia local substituida por banco relacional na proxima fase.</li>
+                <li>Controle de acesso refinado por permissao de acao.</li>
+                <li>Registro de auditoria persistente para eventos financeiros.</li>
+                <li>Suite de testes de regressao para fluxos criticos.</li>
+            </ul>
+            <div class="note">A fase atual atende o criterio de validacao funcional do MVP. As lacunas sao conhecidas, documentadas e possuem rota de implementacao definida.</div>
+        </section>
+
+        <footer class="footer">
+            Este documento e uma versao de consumo tecnico da ERS completa. Para revisao detalhada de todos os RFs e RNs, acessar o arquivo fonte em markdown.
+        </footer>
+    </main>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Business Model Canvas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="../fastinbox-mvp-canvas-paulo-caroli.md" target="_blank" rel="noopener noreferrer">Fonte markdown</a>
+            <a href="./documento-visao.html">Ver documento de visao</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Business and product strategy</p>
+            <h1>Business Model Canvas Tecnico</h1>
+            <p>Versao: 2.0 | Alinhado ao MVP Canvas de referencia | Data-base: 2026-04-10</p>
+            <p>Documento executivo-tecnico que consolida o modelo de negocio do FastInBox com detalhamento operacional para tomada de decisao, priorizacao de backlog e planejamento de escala.</p>
+        </header>
+
+        <section>
+            <h2>1. Visao de modelo</h2>
+            <p>O FastInBox opera como infraestrutura digital white label para clinicas e nutricionistas venderem marmitas personalizadas com marca propria, mantendo a experiencia do paciente consistente e operacionalmente rastreavel.</p>
+            <p>O modelo combina plataforma SaaS, camada de operacao alimentar e trilha financeira integrada para reduzir improviso manual, minimizar erro e aumentar previsibilidade de atendimento.</p>
+        </section>
+
+        <section>
+            <h2>2. Segmentos de clientes</h2>
+            <table>
+                <thead><tr><th>Segmento</th><th>Problema atual</th><th>Valor entregue</th></tr></thead>
+                <tbody>
+                    <tr><td>Nutricionistas e clinicas</td><td>Operacao fragmentada em chat e planilhas</td><td>Fluxo unificado com marca propria e rastreabilidade</td></tr>
+                    <tr><td>Pacientes finais</td><td>Compra confusa e sem visibilidade de status</td><td>Revisao clara, pagamento simples e acompanhamento</td></tr>
+                    <tr><td>Fabricas parceiras</td><td>Pedidos incompletos e baixa padronizacao</td><td>Fila de producao estruturada e status operacionais</td></tr>
+                    <tr><td>Gestao FastInBox</td><td>Baixa governanca de ponta a ponta</td><td>Consolidacao de dados de negocio e operacao</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Proposta de valor</h2>
+            <h3>3.1 Camada comercial</h3>
+            <ul>
+                <li>Permite ao nutricionista vender marmitas com assinatura visual da clinica.</li>
+                <li>Reduz tempo operacional para montar pedidos e validar informacoes.</li>
+                <li>Cria diferenciacao por personalizacao nutricional sem perder padrao de entrega.</li>
+            </ul>
+            <h3>3.2 Camada do paciente</h3>
+            <ul>
+                <li>Pedido acessado por codigo unico sem friccao de descoberta.</li>
+                <li>Revisao objetiva antes de pagar, reduzindo ruido e retrabalho.</li>
+                <li>Acompanhamento de producao e entrega por status padronizado.</li>
+            </ul>
+            <h3>3.3 Camada operacional</h3>
+            <ul>
+                <li>Fabrica recebe somente pedido apto para producao.</li>
+                <li>Atualizacao de status com trilha historica recuperavel.</li>
+                <li>Base de dados pronta para indicadores de SLA e capacidade.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. Canais e relacionamento</h2>
+            <p>O canal primario e web, com jornada responsiva para desktop e mobile. O relacionamento e orientado por jornada transacional: cada persona recebe interface e mensagens adequadas ao seu contexto de decisao.</p>
+            <table>
+                <thead><tr><th>Canal</th><th>Objetivo</th><th>Metrica recomendada</th></tr></thead>
+                <tbody>
+                    <tr><td>Painel nutricionista</td><td>Criar e acompanhar pedidos</td><td>Tempo medio de criacao</td></tr>
+                    <tr><td>Landing do paciente</td><td>Revisar e pagar pedido</td><td>Taxa de conversao pagamento</td></tr>
+                    <tr><td>Painel da fabrica</td><td>Executar producao</td><td>Lead time pago -> pronto</td></tr>
+                    <tr><td>Dashboard administrativo</td><td>Governanca e qualidade</td><td>Pedidos com status consistente</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Estrutura de receita e custos</h2>
+            <h3>5.1 Receitas previstas</h3>
+            <ul>
+                <li>Comissao por pedido processado.</li>
+                <li>Plano de assinatura por volume para clinicas maiores.</li>
+                <li>Servicos premium de analytics e previsao operacional.</li>
+            </ul>
+            <h3>5.2 Custos tecnicos principais</h3>
+            <ul>
+                <li>Infra de hospedagem e observabilidade.</li>
+                <li>Manutencao de gateway e trilha financeira.</li>
+                <li>Evolucao de produto, QA e suporte operacional.</li>
+            </ul>
+            <div class="note">No recorte Sprint 1, o custo foi otimizado por deploy unico de front com persistencia local, sem comprometer validacao de fluxo de negocio.</div>
+        </section>
+
+        <section>
+            <h2>6. Hipoteses de validacao</h2>
+            <ol>
+                <li>Nutricionistas aceitam migrar fluxo manual para painel estruturado.</li>
+                <li>Pacientes concluem pagamento com baixa taxa de abandono.</li>
+                <li>Fabrica opera com menor incidencia de inconsistencias de pedido.</li>
+                <li>A experiencia white label melhora percepcao de confianca.</li>
+            </ol>
+            <p>Cada hipotese possui metrica associada e criterio de sucesso operacional, permitindo decisao orientada por evidencias e nao por opiniao isolada de stakeholders.</p>
+        </section>
+
+        <section>
+            <h2>7. Roadmap de monetizacao e escala</h2>
+            <table>
+                <thead><tr><th>Fase</th><th>Objetivo de negocio</th><th>Capacidade tecnica requerida</th></tr></thead>
+                <tbody>
+                    <tr><td>Sprint 1</td><td>Validar fluxo principal</td><td>Jornada ponta a ponta funcional em ambiente controlado</td></tr>
+                    <tr><td>Sprint 2</td><td>Consolidar API e persistencia real</td><td>Integracao front-back e modelo de dados robusto</td></tr>
+                    <tr><td>Sprint 3</td><td>Expandir eficiencia operacional</td><td>Relatorios, filtros, alertas e historico confiavel</td></tr>
+                    <tr><td>Sprint 4</td><td>Escala comercial</td><td>Assinaturas, SLA por clinica e telemetria de performance</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <footer class="footer">
+            Documento alinhado ao MVP Canvas e ao Documento de Visao. Revisao recomendada a cada encerramento de sprint para recalibrar receita, custo e foco de desenvolvimento.
+        </footer>
+    </main>
+</body>
+</html>

@@ -1,0 +1,149 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #ffffff;
+    --ink: #000000;
+    --ink-soft: #1f1f1f;
+    --line: #000000;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+    color: var(--ink);
+    background: #ffffff;
+    line-height: 1.6;
+}
+
+.wrapper {
+    width: min(980px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 1.2rem 0 3rem;
+}
+
+.topbar {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    align-items: center;
+    border: 3px solid #000000;
+    padding: 12px;
+    margin-top: 1rem;
+    box-shadow: 5px 5px 0 #000000;
+}
+
+.topbar a {
+    text-decoration: none;
+    color: #000000;
+    border: 2px solid #000000;
+    padding: 7px 10px;
+    font-weight: 700;
+    box-shadow: 3px 3px 0 #000000;
+    font-size: 0.88rem;
+}
+
+.topbar a:hover {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 #000000;
+}
+
+.doc-header {
+    border: 3px solid #000000;
+    margin-top: 1rem;
+    padding: 20px;
+    box-shadow: 6px 6px 0 #000000;
+}
+
+.doc-header p {
+    margin: 0 0 0.6rem;
+    font-size: 0.9rem;
+}
+
+h1,
+h2,
+h3 {
+    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+}
+
+h1 {
+    margin: 0 0 0.7rem;
+    font-size: clamp(1.7rem, 4vw, 2.7rem);
+}
+
+h2 {
+    margin: 2rem 0 0.8rem;
+    font-size: 1.2rem;
+    border-bottom: 2px solid #000000;
+    padding-bottom: 0.35rem;
+}
+
+h3 {
+    margin: 1.2rem 0 0.45rem;
+    font-size: 1rem;
+}
+
+p,
+li {
+    color: var(--ink-soft);
+}
+
+section {
+    border: 2px solid #000000;
+    margin-top: 1rem;
+    padding: 1rem;
+}
+
+ul,
+ol {
+    margin: 0.3rem 0 0.9rem 1.2rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.7rem 0 1rem;
+}
+
+th,
+td {
+    border: 1px solid #000000;
+    text-align: left;
+    padding: 8px;
+    font-size: 0.9rem;
+}
+
+th {
+    background: #f4f4f4;
+}
+
+.note {
+    border: 2px dashed #000000;
+    padding: 0.7rem;
+    background: #fafafa;
+    font-size: 0.9rem;
+}
+
+.footer {
+    margin-top: 1rem;
+    border: 2px solid #000000;
+    padding: 0.8rem;
+    font-size: 0.86rem;
+}
+
+@media (max-width: 680px) {
+    .wrapper {
+        width: calc(100% - 1.2rem);
+    }
+
+    section {
+        padding: 0.8rem;
+    }
+}

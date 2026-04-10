@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Documento de Visao</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./business-model-canvas.html">Ver canvas</a>
+            <a href="./documentacao-geral.html">Ver documentacao geral</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Direcionamento estrategico</p>
+            <h1>Documento de Visao</h1>
+            <p>Versao: 2.0 | Horizonte: Curto e medio prazo</p>
+            <p>Este documento estabelece o norte do produto FastInBox, definindo problema principal, posicionamento, resultados esperados e principios de decisao para evolucao tecnica e comercial.</p>
+        </header>
+
+        <section>
+            <h2>1. Problema central</h2>
+            <p>O processo de venda e operacao de marmitas personalizadas em clinicas de nutricao costuma ser fragmentado: coleta de pedido por chat, ajustes em planilhas, pagamento fora do fluxo e comunicacao manual com fabrica. Esse modelo gera retrabalho, falha de comunicacao e baixa previsibilidade de entrega.</p>
+            <p>O FastInBox existe para substituir esse processo por uma trilha digital unica, rastreavel e white label.</p>
+        </section>
+
+        <section>
+            <h2>2. Visao de produto</h2>
+            <p>Ser a infraestrutura padrao para clinicas e nutricionistas comercializarem marmitas personalizadas com marca propria, mantendo governanca operacional e experiencia consistente para o paciente.</p>
+            <h3>2.1 Declaracao de visao</h3>
+            <div class="note">"Transformar um processo manual e disperso em um sistema transacional confiavel, em que cada etapa tenha dono, status e evidencia tecnica."</div>
+        </section>
+
+        <section>
+            <h2>3. Objetivos estrategicos</h2>
+            <table>
+                <thead><tr><th>Objetivo</th><th>Indicador de sucesso</th><th>Prazo alvo</th></tr></thead>
+                <tbody>
+                    <tr><td>Validar fluxo E2E</td><td>Pedido completo de ponta a ponta sem ruptura</td><td>Sprint 1</td></tr>
+                    <tr><td>Consolidar persistencia real</td><td>Dados transacionais no backend</td><td>Sprint 2</td></tr>
+                    <tr><td>Melhorar previsibilidade operacional</td><td>Reducao de inconsistencias e atraso</td><td>Sprint 3</td></tr>
+                    <tr><td>Escalar modelo comercial</td><td>Novas clinicas com onboarding padrao</td><td>Sprint 4+</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Principios norteadores</h2>
+            <ul>
+                <li>Clareza operacional acima de complexidade funcional.</li>
+                <li>Prioridade ao fluxo principal antes de recursos perifericos.</li>
+                <li>White label como pilar de experiencia e posicionamento.</li>
+                <li>Decisao orientada a evidencias de uso e nao a percepcao isolada.</li>
+                <li>Rastreabilidade como requisito tecnico e de negocio.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5. Publico e proposta por perfil</h2>
+            <h3>5.1 Nutricionista</h3>
+            <p>Ganha um painel para transformar atendimento em operacao comercial padronizada, com controle de pacientes, pedidos e status.</p>
+            <h3>5.2 Paciente</h3>
+            <p>Recebe jornada de revisao e pagamento sem friccao, com acompanhamento transparente da producao.</p>
+            <h3>5.3 Fabrica</h3>
+            <p>Opera apenas pedidos aptos, com prioridade visual e atualizacao de status em formato de fluxo.</p>
+            <h3>5.4 Gestao</h3>
+            <p>Obtencao de visao consolidada para controle de qualidade, capacidade e decisao de escala.</p>
+        </section>
+
+        <section>
+            <h2>6. Nao objetivos desta fase</h2>
+            <ul>
+                <li>Nao priorizar app mobile nativo nesta etapa.</li>
+                <li>Nao expandir para integracao fiscal completa no MVP.</li>
+                <li>Nao implementar previsao estatistica avancada antes de dados reais consistentes.</li>
+            </ul>
+            <p>Essa delimitacao evita dispersao de esforco e protege a qualidade da entrega principal.</p>
+        </section>
+
+        <section>
+            <h2>7. Direcao de evolucao tecnica</h2>
+            <ol>
+                <li>Substituir persistencia local por API e banco relacional.</li>
+                <li>Instrumentar telemetria de jornada para medir conversao e friccao.</li>
+                <li>Adicionar camada de autorizacao mais granular por acao.</li>
+                <li>Introduzir automacoes de SLA operacional por fabrica.</li>
+                <li>Construir trilha de analytics para tomada de decisao comercial.</li>
+            </ol>
+        </section>
+
+        <footer class="footer">
+            Documento de visao e referencia para priorizacao de backlog, avaliacao de qualidade de sprint e alinhamento com stakeholders.
+        </footer>
+    </main>
+</body>
+</html>

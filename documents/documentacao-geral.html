@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Documentacao Geral</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./arquitetura-uml.html">Arquitetura</a>
+            <a href="./requisitos-software.html">Requisitos</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Manual consolidado</p>
+            <h1>Documentacao Geral da Plataforma</h1>
+            <p>Versao: 2.0 | Documento guarda-chuva de produto e engenharia</p>
+            <p>Este manual consolida visao de produto, jornada por perfil, arquitetura funcional, modelo de entrega e diretrizes de continuidade da plataforma FastInBox.</p>
+        </header>
+
+        <section>
+            <h2>1. Resumo executivo</h2>
+            <p>FastInBox e uma plataforma white label para operacao de marmitas personalizadas. O produto conecta nutricionista, paciente, fabrica e administracao em fluxo transacional unico, minimizando dependencias de ferramentas paralelas e melhorando governanca de status.</p>
+            <p>O recorte atual prioriza demonstrabilidade academica sem comprometer evolucao tecnica futura.</p>
+        </section>
+
+        <section>
+            <h2>2. Arquitetura funcional por modulo</h2>
+            <h3>2.1 Modulo nutricionista</h3>
+            <ul>
+                <li>Cadastro e atualizacao de pacientes.</li>
+                <li>Criacao de pedidos com multiplos itens.</li>
+                <li>Acompanhamento de status de cada pedido.</li>
+            </ul>
+            <h3>2.2 Modulo paciente</h3>
+            <ul>
+                <li>Acesso por codigo unico do pedido.</li>
+                <li>Revisao de itens e confirmacao.</li>
+                <li>Pagamento e visao de progresso da producao.</li>
+            </ul>
+            <h3>2.3 Modulo fabrica</h3>
+            <ul>
+                <li>Painel kanban para fluxo operacional.</li>
+                <li>Atualizacao de transicoes de status.</li>
+                <li>Consolidacao de itens por janela de entrega.</li>
+            </ul>
+            <h3>2.4 Modulo administrativo</h3>
+            <ul>
+                <li>Governanca de operacao e indicadores.</li>
+                <li>Visao consolidada de usuarios e pedidos.</li>
+                <li>Acompanhamento de saude da plataforma.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Stack e repositorios</h2>
+            <table>
+                <thead><tr><th>Camada</th><th>Tecnologia</th><th>Repositorio</th></tr></thead>
+                <tbody>
+                    <tr><td>Aplicacao web</td><td>Next.js 15, React 19, TypeScript</td><td>front</td></tr>
+                    <tr><td>API e dominio</td><td>NestJS 11, TypeScript</td><td>back</td></tr>
+                    <tr><td>Documentacao</td><td>HTML/CSS/JS + GitHub Pages</td><td>docs</td></tr>
+                    <tr><td>Governanca GitHub</td><td>Perfil publico e padroes</td><td>.github</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Fluxo operacional detalhado</h2>
+            <ol>
+                <li>Nutricionista registra paciente ou seleciona existente.</li>
+                <li>Pedido e montado com itens, observacoes e data de entrega.</li>
+                <li>Codigo unico e gerado para jornada do paciente.</li>
+                <li>Paciente revisa, confirma e paga.</li>
+                <li>Sistema libera pedido para fabrica apos autorizacao financeira.</li>
+                <li>Fabrica executa producao e movimenta status ate entregue.</li>
+                <li>Todos os perfis acompanham a mesma linha de status.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>5. Niveis de qualidade esperados</h2>
+            <ul>
+                <li>Consistencia de navegacao: sem rotas quebradas entre jornadas.</li>
+                <li>Confiabilidade visual: layout responsivo e legivel.</li>
+                <li>Integridade de estado: transicoes coerentes de pedido.</li>
+                <li>Rastreabilidade: historico operacional disponivel para analise.</li>
+                <li>Reprodutibilidade: build e deploy com procedimento documentado.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>6. Limites da versao atual</h2>
+            <p>A Sprint 1 adota persistencia local para reduzir complexidade e garantir um unico deploy funcional para demonstracao. Esta decisao e intencional e controlada, com plano de migracao para persistencia real na sequencia do roadmap.</p>
+            <div class="note">Nao e um limite de arquitetura final; e uma estrategia de entrega incremental para validar valor de negocio com baixo risco operacional.</div>
+        </section>
+
+        <section>
+            <h2>7. Diretrizes de evolucao</h2>
+            <ul>
+                <li>Integrar API com persistencia em banco relacional.</li>
+                <li>Introduzir testes automatizados por jornada critica.</li>
+                <li>Adicionar telemetria de uso e funil de conversao.</li>
+                <li>Expandir camada administrativa com relatorios comparativos.</li>
+                <li>Formalizar politicas de dados para conformidade ampliada.</li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            Documento-base para avaliacao de banca e alinhamento de sprint. Deve ser lido em conjunto com ERS, plano de projeto e arquitetura UML.
+        </footer>
+    </main>
+</body>
+</html>

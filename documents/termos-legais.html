@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Termos Legais</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./requisitos-software.html">Requisitos</a>
+            <a href="./documentacao-geral.html">Documentacao geral</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Conformidade e governanca</p>
+            <h1>Termos Legais e Diretrizes de Conformidade</h1>
+            <p>Versao: 1.0 publica | Natureza: referencia tecnica-juridica para operacao do MVP</p>
+            <p>Documento de referencia para tratamento de dados, responsabilidade de uso, segregacao de acesso e diretrizes de seguranca aplicadas ao contexto do FastInBox.</p>
+        </header>
+
+        <section>
+            <h2>1. Escopo normativo</h2>
+            <p>Este termo define diretrizes minimas de conformidade para o ciclo de vida de pedidos, dados pessoais e operacao de usuarios da plataforma. Seu objetivo e alinhar desenvolvimento e uso do sistema a boas praticas de seguranca, privacidade e rastreabilidade.</p>
+            <ul>
+                <li>Aplica-se a todos os perfis de usuario e administradores.</li>
+                <li>Aplica-se a dados trafegados, armazenados e exibidos na plataforma.</li>
+                <li>Nao substitui contrato juridico formal; orienta implementacao tecnica.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Tratamento de dados pessoais</h2>
+            <h3>2.1 Finalidade</h3>
+            <p>Dados pessoais sao tratados exclusivamente para execucao da operacao de pedido, comunicacao de status, faturamento e suporte. E vedado uso para finalidade nao prevista sem base legal adequada.</p>
+            <h3>2.2 Principios aplicados</h3>
+            <ul>
+                <li>Minimizacao: coletar apenas dados necessarios para o fluxo.</li>
+                <li>Adequacao: uso compativel com finalidade declarada.</li>
+                <li>Seguranca: controles tecnicos para evitar acesso indevido.</li>
+                <li>Rastreabilidade: registro de eventos sensiveis.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Controle de acesso e responsabilidade</h2>
+            <table>
+                <thead><tr><th>Perfil</th><th>Permissao principal</th><th>Restricao obrigatoria</th></tr></thead>
+                <tbody>
+                    <tr><td>Nutricionista</td><td>Gerir pacientes e pedidos vinculados</td><td>Nao acessar dados de outras clinicas</td></tr>
+                    <tr><td>Paciente</td><td>Consultar e pagar seu pedido</td><td>Nao alterar dados bloqueados apos confirmacao</td></tr>
+                    <tr><td>Fabrica</td><td>Atualizar status de producao e entrega</td><td>Nao manipular dados financeiros</td></tr>
+                    <tr><td>Admin</td><td>Governanca operacional e suporte</td><td>Atuar com log de auditoria em acoes criticas</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Pagamento e trilha financeira</h2>
+            <p>A liberacao de pedido para producao depende de evento financeiro valido. Falha de pagamento deve manter pedido em estado bloqueado para fabrica, preservando integridade operacional e comercial.</p>
+            <ul>
+                <li>Confirmacao financeira e requisito de transicao de estado.</li>
+                <li>Cancelamentos devem gerar registro de causa e autor.</li>
+                <li>Dados de pagamento devem seguir politica de minimizacao de exposicao.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5. Retencao e descarte</h2>
+            <p>O ciclo de retencao deve equilibrar necessidade de auditoria e minimizacao de dados. Como diretriz tecnica inicial:</p>
+            <ul>
+                <li>Dados transacionais de pedido: retencao para historico operacional.</li>
+                <li>Logs de seguranca: retencao para analise de incidentes.</li>
+                <li>Dados obsoletos: descarte controlado conforme politica interna futura.</li>
+            </ul>
+            <div class="note">Na fase atual de MVP academico, recomenda-se documentar a politica de retencao e aplicar controle progressivo conforme evolucao da infraestrutura.</div>
+        </section>
+
+        <section>
+            <h2>6. Incidentes e resposta</h2>
+            <ol>
+                <li>Detectar evento anomalo (acesso indevido, perda de consistencia, falha critica).</li>
+                <li>Isolar impacto funcional no menor escopo possivel.</li>
+                <li>Registrar evento com horario, ator e efeito observado.</li>
+                <li>Aplicar correcao e validar restauracao de operacao.</li>
+                <li>Documentar causa raiz e acao preventiva.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>7. Clausulas de uso operacional</h2>
+            <ul>
+                <li>Uso da plataforma implica aceite das regras de perfil e segregacao de dados.</li>
+                <li>E proibido exportar ou compartilhar dados sem autorizacao institucional.</li>
+                <li>Toda alteracao de processo que impacte privacidade deve ser formalizada.</li>
+                <li>A equipe tecnica deve manter evidencias de mudancas estruturais relevantes.</li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            Este documento representa baseline de conformidade para o ciclo academico e deve evoluir para termo juridico formal em ambiente de producao comercial.
+        </footer>
+    </main>
+</body>
+</html>

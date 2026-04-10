@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Plano de Projeto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./sprint-review.html">Ver sprint review</a>
+            <a href="./documentacao-5w2h.html">Ver 5W2H</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Planejamento de execucao</p>
+            <h1>Plano de Projeto Tecnico</h1>
+            <p>Versao: 2.0 | Modelo incremental por sprint</p>
+            <p>Plano de execucao com fases, marcos, riscos e controles de qualidade para conduzir o FastInBox do MVP de banca para base de produto escalavel.</p>
+        </header>
+
+        <section>
+            <h2>1. Estrategia de entrega</h2>
+            <p>O projeto adota modelo incremental orientado a risco. A cada sprint, o criterio de sucesso inclui funcionalidade demonstravel, estabilidade minima e evidencia documentada de conformidade com os requisitos.</p>
+            <ul>
+                <li>Entrega curta e verificavel por perfil de usuario.</li>
+                <li>Convergencia entre backlog funcional e backlog tecnico.</li>
+                <li>Uso de docs como mecanismo de governanca e comunicacao.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Macro cronograma</h2>
+            <table>
+                <thead><tr><th>Fase</th><th>Objetivo</th><th>Entregavel principal</th></tr></thead>
+                <tbody>
+                    <tr><td>Fase 1</td><td>Fundacao de arquitetura e acesso</td><td>Base de rotas, perfis e estrutura de dados</td></tr>
+                    <tr><td>Fase 2</td><td>Nucleo comercial</td><td>Cadastro de paciente e criacao de pedido</td></tr>
+                    <tr><td>Fase 3</td><td>Conversao e operacao</td><td>Pagamento, fabrica e acompanhamento</td></tr>
+                    <tr><td>Fase 4</td><td>Governanca e escala</td><td>API consolidada, relatorios e observabilidade</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Plano por sprint</h2>
+            <h3>Sprint 1 - concluida</h3>
+            <ul>
+                <li>Fluxo E2E demonstravel no front.</li>
+                <li>Deploy unico em Vercel para aplicacao.</li>
+                <li>Hub de documentacao publica no GitHub Pages.</li>
+            </ul>
+            <h3>Sprint 2 - planejada</h3>
+            <ul>
+                <li>Migrar persistencia local para camada de API e banco.</li>
+                <li>Fortalecer autorizacao e controle de sessao.</li>
+                <li>Incluir testes automatizados de regressao.</li>
+            </ul>
+            <h3>Sprint 3 - planejada</h3>
+            <ul>
+                <li>Adicionar relatorios operacionais e financeiros.</li>
+                <li>Implementar trilha de auditoria persistente.</li>
+                <li>Refinar painel da fabrica com SLA por etapa.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. Controle de risco</h2>
+            <table>
+                <thead><tr><th>Risco</th><th>Probabilidade</th><th>Impacto</th><th>Resposta</th></tr></thead>
+                <tbody>
+                    <tr><td>Expansao precoce de escopo</td><td>Alta</td><td>Alto</td><td>Gate de aceite por sprint e backlog priorizado.</td></tr>
+                    <tr><td>Regressao de fluxo principal</td><td>Media</td><td>Alto</td><td>Checklist de build e teste manual por jornada.</td></tr>
+                    <tr><td>Inconsistencia de dados</td><td>Media</td><td>Medio</td><td>Modelagem de estado e regras de transicao.</td></tr>
+                    <tr><td>Dependencia de ambiente</td><td>Baixa</td><td>Medio</td><td>Padrao de deploy publico e docs replicaveis.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Criterios de qualidade por entrega</h2>
+            <ul>
+                <li>Compilacao sem erro do modulo alterado.</li>
+                <li>Navegacao valida entre as telas impactadas.</li>
+                <li>Sem regressao de status operacional no fluxo principal.</li>
+                <li>Documento de apoio atualizado quando houver mudanca estrutural.</li>
+                <li>Evidencia de publicacao (commit, push, deploy ou action run).</li>
+            </ul>
+            <div class="note">Nenhuma funcionalidade entra como concluida sem comprovacao simultanea de funcionamento e documentacao minima.</div>
+        </section>
+
+        <section>
+            <h2>6. Governanca e comunicacao</h2>
+            <p>A comunicacao de projeto utiliza artefatos versionados: README, docs no Pages, registros de sprint e estrutura de issues/tasks. Isso evita perda de contexto e reduz dependencia de comunicacao verbal para transferencia de conhecimento.</p>
+            <p>As decisoes tecnicas relevantes devem possuir justificativa e impacto esperado registrado no repositorio correspondente.</p>
+        </section>
+
+        <footer class="footer">
+            Plano de projeto ativo. Revisao recomendada no fechamento de cada sprint para replanejamento e controle de risco.
+        </footer>
+    </main>
+</body>
+</html>

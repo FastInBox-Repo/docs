@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Arquitetura UML</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./requisitos-software.html">Ver ERS</a>
+            <a href="./esquema-banco-dados.html">Ver Banco de Dados</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Documento tecnico de arquitetura</p>
+            <h1>Arquitetura UML da Plataforma</h1>
+            <p>Versao: 2.0 | Status: Aprovado para apresentacao academica | Data-base: 2026-04-10</p>
+            <p>Este documento descreve a arquitetura logica e comportamental do FastInBox por meio de visoes UML textuais, cobrindo fronteiras de contexto, contratos entre modulos, classes de dominio e sequencias operacionais criticas.</p>
+        </header>
+
+        <section>
+            <h2>1. Objetivo arquitetural</h2>
+            <p>O objetivo principal da arquitetura e garantir rastreabilidade ponta a ponta no fluxo de pedido white label: cadastro de paciente, configuracao de marmita, confirmacao, pagamento, encaminhamento para fabrica e atualizacao de entrega. A modelagem UML foi desenhada para reduzir ambiguidade entre front-end, back-end e operacao.</p>
+            <p>A arquitetura adota uma abordagem orientada a dominios de negocio com separacao funcional por perfil de usuario, o que facilita a evolucao por sprint e reduz acoplamento entre interface de uso e regra transacional.</p>
+        </section>
+
+        <section>
+            <h2>2. Visao de contexto</h2>
+            <h3>2.1 Fronteiras de sistema</h3>
+            <ul>
+                <li>Contexto Clinico: nutricionista, cadastro de pacientes, composicao de pedido.</li>
+                <li>Contexto Comercial: calculo de valor final, comissao e confirmacao do pedido.</li>
+                <li>Contexto Financeiro: validacao de pagamento e liberacao para producao.</li>
+                <li>Contexto Operacional: fila da fabrica, status e consolidacao de entrega.</li>
+                <li>Contexto de Governanca: monitoramento, auditoria e administracao global.</li>
+            </ul>
+            <div class="note">Decisao de arquitetura: nenhum evento de producao e aceito sem evento financeiro valido. Essa regra esta representada em todos os diagramas de sequencia de pedido.</div>
+        </section>
+
+        <section>
+            <h2>3. Modelo de classes de dominio</h2>
+            <h3>3.1 Classes nucleares</h3>
+            <table>
+                <thead>
+                    <tr><th>Classe</th><th>Responsabilidade</th><th>Atributos criticos</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>User</td><td>Identidade e perfil de acesso</td><td>id, role, email, permissions</td></tr>
+                    <tr><td>Patient</td><td>Identificacao clinica do cliente final</td><td>id, nutritionGoal, restrictions, contactInfo</td></tr>
+                    <tr><td>Order</td><td>Agregador principal do fluxo comercial</td><td>id, code, status, totalPrice, deliveryDate</td></tr>
+                    <tr><td>OrderItem</td><td>Composicao de marmita no pedido</td><td>id, ingredients, packaging, quantity</td></tr>
+                    <tr><td>Payment</td><td>Evento financeiro de autorizacao</td><td>id, method, status, approvedAt</td></tr>
+                    <tr><td>ProductionEvent</td><td>Trilha operacional da fabrica</td><td>id, orderId, status, actorId, timestamp</td></tr>
+                </tbody>
+            </table>
+            <h3>3.2 Relacoes chave</h3>
+            <ul>
+                <li>User (nutricionista) 1:N Patient.</li>
+                <li>Patient 1:N Order.</li>
+                <li>Order 1:N OrderItem.</li>
+                <li>Order 1:1 Payment (versao MVP) com possibilidade de N eventos no futuro.</li>
+                <li>Order 1:N ProductionEvent para trilha historica completa.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. Diagramas de sequencia (visao textual)</h2>
+            <h3>4.1 Criacao de pedido</h3>
+            <ol>
+                <li>Nutricionista autentica e seleciona paciente.</li>
+                <li>Interface coleta itens, ingredientes e parametros de entrega.</li>
+                <li>Servico de dominio gera codigo unico e persiste Order + OrderItem.</li>
+                <li>Sistema retorna codigo de acesso para jornada do paciente.</li>
+            </ol>
+            <h3>4.2 Confirmacao e pagamento</h3>
+            <ol>
+                <li>Paciente acessa pedido por codigo e revisa composicao.</li>
+                <li>Ao confirmar, pedido muda para aguardando pagamento.</li>
+                <li>Gateway valida transacao e retorna autorizacao.</li>
+                <li>Sistema registra Payment aprovado e muda Order para pago.</li>
+            </ol>
+            <h3>4.3 Producao</h3>
+            <ol>
+                <li>Painel da fabrica lista apenas pedidos com Payment.status = approved.</li>
+                <li>Operador move o pedido no kanban por estagios de fabrica.</li>
+                <li>Cada mudanca gera ProductionEvent com autor e timestamp.</li>
+                <li>Paciente e nutricionista visualizam status consolidado.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>5. Principios de engenharia adotados</h2>
+            <ul>
+                <li>Segregacao por responsabilidade: telas nao carregam regra de negocio sensivel.</li>
+                <li>Persistencia orientada a estado: entidades transacionais possuem ciclo de vida explicito.</li>
+                <li>Evolucao incremental: contratos de dominio preparados para migracao de store local para API.</li>
+                <li>Auditabilidade: toda transicao critica de status possui trilha recuperavel.</li>
+                <li>Resiliencia de apresentacao: aplicacao demonstravel sem dependencia externa para Sprint 1.</li>
+            </ul>
+            <div class="note">A modelagem foi priorizada para manter estabilidade de demonstracao hoje e baixo custo de migracao para arquitetura distribuida em sprint futura.</div>
+        </section>
+
+        <section>
+            <h2>6. Riscos e mitigacoes</h2>
+            <table>
+                <thead><tr><th>Risco</th><th>Impacto</th><th>Mitigacao arquitetural</th></tr></thead>
+                <tbody>
+                    <tr><td>Acoplamento UI-regra</td><td>Alto</td><td>Centralizacao da regra em camada de dominio e contratos tipados.</td></tr>
+                    <tr><td>Inconsistencia de status</td><td>Alto</td><td>State machine simples com transicoes controladas e eventos.</td></tr>
+                    <tr><td>Escalabilidade futura</td><td>Medio</td><td>Estrutura de entidades pronta para persistencia server-side.</td></tr>
+                    <tr><td>Rastreabilidade fraca</td><td>Alto</td><td>Modelo de ProductionEvent e historico de pagamento.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <footer class="footer">
+            Documento conectado aos artefatos: ERS, plano de projeto e esquema de banco. Para navegacao rapida, retornar ao hub principal de docs.
+        </footer>
+    </main>
+</body>
+</html>
