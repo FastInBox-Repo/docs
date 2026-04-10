@@ -140,6 +140,42 @@
             </table>
         </section>
 
+        <section>
+            <h2>10. Controle de escopo e mudanca</h2>
+            <table>
+                <thead><tr><th>Evento</th><th>Regra de decisao</th><th>Acao obrigatoria</th></tr></thead>
+                <tbody>
+                    <tr><td>Novo requisito durante sprint</td><td>Entrar apenas se substituir item equivalente</td><td>Registrar impacto em prazo e risco</td></tr>
+                    <tr><td>Bloqueio tecnico externo</td><td>Aplicar contorno temporario documentado</td><td>Atualizar sprint review e 5W2H</td></tr>
+                    <tr><td>Falha de build ou regressao critica</td><td>Congelar novas features ate estabilizar baseline</td><td>Priorizar correcao e evidencias de recuperacao</td></tr>
+                    <tr><td>Mudanca estrutural de dominio</td><td>Exigir revisao de arquitetura e ERS</td><td>Publicar artefatos sincronizados</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>11. Dependencias e caminho critico</h2>
+            <table>
+                <thead><tr><th>Dependencia</th><th>Impacto no cronograma</th><th>Plano de contorno</th></tr></thead>
+                <tbody>
+                    <tr><td>Definicao do gateway de pagamento</td><td>Bloqueia integracao financeira real</td><td>Manter simulacao controlada ate decisao final</td></tr>
+                    <tr><td>Schema relacional definitivo</td><td>Afeta API, auditoria e relatorios</td><td>Usar contrato de dominio atual como ponte</td></tr>
+                    <tr><td>Disponibilidade de ambiente publico</td><td>Compromete demonstracao e review</td><td>Validar fallback e janela de publicacao</td></tr>
+                    <tr><td>Atualizacao documental em paralelo</td><td>Sem docs, perde-se rastreabilidade academica</td><td>Manter gate de release com checklist documental</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>12. Criterios de saida por marco</h2>
+            <ul>
+                <li>Marco de MVP: fluxo E2E demonstravel com login, pedido, pagamento e producao.</li>
+                <li>Marco de consolidacao: persistencia server-side e transicoes auditaveis.</li>
+                <li>Marco de governanca: relatorios minimos, termos revisados e trilha de incidentes.</li>
+                <li>Marco de escala: onboarding replicavel para clinicas parceiras e indicadores comparaveis.</li>
+            </ul>
+        </section>
+
         <footer class="footer">
             Plano de projeto ativo. Revisao recomendada no fechamento de cada sprint para replanejamento e controle de risco.
         </footer>

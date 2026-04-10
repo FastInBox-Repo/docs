@@ -148,6 +148,46 @@
             <div class="note">O canvas deve evoluir junto com dados reais de uso. Hipoteses que nao performarem devem ser substituidas por estrategias testaveis.</div>
         </section>
 
+        <section>
+            <h2>10. Jobs, dores e ganhos por perfil</h2>
+            <table>
+                <thead><tr><th>Perfil</th><th>Job principal</th><th>Dor dominante</th><th>Ganho esperado</th></tr></thead>
+                <tbody>
+                    <tr><td>Nutricionista</td><td>Montar e vender pedido com sua propria marca</td><td>Operacao fragmentada em chat e planilha</td><td>Mais previsibilidade e menor retrabalho</td></tr>
+                    <tr><td>Paciente</td><td>Entender, confirmar e pagar sem inseguranca</td><td>Checkout confuso e pouca clareza do pedido</td><td>Compra simples e confiavel</td></tr>
+                    <tr><td>Cozinha</td><td>Executar somente pedidos validos</td><td>Fila com informacao incompleta ou fora de ordem</td><td>Fluxo operacional limpo e rastreavel</td></tr>
+                    <tr><td>Administrador</td><td>Monitorar saude da operacao</td><td>Baixa visibilidade consolidada</td><td>Decisao mais rapida por dados</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>11. Experimentos de validacao do modelo</h2>
+            <table>
+                <thead><tr><th>Experimento</th><th>Hipotese testada</th><th>Metrica principal</th><th>Criterio de sucesso inicial</th></tr></thead>
+                <tbody>
+                    <tr><td>Piloto com clinica parceira</td><td>Nutricionista substitui parte do fluxo manual</td><td>Pedidos criados por semana</td><td>Pelo menos um pedido completo por nutricionista no ciclo</td></tr>
+                    <tr><td>Jornada por codigo unico</td><td>Entrada simples reduz abandono</td><td>Acesso -> confirmacao</td><td>Maior parte dos acessos chega ao checkout</td></tr>
+                    <tr><td>Liberacao por pagamento</td><td>Fila qualificada melhora execucao da cozinha</td><td>Pedidos pagos sem retrabalho</td><td>Baixa incidencia de correcao manual</td></tr>
+                    <tr><td>White label visivel</td><td>Marca da clinica aumenta confianca do paciente</td><td>Conversao e feedback qualitativo</td><td>Reducao de duvidas sobre origem do pedido</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>12. Recursos-chave e parceiros</h2>
+            <table>
+                <thead><tr><th>Categoria</th><th>Recurso ou parceiro</th><th>Papel no modelo</th></tr></thead>
+                <tbody>
+                    <tr><td>Produto</td><td>Front-end com jornadas por perfil</td><td>Captura o valor percebido e conduz o fluxo E2E</td></tr>
+                    <tr><td>Tecnologia</td><td>Back-end NestJS e schema relacional alvo</td><td>Sustenta escalabilidade e governanca futura</td></tr>
+                    <tr><td>Operacao</td><td>Cozinhas parceiras</td><td>Executam producao e entrega</td></tr>
+                    <tr><td>Financeiro</td><td>Gateway de pagamento</td><td>Confirma o evento que libera producao</td></tr>
+                    <tr><td>Canal</td><td>Vercel e GitHub Pages</td><td>Viabilizam demonstracao publica do app e dos artefatos tecnicos</td></tr>
+                </tbody>
+            </table>
+        </section>
+
         <footer class="footer">
             Documento alinhado ao MVP Canvas e ao Documento de Visao. Revisao recomendada a cada encerramento de sprint para recalibrar receita, custo e foco de desenvolvimento.
         </footer>

@@ -125,6 +125,43 @@
             <div class="note">Em evolucao para producao comercial, recomenda-se acoplar trilha de auditoria com politica de retencao e plano de resposta a incidentes.</div>
         </section>
 
+        <section>
+            <h2>9. Consultas criticas orientadas ao negocio</h2>
+            <table>
+                <thead><tr><th>Consulta</th><th>Tabelas envolvidas</th><th>Finalidade</th></tr></thead>
+                <tbody>
+                    <tr><td>Buscar pedido por codigo</td><td>orders, patients, order_items</td><td>Carregar a jornada do paciente sem ambiguidade</td></tr>
+                    <tr><td>Listar fila de producao</td><td>orders, payments, production_events</td><td>Exibir apenas pedidos pagos e seu estado atual</td></tr>
+                    <tr><td>Conciliar pagamento e pedido</td><td>orders, payments</td><td>Garantir que somente transacao aprovada libera producao</td></tr>
+                    <tr><td>Acompanhar lead time operacional</td><td>orders, production_events</td><td>Medir tempo entre pagamento, preparo e entrega</td></tr>
+                    <tr><td>Auditar acao sensivel</td><td>users, orders, production_events, payments</td><td>Reconstruir autoria e historico de mudanca</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>10. Normalizacao e extensoes futuras</h2>
+            <ul>
+                <li>Separar catalogo de ingredientes e embalagens em tabelas proprias quando houver reuso sistematico entre pedidos.</li>
+                <li>Introduzir tabela de commissions para fechar trilha financeira sem depender apenas de campos calculados em orders.</li>
+                <li>Criar tabela de delivery_windows para consolidar regras de expedicao por regiao, cozinha e frequencia.</li>
+                <li>Expandir payments para suportar multiplas tentativas e conciliacao assicrona com gateway.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>11. Prioridades de migracao da persistencia atual</h2>
+            <table>
+                <thead><tr><th>Prioridade</th><th>Escopo de migracao</th><th>Razao</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td>users, patients e orders</td><td>Base do fluxo principal e das permissoes</td></tr>
+                    <tr><td>2</td><td>order_items e payments</td><td>Fecham a integridade comercial e financeira</td></tr>
+                    <tr><td>3</td><td>production_events</td><td>Habilitam auditoria e timeline persistente</td></tr>
+                    <tr><td>4</td><td>clinics, factories e configuracoes</td><td>Escala de governanca multi-parceiro</td></tr>
+                </tbody>
+            </table>
+        </section>
+
         <footer class="footer">
             Documento de modelagem para base relacional do FastInBox. Deve ser alinhado com a ERS e com a arquitetura UML a cada release de dominio.
         </footer>

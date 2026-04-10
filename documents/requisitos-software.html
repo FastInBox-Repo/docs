@@ -140,6 +140,42 @@
             </ul>
         </section>
 
+        <section>
+            <h2>10. Necessidades de stakeholders x requisitos</h2>
+            <table>
+                <thead><tr><th>Stakeholder</th><th>Necessidade sintetica</th><th>Requisitos relacionados</th></tr></thead>
+                <tbody>
+                    <tr><td>Nutricionista</td><td>Criar pedido rapido e acompanhar status</td><td>RF-001, RF-002, RF-003, RF-004</td></tr>
+                    <tr><td>Paciente</td><td>Revisar, pagar e entender o andamento do pedido</td><td>RF-005, RF-006, RF-007, RF-008</td></tr>
+                    <tr><td>Cozinha</td><td>Receber somente pedidos aptos e atualizar execucao</td><td>RF-010, RF-011, RF-017</td></tr>
+                    <tr><td>Administrador</td><td>Monitorar operacao, usuarios e comissoes</td><td>RF-012, RF-013, RF-014, RF-018</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>11. Criterios de aceite por jornada</h2>
+            <table>
+                <thead><tr><th>Jornada</th><th>Evento de aceite</th><th>Evidencia minima</th></tr></thead>
+                <tbody>
+                    <tr><td>Nutricionista</td><td>Pedido criado com codigo unico</td><td>Cadastro de paciente, itens e codigo visivel</td></tr>
+                    <tr><td>Paciente</td><td>Pedido confirmado e pagamento registrado</td><td>Status atualizado e comprovacao de aprovacao</td></tr>
+                    <tr><td>Cozinha</td><td>Pedido pago entra na fila correta</td><td>Kanban exibindo pedido e historico de mudanca</td></tr>
+                    <tr><td>Administrador</td><td>Operacao consolidada e consultavel</td><td>Dashboard e filtros retornando pedidos e usuarios</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>12. Requisitos de integracao e dados</h2>
+            <ul>
+                <li>O gateway de pagamento deve devolver status verificavel e identificador de transacao.</li>
+                <li>O modulo de autenticacao deve distinguir papel do usuario antes de liberar rota interna.</li>
+                <li>O schema relacional futuro deve preservar codigo de pedido, status e trilha de eventos como campos auditaveis.</li>
+                <li>Dados de paciente e pedido precisam respeitar minimizacao, segregacao por perfil e historico controlado.</li>
+            </ul>
+        </section>
+
         <footer class="footer">
             Este documento e uma versao de consumo tecnico da ERS completa. Para revisao detalhada de todos os RFs e RNs, acessar o arquivo fonte em markdown.
         </footer>

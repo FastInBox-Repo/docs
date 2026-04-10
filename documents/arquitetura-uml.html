@@ -158,6 +158,52 @@
             <div class="note">A evolucao prevista preserva a semantica dos casos de uso e minimiza quebra de contrato entre interface e dominio.</div>
         </section>
 
+        <section>
+            <h2>10. Maquina de estados do pedido</h2>
+            <table>
+                <thead><tr><th>Estado</th><th>Origem</th><th>Proximo estado valido</th><th>Responsavel primario</th></tr></thead>
+                <tbody>
+                    <tr><td>rascunho</td><td>Pedido em composicao</td><td>aguardando_confirmacao</td><td>Nutricionista</td></tr>
+                    <tr><td>aguardando_confirmacao</td><td>Codigo gerado e compartilhado</td><td>aguardando_pagamento</td><td>Paciente</td></tr>
+                    <tr><td>aguardando_pagamento</td><td>Pedido revisado e confirmado</td><td>pago / cancelado</td><td>Paciente + gateway</td></tr>
+                    <tr><td>pago</td><td>Evento financeiro aprovado</td><td>em_producao</td><td>Sistema / cozinha</td></tr>
+                    <tr><td>em_producao</td><td>Fila operacional iniciada</td><td>pronto</td><td>Cozinha</td></tr>
+                    <tr><td>pronto</td><td>Preparo concluido</td><td>em_entrega</td><td>Cozinha</td></tr>
+                    <tr><td>em_entrega</td><td>Expedicao iniciada</td><td>entregue</td><td>Cozinha / operacao</td></tr>
+                    <tr><td>entregue</td><td>Entrega confirmada</td><td>estado final</td><td>Sistema</td></tr>
+                </tbody>
+            </table>
+            <div class="note">Esse encadeamento foi alinhado ao fluxo real do MVP e deve ser preservado em qualquer migracao futura para API e banco relacional.</div>
+        </section>
+
+        <section>
+            <h2>11. Contratos de interface e navegacao</h2>
+            <table>
+                <thead><tr><th>Entrada de interface</th><th>Contrato esperado</th><th>Saida arquitetural</th></tr></thead>
+                <tbody>
+                    <tr><td>/login</td><td>Credenciais + papel de acesso</td><td>Sessao ativa e redirecionamento por role</td></tr>
+                    <tr><td>/nutricionista/pedidos/novo</td><td>Paciente valido + itens + data de entrega</td><td>Order criado com codigo unico</td></tr>
+                    <tr><td>/paciente/pedido/:code</td><td>Codigo de pedido valido</td><td>Pedido carregado para revisao</td></tr>
+                    <tr><td>/paciente/pedido/:code/pagamento</td><td>Pedido confirmado</td><td>Evento Payment com resposta aprovada ou rejeitada</td></tr>
+                    <tr><td>/cozinha/dashboard</td><td>Pedidos pagos e priorizados por etapa</td><td>Kanban operacional com mudanca auditavel</td></tr>
+                    <tr><td>/admin/dashboard</td><td>Usuarios, pedidos e indicadores consolidados</td><td>Visao de governanca e excecoes</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>12. Decisoes arquiteturais registradas</h2>
+            <table>
+                <thead><tr><th>ADR</th><th>Decisao</th><th>Motivacao</th><th>Impacto</th></tr></thead>
+                <tbody>
+                    <tr><td>ADR-01</td><td>Store local no front na Sprint 1</td><td>Garantir demonstracao publica sem dependencia externa</td><td>Entrega estavel para banca com plano de migracao posterior</td></tr>
+                    <tr><td>ADR-02</td><td>Rotas segregadas por perfil</td><td>Reduzir ambiguidade de permissao e contexto</td><td>Navegacao mais clara e menor risco de exposicao indevida</td></tr>
+                    <tr><td>ADR-03</td><td>Codigo unico para acesso do paciente</td><td>Simplificar onboarding e acelerar conversao</td><td>Entrada mais direta no trecho revisao -> pagamento</td></tr>
+                    <tr><td>ADR-04</td><td>Fila de cozinha restrita a pedidos pagos</td><td>Eliminar retrabalho e inconsistencias operacionais</td><td>Producao mais previsivel e rastreavel</td></tr>
+                </tbody>
+            </table>
+        </section>
+
         <footer class="footer">
             Documento conectado aos artefatos: ERS, plano de projeto e esquema de banco. Para navegacao rapida, retornar ao hub principal de docs.
         </footer>

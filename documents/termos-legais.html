@@ -138,6 +138,44 @@
             </ul>
         </section>
 
+        <section>
+            <h2>11. Matriz de responsabilidade compartilhada</h2>
+            <table>
+                <thead><tr><th>Domino</th><th>Plataforma</th><th>Clinica / parceiro</th><th>Observacao</th></tr></thead>
+                <tbody>
+                    <tr><td>Controle de acesso</td><td>Implementa autenticacao e segregacao</td><td>Gerencia credenciais e uso adequado</td><td>Revisao periodica de privilegios e obrigatoria</td></tr>
+                    <tr><td>Dados de paciente</td><td>Protege armazenamento e trilha de acesso</td><td>Garante legitimidade da coleta e atualizacao</td><td>Uso restrito ao fluxo declarado</td></tr>
+                    <tr><td>Pagamento</td><td>Registra status e integra com gateway</td><td>Opera segundo regras comerciais validas</td><td>Somente evento aprovado libera producao</td></tr>
+                    <tr><td>Incidente</td><td>Detecta, registra e executa resposta tecnica</td><td>Comunica contexto e coopera com remediacao</td><td>Rastro de horario, impacto e acao deve ser preservado</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>12. Classificacao minima de dados</h2>
+            <table>
+                <thead><tr><th>Categoria</th><th>Exemplos</th><th>Nivel de cuidado</th></tr></thead>
+                <tbody>
+                    <tr><td>Identificacao basica</td><td>Nome, e-mail, telefone</td><td>Protecao padrao com acesso por perfil</td></tr>
+                    <tr><td>Dados de pedido</td><td>Itens, observacoes, janela de entrega</td><td>Rastreabilidade e historico controlado</td></tr>
+                    <tr><td>Dados potencialmente sensiveis</td><td>Restricoes alimentares e orientacoes nutricionais</td><td>Exibicao minimizada e acesso contextual</td></tr>
+                    <tr><td>Dados financeiros</td><td>Status de pagamento, identificador de transacao</td><td>Retencao auditavel e baixa exposicao em interface</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>13. Janela de resposta a incidente</h2>
+            <table>
+                <thead><tr><th>Severidade</th><th>Exemplo</th><th>Resposta inicial</th><th>Registro obrigatorio</th></tr></thead>
+                <tbody>
+                    <tr><td>Alta</td><td>Exposicao indevida de dados ou falha de controle de acesso</td><td>Imediata, com isolamento do impacto</td><td>Autor, horario, causa suspeita e correcao aplicada</td></tr>
+                    <tr><td>Media</td><td>Inconsistencia de status ou trilha financeira</td><td>No mesmo ciclo operacional</td><td>Pedido afetado, impacto e acao corretiva</td></tr>
+                    <tr><td>Baixa</td><td>Erro de interface sem comprometimento de dado</td><td>Planejada no proximo ajuste</td><td>Descricao tecnica e backlog associado</td></tr>
+                </tbody>
+            </table>
+        </section>
+
         <footer class="footer">
             Este documento representa baseline de conformidade para o ciclo academico e deve evoluir para termo juridico formal em ambiente de producao comercial.
         </footer>
