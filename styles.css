@@ -201,6 +201,39 @@ a {
     margin: 0 auto 2rem;
 }
 
+.hero-metrics {
+    margin: 2.2rem auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 920px;
+}
+
+.metric-chip {
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid #c9d9f3;
+    border-radius: 14px;
+    padding: 12px 14px;
+    text-align: left;
+    box-shadow: var(--fi-shadow-sm);
+}
+
+.metric-value {
+    display: block;
+    font-family: "Sora", "Segoe UI", sans-serif;
+    color: var(--fi-navy);
+    font-size: 1.02rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.metric-label {
+    display: block;
+    color: var(--fi-text-soft);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
 .cta-button {
     display: inline-flex;
     align-items: center;
@@ -231,6 +264,48 @@ a {
     background: rgba(255, 255, 255, 0.8);
     border-top: 1px solid var(--fi-border);
     border-bottom: 1px solid var(--fi-border);
+}
+
+.engineering-section {
+    padding: 92px 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(236, 244, 255, 0.86));
+    border-bottom: 1px solid var(--fi-border);
+}
+
+.engineering-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.engineering-card {
+    background: var(--fi-white);
+    border: 1px solid var(--fi-border);
+    border-radius: var(--fi-radius);
+    box-shadow: var(--fi-shadow-sm);
+    padding: 22px;
+}
+
+.engineering-card h3 {
+    color: var(--fi-navy);
+    margin-bottom: 0.55rem;
+    font-size: 1.05rem;
+}
+
+.engineering-card p {
+    color: var(--fi-text-soft);
+    font-size: 0.92rem;
+    margin-bottom: 0.8rem;
+}
+
+.engineering-card ul {
+    margin-left: 1rem;
+    color: var(--fi-text-soft);
+}
+
+.engineering-card li {
+    margin-bottom: 0.45rem;
+    font-size: 0.9rem;
 }
 
 .section-header {
@@ -455,8 +530,17 @@ a {
 }
 
 @media (max-width: 1024px) {
+    .hero-metrics {
+        grid-template-columns: 1fr;
+        max-width: 560px;
+    }
+
     .team-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .engineering-grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -480,7 +564,8 @@ a {
     }
 
     .documents-section,
-    .about-section {
+    .about-section,
+    .engineering-section {
         padding: 72px 0;
     }
 }
