@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FastInBox | Sprint Review</title>
+    <title>FastInBox | Sprint 1 Review</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -14,18 +14,23 @@
         <nav class="topbar">
             <a href="../index.html">Voltar para hub</a>
             <a href="../content/sprint-1-project-tasks.md" target="_blank" rel="noopener noreferrer">Tasks Sprint 1</a>
-            <a href="./plano-projeto.html">Ver plano de projeto</a>
+            <a href="./sprint-2-planning.html">Ver Sprint 2</a>
         </nav>
 
         <header class="doc-header">
             <p>FastInBox | Sprint governance</p>
-            <h1>Sprint Review Tecnica</h1>
-            <p>Periodo analisado: Sprint 1 | Status: Encerrada com aceite funcional</p>
-            <p>Documento de review com evidencias de implementacao, conformidade de requisitos, riscos remanescentes e recomendacoes de evolucao para proxima iteracao.</p>
+            <h1>Sprint 1 Review</h1>
+            <p>Periodo analisado: Sprint 1 | Status: Encerrada com aceite funcional para apresentacao academica</p>
+            <p>Documento de review consolidando o que foi construido, as evidencias apresentadas, os bloqueios enfrentados, os pontos fortes mantidos e os ajustes que viram backlog formal da Sprint 2.</p>
         </header>
 
         <section>
-            <h2>1. Escopo comprometido</h2>
+            <h2>1. Objetivo da revisao</h2>
+            <p>A Sprint 1 teve como foco transformar o conceito do FastInBox em um MVP navegavel, com jornadas demonstraveis para nutricionista, paciente e fabrica. Esta review valida se a equipe entregou valor visivel, registrou evidencias concretas e deixou a proxima sprint preparada com backlog claro e rastreavel.</p>
+        </section>
+
+        <section>
+            <h2>2. Escopo comprometido</h2>
             <ul>
                 <li>Autenticacao e cadastro por perfil: nutricionista, paciente e fabrica.</li>
                 <li>Criacao de pedido vinculado a paciente com codigo unico.</li>
@@ -36,48 +41,99 @@
         </section>
 
         <section>
-            <h2>2. Entregaveis efetivamente concluidos</h2>
+            <h2>3. Entregaveis efetivamente concluidos</h2>
             <table>
-                <thead><tr><th>Entregavel</th><th>Resultado</th><th>Observacao tecnica</th></tr></thead>
+                <thead><tr><th>Entregavel</th><th>Resultado</th><th>Valor entregue</th></tr></thead>
                 <tbody>
-                    <tr><td>Store de dominio</td><td>Concluido</td><td>Estado centralizado com persistencia local.</td></tr>
-                    <tr><td>Login e cadastro por perfil</td><td>Concluido</td><td>Controle de sessao por role e fallback demo.</td></tr>
-                    <tr><td>Fluxo nutricionista</td><td>Concluido</td><td>Criacao de paciente e pedido com envio para fabrica.</td></tr>
-                    <tr><td>Fluxo paciente</td><td>Concluido</td><td>Dashboard, pagamento e trilha de status.</td></tr>
-                    <tr><td>Fluxo fabrica</td><td>Concluido</td><td>Kanban operacional com transicao de status.</td></tr>
-                    <tr><td>Documentacao publica</td><td>Concluido</td><td>Pages no ar com workflow de deploy automatizado.</td></tr>
+                    <tr><td>Login e cadastro por perfil</td><td>Concluido</td><td>Permite demonstrar perfis distintos e jornadas separadas dentro do MVP.</td></tr>
+                    <tr><td>Fluxo do nutricionista</td><td>Concluido</td><td>Cadastro de paciente e criacao de pedido com visao de acompanhamento.</td></tr>
+                    <tr><td>Fluxo do paciente</td><td>Concluido</td><td>Painel de acompanhamento, pagamento e consulta de status do pedido.</td></tr>
+                    <tr><td>Fluxo da fabrica</td><td>Concluido</td><td>Kanban operacional para movimentar pedidos ao longo da producao.</td></tr>
+                    <tr><td>Biblioteca de documentos</td><td>Concluido</td><td>Base publica de artefatos para banca, professores e continuidade da equipe.</td></tr>
+                    <tr><td>Aplicacao publicada</td><td>Concluido</td><td>Demonstra o produto em ambiente externo, sem depender apenas de execucao local.</td></tr>
                 </tbody>
             </table>
         </section>
 
         <section>
-            <h2>3. Validacao de qualidade</h2>
-            <h3>3.1 Indicadores de conformidade</h3>
+            <h2>4. Evidencias consolidadas da Sprint 1</h2>
+            <table>
+                <thead><tr><th>Tipo de evidencia</th><th>O que comprova</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>Prints e navegacao do front</td><td>Existencia das telas principais e coerencia entre os perfis do sistema</td><td>Disponivel</td></tr>
+                    <tr><td>Deploy publico na Vercel</td><td>Acessibilidade do MVP para apresentacao externa</td><td>Disponivel</td></tr>
+                    <tr><td>GitHub Pages com documentos</td><td>Governanca do projeto, registro formal e apoio para avaliacao academica</td><td>Disponivel</td></tr>
+                    <tr><td>Commits por repositorio</td><td>Rastreabilidade de quem mudou o que e em qual camada</td><td>Disponivel</td></tr>
+                    <tr><td>Fluxo E2E demonstravel</td><td>Prova de que o pedido percorre criacao, pagamento e producao</td><td>Disponivel</td></tr>
+                </tbody>
+            </table>
+            <div class="note">A review da Sprint 1 foi estruturada para ser objetiva: o foco nao e apenas afirmar que algo foi feito, mas mostrar evidencias de que a entrega pode ser demonstrada e auditada.</div>
+        </section>
+
+        <section>
+            <h2>5. Validacao de qualidade</h2>
+            <h3>5.1 Indicadores de conformidade</h3>
             <ul>
                 <li>Build front e back executados com sucesso no baseline de entrega.</li>
                 <li>Repositorios sincronizados em main sem conflitos abertos.</li>
                 <li>Deploy Vercel e GitHub Pages respondendo HTTP 200.</li>
                 <li>Fluxo E2E validado em ambiente de apresentacao.</li>
             </ul>
-            <h3>3.2 Evidencia de rastreabilidade</h3>
-            <p>Os commits da sprint foram estruturados com escopo semantico e cada incremento critico foi publicado em repositorio especifico, permitindo auditoria por artefato sem ambiguidade de responsabilidade.</p>
+            <h3>5.2 Evidencia de rastreabilidade</h3>
+            <p>Os commits da sprint foram organizados por repositorio e por escopo funcional, permitindo ligar entregaveis do front, back e docs a evidencias concretas. Isso reduz ambiguidade na avaliacao e facilita a montagem do historico do projeto.</p>
         </section>
 
         <section>
-            <h2>4. Riscos identificados ao fim da sprint</h2>
+            <h2>6. Dificuldades enfrentadas e como a equipe respondeu</h2>
             <table>
-                <thead><tr><th>Risco</th><th>Severidade</th><th>Plano de mitigacao</th></tr></thead>
+                <thead><tr><th>Dificuldade</th><th>Impacto na sprint</th><th>Resposta adotada</th></tr></thead>
                 <tbody>
-                    <tr><td>Persistencia local nao colaborativa</td><td>Media</td><td>Migrar store para API e banco na Sprint 2.</td></tr>
-                    <tr><td>Ausencia de telemetria funcional</td><td>Media</td><td>Introduzir eventos de observabilidade por jornada.</td></tr>
-                    <tr><td>Acoplamento visual com dados mock remanescentes</td><td>Baixa</td><td>Concluir limpeza de fixtures e contratos de API.</td></tr>
-                    <tr><td>Dependencia de runtime local para demos</td><td>Baixa</td><td>Padronizar ambiente em documentacao de execucao.</td></tr>
+                    <tr><td>Persistencia ainda apoiada em estado local</td><td>Limitou a confianca para cenarios multiusuario</td><td>Equipe priorizou a demonstracao funcional e carregou a migracao para a Sprint 2.</td></tr>
+                    <tr><td>Necessidade de alinhar layout, demo e documentacao ao mesmo tempo</td><td>Aumentou o esforco de consolidacao perto do fechamento</td><td>Foi criada uma base publica de docs para centralizar a narrativa tecnica.</td></tr>
+                    <tr><td>Validacao majoritariamente manual</td><td>Maior risco de regressao em ajustes finais</td><td>Foi mantido foco na jornada principal e aberta acao de automacao para a proxima sprint.</td></tr>
+                    <tr><td>Dependencia de ajustes finos na apresentacao publica</td><td>Poderia comprometer a clareza perante banca e stakeholders</td><td>Layout e copy foram refinados para reduzir ruido tecnico na versao demonstravel.</td></tr>
                 </tbody>
             </table>
         </section>
 
         <section>
-            <h2>5. Decisoes tecnicas aprovadas</h2>
+            <h2>7. Pontos fortes mantidos pela equipe</h2>
+            <ul>
+                <li>Entrega orientada por fluxo principal, sem dispersar em features perifericas.</li>
+                <li>Capacidade de publicar artefatos reais, e nao apenas mockups ou promessas de implementacao.</li>
+                <li>Separacao dos repositorios por responsabilidade, facilitando manutencao e auditoria.</li>
+                <li>Documentacao paralela ao desenvolvimento, reduzindo retrabalho no fechamento da sprint.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>8. Melhorias identificadas para a proxima iteracao</h2>
+            <table>
+                <thead><tr><th>Melhoria</th><th>Motivo</th><th>Prioridade</th></tr></thead>
+                <tbody>
+                    <tr><td>Migrar dados sensiveis para API e banco</td><td>Diminuir dependencia de estado local e aumentar confiabilidade</td><td>Alta</td></tr>
+                    <tr><td>Automatizar smoke tests da jornada critica</td><td>Reduzir risco de regressao a cada ajuste de interface</td><td>Alta</td></tr>
+                    <tr><td>Instrumentar eventos de pagamento e status</td><td>Dar visibilidade operacional e gerar base para indicadores</td><td>Media</td></tr>
+                    <tr><td>Reforcar feedbacks de interface ao paciente</td><td>Melhorar compreensao de cada etapa do pedido</td><td>Media</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>9. Impedimentos e plano de contingencia</h2>
+            <table>
+                <thead><tr><th>Impedimento</th><th>Severidade</th><th>Plano de contingencia</th></tr></thead>
+                <tbody>
+                    <tr><td>Persistencia local nao colaborativa</td><td>Media</td><td>Priorizar integracao com API na Sprint 2 e manter fluxo demo estavel ate a migracao.</td></tr>
+                    <tr><td>Ausencia de telemetria funcional</td><td>Media</td><td>Adicionar eventos criticos de jornada antes de ampliar escopo funcional.</td></tr>
+                    <tr><td>Cobertura de testes automatizados insuficiente</td><td>Alta</td><td>Definir smoke test minimo como criterio de pronto para itens da Sprint 2.</td></tr>
+                    <tr><td>Dependencia de ajustes manuais perto das apresentacoes</td><td>Baixa</td><td>Centralizar backlog, docs e evidencias em um fluxo unico de acompanhamento.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>10. Decisoes aprovadas ao encerrar a Sprint 1</h2>
             <ol>
                 <li>Priorizar estabilidade operacional durante a fase academica inicial.</li>
                 <li>Preservar backend no repositorio para evolucao planejada e reuso de modelagem.</li>
@@ -87,19 +143,7 @@
         </section>
 
         <section>
-            <h2>6. Plano recomendado para Sprint 2</h2>
-            <ul>
-                <li>Integrar API real para autenticar e persistir pedidos em banco relacional.</li>
-                <li>Criar camada de auditoria para eventos sensiveis (pagamento, status, exclusoes).</li>
-                <li>Introduzir testes automatizados de regressao nos fluxos por perfil.</li>
-                <li>Adicionar relatorios de lead time por etapa de fabrica.</li>
-                <li>Reforcar governanca de dados pessoais e politica de retencao.</li>
-            </ul>
-            <div class="note">Conclusao de review: sprint aprovada para apresentacao com maturidade de MVP, mantendo backlog tecnico claro para transicao para fase de consolidacao.</div>
-        </section>
-
-        <section>
-            <h2>7. Desvios observados vs planejamento</h2>
+            <h2>11. Desvios observados vs planejamento</h2>
             <table>
                 <thead><tr><th>Item</th><th>Planejado</th><th>Realizado</th><th>Impacto</th></tr></thead>
                 <tbody>
@@ -111,31 +155,7 @@
         </section>
 
         <section>
-            <h2>8. Licoes aprendidas</h2>
-            <ol>
-                <li>Fechamento antecipado de escopo melhora previsibilidade da entrega final.</li>
-                <li>Evidencias publicas de deploy e docs reduzem risco na avaliacao academica.</li>
-                <li>A centralizacao de estado acelera MVP, mas exige plano claro de migracao.</li>
-                <li>Padrao visual unificado reduz custo de manutencao entre jornadas.</li>
-                <li>Documentacao atualizada em paralelo evita retrabalho de consolidacao tardia.</li>
-            </ol>
-        </section>
-
-        <section>
-            <h2>9. Plano de acao imediato</h2>
-            <table>
-                <thead><tr><th>Acao</th><th>Owner sugerido</th><th>Prioridade</th><th>Objetivo</th></tr></thead>
-                <tbody>
-                    <tr><td>Definir contratos da API de pedidos</td><td>Engenharia back</td><td>Alta</td><td>Eliminar ambiguidade de integracao com front</td></tr>
-                    <tr><td>Instrumentar eventos de pagamento e status</td><td>Engenharia fullstack</td><td>Alta</td><td>Dar visibilidade de funil e gargalos</td></tr>
-                    <tr><td>Automatizar smoke test de jornada critica</td><td>QA/Engenharia</td><td>Media</td><td>Reduzir regressao em releases frequentes</td></tr>
-                    <tr><td>Atualizar artefatos de conformidade</td><td>Documentacao tecnica</td><td>Media</td><td>Manter rastreabilidade de decisao</td></tr>
-                </tbody>
-            </table>
-        </section>
-
-        <section>
-            <h2>10. Feedback sintetico dos stakeholders</h2>
+            <h2>12. Feedback sintetico dos stakeholders</h2>
             <table>
                 <thead><tr><th>Stakeholder</th><th>Percepcao predominante</th><th>Implicacao para a proxima sprint</th></tr></thead>
                 <tbody>
@@ -148,7 +168,43 @@
         </section>
 
         <section>
-            <h2>11. Snapshot de metricas e evidencias</h2>
+            <h2>13. Licoes aprendidas</h2>
+            <ol>
+                <li>Fechamento antecipado de escopo melhora previsibilidade da entrega final.</li>
+                <li>Evidencias publicas de deploy e docs reduzem risco na avaliacao academica.</li>
+                <li>A centralizacao de estado acelera MVP, mas exige plano claro de migracao.</li>
+                <li>Padrao visual unificado reduz custo de manutencao entre jornadas.</li>
+                <li>Documentacao atualizada em paralelo evita retrabalho de consolidacao tardia.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>14. Plano recomendado para Sprint 2</h2>
+            <ul>
+                <li>Integrar API real para autenticar e persistir pedidos em banco relacional.</li>
+                <li>Criar camada de auditoria para eventos sensiveis, como pagamento e mudancas de status.</li>
+                <li>Introduzir testes automatizados de smoke e regressao nos fluxos por perfil.</li>
+                <li>Melhorar feedbacks visuais e mensagens em pontos criticos da jornada do paciente.</li>
+                <li>Publicar backlog da sprint no GitHub Project com rastreabilidade por issue.</li>
+            </ul>
+            <div class="note">Conclusao da review: a Sprint 1 foi aprovada como MVP funcional, com valor demonstravel e backlog tecnico bem definido para a fase seguinte.</div>
+        </section>
+
+        <section>
+            <h2>15. Plano de acao imediato</h2>
+            <table>
+                <thead><tr><th>Acao</th><th>Owner sugerido</th><th>Prioridade</th><th>Objetivo</th></tr></thead>
+                <tbody>
+                    <tr><td>Definir contratos da API de pedidos</td><td>Engenharia back</td><td>Alta</td><td>Eliminar ambiguidade de integracao com front</td></tr>
+                    <tr><td>Instrumentar eventos de pagamento e status</td><td>Engenharia fullstack</td><td>Alta</td><td>Dar visibilidade de funil e gargalos</td></tr>
+                    <tr><td>Automatizar smoke test de jornada critica</td><td>QA/Engenharia</td><td>Media</td><td>Reduzir regressao em releases frequentes</td></tr>
+                    <tr><td>Atualizar artefatos de conformidade</td><td>Documentacao tecnica</td><td>Media</td><td>Manter rastreabilidade de decisao</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>16. Snapshot de metricas e evidencias</h2>
             <table>
                 <thead><tr><th>Dimensao</th><th>Status da sprint</th><th>Evidencia</th></tr></thead>
                 <tbody>
@@ -161,7 +217,7 @@
         </section>
 
         <section>
-            <h2>12. Backlog remanescente e carry-over</h2>
+            <h2>17. Backlog remanescente e carry-over</h2>
             <ul>
                 <li>Migracao de persistencia local para camada server-side.</li>
                 <li>Automacao de testes de smoke e regressao por jornada.</li>
@@ -171,7 +227,7 @@
         </section>
 
         <footer class="footer">
-            Documento de sprint review associado ao plano de projeto e ao quadro de tasks da organizacao.
+            Documento de Sprint 1 associado ao backlog da Sprint 2 e ao quadro de tasks da organizacao.
         </footer>
     </main>
 </body>

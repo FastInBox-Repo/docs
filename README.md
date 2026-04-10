@@ -22,6 +22,7 @@ Concentrar documentos formais de produto, arquitetura e operacao para apresentac
 - Arquitetura UML
 - Business Model Canvas
 - Sprint Review
+- Sprint 2 Planning
 - Documentacao 5W2H
 - Documentacao Geral
 - Documento de Visao

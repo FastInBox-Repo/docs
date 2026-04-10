@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Sprint 2 Planning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./sprint-review.html">Ver review da Sprint 1</a>
+            <a href="../content/sprint-2-project-tasks.md" target="_blank" rel="noopener noreferrer">Tasks Sprint 2</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Sprint governance</p>
+            <h1>Sprint 2 Planning</h1>
+            <p>Periodo planejado: Sprint 2 | Status: Planejada com backlog estruturado</p>
+            <p>Documento de planejamento voltado para execucao: define objetivo central, entregaveis, tarefas detalhadas, responsaveis sugeridos, evidencias esperadas e criterio de pronto para acompanhamento no GitHub Project.</p>
+        </header>
+
+        <section>
+            <h2>1. Contexto da sprint</h2>
+            <p>A Sprint 2 parte de um MVP funcional entregue na Sprint 1. O foco agora deixa de ser apenas comprovar navegacao e passa a consolidar confiabilidade: persistencia real, rastreabilidade operacional, validacao automatizada e maior maturidade de apresentacao para banca e stakeholders.</p>
+        </section>
+
+        <section>
+            <h2>2. Objetivo central</h2>
+            <p>Transformar o fluxo demonstravel da Sprint 1 em uma base mais consistente para continuidade do projeto, conectando front, back e documentacao a um backlog rastreavel e com evidencias claras de execucao.</p>
+            <ul>
+                <li>Consolidar dados criticos fora da camada puramente local.</li>
+                <li>Reduzir risco de regressao nas jornadas principais.</li>
+                <li>Melhorar feedbacks de uso e leitura do status do pedido.</li>
+                <li>Estruturar a sprint com tarefas, owners e criterios de aceite visiveis no Project da organizacao.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Entregaveis prioritarios</h2>
+            <table>
+                <thead><tr><th>Entregavel</th><th>Descricao</th><th>Resultado esperado</th></tr></thead>
+                <tbody>
+                    <tr><td>Persistencia server-side</td><td>Integracao progressiva de autenticacao, pacientes e pedidos com API e banco</td><td>Fluxos deixam de depender exclusivamente de estado local</td></tr>
+                    <tr><td>Kanban sincronizado</td><td>Atualizacao de status com origem em dados reais e nao apenas na interface</td><td>Fabrica opera com fila mais confiavel</td></tr>
+                    <tr><td>Observabilidade minima</td><td>Registro de eventos de pagamento e mudanca de status</td><td>Equipe passa a medir o fluxo critico</td></tr>
+                    <tr><td>Smoke tests E2E</td><td>Automacao minima para validar a jornada principal</td><td>Menor risco de quebrar o MVP em ajustes rapidos</td></tr>
+                    <tr><td>Governanca da sprint</td><td>Issues, backlog e evidencias centralizados no GitHub Project</td><td>Maior transparencia para equipe e avaliadores</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Backlog detalhado da Sprint 2</h2>
+            <table>
+                <thead><tr><th>Item</th><th>Tarefa acionavel</th><th>Owner sugerido</th><th>Dependencia</th><th>Criterio de aceite</th></tr></thead>
+                <tbody>
+                    <tr><td>Autenticacao integrada</td><td>Conectar login e sessao do front a endpoints reais do backend</td><td>Front + Back</td><td>Contrato de autenticacao definido</td><td>Usuario autentica sem depender apenas de fixtures locais</td></tr>
+                    <tr><td>Persistencia de pacientes</td><td>Salvar e listar pacientes por nutricionista com origem no servidor</td><td>Back</td><td>Modelo de paciente e rotas CRUD</td><td>Paciente criado reaparece apos recarga e segue vinculado ao owner correto</td></tr>
+                    <tr><td>Persistencia de pedidos</td><td>Salvar pedido, itens e fabrica responsavel em banco relacional</td><td>Back + Front</td><td>Entidades e payloads alinhados</td><td>Pedido pode ser recuperado por nutricionista, paciente e fabrica</td></tr>
+                    <tr><td>Kanban operacional sincronizado</td><td>Atualizar colunas e status com base em dados do servidor</td><td>Front</td><td>API de leitura e mudanca de status</td><td>Mudanca de coluna persiste apos refresh e fica visivel aos perfis corretos</td></tr>
+                    <tr><td>Eventos criticos</td><td>Registrar pagamento, confirmacao e mudanca de etapa operacional</td><td>Fullstack</td><td>Definicao dos eventos minimos</td><td>Historico dos eventos principais fica rastreavel</td></tr>
+                    <tr><td>Smoke tests</td><td>Automatizar o caminho criar pedido -> pagar -> acompanhar status</td><td>QA + Fullstack</td><td>Ambiente minimamente previsivel</td><td>Teste executa com sucesso no baseline da sprint</td></tr>
+                    <tr><td>Feedbacks de interface</td><td>Reforcar mensagens de sucesso, erro e andamento para o paciente</td><td>Front</td><td>Mapeamento dos estados criticos</td><td>Usuario entende claramente o que aconteceu e qual o proximo passo</td></tr>
+                    <tr><td>Evidencias e documentacao</td><td>Atualizar docs, review e backlog publico com o progresso da sprint</td><td>Docs</td><td>Executar os itens anteriores</td><td>Artefatos publicados e coerentes com a execucao real</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Estrutura de acompanhamento</h2>
+            <h3>5.1 To Do</h3>
+            <ul>
+                <li>Itens que ja possuem descricao, owner sugerido e criterio de aceite definido.</li>
+                <li>Bloqueadores ainda nao resolvidos devem estar explicitos na issue.</li>
+            </ul>
+            <h3>5.2 Doing</h3>
+            <ul>
+                <li>Item em execucao deve apontar o que esta sendo desenvolvido e o que falta validar.</li>
+                <li>Evidencias parciais podem ser anexadas ao longo da implementacao.</li>
+            </ul>
+            <h3>5.3 Done</h3>
+            <ul>
+                <li>So entra em concluido o item que entregar o criterio de aceite e registrar evidencia.</li>
+                <li>A conclusao deve refletir o estado real publicado no repositorio e, quando aplicavel, em ambiente publico.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>6. Definition of Done da sprint</h2>
+            <ul>
+                <li>Codigo versionado e sincronizado no repositorio correto.</li>
+                <li>Sem regressao aparente na jornada principal do FastInBox.</li>
+                <li>Evidencia minima registrada: print, deploy, video curto ou descricao objetiva de validacao.</li>
+                <li>Issue atualizada no GitHub Project com status coerente.</li>
+                <li>Documento publico refletindo o estado real da entrega.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>7. Evidencias esperadas</h2>
+            <table>
+                <thead><tr><th>Entrega</th><th>Evidencia minima</th><th>Finalidade academica</th></tr></thead>
+                <tbody>
+                    <tr><td>Persistencia integrada</td><td>Print ou video mostrando dados mantidos apos nova sessao</td><td>Comprovar evolucao tecnica real</td></tr>
+                    <tr><td>Kanban sincronizado</td><td>Registro da mudanca de status refletida em mais de uma tela</td><td>Demonstrar consistencia operacional</td></tr>
+                    <tr><td>Smoke tests</td><td>Execucao com sucesso e saida resumida do teste</td><td>Comprovar preocupacao com qualidade</td></tr>
+                    <tr><td>Documentacao da sprint</td><td>Pages atualizado com backlog e review correspondente</td><td>Facilitar banca e continuidade do projeto</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. Riscos e plano de contingencia</h2>
+            <table>
+                <thead><tr><th>Risco</th><th>Possivel impacto</th><th>Contingencia</th></tr></thead>
+                <tbody>
+                    <tr><td>Atraso na integracao entre front e back</td><td>Postergar persistencia real</td><td>Fechar primeiro contrato minimo e validar por partes, sem travar toda a sprint.</td></tr>
+                    <tr><td>Dados inconsistentes entre telas</td><td>Comprometer a demonstracao do fluxo</td><td>Priorizar pedidos e status como fonte unica de verdade antes de ampliar escopo.</td></tr>
+                    <tr><td>Falta de evidencias ao final da sprint</td><td>Enfraquecer apresentacao academica</td><td>Registrar entregas semanalmente e nao apenas no encerramento.</td></tr>
+                    <tr><td>Regressao por ajustes rapidos de interface</td><td>Quebrar jornadas ja aprovadas</td><td>Executar smoke test e checklist manual minimo antes de publicar.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>9. Ritmo de acompanhamento</h2>
+            <ul>
+                <li>Atualizacao diaria do Project para refletir o estado real das issues.</li>
+                <li>Revisao de bloqueios no meio da sprint, evitando acumulacao no fechamento.</li>
+                <li>Consolidacao continua de evidencias para facilitar a Sprint Review seguinte.</li>
+                <li>Uso do backlog publico como referencia unica para o que esta planejado, em andamento e concluido.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>10. Resultado esperado ao fim da Sprint 2</h2>
+            <p>Ao final desta sprint, o FastInBox deve manter a clareza visual e a demonstrabilidade conquistadas na Sprint 1, mas com mais confiabilidade tecnica, melhor rastreabilidade e menor dependencia de fluxos puramente simulados.</p>
+            <div class="note">Este documento deve ser lido em conjunto com a review da Sprint 1 e com o backlog publicado em issues no GitHub Project da organizacao.</div>
+        </section>
+
+        <footer class="footer">
+            Documento de Sprint 2 voltado para planejamento, execucao acompanhavel e geracao de issues no Project da organizacao.
+        </footer>
+    </main>
+</body>
+</html>
