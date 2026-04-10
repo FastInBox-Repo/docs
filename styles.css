@@ -196,11 +196,13 @@ a {
 
 .idv-section,
 .stack-section,
+.sprints-section,
 .documents-section {
     padding: 82px 0;
 }
 
 .idv-section,
+.sprints-section,
 .documents-section {
     background: #f9f9f9;
     border-top: 3px solid #000000;
