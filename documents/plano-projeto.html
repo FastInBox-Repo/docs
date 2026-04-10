@@ -100,6 +100,46 @@
             <p>As decisoes tecnicas relevantes devem possuir justificativa e impacto esperado registrado no repositorio correspondente.</p>
         </section>
 
+        <section>
+            <h2>7. Matriz RACI resumida</h2>
+            <table>
+                <thead><tr><th>Frente</th><th>Responsavel (R)</th><th>Aprovador (A)</th><th>Consultado (C)</th><th>Informado (I)</th></tr></thead>
+                <tbody>
+                    <tr><td>Requisitos e escopo</td><td>Produto tecnico</td><td>Coordenacao do projeto</td><td>Engenharia</td><td>Stakeholders da banca</td></tr>
+                    <tr><td>Implementacao front</td><td>Engenharia front</td><td>Lider tecnico</td><td>Design e QA</td><td>Produto</td></tr>
+                    <tr><td>Implementacao back</td><td>Engenharia back</td><td>Lider tecnico</td><td>Produto e QA</td><td>Time completo</td></tr>
+                    <tr><td>Documentacao tecnica</td><td>Engenharia/documentacao</td><td>Lider tecnico</td><td>Produto</td><td>Time completo</td></tr>
+                    <tr><td>Publicacao e release</td><td>DevOps</td><td>Lider tecnico</td><td>Engenharia</td><td>Stakeholders</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. Marcos de controle por sprint</h2>
+            <ol>
+                <li>Kickoff com escopo fechado e criterio de pronto declarado.</li>
+                <li>Checkpoint intermediario com validacao de risco tecnico.</li>
+                <li>Congelamento de escopo para estabilizacao da entrega.</li>
+                <li>Review com evidencia funcional, commit e publicacao.</li>
+                <li>Retrospectiva com licoes aprendidas e acoes corretivas.</li>
+            </ol>
+            <div class="note">Mudancas fora de escopo apos checkpoint intermediario exigem registro de impacto em prazo, risco e qualidade.</div>
+        </section>
+
+        <section>
+            <h2>9. Plano de validacao de entrega</h2>
+            <table>
+                <thead><tr><th>Tipo de validacao</th><th>Metodo</th><th>Evidencia minima</th></tr></thead>
+                <tbody>
+                    <tr><td>Compilacao</td><td>Build do modulo alterado</td><td>Log de build sem erro</td></tr>
+                    <tr><td>Fluxo funcional</td><td>Teste manual guiado por jornada</td><td>Checklist de passos concluido</td></tr>
+                    <tr><td>Publicacao</td><td>Deploy em ambiente publico</td><td>URL respondendo HTTP 200</td></tr>
+                    <tr><td>Rastreabilidade</td><td>Commit semantico e referencia de escopo</td><td>Hash e descricao objetiva</td></tr>
+                    <tr><td>Documentacao</td><td>Atualizacao dos artefatos impactados</td><td>Diff no repositorio docs</td></tr>
+                </tbody>
+            </table>
+        </section>
+
         <footer class="footer">
             Plano de projeto ativo. Revisao recomendada no fechamento de cada sprint para replanejamento e controle de risco.
         </footer>

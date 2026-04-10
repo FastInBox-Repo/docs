@@ -101,6 +101,45 @@
             <div class="note">A fase atual atende o criterio de validacao funcional do MVP. As lacunas sao conhecidas, documentadas e possuem rota de implementacao definida.</div>
         </section>
 
+        <section>
+            <h2>7. Casos de uso detalhados</h2>
+            <table>
+                <thead><tr><th>UC</th><th>Ator primario</th><th>Pre-condicao</th><th>Fluxo principal</th><th>Pos-condicao</th></tr></thead>
+                <tbody>
+                    <tr><td>UC-01 Login por perfil</td><td>Usuario autenticavel</td><td>Conta valida cadastrada</td><td>Seleciona perfil, informa credenciais e confirma</td><td>Sessao iniciada com escopo correto de permissao</td></tr>
+                    <tr><td>UC-02 Criar pedido</td><td>Nutricionista</td><td>Paciente existente ou cadastrado</td><td>Define itens, observacoes e condicoes de entrega</td><td>Pedido salvo com codigo unico e status inicial</td></tr>
+                    <tr><td>UC-03 Confirmar e pagar</td><td>Paciente</td><td>Pedido valido e visivel por codigo</td><td>Revisa dados, confirma e processa pagamento</td><td>Status alterado para pago e liberado para producao</td></tr>
+                    <tr><td>UC-04 Produzir pedido</td><td>Fabrica</td><td>Pedido com pagamento aprovado</td><td>Mover pedido no kanban ate concluir entrega</td><td>Timeline operacional atualizada sem lacunas</td></tr>
+                    <tr><td>UC-05 Monitorar operacao</td><td>Administracao</td><td>Dados de pedidos disponiveis</td><td>Consulta indicadores, filas e estados</td><td>Visao consolidada de desempenho e risco</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. Priorizacao de requisitos (MoSCoW)</h2>
+            <table>
+                <thead><tr><th>Categoria</th><th>Itens principais</th><th>Justificativa</th></tr></thead>
+                <tbody>
+                    <tr><td>Must have</td><td>RF-001, RF-003, RF-006, RF-007, RF-010, RF-011</td><td>Sem esses requisitos o fluxo de negocio nao fecha de ponta a ponta.</td></tr>
+                    <tr><td>Should have</td><td>Telemetria de jornada e auditoria persistente</td><td>Aumenta governanca e reduz custo de analise de incidentes.</td></tr>
+                    <tr><td>Could have</td><td>Alertas proativos e painis comparativos avancados</td><td>Agrega eficiencia operacional apos consolidacao do nucleo.</td></tr>
+                    <tr><td>Wont have (fase atual)</td><td>Mobile nativo, automacao fiscal completa, predicao estatistica</td><td>Nao essencial para validacao funcional do ciclo academico.</td></tr>
+                </tbody>
+            </table>
+            <p>Essa priorizacao deve ser revisada em cada fechamento de sprint para refletir dados reais de uso e risco operacional.</p>
+        </section>
+
+        <section>
+            <h2>9. Glossario tecnico</h2>
+            <ul>
+                <li>Codigo unico do pedido: identificador nao colidente usado para acesso do paciente.</li>
+                <li>Status operacional: estado atual do pedido na trilha producao-entrega.</li>
+                <li>Evento financeiro valido: confirmacao de pagamento aprovada para liberar producao.</li>
+                <li>Rastreabilidade: capacidade de reconstruir historico de acoes por pedido.</li>
+                <li>Role: perfil de acesso com limites funcionais e dados permitidos.</li>
+            </ul>
+        </section>
+
         <footer class="footer">
             Este documento e uma versao de consumo tecnico da ERS completa. Para revisao detalhada de todos os RFs e RNs, acessar o arquivo fonte em markdown.
         </footer>

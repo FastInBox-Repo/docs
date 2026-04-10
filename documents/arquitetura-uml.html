@@ -119,6 +119,45 @@
             </table>
         </section>
 
+        <section>
+            <h2>7. Visao de componentes e responsabilidade</h2>
+            <table>
+                <thead><tr><th>Componente</th><th>Entrada principal</th><th>Saida principal</th><th>Dependencias</th></tr></thead>
+                <tbody>
+                    <tr><td>Modulo de autenticacao</td><td>Credenciais e perfil</td><td>Sessao de acesso e escopo</td><td>Store de sessao, regras de role</td></tr>
+                    <tr><td>Modulo de pedidos</td><td>Paciente e itens</td><td>Order com codigo unico</td><td>Catalogo de itens, validacoes de dominio</td></tr>
+                    <tr><td>Modulo de pagamento</td><td>Order em estado valido</td><td>Evento financeiro aprovado/rejeitado</td><td>Gateway financeiro e regras de transicao</td></tr>
+                    <tr><td>Modulo de producao</td><td>Pedidos pagos</td><td>Timeline de status operacional</td><td>Kanban de fabrica e eventos de auditoria</td></tr>
+                    <tr><td>Modulo administrativo</td><td>Dados consolidados</td><td>Indicadores e alertas de governanca</td><td>Pedidos, pagamentos e eventos operacionais</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. Mapeamento RF -> componente</h2>
+            <table>
+                <thead><tr><th>Requisito</th><th>Componente primario</th><th>Componente de suporte</th></tr></thead>
+                <tbody>
+                    <tr><td>RF-001 Login por perfil</td><td>Modulo de autenticacao</td><td>Modulo administrativo</td></tr>
+                    <tr><td>RF-003 Criacao de pedido</td><td>Modulo de pedidos</td><td>Modulo de autenticacao</td></tr>
+                    <tr><td>RF-007 Pagamento e liberacao</td><td>Modulo de pagamento</td><td>Modulo de pedidos</td></tr>
+                    <tr><td>RF-010 Fluxo da fabrica</td><td>Modulo de producao</td><td>Modulo de pagamento</td></tr>
+                    <tr><td>RF-011 Status para paciente</td><td>Modulo de producao</td><td>Modulo de pedidos</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>9. Estrategia de evolucao arquitetural</h2>
+            <ol>
+                <li>Fase 1: consolidar contrato de dominio e estado transacional no front.</li>
+                <li>Fase 2: mover persistencia e validacao critica para API server-side.</li>
+                <li>Fase 3: introduzir observabilidade de eventos por componente.</li>
+                <li>Fase 4: separar contexto financeiro e operacional para escala controlada.</li>
+            </ol>
+            <div class="note">A evolucao prevista preserva a semantica dos casos de uso e minimiza quebra de contrato entre interface e dominio.</div>
+        </section>
+
         <footer class="footer">
             Documento conectado aos artefatos: ERS, plano de projeto e esquema de banco. Para navegacao rapida, retornar ao hub principal de docs.
         </footer>

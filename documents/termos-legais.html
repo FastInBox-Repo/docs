@@ -102,6 +102,42 @@
             </ul>
         </section>
 
+        <section>
+            <h2>8. Matriz de base legal por tratamento</h2>
+            <table>
+                <thead><tr><th>Operacao de dados</th><th>Finalidade</th><th>Base legal de referencia</th><th>Retencao recomendada</th></tr></thead>
+                <tbody>
+                    <tr><td>Cadastro de usuario</td><td>Habilitar autenticacao e segregacao de acesso</td><td>Execucao de contrato / legitimo interesse operacional</td><td>Enquanto houver conta ativa + janela de auditoria</td></tr>
+                    <tr><td>Cadastro de paciente</td><td>Executar pedido personalizado</td><td>Execucao de servico contratado</td><td>Conforme politica de historico transacional</td></tr>
+                    <tr><td>Registro de pagamento</td><td>Comprovar autorizacao e conciliacao</td><td>Obrigacao legal e regulatoria aplicavel</td><td>Prazo de obrigacao contabil/fiscal</td></tr>
+                    <tr><td>Eventos operacionais</td><td>Rastreabilidade e resposta a incidente</td><td>Legitimo interesse em seguranca e governanca</td><td>Janela minima para auditoria e melhoria continua</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>9. Direitos do titular e fluxo de atendimento</h2>
+            <ol>
+                <li>Receber solicitacao formal de acesso, correcao ou eliminacao de dados.</li>
+                <li>Validar identidade do solicitante antes de qualquer acao.</li>
+                <li>Registrar ticket com prazo, responsavel e status de atendimento.</li>
+                <li>Executar acao tecnica respeitando limites de obrigacao legal de retencao.</li>
+                <li>Comunicar conclusao com evidencia de tratamento e eventual justificativa.</li>
+            </ol>
+            <div class="note">Toda solicitacao deve possuir trilha rastreavel para auditoria interna e demonstracao de conformidade.</div>
+        </section>
+
+        <section>
+            <h2>10. Controles minimos de seguranca</h2>
+            <ul>
+                <li>Autenticacao por perfil com segregacao de rotas e escopo.</li>
+                <li>Registro de eventos sensiveis para investigacao posterior.</li>
+                <li>Revisao periodica de privilegios administrativos.</li>
+                <li>Processo de resposta a incidente documentado e testavel.</li>
+                <li>Atualizacao de dependencias e correcoes de vulnerabilidade em ciclos regulares.</li>
+            </ul>
+        </section>
+
         <footer class="footer">
             Este documento representa baseline de conformidade para o ciclo academico e deve evoluir para termo juridico formal em ambiente de producao comercial.
         </footer>

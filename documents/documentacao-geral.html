@@ -112,6 +112,44 @@
             </ul>
         </section>
 
+        <section>
+            <h2>8. Ambientes e publicacao</h2>
+            <table>
+                <thead><tr><th>Ambiente</th><th>Finalidade</th><th>Artefato de validacao</th></tr></thead>
+                <tbody>
+                    <tr><td>Local de desenvolvimento</td><td>Implementacao e teste rapido</td><td>Build/lint sem erro</td></tr>
+                    <tr><td>Producao aplicacao</td><td>Demonstracao funcional publica</td><td>URL HTTP 200 e fluxo E2E valido</td></tr>
+                    <tr><td>Producao documentacao</td><td>Biblioteca tecnica da banca</td><td>Pages atualizado e links navegaveis</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>9. Runbook resumido de operacao</h2>
+            <ol>
+                <li>Confirmar estado do repositorio alvo e branch principal.</li>
+                <li>Executar build do modulo alterado.</li>
+                <li>Validar fluxo funcional impactado por checklist.</li>
+                <li>Publicar alteracoes e registrar evidencias de release.</li>
+                <li>Atualizar documento correspondente quando houver mudanca estrutural.</li>
+            </ol>
+            <div class="note">O runbook reduz dependencia de memoria individual e padroniza qualidade minima de publicacao.</div>
+        </section>
+
+        <section>
+            <h2>10. Matriz de conformidade documental</h2>
+            <table>
+                <thead><tr><th>Artefato</th><th>Pergunta de conformidade</th><th>Status esperado</th></tr></thead>
+                <tbody>
+                    <tr><td>ERS</td><td>Requisitos estao atualizados com as entregas?</td><td>Sim, por release</td></tr>
+                    <tr><td>Arquitetura</td><td>Modelo reflete componentes implementados?</td><td>Sim, por sprint</td></tr>
+                    <tr><td>Plano de projeto</td><td>Riscos e marcos foram revisados?</td><td>Sim, em fechamento de sprint</td></tr>
+                    <tr><td>Sprint review</td><td>Evidencias tecnicas estao anexadas?</td><td>Sim, em encerramento</td></tr>
+                    <tr><td>Termos legais</td><td>Regras de dados e acesso permanecem coerentes?</td><td>Sim, em mudanca de processo</td></tr>
+                </tbody>
+            </table>
+        </section>
+
         <footer class="footer">
             Documento-base para avaliacao de banca e alinhamento de sprint. Deve ser lido em conjunto com ERS, plano de projeto e arquitetura UML.
         </footer>

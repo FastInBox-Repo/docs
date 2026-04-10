@@ -98,6 +98,33 @@
             <p>Essa abordagem reduz risco de quebra em sprint e facilita reproducao de ambiente em avaliacao tecnica.</p>
         </section>
 
+        <section>
+            <h2>7. Dicionario de campos criticos</h2>
+            <table>
+                <thead><tr><th>Tabela.Campo</th><th>Tipo sugerido</th><th>Regra</th><th>Observacao</th></tr></thead>
+                <tbody>
+                    <tr><td>users.role</td><td>ENUM</td><td>NOT NULL</td><td>Restringe acesso por perfil.</td></tr>
+                    <tr><td>patients.restrictions</td><td>TEXT</td><td>NULL permitido</td><td>Restrições alimentares para montagem de item.</td></tr>
+                    <tr><td>orders.order_code</td><td>VARCHAR</td><td>UNIQUE NOT NULL</td><td>Referencia usada na jornada do paciente.</td></tr>
+                    <tr><td>orders.status</td><td>ENUM</td><td>NOT NULL</td><td>Transicao controlada por regra de negocio.</td></tr>
+                    <tr><td>payments.payment_status</td><td>ENUM</td><td>NOT NULL</td><td>Somente aprovado libera fluxo de producao.</td></tr>
+                    <tr><td>production_events.created_at</td><td>TIMESTAMP</td><td>NOT NULL</td><td>Base para timeline e auditoria.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. Backup, restauracao e auditoria</h2>
+            <ul>
+                <li>Backup periodico com retencao por janela minima definida em politica interna.</li>
+                <li>Teste de restauracao em ambiente isolado para validar recuperacao.</li>
+                <li>Auditoria de alteracoes em status de pedido e eventos financeiros.</li>
+                <li>Registro de autoria de mudancas criticas para rastreio de incidente.</li>
+                <li>Controle de acesso administrativo com principio do menor privilegio.</li>
+            </ul>
+            <div class="note">Em evolucao para producao comercial, recomenda-se acoplar trilha de auditoria com politica de retencao e plano de resposta a incidentes.</div>
+        </section>
+
         <footer class="footer">
             Documento de modelagem para base relacional do FastInBox. Deve ser alinhado com a ERS e com a arquitetura UML a cada release de dominio.
         </footer>

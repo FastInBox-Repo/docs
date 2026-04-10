@@ -98,6 +98,31 @@
             <div class="note">Este 5W2H funciona como contrato operacional entre negocio e engenharia: toda alteracao de premissa deve ser registrada com impacto tecnico explicito.</div>
         </section>
 
+        <section>
+            <h2>6. Indicadores de acompanhamento (execucao)</h2>
+            <table>
+                <thead><tr><th>Indicador</th><th>Formula de apuracao</th><th>Meta de referencia</th></tr></thead>
+                <tbody>
+                    <tr><td>Conformidade de sprint</td><td>Itens concluido / itens comprometidos</td><td>>= 80%</td></tr>
+                    <tr><td>Taxa de regressao</td><td>Bugs reabertos / bugs corrigidos</td><td><= 15%</td></tr>
+                    <tr><td>Lead time de pedido</td><td>Data entrega - data pagamento</td><td>Tendencia de reducao por sprint</td></tr>
+                    <tr><td>Cobertura documental</td><td>Artefatos atualizados / artefatos impactados</td><td>100% por release</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>7. Dependencias e pre-condicoes de execucao</h2>
+            <ul>
+                <li>Ambiente de build e deploy ativo para validar incrementos.</li>
+                <li>Backlog versionado com priorizacao explicita por sprint.</li>
+                <li>Padrao de commit semantico para rastreabilidade tecnica.</li>
+                <li>Artefatos de documento revisados no mesmo ciclo da implementacao.</li>
+                <li>Ritual de review e retrospectiva para fechamento de pendencias.</li>
+            </ul>
+            <p>Qualquer dependencia bloqueada deve ser registrada no encerramento semanal com plano de contorno e responsavel nomeado.</p>
+        </section>
+
         <footer class="footer">
             Documento de planejamento vinculado ao plano de projeto e ao sprint review para fechamento de ciclo e replanejamento continuo.
         </footer>
