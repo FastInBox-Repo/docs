@@ -138,6 +138,256 @@ th {
     font-size: 0.86rem;
 }
 
+.academic-cover {
+    border: 3px solid #000000;
+    margin-top: 1rem;
+    padding: 1.5rem 1rem 2rem;
+    box-shadow: 6px 6px 0 #000000;
+    text-align: center;
+}
+
+.academic-cover p {
+    margin: 0.35rem 0;
+}
+
+.cover-block {
+    margin: 1.2rem auto;
+    max-width: 720px;
+}
+
+.cover-project {
+    margin: 2rem 0 1rem;
+}
+
+.cover-members {
+    list-style: none;
+    margin: 1.5rem 0;
+    padding: 0;
+}
+
+.cover-members li {
+    padding: 0.2rem 0;
+    font-weight: 600;
+}
+
+.cover-city {
+    margin-top: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.summary-list {
+    margin: 0.6rem 0 0;
+    padding-left: 1.2rem;
+}
+
+.summary-list li {
+    margin-bottom: 0.5rem;
+}
+
+.summary-list a {
+    font-weight: 700;
+}
+
+.source-list,
+.inline-link-list,
+.check-list {
+    margin: 0.6rem 0 1rem 1.2rem;
+}
+
+.source-list li,
+.inline-link-list li,
+.check-list li {
+    margin-bottom: 0.45rem;
+}
+
+.section-lead {
+    font-size: 0.94rem;
+}
+
+.meta-grid,
+.benefits-grid,
+.persona-grid,
+.prototype-grid,
+.mvp-grid,
+.appendix-grid,
+.model-grid,
+.testing-grid,
+.marketing-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.card-block,
+.prototype-card,
+.persona-card,
+.benefit-card,
+.mvp-card,
+.appendix-card,
+.model-card,
+.testing-card,
+.marketing-card {
+    border: 2px solid #000000;
+    padding: 1rem;
+    background: #ffffff;
+}
+
+.card-block h3,
+.prototype-card h3,
+.persona-card h3,
+.benefit-card h3,
+.mvp-card h3,
+.appendix-card h3,
+.model-card h3,
+.testing-card h3,
+.marketing-card h3 {
+    margin-top: 0;
+}
+
+.mini-note {
+    font-size: 0.88rem;
+    color: #333333;
+}
+
+.hierarchy {
+    display: grid;
+    gap: 1rem;
+}
+
+.hierarchy-level {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.9rem;
+}
+
+.hierarchy-node {
+    border: 2px solid #000000;
+    background: #fafafa;
+    padding: 0.9rem;
+    min-height: 100%;
+}
+
+.hierarchy-node strong {
+    display: block;
+    margin-bottom: 0.45rem;
+    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    text-transform: uppercase;
+}
+
+.hierarchy-root {
+    border: 3px solid #000000;
+    padding: 1rem;
+    background: #ffffff;
+    text-align: center;
+    box-shadow: 4px 4px 0 #000000;
+}
+
+.canvas-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.8rem;
+}
+
+.canvas-card {
+    border: 2px solid #000000;
+    padding: 0.85rem;
+    min-height: 180px;
+    background: #ffffff;
+}
+
+.canvas-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.6rem;
+    font-size: 0.96rem;
+}
+
+.canvas-card ul {
+    margin-bottom: 0;
+}
+
+.canvas-tall {
+    grid-row: span 2;
+}
+
+.canvas-wide {
+    grid-column: span 2;
+}
+
+.status-tag {
+    display: inline-block;
+    border: 1px solid #000000;
+    padding: 0.15rem 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: #f4f4f4;
+    margin-bottom: 0.5rem;
+}
+
+.prototype-card .screen {
+    border: 2px solid #000000;
+    min-height: 170px;
+    padding: 0.85rem;
+    background:
+        linear-gradient(#efefef 1px, transparent 1px),
+        linear-gradient(90deg, #efefef 1px, transparent 1px),
+        #ffffff;
+    background-size: 16px 16px, 16px 16px, auto;
+}
+
+.prototype-card .screen-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+}
+
+.prototype-card .screen ul {
+    margin: 0 0 0 1rem;
+    font-size: 0.88rem;
+}
+
+.link-banner {
+    border: 2px solid #000000;
+    padding: 0.85rem 1rem;
+    background: #f9f9f9;
+    margin-bottom: 1rem;
+}
+
+.split-table {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.split-table table {
+    margin: 0;
+}
+
+.appendix-card ul,
+.model-card ul,
+.marketing-card ul,
+.testing-card ul,
+.mvp-card ul {
+    margin-bottom: 0;
+}
+
+.references-list {
+    margin: 0.5rem 0 0 1.2rem;
+}
+
+.references-list li {
+    margin-bottom: 0.8rem;
+}
+
+.muted {
+    color: #444444;
+}
+
 @media (max-width: 680px) {
     .wrapper {
         width: calc(100% - 1.2rem);
@@ -145,5 +395,19 @@ th {
 
     section {
         padding: 0.8rem;
+    }
+
+    .meta-grid,
+    .benefits-grid,
+    .persona-grid,
+    .prototype-grid,
+    .mvp-grid,
+    .appendix-grid,
+    .model-grid,
+    .testing-grid,
+    .marketing-grid,
+    .split-table,
+    .canvas-grid {
+        grid-template-columns: 1fr;
     }
 }

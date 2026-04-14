@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Documento Principal do Projeto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./documentacao-geral.html">Documentacao geral</a>
+            <a href="./documento-visao.html">Documento de visao</a>
+            <a href="./requisitos-software.html">Requisitos</a>
+        </nav>
+
+        <header class="academic-cover">
+            <div class="cover-block">
+                <p>CENTRO UNIVERSITARIO DE BRASILIA</p>
+                <p>FACULDADE DE TECNOLOGIA E CIENCIAS SOCIAIS APLICADAS</p>
+                <p>CURSO DE CIENCIA DA COMPUTACAO</p>
+                <p>PROJETO INTEGRADOR III - TURMA A INFORMAR</p>
+                <p>PROFESSORA ORIENTADORA: KADIDJA VALERIA REGINALDO DE OLIVEIRA</p>
+            </div>
+
+            <div class="cover-project">
+                <h1>FastInBox</h1>
+                <p>Documento principal do projeto</p>
+            </div>
+
+            <ul class="cover-members">
+                <li>RA a informar | Thiago L. C. Alves</li>
+                <li>RA a informar | Joao Vitor</li>
+                <li>RA a informar | Gabriel</li>
+                <li>RA e Nome</li>
+                <li>RA e Nome</li>
+            </ul>
+
+            <p class="cover-city">BRASILIA, abril de 2026</p>
+        </header>
+
+        <header class="doc-header">
+            <p>FastInBox | Documento principal academico</p>
+            <h1>Documento Principal do Projeto</h1>
+            <p>Versao: 1.0 | Data-base: 2026-04-14 | Artefato mestre para PI III</p>
+            <p>Esta pagina consolida, em formato academico, os blocos exigidos para apresentacao do projeto FastInBox, preservando o estilo neo-brutal preto e branco do hub oficial de documentacao.</p>
+        </header>
+
+        <section id="sumario">
+            <h2>Sumario</h2>
+            <ol class="summary-list">
+                <li><a href="#glossario">Glossario</a></li>
+                <li><a href="#secao-1">1. Descricao do Projeto</a></li>
+                <li><a href="#secao-2">2. Escopo do Projeto (EAP)</a></li>
+                <li><a href="#secao-3">3. Problema/Oportunidade</a></li>
+                <li><a href="#secao-4">4. Modelo de Negocio (BMC)</a></li>
+                <li><a href="#secao-5">5. Cenarios de Negocio</a></li>
+                <li><a href="#secao-6">6. Beneficios da Solucao</a></li>
+                <li><a href="#secao-7">7. Publico Alvo</a></li>
+                <li><a href="#secao-8">8. Cronograma de Marcos</a></li>
+                <li><a href="#secao-9">9. Requisitos Funcionais</a></li>
+                <li><a href="#secao-10">10. Requisitos Nao Funcionais</a></li>
+                <li><a href="#secao-11">11. Prototipo Visual</a></li>
+                <li><a href="#secao-12">12. Requisito dos MVPs</a></li>
+                <li><a href="#secao-12-1">12.1 Aplicativo Movel</a></li>
+                <li><a href="#secao-12-2">12.2 Web Application</a></li>
+                <li><a href="#secao-13">13. Modelo de Dados (Web Application / Backoffice)</a></li>
+                <li><a href="#secao-14">14. Resultados de Teste</a></li>
+                <li><a href="#secao-14-1">14.1 Testes Internos</a></li>
+                <li><a href="#secao-14-2">14.2 Testes Alfa / Fechados</a></li>
+                <li><a href="#secao-14-3">14.3 Testes Beta</a></li>
+                <li><a href="#secao-15">15. Marketing Digital</a></li>
+                <li><a href="#secao-16">16. Bibliografia</a></li>
+                <li><a href="#apendice-i">Apendice I - Tecnologias Utilizadas</a></li>
+            </ol>
+        </section>
+
+        <section id="glossario">
+            <h2>Glossario</h2>
+            <p class="section-lead">Lista alfabetica de termos, siglas e conceitos essenciais para leitura do projeto.</p>
+            <table>
+                <thead>
+                    <tr><th>Termo/Sigla</th><th>Definicao aplicada ao projeto</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>API</td><td>Camada de servicos responsavel por autenticar usuarios, persistir pedidos e expor regras de negocio para o FastInBox.</td></tr>
+                    <tr><td>BMC</td><td>Business Model Canvas usado para descrever proposta de valor, canais, clientes, receitas e custos.</td></tr>
+                    <tr><td>Docs as Code</td><td>Abordagem de documentacao versionada em repositorio GitHub Pages, tratada como parte do produto.</td></tr>
+                    <tr><td>EAP</td><td>Estrutura Analitica do Projeto que decompoe o trabalho em pacotes gerenciaveis.</td></tr>
+                    <tr><td>MVP</td><td>Produto minimo viavel usado para validar a jornada ponta a ponta do FastInBox.</td></tr>
+                    <tr><td>PWA/Responsive Web</td><td>Recorte mobile baseado em interface web responsiva, sem app nativo nesta fase.</td></tr>
+                    <tr><td>RF</td><td>Requisito funcional diretamente observavel nas jornadas do sistema.</td></tr>
+                    <tr><td>RNF</td><td>Requisito nao funcional relacionado a performance, usabilidade, seguranca e manutencao.</td></tr>
+                    <tr><td>SaaS</td><td>Modelo de entrega de software como servico adotado como horizonte de negocio do FastInBox.</td></tr>
+                    <tr><td>White label</td><td>Modelo em que a experiencia do paciente prioriza a marca da clinica e nao a marca operacional da plataforma.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="secao-1">
+            <h2>1. Descricao do Projeto</h2>
+            <h3>Objetivo</h3>
+            <p>O objetivo do projeto e planejar, construir, validar e documentar um MVP academico do FastInBox capaz de demonstrar, com evidencias tecnicas e de negocio, a viabilidade de digitalizar o fluxo de venda, pagamento, producao e acompanhamento de marmitas personalizadas operadas por nutricionistas e clinicas parceiras.</p>
+            <h3>Descricao</h3>
+            <p>O projeto contempla frentes integradas de gestao e de engenharia de software: levantamento e priorizacao de requisitos, modelagem de negocio, definicao de personas e jornadas, arquitetura de software, modelagem de dados, implementacao de interface web responsiva, preparacao da camada backend, governanca de sprint, controle de risco, validacao por testes e consolidacao da documentacao formal em GitHub Pages.</p>
+            <p>No escopo academico do PI III, o projeto exercita disciplinas de gestao do projeto, planejamento incremental, documentacao tecnica, engenharia de requisitos, arquitetura de software, IHC, prototipacao, qualidade de software, rastreabilidade, publicacao e sustentacao de um produto demonstravel para banca.</p>
+        </section>
+
+        <section id="secao-2">
+            <h2>2. Escopo do Projeto (EAP)</h2>
+            <p class="section-lead">A EAP abaixo organiza o trabalho em pacotes de entrega coerentes com o backlog ja publicado no hub tecnico.</p>
+            <div class="hierarchy">
+                <div class="hierarchy-root">
+                    <strong>Projeto Integrador III - FastInBox</strong>
+                    <span>Planejamento, construcao, validacao e apresentacao do MVP</span>
+                </div>
+                <div class="hierarchy-level">
+                    <article class="hierarchy-node">
+                        <strong>1. Gestao do Projeto</strong>
+                        <ul>
+                            <li>Plano de projeto e 5W2H</li>
+                            <li>Cronograma e marcos</li>
+                            <li>Riscos e governanca de sprint</li>
+                        </ul>
+                    </article>
+                    <article class="hierarchy-node">
+                        <strong>2. Produto e Negocio</strong>
+                        <ul>
+                            <li>Documento de visao</li>
+                            <li>Business Model Canvas</li>
+                            <li>Personas e publico-alvo</li>
+                        </ul>
+                    </article>
+                    <article class="hierarchy-node">
+                        <strong>3. Engenharia e Desenvolvimento</strong>
+                        <ul>
+                            <li>Front-end responsivo</li>
+                            <li>Baseline backend</li>
+                            <li>Modelo de dados e arquitetura</li>
+                        </ul>
+                    </article>
+                    <article class="hierarchy-node">
+                        <strong>4. Validacao e Evidencias</strong>
+                        <ul>
+                            <li>Testes internos</li>
+                            <li>Review de sprint</li>
+                            <li>Deploy publico e demonstracao</li>
+                        </ul>
+                    </article>
+                    <article class="hierarchy-node">
+                        <strong>5. Sustentacao Academica</strong>
+                        <ul>
+                            <li>Documento principal</li>
+                            <li>Bibliografia e apendices</li>
+                            <li>Preparacao para PI IV</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+            <div class="note">ATENCAO: cada pacote de trabalho foi decomposto em pelo menos dois subitens para evitar nos terminais excessivamente amplos e garantir melhor controle do progresso.</div>
+        </section>
+
+        <section id="secao-3">
+            <h2>3. Problema/Oportunidade</h2>
+            <p>O problema central identificado no FastInBox e a fragmentacao da operacao entre nutricionista, paciente e cozinha. O processo tradicional costuma combinar WhatsApp, planilhas, links de pagamento avulsos e comunicacao manual com a fabrica, o que aumenta retrabalho, risco de erro e perda de rastreabilidade. Os documentos de visao, requisitos e plano de projeto do proprio repositorio convergem para esse mesmo ponto: o fluxo atual do mercado e funcionalmente possivel, mas operacionalmente fragil.</p>
+            <p>Existe tambem uma oportunidade objetiva do lado da demanda. O Ministerio da Saude registrou no Vigitel Brasil 2023 que, no conjunto das 27 capitais, a frequencia de excesso de peso atingiu 61,4% da populacao adulta, enquanto a obesidade chegou a 24,3%. Esses numeros reforcam o espaco para solucoes que facilitem aderencia a rotinas alimentares personalizadas, com melhor previsibilidade e acompanhamento.</p>
+            <p>Do lado digital, o contexto e favoravel. A PNAD Continua TIC 2023 do IBGE apontou que a internet estava presente em 92,5% dos domicilios do pais, com 72,5 milhoes de lares conectados. Ja a Pesquisa Anual do Comercio 2023 mostrou que a comercializacao pela internet respondeu por 8,8% da receita bruta de revenda do varejo brasileiro, alem de registrar crescimento expressivo do numero de empresas que vendem por canais digitais em comparacao ao periodo pre-pandemia. Em outras palavras, o consumidor ja esta habituado a pesquisar, comparar e comprar por meios digitais.</p>
+            <p>No pagamento, a oportunidade e ainda mais clara. O Relatorio Anual do SPI 2024 do Banco Central registrou recordes sucessivos de uso do Pix, incluindo pico superior a 250 milhoes de transacoes liquidadas em um unico dia. Para um produto como o FastInBox, isso significa menor barreira comportamental para checkout rapido e maior chance de concluir o pedido sem redirecionamentos e conciliacoes manuais.</p>
+            <p>Assim, a oportunidade do projeto nao esta apenas em criar uma interface bonita, mas em consolidar uma trilha unica e auditavel onde a clinica preserva sua marca, o paciente entende o pedido com clareza, a cozinha recebe apenas pedidos aptos e a gestao passa a operar com dados estruturados em vez de controles paralelos.</p>
+        </section>
+
+        <section id="secao-4">
+            <h2>4. Modelo de Negocio (BMC)</h2>
+            <p class="section-lead">Canvas consolidado a partir do <a href="../fastinbox-mvp-canvas-paulo-caroli.md" target="_blank" rel="noopener noreferrer">MVP Canvas</a>, do <a href="./business-model-canvas.html">Business Model Canvas tecnico</a> e do <a href="./documento-visao.html">Documento de Visao</a>.</p>
+            <div class="canvas-grid">
+                <article class="canvas-card canvas-tall">
+                    <h3>Parcerias Chave</h3>
+                    <ul>
+                        <li>Nutricionistas e clinicas parceiras.</li>
+                        <li>Cozinhas responsaveis pela producao.</li>
+                        <li>Gateway de pagamento e meios instantaneos.</li>
+                        <li>Infraestrutura cloud e hospedagem.</li>
+                        <li>Equipe academica e orientacao docente.</li>
+                    </ul>
+                </article>
+                <article class="canvas-card">
+                    <h3>Atividades Chave</h3>
+                    <ul>
+                        <li>Cadastro de pacientes e criacao de pedidos.</li>
+                        <li>Validacao de pagamento e status.</li>
+                        <li>Operacao white label e governanca.</li>
+                        <li>Documentacao e melhoria continua.</li>
+                    </ul>
+                </article>
+                <article class="canvas-card">
+                    <h3>Recursos Chave</h3>
+                    <ul>
+                        <li>Frontend Next.js e baseline backend NestJS.</li>
+                        <li>Schema de dados e contratos tipados.</li>
+                        <li>Hub tecnico em GitHub Pages.</li>
+                        <li>Marca white label da clinica.</li>
+                    </ul>
+                </article>
+                <article class="canvas-card canvas-wide">
+                    <h3>Proposta de Valor</h3>
+                    <ul>
+                        <li>Transformar um fluxo manual e disperso em uma trilha unica de pedido, pagamento, producao e acompanhamento.</li>
+                        <li>Permitir que a clinica opere com sua propria marca, sem perder controle operacional.</li>
+                        <li>Reduzir retrabalho na cozinha ao liberar apenas pedidos pagos e claros.</li>
+                    </ul>
+                </article>
+                <article class="canvas-card">
+                    <h3>Relacionamento</h3>
+                    <ul>
+                        <li>Fluxos guiados por perfil.</li>
+                        <li>Checkout simples e transparente.</li>
+                        <li>Acompanhamento em tempo real.</li>
+                        <li>Suporte orientado por status.</li>
+                    </ul>
+                </article>
+                <article class="canvas-card">
+                    <h3>Canais</h3>
+                    <ul>
+                        <li>Web application responsiva.</li>
+                        <li>GitHub Pages para documentacao e confianca.</li>
+                        <li>Indicacao do nutricionista para o paciente.</li>
+                        <li>Conteudo digital e demonstracoes PI IV.</li>
+                    </ul>
+                </article>
+                <article class="canvas-card canvas-wide">
+                    <h3>Clientes</h3>
+                    <ul>
+                        <li>Nutricionistas e clinicas que desejam vender marmitas personalizadas com marca propria.</li>
+                        <li>Pacientes que precisam revisar, confirmar e pagar com clareza.</li>
+                        <li>Cozinhas parceiras que dependem de fila operacional qualificada.</li>
+                        <li>Gestao FastInBox, que precisa de visao consolidada da operacao.</li>
+                    </ul>
+                </article>
+                <article class="canvas-card canvas-wide">
+                    <h3>Estrutura de Custos</h3>
+                    <ul>
+                        <li>Desenvolvimento front-end, back-end e documentacao.</li>
+                        <li>Hospedagem, deploy e infraestrutura de dados.</li>
+                        <li>Custos de gateway e eventos financeiros.</li>
+                        <li>QA, suporte, onboarding e marketing digital.</li>
+                    </ul>
+                </article>
+                <article class="canvas-card">
+                    <h3>Fontes de Receita</h3>
+                    <ul>
+                        <li>Comissao por pedido processado.</li>
+                        <li>Assinatura SaaS por clinica.</li>
+                        <li>Servicos premium de analytics.</li>
+                        <li>Taxa de implantacao/onboarding.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section id="secao-5">
+            <h2>5. Cenarios de Negocio</h2>
+            <p class="section-lead">Analise PEST orientada por referencias de governo, Banco Central, IBGE, Banco Mundial e saude digital. O foco esta em como cada cenario pode favorecer ou pressionar a adocao da solucao.</p>
+            <table>
+                <thead>
+                    <tr><th>Dimensao</th><th>Pessimista</th><th>Realista</th><th>Otimista</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Politica</td>
+                        <td>Ambiente regulatorio mais rigido para dados de saude e pagamentos eleva custo de conformidade e retarda integracoes para clinicas menores.</td>
+                        <td>LGPD, governanca de dados e iniciativas como SUS Digital pressionam o mercado a formalizar processos, favorecendo plataformas mais organizadas que chat e planilha.</td>
+                        <td>Maior maturidade institucional em saude digital e interoperabilidade reduz resistencia de parceiros e acelera contratos com clinicas e operacoes B2B.</td>
+                    </tr>
+                    <tr>
+                        <td>Economica</td>
+                        <td>Crescimento fraco e orcamento comprimido nas clinicas fazem o mercado adiar investimentos em software, mesmo quando a dor operacional existe.</td>
+                        <td>Com crescimento moderado, as clinicas tendem a priorizar ferramentas que reduzam retrabalho, custo oculto e tempo administrativo, o que favorece um MVP enxuto com ROI rapido.</td>
+                        <td>Com melhora do ambiente economico e maior previsibilidade, o FastInBox pode escalar de piloto para assinatura recorrente e servicos premium por clinica.</td>
+                    </tr>
+                    <tr>
+                        <td>Social</td>
+                        <td>Parte dos usuarios pode manter preferencia por processos informais, principalmente quando ainda confia em WhatsApp e pagamentos manuais.</td>
+                        <td>A combinacao de alta conectividade, busca por conveniencia e maior preocupacao com alimentacao personalizada sustenta a adocao gradual de uma jornada digital simples.</td>
+                        <td>Aumento da consciencia preventiva em saude e valorizacao de acompanhamento nutricional elevam a propensao de pacientes e clinicas a usar experiencias white label especializadas.</td>
+                    </tr>
+                    <tr>
+                        <td>Tecnologica</td>
+                        <td>Integracoes, observabilidade e dados podem ficar caras ou dispersas se o projeto crescer sem consolidar a base transacional e de auditoria.</td>
+                        <td>Cloud, Pix, front-end responsivo, GitHub Pages e stack TypeScript permitem construir um produto demonstravel e evolutivo com custo controlado.</td>
+                        <td>Maior acesso a analytics, IA aplicada, automacao e integracao server-side abre espaco para previsao de demanda, telemetria e inteligencia operacional no PI IV e alem.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="note">Leitura sintetica do cenario: o cenario realista ja e suficientemente favoravel para validar o FastInBox, desde que o projeto mantenha foco em clareza operacional, confianca de pagamento e rastreabilidade.</div>
+        </section>
+
+        <section id="secao-6">
+            <h2>6. Beneficios da Solucao</h2>
+            <div class="benefits-grid">
+                <article class="benefit-card">
+                    <h3>Reducao de retrabalho</h3>
+                    <p>O pedido deixa de depender de troca manual de mensagens, planilhas paralelas e confirmacoes fora do fluxo.</p>
+                </article>
+                <article class="benefit-card">
+                    <h3>Maior confianca do paciente</h3>
+                    <p>A jornada apresenta pedido, valor, confirmacao, pagamento e status no mesmo ambiente, sob a marca da clinica.</p>
+                </article>
+                <article class="benefit-card">
+                    <h3>Fila operacional qualificada</h3>
+                    <p>A cozinha recebe apenas pedidos aprovados, com itens e observacoes acessiveis, diminuindo erro de execucao.</p>
+                </article>
+                <article class="benefit-card">
+                    <h3>Visao de governanca</h3>
+                    <p>Administracao e equipe passam a acompanhar pedidos, status, excecoes e backlog com evidencias tecnicas versionadas.</p>
+                </article>
+                <article class="benefit-card">
+                    <h3>Base para escala</h3>
+                    <p>O MVP organiza front, backend, dados, deploy e docs de modo que a plataforma possa evoluir para SaaS multi-clinica.</p>
+                </article>
+                <article class="benefit-card">
+                    <h3>Valor para banca e continuidade</h3>
+                    <p>O projeto gera artefatos formais que sustentam avaliacao academica e reduzem dependencia de memoria individual da equipe.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="secao-7">
+            <h2>7. Publico Alvo</h2>
+            <div class="persona-grid">
+                <article class="persona-card">
+                    <h3>Nutricionista / clinica parceira</h3>
+                    <p>Persona primaria do negocio. Precisa cadastrar pacientes, gerar pedidos e manter sua propria identidade visual com menos retrabalho administrativo.</p>
+                </article>
+                <article class="persona-card">
+                    <h3>Paciente final</h3>
+                    <p>Usuario B2C que acessa o pedido por codigo, revisa composicao, confirma, paga e acompanha o andamento em ambiente responsivo, geralmente pelo celular.</p>
+                </article>
+                <article class="persona-card">
+                    <h3>Cozinha parceira</h3>
+                    <p>Perfil operacional que precisa de leitura rapida, status claros e acesso somente a pedidos pagos e aptos para producao.</p>
+                </article>
+                <article class="persona-card">
+                    <h3>Administracao FastInBox</h3>
+                    <p>Perfil de governanca que monitora saude da operacao, usuarios, pedidos, riscos e evidencias para tomada de decisao.</p>
+                </article>
+            </div>
+            <p>Em termos de recorte mercadologico, o ICP do projeto nesta fase e formado por clinicas e nutricionistas que ja operam marmitas personalizadas ou desejam estruturar esse servico com mais padrao, previsibilidade e marca propria, sem implantar uma operacao de software excessivamente complexa logo no primeiro ciclo.</p>
+        </section>
+
+        <section id="secao-8">
+            <h2>8. Cronograma de Marcos</h2>
+            <p class="section-lead">Cronograma de alto nivel alinhado aos artefatos versionados e ao backlog incremental do projeto.</p>
+            <table>
+                <thead>
+                    <tr><th>Marco</th><th>Data</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Consolidacao inicial da ERS</td><td>20/03/2026</td></tr>
+                    <tr><td>MVP Canvas fechado para validacao tecnica</td><td>27/03/2026</td></tr>
+                    <tr><td>Baseline do fluxo E2E do MVP em desenvolvimento</td><td>03/04/2026</td></tr>
+                    <tr><td>Publicacao da biblioteca de documentos no GitHub Pages</td><td>10/04/2026</td></tr>
+                    <tr><td>Documento principal do projeto publicado</td><td>14/04/2026</td></tr>
+                    <tr><td>Inicio da Sprint 2 com foco em API e persistencia</td><td>18/04/2026</td></tr>
+                    <tr><td>Entrega do schema relacional e contratos principais do backend</td><td>25/04/2026</td></tr>
+                    <tr><td>Persistencia de pacientes e pedidos no servidor</td><td>09/05/2026</td></tr>
+                    <tr><td>Smoke test da jornada principal automatizado</td><td>23/05/2026</td></tr>
+                    <tr><td>Rodada de testes fechados / alfa com convidados e orientacao</td><td>06/06/2026</td></tr>
+                    <tr><td>Rodada beta com stakeholders reais</td><td>20/06/2026</td></tr>
+                    <tr><td>Pacote PI IV: marketing, video e analytics</td><td>27/06/2026</td></tr>
+                </tbody>
+            </table>
+            <div class="note">O cronograma detalhado de cards e sprints permanece como desdobramento operacional no backlog versionado do projeto e nos artefatos de sprint do hub tecnico.</div>
+        </section>
+
+        <section id="secao-9">
+            <h2>9. Requisitos Funcionais</h2>
+            <table>
+                <thead>
+                    <tr><th>Codigo</th><th>Descricao</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>RF001</td><td>Permitir autenticacao por perfil, com acesso segregado entre nutricionista, paciente, cozinha e administracao.</td></tr>
+                    <tr><td>RF002</td><td>Permitir cadastro, consulta e atualizacao de pacientes vinculados ao nutricionista autenticado.</td></tr>
+                    <tr><td>RF003</td><td>Permitir criacao de pedidos com uma ou mais marmitas, calculo de valor e geracao de codigo unico compartilhavel.</td></tr>
+                    <tr><td>RF004</td><td>Permitir ao paciente acessar o pedido por codigo, revisar dados e confirmar a solicitacao antes do pagamento.</td></tr>
+                    <tr><td>RF005</td><td>Registrar pagamento integrado e liberar o pedido para producao somente quando houver aprovacao financeira valida.</td></tr>
+                    <tr><td>RF006</td><td>Disponibilizar painel operacional da cozinha com fila de pedidos pagos e atualizacao de status da producao ate a entrega.</td></tr>
+                    <tr><td>RF007</td><td>Disponibilizar painel administrativo com visao consolidada de usuarios, pedidos, configuracoes e indicadores minimos da operacao.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="secao-10">
+            <h2>10. Requisitos Nao Funcionais</h2>
+            <table>
+                <thead>
+                    <tr><th>Codigo</th><th>Tipo</th><th>Descricao</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>RNF001</td><td>Performance</td><td>O fluxo principal deve responder com navegacao fluida em dispositivos desktop e mobile, evitando paginas pesadas e interacoes que comprometam a leitura operacional.</td></tr>
+                    <tr><td>RNF002</td><td>Usabilidade</td><td>A interface deve manter linguagem objetiva, forte contraste, hierarquia visual clara e feedback imediato para acoes criticas como salvar, confirmar, pagar e atualizar status.</td></tr>
+                    <tr><td>RNF003</td><td>Seguranca</td><td>Dados sensiveis devem respeitar segregacao por perfil, minimizacao de exposicao, autenticacao coerente e trilha auditavel de eventos financeiros e operacionais.</td></tr>
+                    <tr><td>RNF004</td><td>Manutenibilidade</td><td>O codigo deve permanecer modular, tipado e documentado o suficiente para permitir evolucao de front, back e docs sem acoplamento excessivo.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="secao-11">
+            <h2>11. Prototipo Visual</h2>
+            <div class="link-banner">
+                <strong>Link principal do prototipo funcional:</strong>
+                <a href="https://front-chi-flame.vercel.app" target="_blank" rel="noopener noreferrer">https://front-chi-flame.vercel.app</a>
+            </div>
+            <p>Na fase atual, o prototipo visual do FastInBox esta implementado como prototipo funcional navegavel no frontend publicado. Como o repositorio nao contem um link publico de Figma compartilhado, a sequencia abaixo representa o fluxo visual padrao efetivamente construido no produto.</p>
+            <div class="prototype-grid">
+                <article class="prototype-card">
+                    <h3>01. Home e entrada por perfil</h3>
+                    <div class="screen">
+                        <div class="screen-header"><span>Home</span><span>Publica</span></div>
+                        <ul>
+                            <li>Proposta de valor.</li>
+                            <li>Entrada para login.</li>
+                            <li>Acesso a documentos legais.</li>
+                        </ul>
+                    </div>
+                </article>
+                <article class="prototype-card">
+                    <h3>02. Dashboard do nutricionista</h3>
+                    <div class="screen">
+                        <div class="screen-header"><span>Nutricionista</span><span>Operacao</span></div>
+                        <ul>
+                            <li>Pacientes e pedidos recentes.</li>
+                            <li>Metricas do fluxo.</li>
+                            <li>Atalho para novo pedido.</li>
+                        </ul>
+                    </div>
+                </article>
+                <article class="prototype-card">
+                    <h3>03. Cadastro de paciente e novo pedido</h3>
+                    <div class="screen">
+                        <div class="screen-header"><span>Formulario</span><span>Guided</span></div>
+                        <ul>
+                            <li>Dados do paciente.</li>
+                            <li>Itens, valores e observacoes.</li>
+                            <li>Geracao de codigo unico.</li>
+                        </ul>
+                    </div>
+                </article>
+                <article class="prototype-card">
+                    <h3>04. Revisao do paciente</h3>
+                    <div class="screen">
+                        <div class="screen-header"><span>Paciente</span><span>Mobile-first</span></div>
+                        <ul>
+                            <li>Acesso por codigo.</li>
+                            <li>Conferencia do pedido.</li>
+                            <li>Confirmacao antes do checkout.</li>
+                        </ul>
+                    </div>
+                </article>
+                <article class="prototype-card">
+                    <h3>05. Pagamento e sucesso</h3>
+                    <div class="screen">
+                        <div class="screen-header"><span>Checkout</span><span>Conversao</span></div>
+                        <ul>
+                            <li>Pagamento integrado.</li>
+                            <li>Feedback de sucesso.</li>
+                            <li>Transicao para status do pedido.</li>
+                        </ul>
+                    </div>
+                </article>
+                <article class="prototype-card">
+                    <h3>06. Cozinha e acompanhamento</h3>
+                    <div class="screen">
+                        <div class="screen-header"><span>Kanban</span><span>Execucao</span></div>
+                        <ul>
+                            <li>Fila de pedidos pagos.</li>
+                            <li>Atualizacao de status.</li>
+                            <li>Leitura rapida da operacao.</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="secao-12">
+            <h2>12. Requisito dos MVPs</h2>
+            <p>O MVP do FastInBox foi definido para provar valor operacional antes de ampliar o escopo. Por isso, os requisitos abaixo distinguem o recorte mobile, centrado na experiencia do paciente, e o recorte web, centrado na operacao de clinica, cozinha e administracao.</p>
+        </section>
+
+        <section id="secao-12-1">
+            <h2>12.1 Aplicativo Movel</h2>
+            <div class="mvp-grid">
+                <article class="mvp-card">
+                    <h3>Recorte funcional</h3>
+                    <ul>
+                        <li>Acesso por codigo do pedido.</li>
+                        <li>Revisao e confirmacao do pedido.</li>
+                        <li>Pagamento simplificado.</li>
+                        <li>Acompanhamento de status.</li>
+                    </ul>
+                </article>
+                <article class="mvp-card">
+                    <h3>Implementacao prevista</h3>
+                    <p>Nesta fase, o MVP movel sera atendido por web responsiva/PWA, e nao por aplicativo nativo. O foco e garantir experiencia clara no celular, que e o dispositivo dominante da jornada do paciente.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="secao-12-2">
+            <h2>12.2 Web Application</h2>
+            <div class="mvp-grid">
+                <article class="mvp-card">
+                    <h3>Recorte funcional</h3>
+                    <ul>
+                        <li>Painel do nutricionista com pacientes e pedidos.</li>
+                        <li>Painel da cozinha com status operacional.</li>
+                        <li>Dashboard administrativo com governanca minima.</li>
+                        <li>Hub documental em GitHub Pages.</li>
+                    </ul>
+                </article>
+                <article class="mvp-card">
+                    <h3>Criterio de validacao</h3>
+                    <p>O web application sera considerado aderente ao MVP se demonstrar o fluxo E2E de criar pedido, revisar, pagar, produzir e acompanhar sem ruptura entre os perfis envolvidos.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="secao-13">
+            <h2>13. Modelo de Dados (Web Application / Backoffice)</h2>
+            <p>O modelo de dados do FastInBox foi estruturado para migrar da persistencia local do MVP para uma base relacional no backend, preservando rastreabilidade comercial, financeira e operacional.</p>
+            <div class="model-grid">
+                <article class="model-card">
+                    <h3>Entidades centrais</h3>
+                    <ul>
+                        <li><strong>clinics</strong>: identidade, branding e dados da clinica.</li>
+                        <li><strong>users</strong>: perfis, credenciais e permissao.</li>
+                        <li><strong>patients</strong>: cadastro clinico do paciente.</li>
+                        <li><strong>orders</strong>: cabecalho do pedido e codigo unico.</li>
+                        <li><strong>order_items</strong>: composicao detalhada das marmitas.</li>
+                        <li><strong>payments</strong>: status financeiro e conciliacao.</li>
+                        <li><strong>production_events</strong>: historico de producao e entrega.</li>
+                    </ul>
+                </article>
+                <article class="model-card">
+                    <h3>Relacionamentos principais</h3>
+                    <ul>
+                        <li>clinics 1:N users</li>
+                        <li>users 1:N patients</li>
+                        <li>patients 1:N orders</li>
+                        <li>orders 1:N order_items</li>
+                        <li>orders 1:N payments</li>
+                        <li>orders 1:N production_events</li>
+                    </ul>
+                </article>
+            </div>
+            <table>
+                <thead>
+                    <tr><th>Elemento</th><th>Visao de backend / backoffice</th><th>Objetivo no negocio</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Codigo do pedido</td><td>Campo unico em <code>orders.order_code</code></td><td>Permitir entrada simples do paciente sem ambiguidade.</td></tr>
+                    <tr><td>Status do pedido</td><td>Enum controlado em <code>orders.status</code></td><td>Bloquear avancos invalidos e sustentar a timeline.</td></tr>
+                    <tr><td>Status de pagamento</td><td>Enum em <code>payments.payment_status</code></td><td>Garantir que somente pedido aprovado siga para producao.</td></tr>
+                    <tr><td>Historico operacional</td><td>Tabela <code>production_events</code> com data e autor</td><td>Auditoria e visibilidade do andamento.</td></tr>
+                    <tr><td>Ligacao com clinica</td><td>FK entre usuarios, pacientes e clinicas</td><td>Suportar white label e governanca por parceiro.</td></tr>
+                </tbody>
+            </table>
+            <div class="note">A modelagem pode ser exportada para MySQL Workbench, dbdiagram ou ferramenta equivalente, mas a referencia estrutural oficial do projeto ja esta descrita no documento <a href="./esquema-banco-dados.html">Esquema de Banco de Dados</a>.</div>
+        </section>
+
+        <section id="secao-14">
+            <h2>14. Resultados de Teste</h2>
+            <p>Os resultados abaixo separam a validacao efetivamente realizada no PI III daquelas etapas previstas para PI IV. O objetivo foi manter integridade documental: nao foram inventados resultados inexistentes, mas nenhuma secao foi omitida.</p>
+        </section>
+
+        <section id="secao-14-1">
+            <h2>14.1 Testes Internos (equipe de desenvolvimento)</h2>
+            <div class="testing-grid">
+                <article class="testing-card">
+                    <h3>Quadro resumo</h3>
+                    <table>
+                        <thead><tr><th>Item</th><th>Metodo</th><th>Resultado</th></tr></thead>
+                        <tbody>
+                            <tr><td>Build baseline</td><td>Scripts de build front e back</td><td>Validado no baseline da sprint</td></tr>
+                            <tr><td>Fluxo E2E do MVP</td><td>Navegacao manual guiada</td><td>Disponivel para demonstracao</td></tr>
+                            <tr><td>Publicacao</td><td>Deploy Vercel + GitHub Pages</td><td>Disponivel</td></tr>
+                            <tr><td>Coerencia documental</td><td>Revisao cruzada dos artefatos</td><td>Atualizada ate 14/04/2026</td></tr>
+                        </tbody>
+                    </table>
+                </article>
+                <article class="testing-card">
+                    <h3>Evidencias e links</h3>
+                    <ul>
+                        <li><a href="./sprint-review.html">Sprint 1 Review</a> com consolidacao das evidencias.</li>
+                        <li><a href="../content/sprint-1-project-tasks.md" target="_blank" rel="noopener noreferrer">Tasks Sprint 1</a> com backlog executado.</li>
+                        <li><a href="https://front-chi-flame.vercel.app" target="_blank" rel="noopener noreferrer">Aplicacao publicada</a>.</li>
+                        <li><a href="../index.html">GitHub Pages</a> com biblioteca de documentos.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section id="secao-14-2">
+            <h2>14.2 Testes Alfa / Fechados (Equipe de Teste, Convidados Academicos e Orientador) (PI IV)</h2>
+            <table>
+                <thead><tr><th>Aspecto</th><th>Planejamento</th><th>Status em 14/04/2026</th></tr></thead>
+                <tbody>
+                    <tr><td>Publico</td><td>Equipe de teste, convidados academicos e orientacao.</td><td>Nao iniciado.</td></tr>
+                    <tr><td>Objetivo</td><td>Validar clareza da jornada, compreensao do pedido e leitura do status operacional.</td><td>Planejado para PI IV.</td></tr>
+                    <tr><td>Instrumento</td><td>Roteiro de tarefas + questionario estruturado.</td><td>A definir na rodada alfa.</td></tr>
+                    <tr><td>Evidencia esperada</td><td>Relatorio resumido com incidentes, severidade e acoes corretivas.</td><td>Pendente de execucao.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="secao-14-3">
+            <h2>14.3 Testes Beta (Stakeholders) (PI IV)</h2>
+            <table>
+                <thead><tr><th>Aspecto</th><th>Planejamento</th><th>Status em 14/04/2026</th></tr></thead>
+                <tbody>
+                    <tr><td>Publico</td><td>Nutricionistas parceiros, pacientes piloto e stakeholders da operacao.</td><td>Nao iniciado.</td></tr>
+                    <tr><td>Objetivo</td><td>Observar uso em contexto mais proximo do real, incluindo confirmacao, pagamento e producao.</td><td>Planejado para PI IV.</td></tr>
+                    <tr><td>Metricas</td><td>Taxa de confirmacao, conversao de pagamento, tempo de pedido e ocorrencias por status.</td><td>Pendente de execucao.</td></tr>
+                    <tr><td>Evidencia esperada</td><td>Painel de insights e backlog de melhoria priorizado.</td><td>Pendente de execucao.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="secao-15">
+            <h2>15. Marketing Digital (PI IV)</h2>
+            <div class="marketing-grid">
+                <article class="marketing-card">
+                    <h3>Plano de Marketing</h3>
+                    <p>Posicionar o FastInBox como infraestrutura digital white label para nutricionistas e clinicas venderem marmitas personalizadas com mais controle, confianca e visibilidade operacional.</p>
+                </article>
+                <article class="marketing-card">
+                    <h3>Estrategia de Monetizacao</h3>
+                    <ul>
+                        <li>Comissao por pedido.</li>
+                        <li>Assinatura mensal por clinica.</li>
+                        <li>Pacotes premium de analytics e governanca.</li>
+                    </ul>
+                </article>
+                <article class="marketing-card">
+                    <h3>Estrategia de Divulgacao do Produto</h3>
+                    <ul>
+                        <li>Landing page com video curto e CTA para piloto.</li>
+                        <li>Conteudos em redes sociais com foco em produtividade da clinica.</li>
+                        <li>Demonstracao guiada para nutricionistas parceiros.</li>
+                    </ul>
+                </article>
+                <article class="marketing-card">
+                    <h3>Estrategia de Aquisicao de Clientes</h3>
+                    <ul>
+                        <li>Piloto com clinicas de referencia.</li>
+                        <li>Indicacao entre nutricionistas.</li>
+                        <li>Prova de valor centrada em tempo poupado e reducao de erro.</li>
+                    </ul>
+                </article>
+                <article class="marketing-card">
+                    <h3>Estrategia de Formacao de Precos</h3>
+                    <p>Modelo hibrido: ticket de implantacao reduzido para entrada, assinatura por faixa de volume e fee variavel por pedido quando a operacao estiver validada em producao.</p>
+                </article>
+                <article class="marketing-card">
+                    <h3>Desdobramento dos 4 Ps para os 4 Cs</h3>
+                    <table>
+                        <thead><tr><th>4 Ps</th><th>4 Cs equivalentes</th></tr></thead>
+                        <tbody>
+                            <tr><td>Produto</td><td>Cliente: jornada white label clara e confiavel.</td></tr>
+                            <tr><td>Preco</td><td>Custo: assinatura + fee alinhados ao ganho operacional.</td></tr>
+                            <tr><td>Praca</td><td>Conveniencia: acesso web, mobile e checkout simplificado.</td></tr>
+                            <tr><td>Promocao</td><td>Comunicacao: prova de valor por demonstracao e casos piloto.</td></tr>
+                        </tbody>
+                    </table>
+                </article>
+                <article class="marketing-card">
+                    <h3>Video Promocional</h3>
+                    <p>Planejado para PI IV em formato de 45 a 60 segundos, mostrando a dor atual, o fluxo FastInBox e a proposta de valor para clinicas e nutricionistas.</p>
+                </article>
+                <article class="marketing-card">
+                    <h3>Video de Instrucao de uso do Produto</h3>
+                    <p>Planejado para PI IV em formato tutorial, cobrindo login, criacao de pedido, revisao do paciente, pagamento e fluxo da cozinha.</p>
+                </article>
+                <article class="marketing-card">
+                    <h3>Insights de Mercado (Google Looker ou similar)</h3>
+                    <p>Planejada modelagem analitica com funil de pedido, taxa de conversao, lead time pago-&gt;pronto, ticket medio, pedidos por clinica e principais pontos de abandono.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="secao-16">
+            <h2>16. Bibliografia</h2>
+            <ol class="references-list">
+                <li>FASTINBOX. <a href="./documento-visao.html">Documento de Visao</a>. GitHub Pages, 2026. Acesso em: 14 abr. 2026.</li>
+                <li>FASTINBOX. <a href="./business-model-canvas.html">Business Model Canvas Tecnico</a>. GitHub Pages, 2026. Acesso em: 14 abr. 2026.</li>
+                <li>FASTINBOX. <a href="./plano-projeto.html">Plano de Projeto Tecnico</a>. GitHub Pages, 2026. Acesso em: 14 abr. 2026.</li>
+                <li>FASTINBOX. <a href="./requisitos-software.html">Especificacao de Requisitos de Software</a>. GitHub Pages, 2026. Acesso em: 14 abr. 2026.</li>
+                <li>FASTINBOX. <a href="./arquitetura-uml.html">Arquitetura UML da Plataforma</a>. GitHub Pages, 2026. Acesso em: 14 abr. 2026.</li>
+                <li>FASTINBOX. <a href="./esquema-banco-dados.html">Esquema de Banco de Dados</a>. GitHub Pages, 2026. Acesso em: 14 abr. 2026.</li>
+                <li>FASTINBOX. <a href="../fastinbox-mvp-canvas-paulo-caroli.md" target="_blank" rel="noopener noreferrer">MVP Canvas</a>. Repositorio docs, 2026. Acesso em: 14 abr. 2026.</li>
+                <li>BRASIL. Ministerio da Saude. <a href="https://bvsms.saude.gov.br/bvs/publicacoes/vigitel_brasil_2023.pdf" target="_blank" rel="noopener noreferrer">Vigitel Brasil 2023: vigilancia de fatores de risco e protecao para doencas cronicas por inquerito telefonico</a>. Brasilia, 2024. Acesso em: 14 abr. 2026.</li>
+                <li>IBGE. <a href="https://agenciadenoticias.ibge.gov.br/media/com_mediaibge/arquivos/b433a668d9b22364c742c3fab5c8f227.pdf" target="_blank" rel="noopener noreferrer">PNAD Continua TIC 2023</a>. Rio de Janeiro, 2025. Acesso em: 14 abr. 2026.</li>
+                <li>IBGE. <a href="https://biblioteca.ibge.gov.br/visualizacao/periodicos/53/pac_2023_v35_informativo.pdf" target="_blank" rel="noopener noreferrer">Pesquisa Anual do Comercio 2023 - Informativo</a>. Rio de Janeiro, 2025. Acesso em: 14 abr. 2026.</li>
+                <li>BANCO CENTRAL DO BRASIL. <a href="https://www.bcb.gov.br/content/estabilidadefinanceira/relatorios_SPI/relatorio_anual_spi_2024.pdf" target="_blank" rel="noopener noreferrer">SPI - Sistema de Pagamentos Instantaneos: Relatorio anual 2024</a>. Brasilia, 2024. Acesso em: 14 abr. 2026.</li>
+                <li>BRASIL. Ministerio da Saude. <a href="https://bvsms.saude.gov.br/bvs/publicacoes/relatorio_monitoramento_estrategia_saude_digital_2020-2028.pdf" target="_blank" rel="noopener noreferrer">3o relatorio de monitoramento da Estrategia de Saude Digital para o Brasil 2020-2028</a>. Brasilia, 2026. Acesso em: 14 abr. 2026.</li>
+                <li>WORLD BANK. <a href="https://www.worldbank.org/en/publication/global-economic-prospects" target="_blank" rel="noopener noreferrer">Global Economic Prospects</a>. Washington, DC, janeiro de 2025. Acesso em: 14 abr. 2026.</li>
+            </ol>
+        </section>
+
+        <section id="apendice-i">
+            <h2>APENDICE I - TECNOLOGIAS UTILIZADAS</h2>
+            <p class="section-lead">(Links das ferramentas e status de acesso para compartilhamento com kadidja.oliveira@ceub.edu.br)</p>
+            <div class="appendix-grid">
+                <article class="appendix-card">
+                    <h3>Gestao</h3>
+                    <table>
+                        <thead><tr><th>Frente</th><th>Ferramenta / Link</th><th>Status de acesso</th></tr></thead>
+                        <tbody>
+                            <tr><td>Gestao do Projeto</td><td><a href="https://trello.com/" target="_blank" rel="noopener noreferrer">Trello</a></td><td>Quadro do projeto deve ser compartilhado com a orientadora na consolidacao PI IV.</td></tr>
+                            <tr><td>Gestao da Configuracao</td><td><a href="https://github.com/FastInBox-Repo" target="_blank" rel="noopener noreferrer">GitHub Organization</a></td><td>Acesso publico aos repositorios e artefatos publicados.</td></tr>
+                        </tbody>
+                    </table>
+                </article>
+                <article class="appendix-card">
+                    <h3>Desenvolvimento Front-End</h3>
+                    <table>
+                        <thead><tr><th>Frente</th><th>Ferramenta / Link</th><th>Status de acesso</th></tr></thead>
+                        <tbody>
+                            <tr><td>Prototipacao</td><td><a href="https://www.figma.com/" target="_blank" rel="noopener noreferrer">Figma</a></td><td>Link publico do arquivo nao localizado no repositorio; compartilhar com a orientadora na PI IV.</td></tr>
+                            <tr><td>Frontend - Aplicativo</td><td><a href="https://front-chi-flame.vercel.app" target="_blank" rel="noopener noreferrer">Aplicacao publicada</a></td><td>Acesso publico para demonstracao.</td></tr>
+                            <tr><td>Frontend - Aplicacao Web</td><td><a href="https://github.com/FastInBox-Repo/front" target="_blank" rel="noopener noreferrer">Repositorio front</a></td><td>Acesso publico ao codigo e historico.</td></tr>
+                        </tbody>
+                    </table>
+                </article>
+                <article class="appendix-card">
+                    <h3>Desenvolvimento Backend</h3>
+                    <table>
+                        <thead><tr><th>Frente</th><th>Ferramenta / Link</th><th>Status de acesso</th></tr></thead>
+                        <tbody>
+                            <tr><td>API Management</td><td><a href="https://github.com/FastInBox-Repo/back" target="_blank" rel="noopener noreferrer">Repositorio back</a></td><td>Acesso publico ao baseline backend.</td></tr>
+                            <tr><td>Servidor de Aplicacao</td><td><a href="https://github.com/FastInBox-Repo/.github/blob/main/DEPLOYMENT.md" target="_blank" rel="noopener noreferrer">Guia de deployment</a></td><td>Render previsto para a API e Vercel para o front.</td></tr>
+                            <tr><td>Sistema Gerenciador de Banco de Dados</td><td><a href="https://neon.tech" target="_blank" rel="noopener noreferrer">Neon / PostgreSQL</a></td><td>Planejado para Sprint 2 e PI IV.</td></tr>
+                        </tbody>
+                    </table>
+                </article>
+                <article class="appendix-card">
+                    <h3>Testes e gestao de demandas</h3>
+                    <table>
+                        <thead><tr><th>Frente</th><th>Ferramenta / Link</th><th>Status de acesso</th></tr></thead>
+                        <tbody>
+                            <tr><td>Automacao de testes</td><td><a href="https://qase.io/" target="_blank" rel="noopener noreferrer">QASE.IO</a></td><td>Ferramenta prevista; instancia do projeto ainda nao publicada.</td></tr>
+                            <tr><td>Bug Tracking</td><td><a href="https://github.com/FastInBox-Repo/front/issues" target="_blank" rel="noopener noreferrer">GitHub Issues</a></td><td>Pode concentrar incidentes e backlog tecnico.</td></tr>
+                        </tbody>
+                    </table>
+                </article>
+                <article class="appendix-card">
+                    <h3>Analitica</h3>
+                    <table>
+                        <thead><tr><th>Frente</th><th>Ferramenta / Link</th><th>Status de acesso</th></tr></thead>
+                        <tbody>
+                            <tr><td>Extracao, Transformacao e Carga</td><td><a href="https://drive.google.com/" target="_blank" rel="noopener noreferrer">Google Drive / scripts</a></td><td>Fluxo analitico previsto para PI IV; pasta compartilhada ainda nao publicada.</td></tr>
+                            <tr><td>Visualizacao de dados</td><td><a href="https://lookerstudio.google.com/" target="_blank" rel="noopener noreferrer">Google Looker Studio</a></td><td>Painel planejado para acompanhar funil e lead time.</td></tr>
+                        </tbody>
+                    </table>
+                </article>
+                <article class="appendix-card">
+                    <h3>Marketing e Publicacao</h3>
+                    <table>
+                        <thead><tr><th>Frente</th><th>Ferramenta / Link</th><th>Status de acesso</th></tr></thead>
+                        <tbody>
+                            <tr><td>Editoracao de video</td><td>Ferramenta a confirmar no PI IV</td><td>Definicao pendente.</td></tr>
+                            <tr><td>Publicacao</td><td><a href="https://fastinbox-repo.github.io/docs/" target="_blank" rel="noopener noreferrer">GitHub Pages</a></td><td>Acesso publico ativo.</td></tr>
+                            <tr><td>Redes Sociais</td><td>Canais institucionais a abrir</td><td>Planejado para PI IV.</td></tr>
+                        </tbody>
+                    </table>
+                </article>
+                <article class="appendix-card">
+                    <h3>Tecnologias Habilitadoras Digitais</h3>
+                    <table>
+                        <thead><tr><th>Tecnologia</th><th>Uso no FastInBox</th></tr></thead>
+                        <tbody>
+                            <tr><td>IoT</td><td>Nao aplicavel ao MVP atual.</td></tr>
+                            <tr><td>5G</td><td>Suporte indireto a melhor conectividade mobile, sem dependencia arquitetural especifica.</td></tr>
+                            <tr><td>Blockchain</td><td>Nao aplicavel ao recorte atual.</td></tr>
+                            <tr><td>Realidade Aumentada</td><td>Nao aplicavel ao recorte atual.</td></tr>
+                            <tr><td>Realidade Virtual</td><td>Nao aplicavel ao recorte atual.</td></tr>
+                            <tr><td>Robotic Process Automation</td><td>Possivel uso futuro em conciliacao e rotinas administrativas.</td></tr>
+                            <tr><td>Machine Learning</td><td>Planejado para previsao de demanda e recomendacoes operacionais em fases futuras.</td></tr>
+                            <tr><td>Deep Learning</td><td>Fora do escopo do MVP.</td></tr>
+                            <tr><td>Inteligencia Artificial</td><td>Aplicacao futura em analytics, previsao e apoio a decisao.</td></tr>
+                            <tr><td>Business Intelligence</td><td>Previsto via Looker Studio no PI IV.</td></tr>
+                            <tr><td>Big Data</td><td>Fora do escopo do MVP; pode se tornar relevante apenas em fase de escala multi-clinica.</td></tr>
+                        </tbody>
+                    </table>
+                </article>
+            </div>
+        </section>
+
+        <footer class="footer">
+            Documento principal do projeto FastInBox. Dados institucionais pessoais nao encontrados no repositorio foram mantidos explicitamente como campos a informar, sem omissao de estrutura.
+        </footer>
+    </main>
+</body>
+</html>

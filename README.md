@@ -19,6 +19,7 @@ Concentrar documentos formais de produto, arquitetura e operacao para apresentac
 
 ## Documentos publicados
 
+- Documento Principal do Projeto
 - Arquitetura UML
 - Business Model Canvas
 - Sprint Review
