@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Evidencias Sprint 2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+    <style>
+        .evidence-block {
+            border: 3px solid #000000;
+            margin-top: 1.1rem;
+            padding: 0;
+            box-shadow: 6px 6px 0 #000000;
+            background: #ffffff;
+            overflow: hidden;
+        }
+        .evidence-block header {
+            border-bottom: 2px solid #000000;
+            padding: 0.9rem 1.1rem;
+            background: #f4f4f4;
+            display: flex;
+            gap: 0.8rem;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: baseline;
+        }
+        .evidence-block header h3 {
+            margin: 0;
+            font-size: 1.05rem;
+        }
+        .evidence-block header .eyebrow {
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 0.2rem 0.55rem;
+            border: 2px solid #000000;
+            background: #ffffff;
+        }
+        .evidence-body {
+            padding: 1.1rem 1.1rem 0.2rem;
+        }
+        .evidence-body p {
+            margin: 0.2rem 0 0.8rem;
+        }
+        .evidence-shot {
+            border-top: 2px solid #000000;
+            padding: 1rem;
+            background: #ffffff;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.9rem;
+        }
+        .evidence-shot.dual {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .evidence-shot.mobile {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .evidence-shot figure {
+            margin: 0;
+            border: 2px solid #000000;
+            background: #fafafa;
+            padding: 0.55rem;
+            box-shadow: 3px 3px 0 #000000;
+        }
+        .evidence-shot figure img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 1px solid #000000;
+            background: #ffffff;
+        }
+        .evidence-shot figcaption {
+            margin-top: 0.5rem;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            font-weight: 700;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+        }
+        .how-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.9rem;
+            margin-top: 0.7rem;
+        }
+        .how-grid article {
+            border: 2px solid #000000;
+            padding: 0.85rem;
+            background: #fafafa;
+        }
+        .how-grid article h4 {
+            margin: 0 0 0.4rem;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.02em;
+        }
+        .how-grid article ol,
+        .how-grid article ul {
+            margin: 0 0 0 1.2rem;
+            padding: 0;
+        }
+        .how-grid article li {
+            margin-bottom: 0.35rem;
+            font-size: 0.9rem;
+        }
+        .badge-row {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 0.2rem 0 0.4rem;
+        }
+        .badge-row span {
+            border: 2px solid #000000;
+            padding: 0.2rem 0.55rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            font-weight: 700;
+            background: #ffffff;
+        }
+        .code-inline {
+            font-family: "IBM Plex Mono", "Menlo", monospace;
+            background: #f4f4f4;
+            border: 1px solid #000000;
+            padding: 0 0.35rem;
+            font-size: 0.85rem;
+        }
+        @media (max-width: 680px) {
+            .evidence-shot.dual,
+            .evidence-shot.mobile,
+            .how-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./sprint-2-planning.html">Ver planejamento Sprint 2</a>
+            <a href="./sprint-review.html">Review Sprint 1</a>
+            <a href="https://front-chi-flame.vercel.app" target="_blank" rel="noopener noreferrer">Abrir plataforma</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Sprint governance</p>
+            <h1>Evidencias Sprint 2</h1>
+            <p>Periodo: Sprint 2 | Status: Entregas concluidas com evidencia visual, build validado e smoke test em verde.</p>
+            <p>Documento voltado para banca academica e para a propria equipe: mostra o que foi construido, quem participou, como validar manualmente e prints de cada parte em funcionamento. Segue o padrao neo-brutal preto e branco do hub oficial do FastInBox.</p>
+        </header>
+
+        <section>
+            <h2>1. Como ler este documento</h2>
+            <p>Cada bloco abaixo representa uma entrega da Sprint 2. Cada entrega mostra:</p>
+            <ul>
+                <li><strong>O que foi feito:</strong> funcionalidade tecnica construida e valor gerado.</li>
+                <li><strong>Como foi testado:</strong> caminho que a equipe percorreu para validar em baseline.</li>
+                <li><strong>Como voce pode testar:</strong> passo a passo direto no ambiente publico.</li>
+                <li><strong>Prints de evidencia:</strong> capturas reais feitas automaticamente via Chrome headless a partir do front em <span class="code-inline">localhost:3001</span>, com dados de seed controlados.</li>
+            </ul>
+            <div class="note">As capturas foram geradas pelo script <span class="code-inline">front/scripts/capture-evidencias.mjs</span>, que popula <span class="code-inline">localStorage</span> com dados de demonstracao e navega em sequencia pelos perfis nutricionista, cozinha, admin e paciente.</div>
+        </section>
+
+        <section>
+            <h2>2. Time e autoria da sprint</h2>
+            <table>
+                <thead><tr><th>Area</th><th>Responsavel sugerido</th><th>Entrega principal</th></tr></thead>
+                <tbody>
+                    <tr><td>Frontend / UX</td><td>Thiago Salves</td><td>Sync entre abas, feedbacks do paciente, kanban com timestamp, dashboard admin com eventos, layout neo-brutal consistente.</td></tr>
+                    <tr><td>Observabilidade</td><td>Thiago Salves</td><td>Novo <span class="code-inline">auditStore</span>, pagina de auditoria no admin e instrumentacao dos fluxos criticos.</td></tr>
+                    <tr><td>Qualidade / QA</td><td>Thiago Salves</td><td>Pagina de diagnostico com smoke test E2E acionavel e script de captura automatizada de evidencias.</td></tr>
+                    <tr><td>Docs / Governanca</td><td>Thiago Salves</td><td>Atualizacao do hub GitHub Pages, este documento de evidencias e alinhamento com o planning publicado.</td></tr>
+                </tbody>
+            </table>
+            <p class="mini-note">A Sprint 2 foi executada em formato concentrado, com um unico desenvolvedor atuando como fullstack + QA + docs, simulando a composicao minima viavel para evolucao do MVP academico.</p>
+        </section>
+
+        <section>
+            <h2>3. O que foi desenvolvido nesta sprint</h2>
+            <p>Abaixo estao as entregas consolidadas ja em produtivas, cruzando o backlog do <a href="./sprint-2-planning.html">planning</a> com o que efetivamente entrou em main.</p>
+            <table>
+                <thead><tr><th>Entregavel do planning</th><th>Implementacao</th><th>Arquivos principais</th></tr></thead>
+                <tbody>
+                    <tr><td>Persistencia server-side / sincronizacao</td><td>Camada <span class="code-inline">sprintStore</span> com persistencia em <span class="code-inline">localStorage</span>, hidratacao inicial e sincronizacao entre abas via evento <span class="code-inline">storage</span>. Qualquer mutacao em uma aba reflete nas demais.</td><td><span class="code-inline">front/src/figma-app/app/data/sprintStore.ts</span></td></tr>
+                    <tr><td>Kanban sincronizado</td><td>Dashboard da cozinha passa a mostrar indicador visual de sincronizacao e timestamp da ultima atualizacao. O kanban escuta o store e reage a mudancas geradas em outras abas.</td><td><span class="code-inline">front/src/figma-app/app/pages/cozinha/CozinhaDashboardPage.tsx</span></td></tr>
+                    <tr><td>Observabilidade minima</td><td>Novo <span class="code-inline">auditStore</span> dedicado para eventos criticos (login, pedido, pagamento, mudanca de status). Cap de 200 eventos, persistencia e sync. Emitido automaticamente em todos os pontos de mutacao.</td><td><span class="code-inline">front/src/figma-app/app/data/auditStore.ts</span></td></tr>
+                    <tr><td>Eventos criticos / console admin</td><td>Nova pagina <span class="code-inline">/admin/auditoria</span> com filtros por tipo e por ator, busca textual, export em JSON e acao de limpar. Dashboard admin lista os ultimos 6 eventos.</td><td><span class="code-inline">AdminAuditoriaPage.tsx</span>, <span class="code-inline">AdminDashboardPage.tsx</span></td></tr>
+                    <tr><td>Smoke tests E2E</td><td>Pagina <span class="code-inline">/admin/diagnostico</span> roda 7 passos sequenciais (hidratacao, auth, paciente, pedido, pagamento, status, cleanup) usando o store real. Resultado ok/fail por passo e sumario com duracao.</td><td><span class="code-inline">AdminDiagnosticoPage.tsx</span></td></tr>
+                    <tr><td>Feedbacks de interface</td><td>Fluxo do paciente ganhou indicador ao vivo no acompanhamento do status (timeline com timestamp por etapa) e tela de pagamento multi-estagio (verificando -> processando -> confirmando -> sucesso).</td><td><span class="code-inline">paciente/StatusPage.tsx</span>, <span class="code-inline">paciente/PagamentoPage.tsx</span></td></tr>
+                    <tr><td>Governanca / evidencias</td><td>Script de captura automatizada via Chrome DevTools Protocol que gera 12 prints de alta resolucao, este documento e atualizacao do hub do GitHub Pages.</td><td><span class="code-inline">front/scripts/capture-evidencias.mjs</span>, <span class="code-inline">docs/documents/evidencias-sprint-2.html</span></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Evidencia visual por entrega</h2>
+            <p class="section-lead">Cada card abaixo combina descricao tecnica, roteiro de validacao e print real do baseline executado nesta sprint.</p>
+
+            <div class="evidence-block" id="ev-home">
+                <header>
+                    <h3>4.1 Landing publica em modo producao</h3>
+                    <span class="eyebrow">FRONT | PUBLIC</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Rota: /</span>
+                        <span>Perfil: visitante</span>
+                        <span>Canal: desktop</span>
+                    </div>
+                    <p>Home limpa, sem referencia tecnica a protocolos ou ambiente de teste, destacando proposta de valor, chamada para acessar a plataforma e links para documentacao. A tipografia e a composicao seguem o mesmo idioma visual neo-brutal deste hub.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Build <span class="code-inline">next build</span> finalizou sem erros de lint ou tipagem.</li>
+                                <li>Dev server em <span class="code-inline">localhost:3001</span> renderizou a pagina publica.</li>
+                                <li>Captura automatica via CDP validou dom e tipografia.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Abra <a href="https://front-chi-flame.vercel.app" target="_blank" rel="noopener noreferrer">front-chi-flame.vercel.app</a>.</li>
+                                <li>Confirme que a landing carrega sem mencoes de ambiente de teste.</li>
+                                <li>Acione a chamada principal para chegar ao fluxo de login.</li>
+                            </ol>
+                        </article>
+                    </div>
+                </div>
+                <div class="evidence-shot">
+                    <figure>
+                        <img src="./evidencias-sprint-2/01-home-public.png" alt="Home publica FastInBox">
+                        <figcaption>01 | Home publica em alta resolucao</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-login">
+                <header>
+                    <h3>4.2 Tela de login por perfil</h3>
+                    <span class="eyebrow">FRONT | AUTH</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Rota: /login?role=nutricionista</span>
+                        <span>Perfil: todos</span>
+                        <span>Instrumentado no audit</span>
+                    </div>
+                    <p>Login unificado com troca de perfil. A partir desta sprint, cada autenticacao bem sucedida gera evento do tipo <span class="code-inline">login</span> e cada falha registra <span class="code-inline">login_failed</span> no <span class="code-inline">auditStore</span>, viabilizando rastreabilidade minima.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Login com credenciais validas em cada perfil.</li>
+                                <li>Login com credencial invalida para validar evento de falha.</li>
+                                <li>Verificacao dos eventos na pagina <span class="code-inline">/admin/auditoria</span>.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Na home publica, acione <em>Acessar plataforma</em>.</li>
+                                <li>Entre como nutricionista (<span class="code-inline">ana@nutritionvida.com.br</span> / <span class="code-inline">123456</span>).</li>
+                                <li>Depois alterne para <span class="code-inline">admin@fastinbox.com.br</span> e abra <span class="code-inline">/admin/auditoria</span>.</li>
+                            </ol>
+                        </article>
+                    </div>
+                </div>
+                <div class="evidence-shot">
+                    <figure>
+                        <img src="./evidencias-sprint-2/02-login.png" alt="Tela de login FastInBox">
+                        <figcaption>02 | Login da plataforma com perfil selecionavel</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-nutri">
+                <header>
+                    <h3>4.3 Area do nutricionista</h3>
+                    <span class="eyebrow">FRONT | NUTRICIONISTA</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Rotas: /nutricionista/dashboard, /nutricionista/pacientes</span>
+                        <span>Perfil: Nutricionista</span>
+                    </div>
+                    <p>Dashboard da nutricionista com visao de indicadores da clinica e lista de pedidos recentes, mais listagem de pacientes com totais por paciente. As informacoes sao reativas ao <span class="code-inline">sprintStore</span>, entao qualquer pedido criado em outra aba aparece aqui sem precisar recarregar.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Criar pedido em uma aba usando perfil nutricionista.</li>
+                                <li>Abrir nova aba na mesma origem e validar que os indicadores e lista estavam atualizados.</li>
+                                <li>Conferir evento <span class="code-inline">order_created</span> em <span class="code-inline">/admin/auditoria</span>.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Logue como nutricionista.</li>
+                                <li>Abra <span class="code-inline">/nutricionista/dashboard</span> e <span class="code-inline">/nutricionista/pacientes</span>.</li>
+                                <li>Cadastre um paciente ou um pedido e veja os contadores reagirem.</li>
+                            </ol>
+                        </article>
+                    </div>
+                </div>
+                <div class="evidence-shot dual">
+                    <figure>
+                        <img src="./evidencias-sprint-2/03-nutricionista-dashboard.png" alt="Dashboard do nutricionista">
+                        <figcaption>03 | Dashboard do nutricionista</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="./evidencias-sprint-2/04-nutricionista-pacientes.png" alt="Lista de pacientes">
+                        <figcaption>04 | Lista de pacientes cadastrados</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-cozinha">
+                <header>
+                    <h3>4.4 Kanban da cozinha com sincronizacao ao vivo</h3>
+                    <span class="eyebrow">FRONT | COZINHA</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Rota: /cozinha/dashboard</span>
+                        <span>Perfil: Fabrica</span>
+                        <span>Novo: indicador de sync</span>
+                    </div>
+                    <p>O painel da cozinha recebeu indicador de sincronizacao (icone pulsante com timestamp da ultima atualizacao) e responde a eventos do store. Se o paciente confirmar pagamento em outra aba, o pedido aparece na coluna correspondente em tempo real, atendendo ao item <em>Kanban sincronizado</em> do planning.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Abrir o kanban como cozinha e, em paralelo, pagar um pedido em outra aba.</li>
+                                <li>Validar que o card migra de coluna sem refresh manual.</li>
+                                <li>Verificar que o timestamp de sync atualiza.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Logue como cozinha (<span class="code-inline">fabrica@fastinbox.com.br</span> / <span class="code-inline">123456</span>).</li>
+                                <li>Abra outra aba, logue como paciente e confirme um pagamento pendente.</li>
+                                <li>Volte ao kanban e observe o card reposicionar.</li>
+                            </ol>
+                        </article>
+                    </div>
+                </div>
+                <div class="evidence-shot">
+                    <figure>
+                        <img src="./evidencias-sprint-2/05-cozinha-kanban.png" alt="Kanban da cozinha">
+                        <figcaption>05 | Kanban com indicador de sincronizacao</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-admin">
+                <header>
+                    <h3>4.5 Dashboard administrativo com eventos recentes</h3>
+                    <span class="eyebrow">FRONT | ADMIN</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Rota: /admin/dashboard</span>
+                        <span>Perfil: Admin</span>
+                    </div>
+                    <p>Dashboard admin agora consome dados reais do <span class="code-inline">sprintStore</span> e exibe uma coluna adicional <em>Eventos recentes</em> com os ultimos seis eventos do <span class="code-inline">auditStore</span>, ligada diretamente ao console de auditoria. As metricas passaram a refletir pedidos realmente criados no ambiente.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Popular dados atraves do fluxo nutricionista + paciente + cozinha.</li>
+                                <li>Abrir o dashboard admin e validar indicadores.</li>
+                                <li>Clicar em <em>Ver todos</em> e chegar em <span class="code-inline">/admin/auditoria</span>.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Logue como admin (<span class="code-inline">admin@fastinbox.com.br</span> / <span class="code-inline">123456</span>).</li>
+                                <li>Abra <span class="code-inline">/admin/dashboard</span>.</li>
+                                <li>Confirme que os eventos na lateral refletem acoes recentes.</li>
+                            </ol>
+                        </article>
+                    </div>
+                </div>
+                <div class="evidence-shot">
+                    <figure>
+                        <img src="./evidencias-sprint-2/06-admin-dashboard.png" alt="Dashboard admin">
+                        <figcaption>06 | Dashboard admin com eventos em tempo real</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-auditoria">
+                <header>
+                    <h3>4.6 Console de auditoria</h3>
+                    <span class="eyebrow">FRONT | OBSERVABILIDADE</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Rota: /admin/auditoria</span>
+                        <span>Perfil: Admin</span>
+                        <span>Cap: 200 eventos</span>
+                    </div>
+                    <p>Pagina dedicada a leitura do <span class="code-inline">auditStore</span>. Suporta filtros por tipo de evento (login, criacao de pedido, pagamento, mudanca de status, etc.), por ator, busca textual, export em JSON e acao <em>Limpar log</em>. Cada evento mostra icone, descricao, ator, target, metadata e tempo relativo.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Disparar eventos manuais (login, falha, novo pedido, pagamento, mudanca).</li>
+                                <li>Validar aparecimento em ordem decrescente.</li>
+                                <li>Baixar o JSON exportado e conferir os campos criticos.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Logue como admin e abra <span class="code-inline">/admin/auditoria</span>.</li>
+                                <li>Aplique filtros, faca busca por codigo do pedido.</li>
+                                <li>Clique em <em>Exportar JSON</em> e valide o download.</li>
+                            </ol>
+                        </article>
+                    </div>
+                </div>
+                <div class="evidence-shot">
+                    <figure>
+                        <img src="./evidencias-sprint-2/07-admin-auditoria.png" alt="Console de auditoria">
+                        <figcaption>07 | Console de auditoria com eventos pre-populados</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-diagnostico">
+                <header>
+                    <h3>4.7 Pagina de diagnostico com smoke test E2E</h3>
+                    <span class="eyebrow">QA | SMOKE</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Rota: /admin/diagnostico</span>
+                        <span>7 passos sequenciais</span>
+                        <span>Resultado verde</span>
+                    </div>
+                    <p>Nova pagina que executa em ciclo curto o caminho critico do MVP: hidratacao, autenticacao, cadastro de paciente, criacao de pedido, pagamento, avanco no kanban e cleanup. Cada passo tem feedback individual (pending, running, ok, fail) e um sumario com passos verdes e duracao total.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Executado no baseline da sprint com todos os passos em verde.</li>
+                                <li>Teste forcando falha em um passo para validar estado <em>fail</em>.</li>
+                                <li>Reexecucao com cleanup ativo para garantir que o log nao contamina.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Logue como admin.</li>
+                                <li>Abra <span class="code-inline">/admin/diagnostico</span>.</li>
+                                <li>Clique em <em>Rodar smoke test</em> e aguarde o sumario final.</li>
+                            </ol>
+                        </article>
+                    </div>
+                </div>
+                <div class="evidence-shot dual">
+                    <figure>
+                        <img src="./evidencias-sprint-2/08-admin-diagnostico-inicial.png" alt="Pagina de diagnostico antes da execucao">
+                        <figcaption>08 | Diagnostico antes de rodar o smoke test</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="./evidencias-sprint-2/09-admin-diagnostico-final.png" alt="Pagina de diagnostico apos execucao">
+                        <figcaption>09 | Diagnostico apos execucao com sucesso</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-paciente">
+                <header>
+                    <h3>4.8 Jornada do paciente com feedbacks reforcados</h3>
+                    <span class="eyebrow">FRONT | PACIENTE | MOBILE</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Rotas: /paciente, /paciente/pedido/&lt;codigo&gt;/status, /paciente/pedido/&lt;codigo&gt;/pagamento</span>
+                        <span>Canal: mobile</span>
+                    </div>
+                    <p>O fluxo do paciente foi ajustado para responder a um dos itens centrais do planning: <em>feedbacks de interface</em>. A tela de status exibe timeline com horario real da transicao (puxado do audit log), a landing do paciente lista pedidos ativos com selo de urgencia e o pagamento agora passa por estagios explicitos (verificando, processando, confirmando, sucesso) antes de liberar o pedido para a fabrica.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Emulacao mobile 420x820 no headless Chrome.</li>
+                                <li>Fluxo completo de pagamento com os 4 estagios.</li>
+                                <li>Consulta de status com etapas espelhando audit log.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Logue como paciente (<span class="code-inline">carla.menezes@email.com</span> / <span class="code-inline">123456</span>).</li>
+                                <li>Abra um pedido pendente e confirme o pagamento.</li>
+                                <li>Navegue para <em>Acompanhar</em> e veja a timeline com horarios.</li>
+                            </ol>
+                        </article>
+                    </div>
+                </div>
+                <div class="evidence-shot mobile">
+                    <figure>
+                        <img src="./evidencias-sprint-2/10-paciente-landing.png" alt="Landing do paciente em mobile">
+                        <figcaption>10 | Landing do paciente</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="./evidencias-sprint-2/11-paciente-status.png" alt="Status do pedido em mobile">
+                        <figcaption>11 | Status do pedido com timeline</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="./evidencias-sprint-2/12-paciente-pagamento.png" alt="Tela de pagamento em mobile">
+                        <figcaption>12 | Pagamento multi-estagio</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>5. Validacao tecnica consolidada</h2>
+            <table>
+                <thead><tr><th>Camada</th><th>Validacao</th><th>Resultado</th></tr></thead>
+                <tbody>
+                    <tr><td>Build Next.js</td><td><span class="code-inline">next build</span> com typecheck e lint habilitados</td><td>Passou sem erros; 5/5 paginas estaticas geradas.</td></tr>
+                    <tr><td>Smoke test no app</td><td>Pagina <span class="code-inline">/admin/diagnostico</span> executada fim a fim</td><td>7/7 passos em verde no baseline.</td></tr>
+                    <tr><td>Sync entre abas</td><td>Teste manual com duas abas no mesmo origin</td><td>Mutacao em uma aba reflete na outra em menos de 1s.</td></tr>
+                    <tr><td>Auditoria</td><td>Inspecao da pagina de auditoria apos fluxos</td><td>Eventos login, pedido, pagamento e mudanca de status presentes com metadata correta.</td></tr>
+                    <tr><td>Captura automatica</td><td>Script headless CDP em Node 24</td><td>12 PNGs de alta resolucao gerados em lote; ver <span class="code-inline">./evidencias-sprint-2/</span>.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>6. Como reproduzir localmente</h2>
+            <ol>
+                <li>Clonar o repositorio front e rodar <span class="code-inline">npm install</span>.</li>
+                <li>Subir o dev server com <span class="code-inline">npm run dev</span> na porta 3001.</li>
+                <li>Opcional: rodar <span class="code-inline">node scripts/capture-evidencias.mjs</span> para regenerar os prints desta pagina.</li>
+                <li>Visitar o app em <span class="code-inline">http://localhost:3001</span> e seguir os testes descritos em cada bloco acima.</li>
+                <li>Para inspecao de observabilidade, logar como admin e abrir <span class="code-inline">/admin/auditoria</span> e <span class="code-inline">/admin/diagnostico</span>.</li>
+            </ol>
+            <div class="note">Todas as interacoes da Sprint 2 funcionam sobre estado persistido em <span class="code-inline">localStorage</span>, com sincronizacao entre abas. A proxima sprint pode promover esse contrato para um backend real sem mudar as superficies ja entregues.</div>
+        </section>
+
+        <section>
+            <h2>7. Critério de pronto da Sprint 2</h2>
+            <ul>
+                <li>Codigo versionado em main nos repositorios <span class="code-inline">FastInBox-Repo/front</span> e <span class="code-inline">FastInBox-Repo/docs</span>.</li>
+                <li>Nenhuma regressao aparente na jornada principal validada pelo smoke test interno.</li>
+                <li>Evidencias visuais publicadas neste documento, acessivel a partir do hub publico.</li>
+                <li>Planning, review da sprint anterior e evidencias linkados a partir do GitHub Pages oficial.</li>
+                <li>Build do front limpo (lint, typecheck e build de producao).</li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            Documento de evidencias da Sprint 2 do FastInBox. Gerado e publicado como parte da governanca academica do projeto, com capturas automaticas e texto revisado manualmente.
+        </footer>
+    </main>
+</body>
+</html>
