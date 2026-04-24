@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Sprint 4 Planning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./sprint-1-planning.html">Sprint 1 Planning</a>
+            <a href="./evidencias-sprint-1.html">Evidencias Sprint 1</a>
+            <a href="./sprint-2-planning.html">Sprint 2 Planning</a>
+            <a href="./evidencias-sprint-2.html">Evidencias Sprint 2</a>
+            <a href="./sprint-3-planning.html">Sprint 3 Planning</a>
+            <a href="./sprint-4-planning.html">Sprint 4 Planning</a>
+            <a href="./sprint-5-planning.html">Sprint 5 Planning</a>
+            <a href="./sprint-6-planning.html">Sprint 6 Planning</a>
+            <a href="./sprint-7-planning.html">Sprint 7 Planning</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Sprint governance</p>
+            <h1>Sprint 4 Planning</h1>
+            <p>Periodo planejado: Sprint 4 | Status: Planejada com backlog tecnico e operacional estruturado</p>
+            <p>Sprint de pagamento real e fila operacional da cozinha. Substitui o checkout mock por gateway transacional, implementa webhooks idempotentes, organiza a fila de producao por janela de entrega e formaliza as regras logisticas da operacao.</p>
+        </header>
+
+        <section>
+            <h2>1. Contexto da sprint</h2>
+            <p>A Sprint 4 comeca com dominio de pedidos persistido, autenticacao server-side e kanban sincronizado (entregas da Sprint 3). O desafio e fechar o ciclo comercial: receber pagamento real, liberar o pedido para a cozinha apenas quando aprovado, e organizar a producao por janela de entrega com regras logisticas explicitas. E a primeira sprint em que o FastInBox passa a movimentar dinheiro real, exigindo disciplina em idempotencia, seguranca e observabilidade transacional.</p>
+        </section>
+
+        <section>
+            <h2>2. Objetivo central</h2>
+            <p>Integrar o FastInBox a um gateway de pagamento, garantir liberacao confiavel do pedido para a cozinha via webhooks idempotentes e estruturar a fila operacional por janela de entrega com regras logisticas formalizadas.</p>
+            <ul>
+                <li>Substituir o checkout mock por integracao real com gateway.</li>
+                <li>Receber webhooks de pagamento de forma idempotente e auditavel.</li>
+                <li>Organizar a fila de producao por janela de entrega e agrupamento.</li>
+                <li>Registrar regras logisticas (SLA, raio, agrupamento) em documento oficial.</li>
+                <li>Automatizar QA para aprovacao/reprovacao e ciclo ate producao.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Entregaveis prioritarios</h2>
+            <table>
+                <thead><tr><th>Entregavel</th><th>Descricao</th><th>Resultado esperado</th></tr></thead>
+                <tbody>
+                    <tr><td>Gateway de pagamento integrado</td><td>Intents, captura e reembolso via provedor externo</td><td>Pagamento real com rastro transacional</td></tr>
+                    <tr><td>Webhooks idempotentes</td><td>Recebimento e processamento seguro de eventos do gateway</td><td>Sem duplicacao ou perda de evento</td></tr>
+                    <tr><td>Fila operacional da cozinha</td><td>Organizacao por janela e agrupamento logistico</td><td>Producao otimizada e previsivel</td></tr>
+                    <tr><td>Segredos e observabilidade transacional</td><td>Credenciais de pagamento, logs e alertas</td><td>Rastreabilidade completa do funil financeiro</td></tr>
+                    <tr><td>Regras logisticas formalizadas</td><td>Documento com SLA, raio, janela e agrupamento</td><td>Base para evolucao da operacao</td></tr>
+                    <tr><td>QA de pagamento</td><td>Testes de aprovado, reprovado, chargeback e timeout</td><td>Cobertura dos caminhos criticos</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Backlog detalhado da Sprint 4</h2>
+            <table>
+                <thead><tr><th>Item</th><th>Tarefa acionavel</th><th>Owner sugerido</th><th>Dependencia</th><th>Criterio de aceite</th></tr></thead>
+                <tbody>
+                    <tr><td>[Product] Fluxo operacional de pagamento</td><td>Formalizar fluxo aprovado/reprovado/pendente, reembolso e reconciliacao</td><td>Product</td><td>Visao geral de pagamento</td><td>Documento publicado e linkado nas issues</td></tr>
+                    <tr><td>[Product] Regras logisticas de entrega</td><td>Definir SLA, raio, janela e agrupamento de pedidos</td><td>Product</td><td>Operacao atual</td><td>Regras publicadas e aprovadas com time</td></tr>
+                    <tr><td>[Infra] Segredos de pagamento e webhooks</td><td>Gerenciar credenciais, endpoints publicos e rotacao</td><td>Infra</td><td>Pipeline de secrets</td><td>Credenciais versionadas fora do codigo</td></tr>
+                    <tr><td>[Back] Gateway de pagamento</td><td>Integrar criacao de intent, captura e reembolso</td><td>Back</td><td>Dominio de pedidos</td><td>Pedido transita de pendente para pago em teste real</td></tr>
+                    <tr><td>[Back] Webhooks idempotentes</td><td>Receber eventos com retry seguro e dedupe</td><td>Back</td><td>Gateway integrado</td><td>Reprocessamento de evento nao duplica estado</td></tr>
+                    <tr><td>[Back] Fila operacional da cozinha</td><td>Agrupar pedidos por janela e capacidade da fabrica</td><td>Back</td><td>Kanban sincronizado</td><td>Fila respeita janela e agrupamento definidos</td></tr>
+                    <tr><td>[QA] Pagamento aprovado/reprovado</td><td>Cobrir cenarios aprovado, reprovado, timeout e reembolso</td><td>QA</td><td>Gateway + webhooks</td><td>Cenarios rodam em pipeline sem flakiness</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Estrutura de acompanhamento</h2>
+            <h3>5.1 To Do</h3>
+            <ul>
+                <li>Itens com contrato definido e ambiente sandbox do gateway reservado.</li>
+                <li>Bloqueios de documentacao formal (regras logisticas, fluxo de pagamento) resolvidos antes da codificacao.</li>
+            </ul>
+            <h3>5.2 Doing</h3>
+            <ul>
+                <li>Item de pagamento deve sinalizar cenario atual em sandbox (intent criado, aprovado, reprovado).</li>
+                <li>Webhook em progresso precisa apontar evento tratado e evento pendente.</li>
+            </ul>
+            <h3>5.3 Done</h3>
+            <ul>
+                <li>Item concluido com logs de sandbox e evidencia do pedido transitando ate producao.</li>
+                <li>Regras logisticas disponiveis como documento versionado.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>6. Definition of Done da sprint</h2>
+            <ul>
+                <li>Pagamento aprovado libera pedido para cozinha automaticamente via webhook.</li>
+                <li>Reprovacao e timeout mantem pedido em estado coerente e rastreavel.</li>
+                <li>Credenciais fora do codigo, rotacionaveis, com log de acesso.</li>
+                <li>Fila da cozinha opera por janela de entrega com agrupamento explicito.</li>
+                <li>QA cobre aprovado, reprovado, timeout e reembolso sem flakiness.</li>
+                <li>Documentos logisticos e financeiros publicados no Pages.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>7. Evidencias esperadas</h2>
+            <table>
+                <thead><tr><th>Entrega</th><th>Evidencia minima</th><th>Finalidade</th></tr></thead>
+                <tbody>
+                    <tr><td>Gateway integrado</td><td>Print de pagamento em sandbox + log de transacao</td><td>Comprovar integracao real</td></tr>
+                    <tr><td>Webhook idempotente</td><td>Log de reprocessamento sem duplicidade</td><td>Garantia de consistencia transacional</td></tr>
+                    <tr><td>Fila da cozinha</td><td>Print do kanban por janela de entrega</td><td>Validar agrupamento operacional</td></tr>
+                    <tr><td>Observabilidade</td><td>Dashboard com volume e status de pagamento</td><td>Preparar base para admin da Sprint 5</td></tr>
+                    <tr><td>QA automatizado</td><td>Relatorio de execucao com cenarios cobertos</td><td>Reduzir risco de regressao financeira</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. Riscos e plano de contingencia</h2>
+            <table>
+                <thead><tr><th>Risco</th><th>Impacto</th><th>Contingencia</th></tr></thead>
+                <tbody>
+                    <tr><td>Atraso na aprovacao da conta no gateway</td><td>Bloqueia integracao real</td><td>Usar sandbox oficial do provedor com contrato finalizado em paralelo.</td></tr>
+                    <tr><td>Eventos duplicados em webhook</td><td>Estado inconsistente de pedido</td><td>Dedupe por id externo + tabela de eventos processados.</td></tr>
+                    <tr><td>Fila da cozinha desorganizada</td><td>Falha operacional na producao</td><td>Definir janelas minimas e testar com pedidos sinteticos.</td></tr>
+                    <tr><td>Segredos vazando em logs</td><td>Risco de seguranca critico</td><td>Auditoria de logs e mascaramento obrigatorio por padrao.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>9. Ritmo de acompanhamento</h2>
+            <ul>
+                <li>Daily orientada por caminho transacional: cada dia valida um cenario de pagamento.</li>
+                <li>Sync dedicado entre back, infra e QA quando webhook entrar em teste.</li>
+                <li>Atualizacao diaria do GitHub Project com evidencias de sandbox.</li>
+                <li>Revisao intermediaria de riscos financeiros antes do fechamento.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>10. Resultado esperado ao fim da Sprint 4</h2>
+            <p>Ao final da Sprint 4 o FastInBox deve ter encerrado o ciclo comercial: pagamento real integrado, pedido liberado automaticamente para a cozinha via webhook idempotente, fila operacional organizada por janela de entrega e QA cobrindo os cenarios financeiros criticos. Isso libera a Sprint 5 para consolidar o admin e a observabilidade sem voltar no dominio transacional.</p>
+            <div class="note">Este documento deve ser lido em conjunto com o backlog publicado no GitHub Project e com o documento de evidencias correspondente, gerado ao final da sprint.</div>
+        </section>
+
+        <footer class="footer">
+            Documento de Sprint 4 voltado para integracao de pagamento real, webhooks idempotentes e fila operacional da cozinha.
+        </footer>
+    </main>
+</body>
+</html>

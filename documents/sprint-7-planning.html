@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Sprint 7 Planning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./sprint-1-planning.html">Sprint 1 Planning</a>
+            <a href="./evidencias-sprint-1.html">Evidencias Sprint 1</a>
+            <a href="./sprint-2-planning.html">Sprint 2 Planning</a>
+            <a href="./evidencias-sprint-2.html">Evidencias Sprint 2</a>
+            <a href="./sprint-3-planning.html">Sprint 3 Planning</a>
+            <a href="./sprint-4-planning.html">Sprint 4 Planning</a>
+            <a href="./sprint-5-planning.html">Sprint 5 Planning</a>
+            <a href="./sprint-6-planning.html">Sprint 6 Planning</a>
+            <a href="./sprint-7-planning.html">Sprint 7 Planning</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Sprint governance</p>
+            <h1>Sprint 7 Planning</h1>
+            <p>Periodo planejado: Sprint 7 | Status: Planejada como sprint de producao e go-live</p>
+            <p>Sprint final do ciclo MVP. Foca em preparar ambiente de producao, revisar UX e acessibilidade cross-device, consolidar checklist de go-live com SLA e executar hardening final com smoke de release.</p>
+        </header>
+
+        <section>
+            <h2>1. Contexto da sprint</h2>
+            <p>A Sprint 7 e o encerramento do ciclo MVP planejado. Os dominios criticos ja foram entregues (persistencia, pagamento, admin, escala). A sprint existe para nao ir a producao com pendencias acumuladas: revisao final de UX, acessibilidade cross-device, runbooks, rollback, checklist de go-live com SLA e hardening final de regressao e smoke de release.</p>
+        </section>
+
+        <section>
+            <h2>2. Objetivo central</h2>
+            <p>Preparar o FastInBox para uso em producao com seguranca operacional, experiencia de usuario polida e plano de resposta a incidentes, entregando um MVP auditado, documentado e estavel para escalar.</p>
+            <ul>
+                <li>Consolidar checklist de go-live, SLA e operacao assistida pos-lancamento.</li>
+                <li>Fazer revisao final de UX, responsividade e acessibilidade cross-device.</li>
+                <li>Preparar ambiente de producao, runbooks, rollback e rotina de incidentes.</li>
+                <li>Executar hardening final do MVP com regressao e smoke de release.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Entregaveis prioritarios</h2>
+            <table>
+                <thead><tr><th>Entregavel</th><th>Descricao</th><th>Resultado esperado</th></tr></thead>
+                <tbody>
+                    <tr><td>Checklist de go-live</td><td>Lista tecnica e operacional para lancamento seguro</td><td>Zero pendencia critica antes do switch</td></tr>
+                    <tr><td>SLA e operacao assistida</td><td>Definir SLA inicial e modelo de operacao assistida</td><td>Time sabe como responder a incidente</td></tr>
+                    <tr><td>Revisao UX cross-device</td><td>Passada final pela jornada em mobile, tablet e desktop</td><td>Sem quebra visual ou funcional em breakpoints</td></tr>
+                    <tr><td>Ambiente de producao</td><td>Provisionar producao com isolamento, monitoria e backup</td><td>Plataforma pronta para uso real</td></tr>
+                    <tr><td>Runbooks e rollback</td><td>Documentos operacionais para resposta a incidente</td><td>Rollback executavel por qualquer on-call</td></tr>
+                    <tr><td>Hardening final</td><td>Regressao cross-funcional + smoke de release</td><td>Release sem bugs bloqueantes</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Backlog detalhado da Sprint 7</h2>
+            <table>
+                <thead><tr><th>Item</th><th>Tarefa acionavel</th><th>Owner sugerido</th><th>Dependencia</th><th>Criterio de aceite</th></tr></thead>
+                <tbody>
+                    <tr><td>[Product] Checklist de go-live + SLA</td><td>Consolidar checklist tecnico, operacional e comercial</td><td>Product</td><td>Entregas das sprints anteriores</td><td>Checklist aprovado pela lideranca</td></tr>
+                    <tr><td>[Design] Revisao UX, responsividade, acessibilidade</td><td>Revisar telas em breakpoints e padroes de contraste</td><td>Design</td><td>Todas as jornadas implementadas</td><td>Correcoes registradas e aplicadas</td></tr>
+                    <tr><td>[Infra] Ambiente de producao + runbooks + rollback</td><td>Provisionar producao e documentar operacao</td><td>Infra</td><td>CI/CD avancada</td><td>Deploy em producao com rollback testado</td></tr>
+                    <tr><td>[QA] Hardening final + regressao + smoke</td><td>Executar smoke de release e regressao por jornada</td><td>QA</td><td>Implementacoes das sprints 1-6</td><td>Smoke de release roda verde</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Estrutura de acompanhamento</h2>
+            <h3>5.1 To Do</h3>
+            <ul>
+                <li>Itens de go-live com criterio documentado e dono responsavel.</li>
+                <li>Testes de rollback com plano detalhado antes da execucao.</li>
+            </ul>
+            <h3>5.2 Doing</h3>
+            <ul>
+                <li>Hardening em andamento deve apontar bugs conhecidos e classificados.</li>
+                <li>Revisao UX em progresso publica lista de ajustes por breakpoint.</li>
+            </ul>
+            <h3>5.3 Done</h3>
+            <ul>
+                <li>Ambiente de producao acessivel apenas com credenciais corretas, monitorado e com rollback validado.</li>
+                <li>Checklist de go-live fechado com todas as issues assinadas pelo dono.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>6. Definition of Done da sprint</h2>
+            <ul>
+                <li>Producao provisionada, monitorada e com rollback testado.</li>
+                <li>Checklist de go-live com cada item marcado por responsavel.</li>
+                <li>Revisao UX cross-device sem bugs criticos remanescentes.</li>
+                <li>Smoke de release executado verde em homologacao.</li>
+                <li>Runbooks de incidente publicados em local acessivel pelo time.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>7. Evidencias esperadas</h2>
+            <table>
+                <thead><tr><th>Entrega</th><th>Evidencia minima</th><th>Finalidade</th></tr></thead>
+                <tbody>
+                    <tr><td>Go-live</td><td>Checklist assinado por responsavel de cada area</td><td>Rastreabilidade de prontidao</td></tr>
+                    <tr><td>Producao</td><td>Print de deploy verde + dashboard de saude</td><td>Comprovar disponibilidade</td></tr>
+                    <tr><td>UX final</td><td>Gravacao curta em breakpoints (mobile/tablet/desktop)</td><td>Provar consistencia visual</td></tr>
+                    <tr><td>Hardening</td><td>Relatorio de smoke com tempo e resultado</td><td>Garantia de release estavel</td></tr>
+                    <tr><td>Runbook</td><td>Documento de rollback e resposta a incidente</td><td>Capacidade operacional</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. Riscos e plano de contingencia</h2>
+            <table>
+                <thead><tr><th>Risco</th><th>Impacto</th><th>Contingencia</th></tr></thead>
+                <tbody>
+                    <tr><td>Rollback falhando em teste</td><td>Go-live arriscado</td><td>Congelar deploy e revisar rollback com pairing infra + back.</td></tr>
+                    <tr><td>Regressao descoberta perto do lancamento</td><td>Atraso no go-live</td><td>Bloquear merge nao-criticos, priorizar hotfix com smoke de release.</td></tr>
+                    <tr><td>UX com quebra em mobile</td><td>Perda de usuarios em breakpoints chave</td><td>Testar nos dispositivos reais (nao so DevTools) e corrigir top 3 quebras primeiro.</td></tr>
+                    <tr><td>Equipe sem runbook claro</td><td>Incidente demorado</td><td>Runbook escrito com dono e testado em drill antes do go-live.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>9. Ritmo de acompanhamento</h2>
+            <ul>
+                <li>Daily orientada por checklist de go-live.</li>
+                <li>Drill de incidente no meio da sprint para validar runbooks.</li>
+                <li>Smoke de release diario na ultima semana.</li>
+                <li>Atualizacao diaria do GitHub Project com status do checklist.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>10. Resultado esperado ao fim da Sprint 7</h2>
+            <p>Ao final da Sprint 7 o FastInBox deve estar pronto para ir a producao com disciplina de SRE: checklist fechado, ambiente monitorado, runbooks escritos, UX polida e smoke de release verde. O MVP passa a ser uma plataforma operavel em larga escala, com base solida para sprints pos-go-live focadas em crescimento, experimentos e roadmap comercial.</p>
+            <div class="note">Este documento deve ser lido em conjunto com o backlog publicado no GitHub Project e com o documento de evidencias correspondente, gerado ao final da sprint.</div>
+        </section>
+
+        <footer class="footer">
+            Documento de Sprint 7 voltado para preparacao de producao, UX final, runbooks e smoke de release.
+        </footer>
+    </main>
+</body>
+</html>

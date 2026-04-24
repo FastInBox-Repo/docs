@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Sprint 1 Planning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./sprint-1-planning.html">Sprint 1 Planning</a>
+            <a href="./evidencias-sprint-1.html">Evidencias Sprint 1</a>
+            <a href="./sprint-2-planning.html">Sprint 2 Planning</a>
+            <a href="./evidencias-sprint-2.html">Evidencias Sprint 2</a>
+            <a href="./sprint-3-planning.html">Sprint 3 Planning</a>
+            <a href="./sprint-4-planning.html">Sprint 4 Planning</a>
+            <a href="./sprint-5-planning.html">Sprint 5 Planning</a>
+            <a href="./sprint-6-planning.html">Sprint 6 Planning</a>
+            <a href="./sprint-7-planning.html">Sprint 7 Planning</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Sprint governance</p>
+            <h1>Sprint 1 Planning</h1>
+            <p>Periodo: Sprint 1 | Status: Encerrada com aceite funcional e MVP demonstravel publicado</p>
+            <p>Documento unico da Sprint 1: consolida o planejamento original, o escopo comprometido, o backlog executado, o resultado da sprint review, as evidencias produzidas e o carry-over formalmente movido para a Sprint 2. Faz o papel combinado de sprint planning e sprint review do ciclo fundacional do projeto.</p>
+        </header>
+
+        <section>
+            <h2>1. Contexto da sprint</h2>
+            <p>A Sprint 1 abriu o ciclo de execucao do FastInBox como MVP academico. O foco foi transformar o conceito do produto em um fluxo navegavel ponta a ponta, cobrindo os tres perfis principais (nutricionista, paciente e fabrica/cozinha), com identidade visual estabilizada, documentacao publica e backlog organizado em GitHub Project para sustentar as sprints seguintes.</p>
+        </section>
+
+        <section>
+            <h2>2. Objetivo central</h2>
+            <p>Entregar um MVP navegavel, demonstravel em ambiente publico, com jornada principal completa e documentacao tecnica correspondente, deixando backlog estruturado para persistencia real e evolucao nas sprints seguintes.</p>
+            <ul>
+                <li>Estabelecer design system neo-brutal B&amp;W aplicado em todos os perfis.</li>
+                <li>Cobrir jornada criacao de pedido -> pagamento simulado -> producao -> acompanhamento.</li>
+                <li>Publicar aplicacao (Vercel) e biblioteca de documentos (GitHub Pages).</li>
+                <li>Criar backlog rastreavel no GitHub Project da organizacao.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Entregaveis prioritarios</h2>
+            <table>
+                <thead><tr><th>Entregavel</th><th>Descricao</th><th>Resultado esperado</th></tr></thead>
+                <tbody>
+                    <tr><td>Design system white label</td><td>Tokens, tipografia, grid, cores e componentes base</td><td>Padrao visual consistente nas jornadas</td></tr>
+                    <tr><td>Autenticacao multi-perfil</td><td>Login, cadastro e recuperacao de senha por perfil</td><td>Entrada distinta para nutricionista, paciente e fabrica</td></tr>
+                    <tr><td>Fluxo do nutricionista</td><td>Dashboard, cadastro de pacientes e builder de pedido</td><td>Criar pedido e gerar codigo unico rastreavel</td></tr>
+                    <tr><td>Fluxo do paciente</td><td>Landing com codigo, revisao, edicao e confirmacao</td><td>Paciente completa a jornada ate o checkout</td></tr>
+                    <tr><td>Fluxo da cozinha</td><td>Dashboard kanban com drag-and-drop</td><td>Atualizar status operacional visualmente</td></tr>
+                    <tr><td>Checkout mock + sucesso/falha</td><td>Simulacao do pagamento com transicao de status</td><td>Viabilizar demo E2E sem gateway real</td></tr>
+                    <tr><td>Biblioteca de documentos</td><td>GitHub Pages com artefatos tecnicos completos</td><td>Material consolidado para banca e auditoria</td></tr>
+                    <tr><td>Publicacao do MVP</td><td>Deploy continuo na Vercel integrado ao repositorio front</td><td>Aplicacao acessivel publicamente para demonstracao</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Backlog detalhado da Sprint 1</h2>
+            <table>
+                <thead><tr><th>Area</th><th>Tarefa acionavel</th><th>Criterio de aceite</th></tr></thead>
+                <tbody>
+                    <tr><td>Product</td><td>Consolidar escopo MVP, roadmap e Definition of Done</td><td>Escopo aprovado e publicado no Pages</td></tr>
+                    <tr><td>Product</td><td>Validar jornadas e criterios de aceite do fluxo principal</td><td>Jornadas descritas em documento acessivel</td></tr>
+                    <tr><td>Product</td><td>Definir matriz de permissoes e politica de dados por perfil</td><td>Matriz disponivel para referencia tecnica</td></tr>
+                    <tr><td>Design</td><td>Design system white label com tokens e componentes</td><td>Tokens e componentes aplicados nas telas principais</td></tr>
+                    <tr><td>Design</td><td>Prototipar home, login e recuperacao de senha</td><td>Mock do fluxo de entrada do usuario</td></tr>
+                    <tr><td>Design</td><td>Prototipar dashboard nutricionista e listagem de pacientes</td><td>Fluxo demonstravel de acompanhamento</td></tr>
+                    <tr><td>Design</td><td>Prototipar formularios, tabelas e estados globais</td><td>Biblioteca visual alinhada ao design system</td></tr>
+                    <tr><td>Design</td><td>Prototipar builder do pedido e configuracoes clinica</td><td>Modelo reutilizavel para implementacao</td></tr>
+                    <tr><td>Design</td><td>Prototipar landing paciente, revisao e edicao</td><td>Jornada do paciente validada em mock</td></tr>
+                    <tr><td>Design</td><td>Prototipar checkout, sucesso/falha e painel da cozinha</td><td>Telas operacionais com estados previstos</td></tr>
+                    <tr><td>Front</td><td>Implementar arquitetura base Next.js 15 + React 19 + TS</td><td>Projeto inicializa e builda sem erros</td></tr>
+                    <tr><td>Front</td><td>Implementar login, logout, recuperacao de senha</td><td>Usuario autentica via fixtures locais</td></tr>
+                    <tr><td>Front</td><td>Implementar rotas protegidas e shell navegavel</td><td>Usuario somente acessa rotas autorizadas por perfil</td></tr>
+                    <tr><td>Front</td><td>Implementar biblioteca de componentes reutilizaveis</td><td>Componentes documentados no codigo</td></tr>
+                    <tr><td>Front</td><td>Implementar cadastro de pacientes do nutricionista</td><td>Paciente criado permanece visivel na listagem</td></tr>
+                    <tr><td>Front</td><td>Implementar dashboard do nutricionista</td><td>Visao consolidada dos pacientes e pedidos</td></tr>
+                    <tr><td>Front</td><td>Implementar builder de pedido com geracao de codigo e link</td><td>Codigo unico pode ser compartilhado com o paciente</td></tr>
+                    <tr><td>Front</td><td>Implementar configuracoes clinica e upload de logo</td><td>Ajuste de logo reflete na interface do paciente</td></tr>
+                    <tr><td>Front</td><td>Implementar landing paciente com entrada por codigo</td><td>Paciente acessa pedido direto por codigo recebido</td></tr>
+                    <tr><td>Front</td><td>Implementar revisao e edicao do pedido pelo paciente</td><td>Paciente pode ajustar itens antes de confirmar</td></tr>
+                    <tr><td>Front</td><td>Implementar confirmacao final e bloqueio de edicao</td><td>Apos confirmar, pedido nao pode mais ser alterado</td></tr>
+                    <tr><td>Front</td><td>Implementar perfil paciente com historico</td><td>Paciente consulta pedidos antigos</td></tr>
+                    <tr><td>Front</td><td>Implementar checkout mock e telas sucesso/falha</td><td>Fluxo de pagamento simulado completo</td></tr>
+                    <tr><td>Front</td><td>Implementar dashboard cozinha kanban com drag-and-drop</td><td>Cozinha movimenta pedidos entre colunas</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Estrutura de acompanhamento executada</h2>
+            <h3>5.1 To Do</h3>
+            <ul>
+                <li>Itens descritos com criterio de aceite claro e owner sugerido antes da execucao.</li>
+                <li>Backlog inicial publicado como issues/draft issues no GitHub Project.</li>
+            </ul>
+            <h3>5.2 Doing</h3>
+            <ul>
+                <li>Itens em execucao com evidencia intermediaria (PR, branch, print parcial).</li>
+                <li>Bloqueadores registrados ao longo da sprint e nao somente no fechamento.</li>
+            </ul>
+            <h3>5.3 Done</h3>
+            <ul>
+                <li>Somente entrou em Done o item com criterio de aceite cumprido e evidencia registrada.</li>
+                <li>Conclusao refletida em repositorio versionado e, quando aplicavel, em ambiente publico.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>6. Definition of Done da sprint</h2>
+            <ul>
+                <li>Codigo versionado e sincronizado no repositorio correto.</li>
+                <li>Sem regressao aparente na jornada principal do FastInBox.</li>
+                <li>Evidencia minima registrada: print, deploy ou validacao objetiva da entrega.</li>
+                <li>Issue atualizada no GitHub Project com status coerente.</li>
+                <li>Documento publico refletindo o estado real da entrega.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>7. Resultado da Sprint Review</h2>
+            <p>Ao final do ciclo, a Sprint 1 foi aprovada como MVP funcional com jornada principal demonstravel, identidade visual estabilizada e base publicada. O desvio mais relevante foi a manutencao da persistencia em camada local, tratada como carry-over planejado para a Sprint 2.</p>
+            <table>
+                <thead><tr><th>Entregavel</th><th>Resultado</th><th>Valor entregue</th></tr></thead>
+                <tbody>
+                    <tr><td>Login e cadastro por perfil</td><td>Concluido</td><td>Perfis distintos com jornadas separadas no MVP.</td></tr>
+                    <tr><td>Fluxo do nutricionista</td><td>Concluido</td><td>Cadastro de paciente e criacao de pedido com acompanhamento.</td></tr>
+                    <tr><td>Fluxo do paciente</td><td>Concluido</td><td>Painel, pagamento e consulta de status do pedido.</td></tr>
+                    <tr><td>Fluxo da cozinha</td><td>Concluido</td><td>Kanban operacional para movimentar pedidos na producao.</td></tr>
+                    <tr><td>Biblioteca de documentos</td><td>Concluido</td><td>Base publica de artefatos para banca e continuidade.</td></tr>
+                    <tr><td>Aplicacao publicada</td><td>Concluido</td><td>Demonstra o produto em ambiente externo na Vercel.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. Evidencias consolidadas</h2>
+            <table>
+                <thead><tr><th>Tipo de evidencia</th><th>O que comprova</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>Prints e navegacao do front</td><td>Existencia das telas principais e coerencia entre os perfis</td><td>Disponivel</td></tr>
+                    <tr><td>Deploy publico na Vercel</td><td>Acessibilidade do MVP para apresentacao externa</td><td>Disponivel</td></tr>
+                    <tr><td>GitHub Pages com documentos</td><td>Governanca formal do projeto e apoio para banca</td><td>Disponivel</td></tr>
+                    <tr><td>Commits por repositorio</td><td>Rastreabilidade de mudancas por camada</td><td>Disponivel</td></tr>
+                    <tr><td>Fluxo E2E demonstravel</td><td>Pedido percorre criacao, pagamento e producao</td><td>Disponivel</td></tr>
+                </tbody>
+            </table>
+            <div class="note">A review da Sprint 1 priorizou evidencias auditaveis sobre declaracoes: o foco foi provar que a entrega pode ser demonstrada em ambiente publico.</div>
+        </section>
+
+        <section>
+            <h2>9. Riscos e plano de contingencia</h2>
+            <table>
+                <thead><tr><th>Risco</th><th>Impacto</th><th>Contingencia</th></tr></thead>
+                <tbody>
+                    <tr><td>Persistencia apoiada em estado local</td><td>Limita cenarios multiusuario</td><td>Migracao planejada para a Sprint 2/3 com contratos de API.</td></tr>
+                    <tr><td>Validacao majoritariamente manual</td><td>Maior risco de regressao</td><td>Smoke test E2E definido como criterio de entrega na Sprint 2.</td></tr>
+                    <tr><td>Ausencia de telemetria funcional</td><td>Sem visao de funil</td><td>Instrumentar eventos criticos antes de ampliar escopo.</td></tr>
+                    <tr><td>Dependencia de ajustes manuais perto da apresentacao</td><td>Risco de quebra de ultima hora</td><td>Centralizar backlog, docs e evidencias em um fluxo unico.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>10. Carry-over para a Sprint 2 e seguintes</h2>
+            <ul>
+                <li>Migrar persistencia local para camada server-side com API real (Sprint 2/3).</li>
+                <li>Automatizar smoke test da jornada critica e regressao por perfil.</li>
+                <li>Instrumentar eventos de pagamento e mudancas operacionais.</li>
+                <li>Evoluir camada de indicadores e relatorios administrativos.</li>
+            </ul>
+            <div class="note">A Sprint 1 encerrou com backlog tecnico bem definido e continuidade planejada; a Sprint 2 parte de um MVP estavel, sem reabrir escopos ja entregues.</div>
+        </section>
+
+        <footer class="footer">
+            Documento consolidado da Sprint 1: planning + review unificados, com backlog entregue, evidencias e carry-over formal para as sprints seguintes.
+        </footer>
+    </main>
+</body>
+</html>

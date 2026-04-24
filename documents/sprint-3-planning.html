@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Sprint 3 Planning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./sprint-1-planning.html">Sprint 1 Planning</a>
+            <a href="./evidencias-sprint-1.html">Evidencias Sprint 1</a>
+            <a href="./sprint-2-planning.html">Sprint 2 Planning</a>
+            <a href="./evidencias-sprint-2.html">Evidencias Sprint 2</a>
+            <a href="./sprint-3-planning.html">Sprint 3 Planning</a>
+            <a href="./sprint-4-planning.html">Sprint 4 Planning</a>
+            <a href="./sprint-5-planning.html">Sprint 5 Planning</a>
+            <a href="./sprint-6-planning.html">Sprint 6 Planning</a>
+            <a href="./sprint-7-planning.html">Sprint 7 Planning</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Sprint governance</p>
+            <h1>Sprint 3 Planning</h1>
+            <p>Periodo planejado: Sprint 3 | Status: Planejada com backlog tecnico estruturado</p>
+            <p>Sprint de transicao do MVP demonstravel para plataforma com persistencia real. Foca na arquitetura back-end NestJS, banco PostgreSQL, autenticacao/autorizacao server-side e sincronizacao do kanban da cozinha com dados reais.</p>
+        </header>
+
+        <section>
+            <h2>1. Contexto da sprint</h2>
+            <p>A Sprint 3 parte de um MVP estavel em front-end e auditado pela Sprint 2. O desafio central e eliminar a dependencia de estado local: todo o dominio critico (usuarios, pacientes, pedidos, status operacional) precisa migrar para API real, com autenticacao server-side, autorizacao multi-perfil e historico de status auditavel. E a sprint mais tecnica do ciclo: destrava tudo o que vem depois (pagamento, admin, escala).</p>
+        </section>
+
+        <section>
+            <h2>2. Objetivo central</h2>
+            <p>Consolidar o back-end NestJS com entidades core persistidas em PostgreSQL, expor APIs autenticadas e autorizadas por perfil, e conectar o front-end a esse dominio para encerrar o uso de persistencia local nas jornadas principais.</p>
+            <ul>
+                <li>Implantar infraestrutura de banco, storage e backups como base para todas as sprints seguintes.</li>
+                <li>Modelar entidades core (usuario, paciente, pedido, item, ingrediente, status) e expor endpoints REST.</li>
+                <li>Entregar autenticacao server-side e matriz de autorizacao multi-perfil.</li>
+                <li>Sincronizar kanban da cozinha e jornada do paciente com dados reais do servidor.</li>
+                <li>Cobrir com QA os fluxos criticos de autenticacao, CRUD de pacientes e pedido ponta a ponta.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Entregaveis prioritarios</h2>
+            <table>
+                <thead><tr><th>Entregavel</th><th>Descricao</th><th>Resultado esperado</th></tr></thead>
+                <tbody>
+                    <tr><td>Arquitetura NestJS modular</td><td>Separacao por dominio (auth, usuarios, pacientes, pedidos, fabricas)</td><td>Base escalavel para sprints seguintes</td></tr>
+                    <tr><td>Banco PostgreSQL provisionado</td><td>Banco gerenciado com storage e rotina de backup</td><td>Persistencia real e recuperavel</td></tr>
+                    <tr><td>Autenticacao server-side</td><td>Login, sessao/JWT, refresh e recuperacao integrados</td><td>Front deixa de depender de fixtures locais</td></tr>
+                    <tr><td>Autorizacao multi-perfil</td><td>Guards e policies por perfil (nutri/paciente/fabrica/admin)</td><td>Cada rota expoe apenas o escopo permitido</td></tr>
+                    <tr><td>Dominio de pedido persistido</td><td>Criacao, edicao controlada, confirmacao e maquina de estados</td><td>Pedido rastreavel e auditavel</td></tr>
+                    <tr><td>Consulta segura por codigo</td><td>Paciente acessa pedido por codigo unico de forma segura</td><td>Landing paciente usando API real</td></tr>
+                    <tr><td>Kanban sincronizado</td><td>Mudancas de coluna persistem e refletem nos perfis relevantes</td><td>Fabrica opera sobre dados reais</td></tr>
+                    <tr><td>CI/CD e ambientes</td><td>Deploy continuo e ambientes separados para front e back</td><td>Pipeline estavel para producao incremental</td></tr>
+                    <tr><td>QA automatizado</td><td>Cobertura de auth, CRUD e fluxo nutri-paciente integrado</td><td>Regressao controlada antes do pagamento</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Backlog detalhado da Sprint 3</h2>
+            <table>
+                <thead><tr><th>Item</th><th>Tarefa acionavel</th><th>Owner sugerido</th><th>Dependencia</th><th>Criterio de aceite</th></tr></thead>
+                <tbody>
+                    <tr><td>[Infra] CI/CD e ambientes</td><td>Aprofundar pipeline com ambientes, segredos e deploy automatico</td><td>Infra</td><td>Repositorios atuais</td><td>Merge na main gera deploy validado</td></tr>
+                    <tr><td>[Infra] PostgreSQL + storage + backups</td><td>Provisionar banco gerenciado, definir storage e rotina de backup</td><td>Infra</td><td>CI/CD funcional</td><td>Banco acessivel, com snapshot recente documentado</td></tr>
+                    <tr><td>[Back] Arquitetura modular NestJS</td><td>Estruturar modulos, DI, configs e padroes de erro</td><td>Back</td><td>Banco provisionado</td><td>Boot do servidor sem warnings, modulos isolados</td></tr>
+                    <tr><td>[Back] Modelar entidades core</td><td>Criar entidades, migrations e seeds minimos</td><td>Back</td><td>Arquitetura NestJS</td><td>Migrations aplicadas em ambiente dev</td></tr>
+                    <tr><td>[Back] Autenticacao server-side</td><td>Login, sessao/JWT, refresh, recuperacao de senha</td><td>Back</td><td>Entidades de usuario</td><td>Usuario autentica via endpoint real</td></tr>
+                    <tr><td>[Back] Autorizacao multi-perfil</td><td>Guards, decorators e politicas por perfil</td><td>Back</td><td>Autenticacao</td><td>Rotas rejeitam escopo indevido com mensagem clara</td></tr>
+                    <tr><td>[Back] Catalogo de ingredientes</td><td>CRUD de ingredientes, variacoes e precificacao base</td><td>Back</td><td>Entidades core</td><td>Ingredientes consultaveis via API</td></tr>
+                    <tr><td>[Back] Dominio de pedidos + maquina de estados</td><td>Criar, editar, confirmar e transitar status do pedido</td><td>Back</td><td>Catalogo e auth</td><td>Estados documentados e validados por teste</td></tr>
+                    <tr><td>[Back] Calculo de valor base/final e comissao</td><td>Logica de precificacao por pedido, taxas e comissao</td><td>Back</td><td>Dominio de pedidos</td><td>Valores calculados batem com casos de teste</td></tr>
+                    <tr><td>[Back] Codigo unico do pedido</td><td>Geracao e validacao de codigo rastreavel</td><td>Back</td><td>Dominio de pedidos</td><td>Codigo unico acessa pedido sem vazar dados</td></tr>
+                    <tr><td>[Back] Consulta segura por codigo</td><td>Endpoint publico com rate limit e escopo limitado</td><td>Back</td><td>Codigo unico</td><td>Consulta retorna apenas dados do paciente dono</td></tr>
+                    <tr><td>[Back] Regras de edicao e confirmacao</td><td>Politicas de edicao (prazo, item, status)</td><td>Back</td><td>Dominio de pedidos</td><td>Edicao fora da regra e rejeitada</td></tr>
+                    <tr><td>[Back] Historico de status e auditoria</td><td>Registro imutavel de transicoes de status</td><td>Back</td><td>Dominio de pedidos</td><td>Historico consultavel por issue e por paciente</td></tr>
+                    <tr><td>[Back] Integrar auth com front (carry Sprint 2)</td><td>Fechar contrato de autenticacao e trocar fixtures locais</td><td>Back + Front</td><td>Auth server-side</td><td>Usuario autentica via API real</td></tr>
+                    <tr><td>[Back] Persistir pacientes no servidor</td><td>CRUD de pacientes vinculado ao nutricionista dono</td><td>Back</td><td>Auth integrada</td><td>Paciente persiste apos reload e mantem owner</td></tr>
+                    <tr><td>[Back] Persistir pedidos e fabrica responsavel em banco</td><td>Salvar pedido, itens e fabrica responsavel</td><td>Back</td><td>Dominio de pedidos</td><td>Pedido recuperavel por nutri, paciente e fabrica</td></tr>
+                    <tr><td>[Front] Sincronizar kanban server-side</td><td>Atualizar colunas/status com API real</td><td>Front</td><td>API de status</td><td>Mudanca persiste apos refresh e reflete nos perfis</td></tr>
+                    <tr><td>[QA] Estrategia de testes criticos</td><td>Definir matriz de testes por dominio</td><td>QA</td><td>Cobertura atual</td><td>Plano aprovado e versionado em docs</td></tr>
+                    <tr><td>[QA] Testes auth + CRUD pacientes</td><td>Automacao de cenarios criticos de autenticacao e pacientes</td><td>QA</td><td>Auth e CRUD</td><td>Testes rodam em pipeline com pass</td></tr>
+                    <tr><td>[QA] Fluxo nutri-paciente integrado</td><td>Smoke do fluxo criacao -> revisao -> confirmacao</td><td>QA</td><td>Fluxo integrado ok</td><td>Smoke executa em baseline sem falhas</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Estrutura de acompanhamento</h2>
+            <h3>5.1 To Do</h3>
+            <ul>
+                <li>Itens que ja possuem descricao, owner sugerido e criterio de aceite definido no GitHub Project.</li>
+                <li>Bloqueadores conhecidos (ex: provisionamento do banco) devem ser explicitos na issue.</li>
+            </ul>
+            <h3>5.2 Doing</h3>
+            <ul>
+                <li>Item em execucao deve apontar escopo atual e pendencias para o criterio de aceite.</li>
+                <li>Evidencias parciais (migrations aplicadas, print de endpoint) podem ser anexadas ao longo do desenvolvimento.</li>
+            </ul>
+            <h3>5.3 Done</h3>
+            <ul>
+                <li>So entra em concluido o item com criterio de aceite cumprido e evidencia registrada.</li>
+                <li>Migrations aplicadas em ambiente de homologacao fazem parte da evidencia.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>6. Definition of Done da sprint</h2>
+            <ul>
+                <li>Modulos back-end publicados, com migrations aplicadas e documentadas.</li>
+                <li>Endpoints autenticados e autorizados conforme matriz de perfis.</li>
+                <li>Jornada nutri-paciente funcional ponta a ponta com API real.</li>
+                <li>Kanban da cozinha operando sobre dados persistidos.</li>
+                <li>Pipeline de CI/CD com deploy validado para front e back.</li>
+                <li>Evidencia minima registrada por issue no GitHub Project.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>7. Evidencias esperadas</h2>
+            <table>
+                <thead><tr><th>Entrega</th><th>Evidencia minima</th><th>Finalidade</th></tr></thead>
+                <tbody>
+                    <tr><td>Banco provisionado</td><td>Migrations aplicadas e snapshot de tabelas</td><td>Comprovar base tecnica real</td></tr>
+                    <tr><td>Autenticacao server-side</td><td>Print de login via API e token emitido</td><td>Substituir fixtures locais</td></tr>
+                    <tr><td>Dominio de pedidos</td><td>Teste mostrando criacao, edicao e transicao de status</td><td>Garantir consistencia de negocio</td></tr>
+                    <tr><td>Kanban sincronizado</td><td>Mudanca de status refletida em duas telas distintas</td><td>Demonstrar sincronia operacional</td></tr>
+                    <tr><td>Pipeline de QA</td><td>Relatorio de execucao dos testes criticos</td><td>Comprovar preocupacao com regressao</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. Riscos e plano de contingencia</h2>
+            <table>
+                <thead><tr><th>Risco</th><th>Impacto</th><th>Contingencia</th></tr></thead>
+                <tbody>
+                    <tr><td>Modelagem incompleta das entidades core</td><td>Retrabalho em sprints seguintes</td><td>Revisar modelo com base nos fluxos ja desenhados antes de abrir PRs.</td></tr>
+                    <tr><td>Atraso no provisionamento do banco</td><td>Bloqueio de todo o back-end</td><td>Subir instancia minima gerenciada e evoluir em paralelo.</td></tr>
+                    <tr><td>Divergencia de contratos front/back</td><td>Quebrar fluxos em integracao</td><td>Fechar contrato de API por dominio antes da implementacao.</td></tr>
+                    <tr><td>Cobertura de testes insuficiente</td><td>Regressao difusa na Sprint 4</td><td>Priorizar smoke E2E e bloquear merge sem cobertura critica.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>9. Ritmo de acompanhamento</h2>
+            <ul>
+                <li>Daily curta para sincronizar front e back em integracoes criticas.</li>
+                <li>Revisao de bloqueios no meio da sprint para priorizar destravamento.</li>
+                <li>Consolidacao incremental de evidencias (prints, logs de migration, gravacao de endpoint).</li>
+                <li>Atualizacao diaria do GitHub Project como fonte unica de verdade.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>10. Resultado esperado ao fim da Sprint 3</h2>
+            <p>Ao final da Sprint 3 o FastInBox deve ter migrado a jornada principal para API real: autenticacao, pacientes, pedidos e status sendo lidos e escritos em banco PostgreSQL, com autorizacao por perfil e ambiente publicado. Isso habilita a Sprint 4 a integrar pagamento real sem reabrir dominios anteriores.</p>
+            <div class="note">Este documento deve ser lido em conjunto com o backlog publicado no GitHub Project e com o documento de evidencias correspondente, gerado ao final da sprint.</div>
+        </section>
+
+        <footer class="footer">
+            Documento de Sprint 3 voltado para planejamento tecnico da migracao do MVP para plataforma com persistencia real.
+        </footer>
+    </main>
+</body>
+</html>

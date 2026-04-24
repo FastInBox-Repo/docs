@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Sprint 6 Planning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./sprint-1-planning.html">Sprint 1 Planning</a>
+            <a href="./evidencias-sprint-1.html">Evidencias Sprint 1</a>
+            <a href="./sprint-2-planning.html">Sprint 2 Planning</a>
+            <a href="./evidencias-sprint-2.html">Evidencias Sprint 2</a>
+            <a href="./sprint-3-planning.html">Sprint 3 Planning</a>
+            <a href="./sprint-4-planning.html">Sprint 4 Planning</a>
+            <a href="./sprint-5-planning.html">Sprint 5 Planning</a>
+            <a href="./sprint-6-planning.html">Sprint 6 Planning</a>
+            <a href="./sprint-7-planning.html">Sprint 7 Planning</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Sprint governance</p>
+            <h1>Sprint 6 Planning</h1>
+            <p>Periodo planejado: Sprint 6 | Status: Planejada com backlog de escala comercial</p>
+            <p>Sprint de escala comercial. Entrega autoatendimento do paciente com vinculo por codigo do nutricionista, assinaturas recorrentes e previsao de demanda por janela de entrega como base para planejamento operacional.</p>
+        </header>
+
+        <section>
+            <h2>1. Contexto da sprint</h2>
+            <p>A Sprint 6 abre com a plataforma administrativa e observavel (Sprint 5) sobre uma base transacional estavel (Sprint 4). A oportunidade comercial agora e aumentar alcance e receita recorrente: permitir que o paciente se autoatenda vinculando-se ao nutricionista por codigo, criar base de assinaturas recorrentes e aproveitar os dados para previsao de demanda por janela de entrega, o que ajuda cozinhas parceiras a se organizar.</p>
+        </section>
+
+        <section>
+            <h2>2. Objetivo central</h2>
+            <p>Habilitar escala comercial com autoatendimento do paciente, assinaturas recorrentes e previsao de demanda acessivel para nutricionista, admin e fabrica.</p>
+            <ul>
+                <li>Permitir entrada do paciente sem depender da criacao manual pelo nutricionista.</li>
+                <li>Implementar assinaturas recorrentes com agenda de pedidos futuros.</li>
+                <li>Prever demanda por janela de entrega como insumo operacional.</li>
+                <li>Disponibilizar UI de gestao de assinaturas e previsao para os perfis relevantes.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Entregaveis prioritarios</h2>
+            <table>
+                <thead><tr><th>Entregavel</th><th>Descricao</th><th>Resultado esperado</th></tr></thead>
+                <tbody>
+                    <tr><td>Autoatendimento do paciente</td><td>Cadastro via codigo do nutricionista, com vinculo comercial</td><td>Paciente entra sozinho e ja fica associado</td></tr>
+                    <tr><td>Assinaturas recorrentes</td><td>Planos, ciclo, cobranca futura e agenda</td><td>Receita recorrente com fluxo automatizado</td></tr>
+                    <tr><td>Previsao de demanda</td><td>Projecao por janela de entrega a partir de assinaturas e pedidos</td><td>Cozinha e admin antecipam planejamento</td></tr>
+                    <tr><td>UI de assinaturas e previsao</td><td>Telas para gerenciar assinaturas e visualizar previsoes</td><td>Operacao ganha autonomia sem depender de planilha</td></tr>
+                    <tr><td>Design de autoatendimento</td><td>Prototipagem da jornada e visual alinhado ao design system</td><td>Experiencia consistente em escala</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Backlog detalhado da Sprint 6</h2>
+            <table>
+                <thead><tr><th>Item</th><th>Tarefa acionavel</th><th>Owner sugerido</th><th>Dependencia</th><th>Criterio de aceite</th></tr></thead>
+                <tbody>
+                    <tr><td>[Design] Autoatendimento + assinaturas</td><td>Prototipar cadastro do paciente por codigo e gestao de assinaturas</td><td>Design</td><td>Design system</td><td>Prototipo aprovado com casos de borda</td></tr>
+                    <tr><td>[Back] Autoatendimento do paciente</td><td>Endpoints para cadastro do paciente vinculado por codigo</td><td>Back</td><td>Codigo do nutricionista</td><td>Paciente vincula sem intervencao manual</td></tr>
+                    <tr><td>[Back] Assinaturas recorrentes</td><td>Modelar plano, ciclo e cobranca futura</td><td>Back</td><td>Gateway de pagamento</td><td>Assinatura gera pedido futuro previsto</td></tr>
+                    <tr><td>[Back] Previsao de demanda</td><td>Calcular demanda por janela com base em assinaturas e historico</td><td>Back</td><td>Historico de pedidos</td><td>Previsao bate com teste comparativo</td></tr>
+                    <tr><td>[Front] Autoatendimento do paciente</td><td>UI de cadastro por codigo com copy e whitelabel da clinica</td><td>Front</td><td>Endpoint autoatendimento</td><td>Paciente completa cadastro em fluxo unico</td></tr>
+                    <tr><td>[Front] Gestao de assinaturas + previsao</td><td>UIs para gerir assinatura e visualizar previsao por perfil</td><td>Front</td><td>API de assinaturas e previsao</td><td>Admin e fabrica acessam dashboard util</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Estrutura de acompanhamento</h2>
+            <h3>5.1 To Do</h3>
+            <ul>
+                <li>Itens com design e contrato de API alinhados antes da execucao.</li>
+                <li>Casos de borda do autoatendimento (codigo invalido, expirado, paciente duplicado) descritos na issue.</li>
+            </ul>
+            <h3>5.2 Doing</h3>
+            <ul>
+                <li>Assinatura em desenvolvimento deve apontar qual ciclo de cobranca esta coberto.</li>
+                <li>Previsao em desenvolvimento publica dataset usado para validar resultados.</li>
+            </ul>
+            <h3>5.3 Done</h3>
+            <ul>
+                <li>Autoatendimento validado com paciente teste vinculado a nutricionista correto.</li>
+                <li>Previsao com erro estimado registrado em evidencia.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>6. Definition of Done da sprint</h2>
+            <ul>
+                <li>Paciente se autoatende via codigo do nutricionista com vinculo correto.</li>
+                <li>Assinaturas ativas geram pedidos futuros dentro da janela programada.</li>
+                <li>Previsao de demanda disponivel em UI com dados validados.</li>
+                <li>Design alinhado ao design system em todos os fluxos novos.</li>
+                <li>Backlog da proxima sprint (go-live) iniciado com base no que restou.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>7. Evidencias esperadas</h2>
+            <table>
+                <thead><tr><th>Entrega</th><th>Evidencia minima</th><th>Finalidade</th></tr></thead>
+                <tbody>
+                    <tr><td>Autoatendimento</td><td>Video curto mostrando cadastro por codigo</td><td>Comprovar jornada end-to-end</td></tr>
+                    <tr><td>Assinaturas</td><td>Print com assinatura ativa e pedido futuro gerado</td><td>Validar ciclo comercial</td></tr>
+                    <tr><td>Previsao de demanda</td><td>Dashboard com previsao + valor real do periodo seguinte</td><td>Medir precisao do modelo</td></tr>
+                    <tr><td>Design</td><td>Arquivos de prototipo linkados na issue</td><td>Rastrear decisao visual</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. Riscos e plano de contingencia</h2>
+            <table>
+                <thead><tr><th>Risco</th><th>Impacto</th><th>Contingencia</th></tr></thead>
+                <tbody>
+                    <tr><td>Cobranca recorrente com falha em gateway</td><td>Churn silencioso</td><td>Reaproveitar webhooks da Sprint 4 com alerta especifico de falha recorrente.</td></tr>
+                    <tr><td>Previsao imprecisa</td><td>Decisoes operacionais ruins</td><td>Apresentar previsao como faixa e nao valor unico, com intervalo de confianca.</td></tr>
+                    <tr><td>Paciente vinculando ao nutricionista errado</td><td>Dado cruzado incorretamente</td><td>Codigo com validade e confirmacao dupla na primeira sessao.</td></tr>
+                    <tr><td>Copy inconsistente no autoatendimento</td><td>Percepcao amadora</td><td>Passar textos por revisao antes de publicar.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>9. Ritmo de acompanhamento</h2>
+            <ul>
+                <li>Daily alinhando design, back e front para manter contrato consistente.</li>
+                <li>Sync especifico com admin e fabrica quando previsao estiver em teste.</li>
+                <li>Revisao intermediaria da jornada de autoatendimento com usuario nao-tecnico.</li>
+                <li>Atualizacao diaria do GitHub Project refletindo o avanco em assinaturas.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>10. Resultado esperado ao fim da Sprint 6</h2>
+            <p>Ao final da Sprint 6 o FastInBox deve operar com motor comercial completo: autoatendimento do paciente, assinaturas recorrentes gerando pedidos futuros e previsao de demanda ajudando a operacao. Isso abre a porta para a Sprint 7 se concentrar em go-live, UX final e hardening de producao.</p>
+            <div class="note">Este documento deve ser lido em conjunto com o backlog publicado no GitHub Project e com o documento de evidencias correspondente, gerado ao final da sprint.</div>
+        </section>
+
+        <footer class="footer">
+            Documento de Sprint 6 voltado para escala comercial com autoatendimento, assinaturas recorrentes e previsao de demanda.
+        </footer>
+    </main>
+</body>
+</html>
