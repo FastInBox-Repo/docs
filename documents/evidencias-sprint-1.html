@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Evidencias Sprint 1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+    <style>
+        .evidence-block {
+            border: 3px solid #000000;
+            margin-top: 1.1rem;
+            padding: 0;
+            box-shadow: 6px 6px 0 #000000;
+            background: #ffffff;
+            overflow: hidden;
+        }
+        .evidence-block header {
+            border-bottom: 2px solid #000000;
+            padding: 0.9rem 1.1rem;
+            background: #f4f4f4;
+            display: flex;
+            gap: 0.8rem;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: baseline;
+        }
+        .evidence-block header h3 {
+            margin: 0;
+            font-size: 1.05rem;
+        }
+        .evidence-block header .eyebrow {
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 0.2rem 0.55rem;
+            border: 2px solid #000000;
+            background: #ffffff;
+        }
+        .evidence-body {
+            padding: 1.1rem 1.1rem 0.2rem;
+        }
+        .evidence-body p {
+            margin: 0.2rem 0 0.8rem;
+        }
+        .evidence-shot {
+            border-top: 2px solid #000000;
+            padding: 1rem;
+            background: #ffffff;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.9rem;
+        }
+        .evidence-shot.dual {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .evidence-shot.mobile {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .evidence-shot figure {
+            margin: 0;
+            border: 2px solid #000000;
+            background: #fafafa;
+            padding: 0.55rem;
+            box-shadow: 3px 3px 0 #000000;
+        }
+        .evidence-shot figure img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 1px solid #000000;
+            background: #ffffff;
+        }
+        .evidence-shot figcaption {
+            margin-top: 0.5rem;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            font-weight: 700;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+        }
+        .how-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.9rem;
+            margin-top: 0.7rem;
+        }
+        .how-grid article {
+            border: 2px solid #000000;
+            padding: 0.85rem;
+            background: #fafafa;
+        }
+        .how-grid article h4 {
+            margin: 0 0 0.4rem;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.02em;
+        }
+        .how-grid article ol,
+        .how-grid article ul {
+            margin: 0 0 0 1.2rem;
+            padding: 0;
+        }
+        .how-grid article li {
+            margin-bottom: 0.35rem;
+            font-size: 0.9rem;
+        }
+        .badge-row {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 0.2rem 0 0.4rem;
+        }
+        .badge-row span {
+            border: 2px solid #000000;
+            padding: 0.2rem 0.55rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            font-weight: 700;
+            background: #ffffff;
+        }
+        .code-inline {
+            font-family: "IBM Plex Mono", "Menlo", monospace;
+            background: #f4f4f4;
+            border: 1px solid #000000;
+            padding: 0 0.35rem;
+            font-size: 0.85rem;
+        }
+        @media (max-width: 680px) {
+            .evidence-shot.dual,
+            .evidence-shot.mobile,
+            .how-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./sprint-review.html">Review Sprint 1</a>
+            <a href="../content/sprint-1-project-tasks.md" target="_blank" rel="noopener noreferrer">Tasks Sprint 1</a>
+            <a href="./evidencias-sprint-2.html">Evidencias Sprint 2</a>
+            <a href="https://front-chi-flame.vercel.app" target="_blank" rel="noopener noreferrer">Abrir plataforma</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Sprint governance</p>
+            <h1>Evidencias Sprint 1</h1>
+            <p>Periodo: Sprint 1 | Status: MVP navegavel com fluxo completo validado para apresentacao academica.</p>
+            <p>Documento destinado a banca, professores e a propria equipe. Mostra o que foi entregue no MVP da Sprint 1, como foi construido, como validar manualmente e prints reais de cada parte do fluxo. Segue o mesmo padrao neo-brutal preto e branco do hub oficial do FastInBox.</p>
+        </header>
+
+        <section>
+            <h2>1. Como ler este documento</h2>
+            <p>Cada bloco abaixo representa uma entrega da Sprint 1. Cada entrega mostra:</p>
+            <ul>
+                <li><strong>O que foi feito:</strong> funcionalidade construida e valor gerado para o perfil correspondente.</li>
+                <li><strong>Como foi testado:</strong> caminho que a equipe percorreu para validar em baseline.</li>
+                <li><strong>Como voce pode testar:</strong> passo a passo direto no ambiente publico publicado na Vercel.</li>
+                <li><strong>Prints de evidencia:</strong> capturas reais geradas por script headless Chrome no front em <span class="code-inline">localhost:3001</span>, com dados de seed controlados.</li>
+            </ul>
+            <div class="note">As capturas foram geradas pelo script <span class="code-inline">front/scripts/capture-evidencias-sprint-1.mjs</span>, que popula <span class="code-inline">localStorage</span> com pacientes, usuarios e pedidos de demonstracao, alterna entre os perfis e captura desktop 1440x900 e mobile 420x820.</div>
+        </section>
+
+        <section>
+            <h2>2. Time e autoria da sprint</h2>
+            <table>
+                <thead><tr><th>Area</th><th>Responsavel sugerido</th><th>Entrega principal</th></tr></thead>
+                <tbody>
+                    <tr><td>Frontend / UX</td><td>Thiago Salves</td><td>Fluxos por perfil (nutricionista, paciente, cozinha e admin), jornada E2E navegavel, layout neo-brutal consistente.</td></tr>
+                    <tr><td>Arquitetura</td><td>Thiago Salves</td><td>Camada <span class="code-inline">sprintStore</span> com persistencia local, seletor de perfil e modelo de dados para pacientes, pedidos e usuarios.</td></tr>
+                    <tr><td>Deploy</td><td>Thiago Salves</td><td>Publicacao do front na Vercel e do hub de documentos no GitHub Pages como prova viva do MVP.</td></tr>
+                    <tr><td>Docs / Governanca</td><td>Thiago Salves</td><td>Backlog da sprint em markdown, review formal, hub publico de artefatos tecnicos e este documento de evidencias.</td></tr>
+                </tbody>
+            </table>
+            <p class="mini-note">A Sprint 1 foi executada em formato concentrado, com um unico desenvolvedor cobrindo fullstack, UX e documentacao, simulando o time minimo viavel para sustentar o MVP academico.</p>
+        </section>
+
+        <section>
+            <h2>3. O que foi desenvolvido nesta sprint</h2>
+            <p>Abaixo estao as entregas da Sprint 1, cruzando o backlog de <a href="../content/sprint-1-project-tasks.md" target="_blank" rel="noopener noreferrer">tasks publicado</a> com o que realmente entrou em main.</p>
+            <table>
+                <thead><tr><th>Task do backlog</th><th>Implementacao</th><th>Arquivos principais</th></tr></thead>
+                <tbody>
+                    <tr><td>S1 - Autenticacao por perfil (nutri, paciente, fabrica)</td><td>Tela unica de login com seletor de perfil (nutricionista, paciente, fabrica e admin). Sessao persistida em <span class="code-inline">localStorage</span> e logout em todos os layouts.</td><td><span class="code-inline">pages/public/LoginPage.tsx</span>, <span class="code-inline">pages/cozinha/CozinhaLoginPage.tsx</span>, <span class="code-inline">data/sprintStore.ts</span></td></tr>
+                    <tr><td>S1 - Cadastro de pacientes pelo nutricionista</td><td>Lista de pacientes com busca, modal de cadastro e persistencia imediata no store. Paciente cadastrado aparece instantaneamente na listagem e pode ser selecionado no fluxo de pedido.</td><td><span class="code-inline">pages/nutricionista/PacientesPage.tsx</span></td></tr>
+                    <tr><td>S1 - Criacao de marmita vinculada ao paciente</td><td>Wizard de 4 etapas (Paciente, Marmitas, Precos, Revisao) com marmitas + ingredientes, embalagens, preco final e codigo unico gerado por pedido.</td><td><span class="code-inline">pages/nutricionista/NovoPedidoPage.tsx</span>, <span class="code-inline">data/mockData.ts</span></td></tr>
+                    <tr><td>S1 - Envio de pedido para fabrica</td><td>No passo 1 do pedido a nutricionista seleciona a fabrica responsavel (<span class="code-inline">factoryId</span>). Ao concluir, o pedido entra diretamente no kanban da fabrica correta.</td><td><span class="code-inline">NovoPedidoPage.tsx</span>, <span class="code-inline">pages/cozinha/CozinhaDashboardPage.tsx</span></td></tr>
+                    <tr><td>S1 - Dashboard do nutricionista com acompanhamento</td><td>Dashboard com metricas da clinica (pacientes, aguardando pagamento, pagos, em producao, faturamento), lista de pedidos recentes e atalhos para cadastrar paciente/pedido.</td><td><span class="code-inline">pages/nutricionista/DashboardPage.tsx</span></td></tr>
+                    <tr><td>S1 - Dashboard do paciente com andamento em cards</td><td>Landing do paciente logado mostra pedidos em cards com codigo, marmita principal, selo de status e CTA para abrir timeline.</td><td><span class="code-inline">pages/paciente/LandingPage.tsx</span></td></tr>
+                    <tr><td>S1 - Kanban da fabrica com drag-and-drop</td><td>Painel da cozinha com colunas Novo / Em producao / Pronto / Em entrega / Entregue. Pedido move de coluna via drag nativo HTML5 e status persiste no store.</td><td><span class="code-inline">pages/cozinha/CozinhaDashboardPage.tsx</span></td></tr>
+                    <tr><td>S1 - Pagamento e atualizacao de status</td><td>Tela de pagamento para pedidos pendentes com simulacao de PIX. Apos confirmar, o status vai para <em>pago</em> e o pedido entra no fluxo de producao.</td><td><span class="code-inline">pages/paciente/PagamentoPage.tsx</span></td></tr>
+                    <tr><td>S1 - Estrategia de entrega da Sprint 1</td><td>App publicado na Vercel (<span class="code-inline">front-chi-flame.vercel.app</span>) e hub de documentos no GitHub Pages (<span class="code-inline">fastinbox-repo.github.io/docs/</span>).</td><td><span class="code-inline">vercel.json</span>, <span class="code-inline">docs/index.html</span></td></tr>
+                    <tr><td>S1 - Revisao final para apresentacao academica</td><td>Ajustes finos de tipografia, contraste, rotas e feedbacks em desktop e mobile para eliminar ruido na demonstracao.</td><td><span class="code-inline">components/layout/*</span>, <span class="code-inline">pages/public/*</span></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Evidencia visual por entrega</h2>
+            <p class="section-lead">Cada card abaixo combina descricao tecnica, roteiro de validacao e print real do baseline executado nesta sprint.</p>
+
+            <div class="evidence-block" id="ev-home">
+                <header>
+                    <h3>4.1 Home publica do FastInBox</h3>
+                    <span class="eyebrow">FRONT | PUBLIC</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Rota: /</span>
+                        <span>Perfil: visitante</span>
+                        <span>Canal: desktop</span>
+                    </div>
+                    <p>Pagina publica de entrada: proposta de valor, chamada para acessar a plataforma e acesso rapido aos documentos do hub. Responsive, com tipografia neo-brutal e hierarquia direta de conversao.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Build <span class="code-inline">next build</span> finalizou sem erros de lint ou tipagem.</li>
+                                <li>Navegacao local em <span class="code-inline">localhost:3001</span> para validar CTA, headings e rodape.</li>
+                                <li>Deploy publicado na Vercel com retorno HTTP 200.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Abra <a href="https://front-chi-flame.vercel.app" target="_blank" rel="noopener noreferrer">front-chi-flame.vercel.app</a>.</li>
+                                <li>Confira a secao principal e os blocos de acesso rapido por perfil.</li>
+                                <li>Clique em <em>Acessar plataforma</em> para entrar no fluxo de login.</li>
+                            </ol>
+                        </article>
+                    </div>
+                </div>
+                <div class="evidence-shot">
+                    <figure>
+                        <img src="./evidencias-sprint-1/01-home-public.png" alt="Home publica do FastInBox">
+                        <figcaption>01 | Home publica do FastInBox</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-login">
+                <header>
+                    <h3>4.2 Login com seletor de perfil</h3>
+                    <span class="eyebrow">FRONT | AUTH</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Rota: /login?role=nutricionista</span>
+                        <span>Perfis: nutricionista, paciente, admin</span>
+                        <span>Cozinha: /cozinha/login</span>
+                    </div>
+                    <p>Tela unica de autenticacao permite escolher o perfil de entrada. O formulario valida credenciais com o mock de usuarios no <span class="code-inline">sprintStore</span>, mantem sessao em <span class="code-inline">localStorage</span> e libera as rotas privadas do perfil selecionado. A cozinha possui login dedicado em modo escuro para simular terminal de fabrica.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Login com as credenciais de cada perfil e verificacao do layout correto.</li>
+                                <li>Login invalido para validar a mensagem de erro.</li>
+                                <li>Logout seguido de reentrada para validar persistencia da sessao.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Acione <em>Acessar plataforma</em> na home.</li>
+                                <li>Entre como nutricionista (<span class="code-inline">ana@nutritionvida.com.br</span> / <span class="code-inline">123456</span>).</li>
+                                <li>Faca logout e entre como paciente (<span class="code-inline">carla.menezes@email.com</span> / <span class="code-inline">123456</span>).</li>
+                            </ol>
+                        </article>
+                    </div>
+                </div>
+                <div class="evidence-shot">
+                    <figure>
+                        <img src="./evidencias-sprint-1/02-login-nutricionista.png" alt="Tela de login com perfil nutricionista">
+                        <figcaption>02 | Login com perfil nutricionista selecionado</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-nutri-dashboard">
+                <header>
+                    <h3>4.3 Dashboard do nutricionista</h3>
+                    <span class="eyebrow">FRONT | NUTRICIONISTA</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Rota: /nutricionista/dashboard</span>
+                        <span>Perfil: Nutricionista</span>
+                    </div>
+                    <p>Dashboard inicial da nutricionista com seis indicadores (pacientes, rascunhos, aguardando pagamento, pagos, em producao e faturamento), lista de pedidos recentes, lateral de acoes rapidas e ranking de pacientes por pedidos. Todos os cards sao alimentados pelo <span class="code-inline">sprintStore</span>, entao refletem o estado real da demo.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Seed de dados com 2 pacientes e 4 pedidos em status diferentes.</li>
+                                <li>Conferencia visual de indicadores e valores em <span class="code-inline">formatCurrency</span>.</li>
+                                <li>Navegacao dos atalhos (Novo pedido, Cadastrar paciente, Configuracoes).</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Logue como nutricionista.</li>
+                                <li>Abra <span class="code-inline">/nutricionista/dashboard</span>.</li>
+                                <li>Cadastre um paciente ou um novo pedido e volte para ver os contadores reagirem.</li>
+                            </ol>
+                        </article>
+                    </div>
+                </div>
+                <div class="evidence-shot">
+                    <figure>
+                        <img src="./evidencias-sprint-1/03-nutri-dashboard.png" alt="Dashboard do nutricionista">
+                        <figcaption>03 | Dashboard da nutricionista com pedidos recentes e atalhos</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-pacientes">
+                <header>
+                    <h3>4.4 Cadastro de pacientes pelo nutricionista</h3>
+                    <span class="eyebrow">FRONT | NUTRICIONISTA</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Rota: /nutricionista/pacientes</span>
+                        <span>Perfil: Nutricionista</span>
+                        <span>Modal de cadastro</span>
+                    </div>
+                    <p>Lista de pacientes com busca textual por nome/e-mail e acao <em>Novo Paciente</em> que abre um modal com campos clinicos (nome, e-mail, telefone, CPF, nascimento, objetivo nutricional e restricoes). O paciente cadastrado entra imediatamente na lista e fica disponivel para vincular em pedidos futuros.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Cadastro de paciente preenchendo nome e e-mail, validando mensagem obrigatoria.</li>
+                                <li>Busca por nome parcial para confirmar o filtro.</li>
+                                <li>Vinculacao imediata do paciente criado em um novo pedido.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Abra <span class="code-inline">/nutricionista/pacientes</span>.</li>
+                                <li>Clique em <em>+ Novo Paciente</em> e preencha os campos obrigatorios.</li>
+                                <li>Confira que o novo paciente aparece na tabela.</li>
+                            </ol>
+                        </article>
+                    </div>
+                </div>
+                <div class="evidence-shot dual">
+                    <figure>
+                        <img src="./evidencias-sprint-1/04-nutri-pacientes.png" alt="Lista de pacientes da nutricionista">
+                        <figcaption>04 | Lista de pacientes com busca</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="./evidencias-sprint-1/05-nutri-paciente-novo.png" alt="Modal de novo paciente">
+                        <figcaption>05 | Modal de cadastro de novo paciente</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-novo-pedido">
+                <header>
+                    <h3>4.5 Criacao de pedido vinculado ao paciente</h3>
+                    <span class="eyebrow">FRONT | NUTRICIONISTA</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Rota: /nutricionista/pedidos/novo</span>
+                        <span>4 etapas</span>
+                        <span>Codigo unico gerado</span>
+                    </div>
+                    <p>Wizard em 4 etapas (Paciente, Marmitas, Precos, Revisao) para montar pedidos personalizados. Na primeira etapa a nutricionista seleciona o paciente, a data prevista de entrega e a <em>fabrica responsavel</em> que vai receber o pedido. Na segunda etapa monta marmitas com ingredientes categorizados (proteina, carboidrato, vegetal, gordura, tempero), embalagem e observacoes. Ao concluir, o pedido ganha codigo unico no padrao <span class="code-inline">FIB-YYYY-XXX</span>.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Criacao de pedido completo para paciente existente com duas marmitas.</li>
+                                <li>Validacao das regras de avanco entre etapas (paciente obrigatorio, nome da marmita obrigatorio, etc.).</li>
+                                <li>Checagem do codigo unico gerado na conclusao.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Na pagina de pacientes, clique em um paciente e depois em <em>Novo Pedido</em>.</li>
+                                <li>Monte 1 marmita com ao menos 1 ingrediente, defina preco e avance ate a revisao.</li>
+                                <li>Finalize com <em>Criar pedido e enviar para fabrica</em> e guarde o codigo gerado.</li>
+                            </ol>
+                        </article>
+                    </div>
+                </div>
+                <div class="evidence-shot dual">
+                    <figure>
+                        <img src="./evidencias-sprint-1/06-nutri-pedido-paciente.png" alt="Wizard etapa Paciente">
+                        <figcaption>06 | Etapa Paciente com fabrica selecionavel</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="./evidencias-sprint-1/07-nutri-pedido-marmitas.png" alt="Wizard etapa Marmitas">
+                        <figcaption>07 | Etapa Marmitas com ingredientes e embalagem</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-resumo">
+                <header>
+                    <h3>4.6 Resumo do pedido criado</h3>
+                    <span class="eyebrow">FRONT | NUTRICIONISTA</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Rota: /nutricionista/pedidos/:id</span>
+                        <span>Perfil: Nutricionista</span>
+                    </div>
+                    <p>Depois de criado, o pedido fica acessivel pela nutricionista a partir da lista de pedidos recentes do dashboard. A tela de resumo mostra codigo, status atual, paciente, itens, observacoes nutricionais, preco final e data prevista de entrega, fechando a malha de acompanhamento por quem gerou o pedido.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Abertura de pedido recem criado a partir do dashboard.</li>
+                                <li>Validacao do codigo, status e faturamento exibidos.</li>
+                                <li>Copy do codigo do pedido para compartilhar com o paciente.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>No dashboard da nutricionista, clique em um pedido recente.</li>
+                                <li>Conferir codigo, paciente, itens e status.</li>
+                                <li>Copie o codigo para usar na jornada do paciente.</li>
+                            </ol>
+                        </article>
+                    </div>
+                </div>
+                <div class="evidence-shot">
+                    <figure>
+                        <img src="./evidencias-sprint-1/08-nutri-pedido-resumo.png" alt="Resumo de pedido ja criado">
+                        <figcaption>08 | Resumo de pedido criado com codigo e status</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-cozinha">
+                <header>
+                    <h3>4.7 Kanban da fabrica com drag-and-drop</h3>
+                    <span class="eyebrow">FRONT | COZINHA</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Rota: /cozinha/dashboard</span>
+                        <span>Perfil: Fabrica</span>
+                        <span>HTML5 drag nativo</span>
+                    </div>
+                    <p>Painel operacional da fabrica com 5 colunas (Novo, Em producao, Pronto, Em entrega, Entregue). Cada card mostra codigo, paciente, marmita principal, quantidade, valor e acesso a detalhes. A movimentacao acontece via drag-and-drop HTML5 e o novo status e persistido pelo <span class="code-inline">sprintStore</span>, refletindo no acompanhamento do paciente e no dashboard da nutricionista.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Drag de um pedido da coluna <em>Novo</em> para <em>Em producao</em> e validacao do status persistido.</li>
+                                <li>Refresh da pagina para confirmar que a nova coluna foi mantida.</li>
+                                <li>Acesso aos detalhes de um pedido a partir do card.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Logue como cozinha (<span class="code-inline">fabrica@fastinbox.com.br</span> / <span class="code-inline">123456</span>).</li>
+                                <li>Arraste um pedido entre colunas e solte na nova etapa.</li>
+                                <li>Abra <em>Detalhes</em> para checar ingredientes e observacoes da marmita.</li>
+                            </ol>
+                        </article>
+                    </div>
+                </div>
+                <div class="evidence-shot">
+                    <figure>
+                        <img src="./evidencias-sprint-1/09-cozinha-kanban.png" alt="Kanban da fabrica">
+                        <figcaption>09 | Kanban com pedidos distribuidos nas colunas operacionais</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-paciente">
+                <header>
+                    <h3>4.8 Jornada do paciente: dashboard, pagamento e status</h3>
+                    <span class="eyebrow">FRONT | PACIENTE | MOBILE</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Rotas: /paciente, /paciente/pedido/:code/pagamento, /paciente/pedido/:code/status</span>
+                        <span>Canal: mobile</span>
+                        <span>3 telas em sequencia</span>
+                    </div>
+                    <p>A jornada do paciente fecha o fluxo da Sprint 1: dashboard em cards com os pedidos ativos, tela de pagamento simulando PIX para pedidos pendentes e pagina de acompanhamento com timeline do pedido. Todas as telas foram validadas em viewport mobile 420x820 para representar o uso real pelo celular.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Login como paciente e validacao do dashboard de pedidos em cards.</li>
+                                <li>Pagamento de um pedido <em>aguardando_pagamento</em> com mudanca para <em>pago</em>.</li>
+                                <li>Consulta do andamento na tela de status, conferindo a ordem da timeline.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Logue como paciente (<span class="code-inline">carla.menezes@email.com</span> / <span class="code-inline">123456</span>).</li>
+                                <li>Abra um pedido pendente e conclua o pagamento.</li>
+                                <li>Volte para <em>Ver andamento</em> e inspecione a timeline do pedido.</li>
+                            </ol>
+                        </article>
+                    </div>
+                </div>
+                <div class="evidence-shot mobile">
+                    <figure>
+                        <img src="./evidencias-sprint-1/10-paciente-dashboard.png" alt="Dashboard do paciente em mobile">
+                        <figcaption>10 | Dashboard do paciente com pedidos ativos</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="./evidencias-sprint-1/11-paciente-pagamento.png" alt="Tela de pagamento do paciente">
+                        <figcaption>11 | Pagamento do pedido pendente</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="./evidencias-sprint-1/12-paciente-status.png" alt="Status do pedido com timeline">
+                        <figcaption>12 | Status do pedido com timeline</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>5. Validacao tecnica consolidada</h2>
+            <table>
+                <thead><tr><th>Camada</th><th>Validacao</th><th>Resultado</th></tr></thead>
+                <tbody>
+                    <tr><td>Build Next.js</td><td><span class="code-inline">next build</span> com typecheck e lint habilitados</td><td>Passou sem erros; 5/5 paginas estaticas geradas.</td></tr>
+                    <tr><td>Rotas protegidas</td><td>Navegacao em todas as rotas por perfil com login e logout</td><td>Layouts e redirects funcionando por perfil sem quebras.</td></tr>
+                    <tr><td>Persistencia local</td><td>Sessao, pacientes e pedidos mantidos em <span class="code-inline">localStorage</span></td><td>Dados sobrevivem a refresh e permanecem consistentes entre telas.</td></tr>
+                    <tr><td>Kanban drag-and-drop</td><td>Movimentacao de cards entre colunas na tela da cozinha</td><td>Status persiste e reflete nos demais perfis.</td></tr>
+                    <tr><td>Deploy publico</td><td>Vercel (front) e GitHub Pages (docs)</td><td>HTTP 200 em ambos; apresentacao acessivel sem setup local.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>6. Como reproduzir localmente</h2>
+            <ol>
+                <li>Clonar o repositorio front e rodar <span class="code-inline">npm install</span>.</li>
+                <li>Subir o dev server com <span class="code-inline">npm run dev -- --port 3001</span>.</li>
+                <li>Opcional: rodar <span class="code-inline">node scripts/capture-evidencias-sprint-1.mjs</span> para regenerar os prints desta pagina.</li>
+                <li>Acessar o app em <span class="code-inline">http://localhost:3001</span> e seguir os testes descritos em cada bloco acima.</li>
+                <li>Para jornada mobile, ativar o modo responsive nas devtools (viewport 420x820) antes de abrir as rotas do paciente.</li>
+            </ol>
+            <div class="note">Todas as interacoes da Sprint 1 funcionam sobre estado persistido em <span class="code-inline">localStorage</span>. A Sprint 2 ja evoluiu esse contrato acrescentando sincronizacao entre abas, auditoria e smoke tests automatizados; consulte as <a href="./evidencias-sprint-2.html">evidencias da Sprint 2</a> para o avanco tecnico subsequente.</div>
+        </section>
+
+        <section>
+            <h2>7. Criterio de pronto da Sprint 1</h2>
+            <ul>
+                <li>Codigo versionado em main no repositorio <span class="code-inline">FastInBox-Repo/front</span>.</li>
+                <li>Jornada principal navegavel fim a fim em ambiente publico.</li>
+                <li>Documentacao formal publicada no hub <span class="code-inline">FastInBox-Repo/docs</span>.</li>
+                <li>Revisao de sprint registrada em <a href="./sprint-review.html">sprint-review.html</a>.</li>
+                <li>Backlog atualizado em <span class="code-inline">docs/content/sprint-1-project-tasks.md</span>.</li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            Documento de evidencias da Sprint 1 do FastInBox. Gerado e publicado como parte da governanca academica do projeto, com capturas automatizadas e texto revisado manualmente.
+        </footer>
+    </main>
+</body>
+</html>
