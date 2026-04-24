@@ -113,53 +113,146 @@
         <section id="secao-2">
             <h2>2. Escopo do Projeto (EAP)</h2>
             <p class="section-lead">A EAP abaixo organiza o trabalho em pacotes de entrega coerentes com o backlog ja publicado no hub tecnico.</p>
-            <div class="hierarchy">
-                <div class="hierarchy-root">
-                    <strong>Projeto Integrador III - FastInBox</strong>
-                    <span>Planejamento, construcao, validacao e apresentacao do MVP</span>
-                </div>
-                <div class="hierarchy-level">
-                    <article class="hierarchy-node">
-                        <strong>1. Gestao do Projeto</strong>
-                        <ul>
-                            <li>Plano de projeto e 5W2H</li>
-                            <li>Cronograma e marcos</li>
-                            <li>Riscos e governanca de sprint</li>
-                        </ul>
-                    </article>
-                    <article class="hierarchy-node">
-                        <strong>2. Produto e Negocio</strong>
-                        <ul>
-                            <li>Documento de visao</li>
-                            <li>Business Model Canvas</li>
-                            <li>Personas e publico-alvo</li>
-                        </ul>
-                    </article>
-                    <article class="hierarchy-node">
-                        <strong>3. Engenharia e Desenvolvimento</strong>
-                        <ul>
-                            <li>Front-end responsivo</li>
-                            <li>Baseline backend</li>
-                            <li>Modelo de dados e arquitetura</li>
-                        </ul>
-                    </article>
-                    <article class="hierarchy-node">
-                        <strong>4. Validacao e Evidencias</strong>
-                        <ul>
-                            <li>Testes internos</li>
-                            <li>Review de sprint</li>
-                            <li>Deploy publico e demonstracao</li>
-                        </ul>
-                    </article>
-                    <article class="hierarchy-node">
-                        <strong>5. Sustentacao Academica</strong>
-                        <ul>
-                            <li>Documento principal</li>
-                            <li>Bibliografia e apendices</li>
-                            <li>Preparacao para PI IV</li>
-                        </ul>
-                    </article>
-                </div>
+            <p class="mini-note"><em>[Hierarquia grafica da EAP do FastInBox com decomposicao dos principais pacotes de trabalho do PI III]</em></p>
+            <div class="eap-diagram" role="img" aria-label="Diagrama hierarquico da EAP do projeto FastInBox">
+                <svg viewBox="0 0 1400 920" aria-hidden="true">
+                    <defs>
+                        <filter id="hardShadow" x="-10%" y="-10%" width="120%" height="120%">
+                            <feOffset dx="6" dy="6" />
+                            <feFlood flood-color="#000000" />
+                            <feComposite in2="SourceAlpha" operator="in" />
+                            <feMerge>
+                                <feMergeNode />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                    </defs>
+
+                    <line x1="700" y1="130" x2="700" y2="180" stroke="#000000" stroke-width="4" />
+                    <line x1="140" y1="180" x2="1260" y2="180" stroke="#000000" stroke-width="4" />
+
+                    <line x1="170" y1="180" x2="170" y2="250" stroke="#000000" stroke-width="4" />
+                    <line x1="430" y1="180" x2="430" y2="250" stroke="#000000" stroke-width="4" />
+                    <line x1="700" y1="180" x2="700" y2="250" stroke="#000000" stroke-width="4" />
+                    <line x1="970" y1="180" x2="970" y2="250" stroke="#000000" stroke-width="4" />
+                    <line x1="1230" y1="180" x2="1230" y2="250" stroke="#000000" stroke-width="4" />
+
+                    <line x1="170" y1="390" x2="170" y2="430" stroke="#000000" stroke-width="4" />
+                    <line x1="80" y1="430" x2="260" y2="430" stroke="#000000" stroke-width="4" />
+                    <line x1="95" y1="430" x2="95" y2="470" stroke="#000000" stroke-width="4" />
+                    <line x1="170" y1="430" x2="170" y2="470" stroke="#000000" stroke-width="4" />
+                    <line x1="245" y1="430" x2="245" y2="470" stroke="#000000" stroke-width="4" />
+
+                    <line x1="430" y1="390" x2="430" y2="430" stroke="#000000" stroke-width="4" />
+                    <line x1="340" y1="430" x2="520" y2="430" stroke="#000000" stroke-width="4" />
+                    <line x1="355" y1="430" x2="355" y2="470" stroke="#000000" stroke-width="4" />
+                    <line x1="430" y1="430" x2="430" y2="470" stroke="#000000" stroke-width="4" />
+                    <line x1="505" y1="430" x2="505" y2="470" stroke="#000000" stroke-width="4" />
+
+                    <line x1="700" y1="390" x2="700" y2="430" stroke="#000000" stroke-width="4" />
+                    <line x1="610" y1="430" x2="790" y2="430" stroke="#000000" stroke-width="4" />
+                    <line x1="625" y1="430" x2="625" y2="470" stroke="#000000" stroke-width="4" />
+                    <line x1="700" y1="430" x2="700" y2="470" stroke="#000000" stroke-width="4" />
+                    <line x1="775" y1="430" x2="775" y2="470" stroke="#000000" stroke-width="4" />
+
+                    <line x1="970" y1="390" x2="970" y2="430" stroke="#000000" stroke-width="4" />
+                    <line x1="880" y1="430" x2="1060" y2="430" stroke="#000000" stroke-width="4" />
+                    <line x1="895" y1="430" x2="895" y2="470" stroke="#000000" stroke-width="4" />
+                    <line x1="970" y1="430" x2="970" y2="470" stroke="#000000" stroke-width="4" />
+                    <line x1="1045" y1="430" x2="1045" y2="470" stroke="#000000" stroke-width="4" />
+
+                    <line x1="1230" y1="390" x2="1230" y2="430" stroke="#000000" stroke-width="4" />
+                    <line x1="1140" y1="430" x2="1320" y2="430" stroke="#000000" stroke-width="4" />
+                    <line x1="1155" y1="430" x2="1155" y2="470" stroke="#000000" stroke-width="4" />
+                    <line x1="1230" y1="430" x2="1230" y2="470" stroke="#000000" stroke-width="4" />
+                    <line x1="1305" y1="430" x2="1305" y2="470" stroke="#000000" stroke-width="4" />
+
+                    <g filter="url(#hardShadow)">
+                        <rect x="440" y="40" width="520" height="90" fill="#ffffff" stroke="#000000" stroke-width="4" />
+                    </g>
+                    <text x="700" y="78" text-anchor="middle" font-size="26" font-family="Space Grotesk, sans-serif" font-weight="700">Projeto Integrador III - FastInBox</text>
+                    <text x="700" y="108" text-anchor="middle" font-size="18" font-family="IBM Plex Sans, sans-serif">Planejamento, construcao, validacao e apresentacao do MVP</text>
+
+                    <g filter="url(#hardShadow)">
+                        <rect x="40" y="250" width="260" height="140" fill="#ffffff" stroke="#000000" stroke-width="4" />
+                        <rect x="300" y="250" width="260" height="140" fill="#ffffff" stroke="#000000" stroke-width="4" />
+                        <rect x="570" y="250" width="260" height="140" fill="#ffffff" stroke="#000000" stroke-width="4" />
+                        <rect x="840" y="250" width="260" height="140" fill="#ffffff" stroke="#000000" stroke-width="4" />
+                        <rect x="1100" y="250" width="260" height="140" fill="#ffffff" stroke="#000000" stroke-width="4" />
+                    </g>
+
+                    <text x="170" y="295" text-anchor="middle" font-size="22" font-family="Space Grotesk, sans-serif" font-weight="700">1. GESTAO DO</text>
+                    <text x="170" y="325" text-anchor="middle" font-size="22" font-family="Space Grotesk, sans-serif" font-weight="700">PROJETO</text>
+
+                    <text x="430" y="295" text-anchor="middle" font-size="22" font-family="Space Grotesk, sans-serif" font-weight="700">2. PRODUTO E</text>
+                    <text x="430" y="325" text-anchor="middle" font-size="22" font-family="Space Grotesk, sans-serif" font-weight="700">NEGOCIO</text>
+
+                    <text x="700" y="295" text-anchor="middle" font-size="22" font-family="Space Grotesk, sans-serif" font-weight="700">3. ENGENHARIA E</text>
+                    <text x="700" y="325" text-anchor="middle" font-size="22" font-family="Space Grotesk, sans-serif" font-weight="700">DESENVOLVIMENTO</text>
+
+                    <text x="970" y="295" text-anchor="middle" font-size="22" font-family="Space Grotesk, sans-serif" font-weight="700">4. VALIDACAO E</text>
+                    <text x="970" y="325" text-anchor="middle" font-size="22" font-family="Space Grotesk, sans-serif" font-weight="700">EVIDENCIAS</text>
+
+                    <text x="1230" y="295" text-anchor="middle" font-size="22" font-family="Space Grotesk, sans-serif" font-weight="700">5. SUSTENTACAO</text>
+                    <text x="1230" y="325" text-anchor="middle" font-size="22" font-family="Space Grotesk, sans-serif" font-weight="700">ACADEMICA</text>
+
+                    <g filter="url(#hardShadow)">
+                        <rect x="15" y="470" width="160" height="90" fill="#ffffff" stroke="#000000" stroke-width="3" />
+                        <rect x="95" y="470" width="150" height="90" fill="#ffffff" stroke="#000000" stroke-width="3" />
+                        <rect x="165" y="470" width="160" height="90" fill="#ffffff" stroke="#000000" stroke-width="3" />
+
+                        <rect x="275" y="470" width="160" height="90" fill="#ffffff" stroke="#000000" stroke-width="3" />
+                        <rect x="355" y="470" width="150" height="90" fill="#ffffff" stroke="#000000" stroke-width="3" />
+                        <rect x="435" y="470" width="160" height="90" fill="#ffffff" stroke="#000000" stroke-width="3" />
+
+                        <rect x="545" y="470" width="160" height="90" fill="#ffffff" stroke="#000000" stroke-width="3" />
+                        <rect x="625" y="470" width="150" height="90" fill="#ffffff" stroke="#000000" stroke-width="3" />
+                        <rect x="705" y="470" width="160" height="90" fill="#ffffff" stroke="#000000" stroke-width="3" />
+
+                        <rect x="815" y="470" width="160" height="90" fill="#ffffff" stroke="#000000" stroke-width="3" />
+                        <rect x="895" y="470" width="150" height="90" fill="#ffffff" stroke="#000000" stroke-width="3" />
+                        <rect x="975" y="470" width="160" height="90" fill="#ffffff" stroke="#000000" stroke-width="3" />
+
+                        <rect x="1075" y="470" width="160" height="90" fill="#ffffff" stroke="#000000" stroke-width="3" />
+                        <rect x="1155" y="470" width="150" height="90" fill="#ffffff" stroke="#000000" stroke-width="3" />
+                        <rect x="1235" y="470" width="160" height="90" fill="#ffffff" stroke="#000000" stroke-width="3" />
+                    </g>
+
+                    <text x="95" y="505" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif" font-weight="700">Plano de projeto</text>
+                    <text x="95" y="530" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif">e 5W2H</text>
+                    <text x="170" y="505" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif" font-weight="700">Cronograma</text>
+                    <text x="170" y="530" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif">e marcos</text>
+                    <text x="245" y="505" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif" font-weight="700">Riscos e</text>
+                    <text x="245" y="530" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif">governanca</text>
+
+                    <text x="355" y="505" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif" font-weight="700">Documento</text>
+                    <text x="355" y="530" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif">de visao</text>
+                    <text x="430" y="505" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif" font-weight="700">BMC e</text>
+                    <text x="430" y="530" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif">proposta de valor</text>
+                    <text x="505" y="505" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif" font-weight="700">Personas e</text>
+                    <text x="505" y="530" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif">publico-alvo</text>
+
+                    <text x="625" y="505" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif" font-weight="700">Front-end</text>
+                    <text x="625" y="530" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif">responsivo</text>
+                    <text x="700" y="505" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif" font-weight="700">Baseline</text>
+                    <text x="700" y="530" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif">backend</text>
+                    <text x="775" y="505" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif" font-weight="700">Modelo de dados</text>
+                    <text x="775" y="530" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif">e arquitetura</text>
+
+                    <text x="895" y="505" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif" font-weight="700">Testes</text>
+                    <text x="895" y="530" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif">internos</text>
+                    <text x="970" y="505" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif" font-weight="700">Review</text>
+                    <text x="970" y="530" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif">de sprint</text>
+                    <text x="1045" y="505" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif" font-weight="700">Deploy publico</text>
+                    <text x="1045" y="530" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif">e demonstracao</text>
+
+                    <text x="1155" y="505" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif" font-weight="700">Documento</text>
+                    <text x="1155" y="530" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif">principal</text>
+                    <text x="1230" y="505" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif" font-weight="700">Bibliografia e</text>
+                    <text x="1230" y="530" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif">apendices</text>
+                    <text x="1305" y="505" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif" font-weight="700">Preparacao</text>
+                    <text x="1305" y="530" text-anchor="middle" font-size="16" font-family="IBM Plex Sans, sans-serif">para PI IV</text>
+                </svg>
             </div>
             <div class="note">ATENCAO: cada pacote de trabalho foi decomposto em pelo menos dois subitens para evitar nos terminais excessivamente amplos e garantir melhor controle do progresso.</div>
         </section>
@@ -176,18 +269,18 @@
         <section id="secao-4">
             <h2>4. Modelo de Negocio (BMC)</h2>
             <p class="section-lead">Canvas consolidado a partir do <a href="../fastinbox-mvp-canvas-paulo-caroli.md" target="_blank" rel="noopener noreferrer">MVP Canvas</a>, do <a href="./business-model-canvas.html">Business Model Canvas tecnico</a> e do <a href="./documento-visao.html">Documento de Visao</a>.</p>
-            <div class="canvas-grid">
-                <article class="canvas-card canvas-tall">
+            <div class="bmc-grid">
+                <article class="bmc-card bmc-partners">
                     <h3>Parcerias Chave</h3>
                     <ul>
                         <li>Nutricionistas e clinicas parceiras.</li>
                         <li>Cozinhas responsaveis pela producao.</li>
                         <li>Gateway de pagamento e meios instantaneos.</li>
                         <li>Infraestrutura cloud e hospedagem.</li>
-                        <li>Equipe academica e orientacao docente.</li>
+                        <li>Orientacao docente e equipe academica.</li>
                     </ul>
                 </article>
-                <article class="canvas-card">
+                <article class="bmc-card bmc-activities">
                     <h3>Atividades Chave</h3>
                     <ul>
                         <li>Cadastro de pacientes e criacao de pedidos.</li>
@@ -196,24 +289,24 @@
                         <li>Documentacao e melhoria continua.</li>
                     </ul>
                 </article>
-                <article class="canvas-card">
+                <article class="bmc-card bmc-resources">
                     <h3>Recursos Chave</h3>
                     <ul>
                         <li>Frontend Next.js e baseline backend NestJS.</li>
                         <li>Schema de dados e contratos tipados.</li>
-                        <li>Hub tecnico em GitHub Pages.</li>
+                        <li>Hub tecnico publicado no GitHub Pages.</li>
                         <li>Marca white label da clinica.</li>
                     </ul>
                 </article>
-                <article class="canvas-card canvas-wide">
+                <article class="bmc-card bmc-value">
                     <h3>Proposta de Valor</h3>
                     <ul>
-                        <li>Transformar um fluxo manual e disperso em uma trilha unica de pedido, pagamento, producao e acompanhamento.</li>
-                        <li>Permitir que a clinica opere com sua propria marca, sem perder controle operacional.</li>
-                        <li>Reduzir retrabalho na cozinha ao liberar apenas pedidos pagos e claros.</li>
+                        <li>Unificar pedido, pagamento, producao e acompanhamento em uma unica trilha.</li>
+                        <li>Permitir operacao white label com a marca da clinica.</li>
+                        <li>Reduzir retrabalho ao liberar para producao apenas pedidos validos.</li>
                     </ul>
                 </article>
-                <article class="canvas-card">
+                <article class="bmc-card bmc-relationship">
                     <h3>Relacionamento</h3>
                     <ul>
                         <li>Fluxos guiados por perfil.</li>
@@ -222,7 +315,7 @@
                         <li>Suporte orientado por status.</li>
                     </ul>
                 </article>
-                <article class="canvas-card">
+                <article class="bmc-card bmc-channels">
                     <h3>Canais</h3>
                     <ul>
                         <li>Web application responsiva.</li>
@@ -231,25 +324,25 @@
                         <li>Conteudo digital e demonstracoes PI IV.</li>
                     </ul>
                 </article>
-                <article class="canvas-card canvas-wide">
+                <article class="bmc-card bmc-customers">
                     <h3>Clientes</h3>
                     <ul>
-                        <li>Nutricionistas e clinicas que desejam vender marmitas personalizadas com marca propria.</li>
+                        <li>Nutricionistas e clinicas que vendem marmitas com marca propria.</li>
                         <li>Pacientes que precisam revisar, confirmar e pagar com clareza.</li>
                         <li>Cozinhas parceiras que dependem de fila operacional qualificada.</li>
-                        <li>Gestao FastInBox, que precisa de visao consolidada da operacao.</li>
+                        <li>Gestao FastInBox com necessidade de visao consolidada.</li>
                     </ul>
                 </article>
-                <article class="canvas-card canvas-wide">
+                <article class="bmc-card bmc-costs">
                     <h3>Estrutura de Custos</h3>
                     <ul>
                         <li>Desenvolvimento front-end, back-end e documentacao.</li>
                         <li>Hospedagem, deploy e infraestrutura de dados.</li>
-                        <li>Custos de gateway e eventos financeiros.</li>
-                        <li>QA, suporte, onboarding e marketing digital.</li>
+                        <li>Gateway, pagamentos e eventos financeiros.</li>
+                        <li>QA, suporte, onboarding e marketing.</li>
                     </ul>
                 </article>
-                <article class="canvas-card">
+                <article class="bmc-card bmc-revenue">
                     <h3>Fontes de Receita</h3>
                     <ul>
                         <li>Comissao por pedido processado.</li>

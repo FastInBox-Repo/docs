@@ -314,6 +314,53 @@ th {
     grid-column: span 2;
 }
 
+.bmc-grid {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    grid-template-areas:
+        "partners partners activities activities resources resources value value value value"
+        "partners partners relationship relationship channels channels customers customers customers customers"
+        "costs costs costs costs costs revenue revenue revenue revenue revenue";
+    gap: 0.9rem;
+    align-items: stretch;
+}
+
+.bmc-card {
+    border: 3px solid #000000;
+    background: #ffffff;
+    padding: 1rem 1rem 0.9rem;
+    box-shadow: 4px 4px 0 #000000;
+    min-height: 100%;
+}
+
+.bmc-card h3 {
+    margin: 0 0 0.65rem;
+    font-size: 1.02rem;
+    line-height: 1.2;
+}
+
+.bmc-card ul {
+    margin: 0.2rem 0 0 1.1rem;
+}
+
+.bmc-card li {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 0.45rem;
+    color: #1f1f1f;
+    overflow-wrap: anywhere;
+}
+
+.bmc-partners { grid-area: partners; }
+.bmc-activities { grid-area: activities; }
+.bmc-resources { grid-area: resources; }
+.bmc-value { grid-area: value; }
+.bmc-relationship { grid-area: relationship; }
+.bmc-channels { grid-area: channels; }
+.bmc-customers { grid-area: customers; }
+.bmc-costs { grid-area: costs; }
+.bmc-revenue { grid-area: revenue; }
+
 .status-tag {
     display: inline-block;
     border: 1px solid #000000;
@@ -356,6 +403,22 @@ th {
     padding: 0.85rem 1rem;
     background: #f9f9f9;
     margin-bottom: 1rem;
+}
+
+.eap-diagram {
+    margin: 1rem 0;
+    border: 3px solid #000000;
+    background: #ffffff;
+    box-shadow: 6px 6px 0 #000000;
+    padding: 0.75rem;
+    overflow-x: auto;
+}
+
+.eap-diagram svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-width: 1100px;
 }
 
 .split-table {
@@ -407,7 +470,21 @@ th {
     .testing-grid,
     .marketing-grid,
     .split-table,
-    .canvas-grid {
+    .canvas-grid,
+    .bmc-grid {
         grid-template-columns: 1fr;
+    }
+
+    .bmc-grid {
+        grid-template-areas:
+            "partners"
+            "activities"
+            "resources"
+            "value"
+            "relationship"
+            "channels"
+            "customers"
+            "costs"
+            "revenue";
     }
 }
