@@ -253,6 +253,7 @@ a {
 .idv-section,
 .stack-section,
 .sprints-section,
+.flows-section,
 .documents-section {
     padding: 82px 0;
 }
@@ -263,6 +264,18 @@ a {
     background: #f9f9f9;
     border-top: 3px solid #000000;
     border-bottom: 3px solid #000000;
+}
+
+.flows-section {
+    background: #000000;
+    color: #ffffff;
+    border-top: 3px solid #000000;
+    border-bottom: 3px solid #000000;
+}
+
+.flows-section .section-header h2,
+.flows-section .section-header p {
+    color: #ffffff;
 }
 
 .section-header {
@@ -530,6 +543,123 @@ a {
 
 @media (max-width: 560px) {
     .sprint-block-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Fluxos | operational flow cards on dark section */
+.flows-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.flow-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border: 3px solid #ffffff;
+    background: #000000;
+    color: #ffffff;
+    padding: 22px;
+    box-shadow: 6px 6px 0 #ffffff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.flow-card:hover {
+    transform: translate(3px, 3px);
+    box-shadow: 3px 3px 0 #ffffff;
+    background: #ffffff;
+    color: #000000;
+}
+
+.flow-card-head {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-bottom: 2px solid currentColor;
+    padding-bottom: 10px;
+}
+
+.flow-card-kind {
+    align-self: flex-start;
+    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.7rem;
+    border: 2px solid currentColor;
+    padding: 3px 8px;
+}
+
+.flow-card-head h3 {
+    margin: 4px 0 0;
+    font-size: 1.2rem;
+    line-height: 1.15;
+    color: inherit;
+}
+
+.flow-card-lead {
+    margin: 0;
+    font-size: 0.94rem;
+    color: inherit;
+    line-height: 1.5;
+}
+
+.flow-card-topics {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 6px;
+}
+
+.flow-card-topics li {
+    position: relative;
+    padding-left: 18px;
+    font-size: 0.88rem;
+    color: inherit;
+    line-height: 1.4;
+}
+
+.flow-card-topics li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 10px;
+    height: 2px;
+    background: currentColor;
+}
+
+.flow-card-cta {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    align-self: flex-start;
+    font-weight: 700;
+    font-size: 0.92rem;
+    text-decoration: none;
+    border: 2px solid currentColor;
+    padding: 9px 12px;
+    color: inherit;
+    background: transparent;
+    transition: background 0.18s ease, color 0.18s ease;
+}
+
+.flow-card:hover .flow-card-cta {
+    background: #000000;
+    color: #ffffff;
+    border-color: #000000;
+}
+
+.flow-card-cta i {
+    font-size: 0.82rem;
+}
+
+@media (max-width: 720px) {
+    .flows-grid {
         grid-template-columns: 1fr;
     }
 }

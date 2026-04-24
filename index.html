@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="./styles.css?v=20260424-3">
+    <link rel="stylesheet" href="./styles.css?v=20260424-4">
 </head>
 <body>
     <nav class="navbar" id="navbar">
@@ -28,6 +28,7 @@
                 <li><a href="#sobre">Sobre</a></li>
                 <li><a href="#stack">Stack</a></li>
                 <li><a href="#sprints">Sprints</a></li>
+                <li><a href="#fluxos">Fluxos</a></li>
                 <li><a href="#backlog">Backlog</a></li>
                 <li><a href="#documentos">Documentos</a></li>
                 <li><a href="https://github.com/orgs/FastInBox-Repo/projects/1" class="nav-project" target="_blank" rel="noopener noreferrer" aria-label="Abrir GitHub Project do FastInBox"><i class="fa-brands fa-github" aria-hidden="true"></i> Project</a></li>
@@ -320,6 +321,54 @@
                                 <span class="sprint-doc-cta">Ainda nao disponivel</span>
                             </span>
                         </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="fluxos" class="flows-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Fluxos</h2>
+                    <p>
+                        Mapeamento tecnico e pratico dos fluxos operacionais do FastInBox. Cada fluxo documenta agentes,
+                        informacoes trocadas, regras de negocio, validacoes, maquina de estados e evolucao server-side.
+                        Novos fluxos (criacao de marmita, autoatendimento, assinaturas, etc) serao publicados conforme as
+                        sprints avancam.
+                    </p>
+                </div>
+
+                <div class="flows-grid">
+                    <article class="flow-card reveal">
+                        <header class="flow-card-head">
+                            <span class="flow-card-kind">Fluxo</span>
+                            <h3>Criacao de conta</h3>
+                        </header>
+                        <p class="flow-card-lead">Como o usuario vira nutricionista, paciente, cozinha ou admin no FastInBox: tipos de conta, regras, campos capturados, persistencia, login, recuperacao de senha e roadmap server-side.</p>
+                        <ul class="flow-card-topics">
+                            <li>4 tipos de conta com regras distintas</li>
+                            <li>Validacoes, unicidade de e-mail e sessao</li>
+                            <li>Persistencia local e plano de migracao</li>
+                        </ul>
+                        <a class="flow-card-cta" href="./documents/fluxo-criacao-conta.html">
+                            Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                    </article>
+
+                    <article class="flow-card reveal">
+                        <header class="flow-card-head">
+                            <span class="flow-card-kind">Fluxo</span>
+                            <h3>Criacao de pedido</h3>
+                        </header>
+                        <p class="flow-card-lead">Como um pedido nasce com a nutricionista, chega ao paciente via codigo unico, e pago e conduzido ate a entrega pela cozinha: agentes, dados, maquina de estados, pagamento e auditoria.</p>
+                        <ul class="flow-card-topics">
+                            <li>4 agentes: nutri, paciente, cozinha, admin</li>
+                            <li>Maquina de estados com 9 status</li>
+                            <li>Regras de preco, codigo unico e auditoria</li>
+                        </ul>
+                        <a class="flow-card-cta" href="./documents/fluxo-criacao-pedido.html">
+                            Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                        </a>
                     </article>
                 </div>
             </div>

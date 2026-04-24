@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Fluxo de criacao de conta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./fluxo-criacao-conta.html">Fluxo de criacao de conta</a>
+            <a href="./fluxo-criacao-pedido.html">Fluxo de criacao de pedido</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Fluxos operacionais</p>
+            <h1>Fluxo de criacao de conta</h1>
+            <p>Documento pratico: como a criacao de conta funciona hoje no FastInBox, quais tipos de conta existem, regras, restricoes, persistencia e casos de borda. Reflete o estado atual do MVP (front em Next.js com persistencia local); os pontos que passarao a ser server-side a partir da Sprint 3 estao sinalizados como carry-over.</p>
+        </header>
+
+        <section>
+            <h2>1. Visao geral do fluxo</h2>
+            <p>Existem quatro tipos de conta no FastInBox: nutricionista, paciente, cozinha (fabrica) e admin. Tres deles (nutricionista, paciente e cozinha) sao registraveis via interface publica; admin nao aparece na UI de cadastro e e seed do sistema. Toda a criacao hoje roda no front-end (SPA Next.js) com persistencia em <code>localStorage</code>; o back-end NestJS existe como base para Sprint 3 em diante mas ainda nao participa do fluxo.</p>
+            <div class="note">Resumo pratico: o fluxo atual e client-side, serve para demonstrar jornada e regra de negocio. As regras abaixo sao as que estao implementadas no codigo, e nao apenas as desejadas.</div>
+        </section>
+
+        <section>
+            <h2>2. Tipos de conta</h2>
+            <table>
+                <thead><tr><th>Tipo</th><th>Registro via UI</th><th>Campos obrigatorios</th><th>Campos opcionais</th><th>Destino apos criar</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td>Nutricionista</td>
+                        <td>Sim (<code>/login?role=nutricionista</code>, aba Cadastrar)</td>
+                        <td>Nome, e-mail, senha, nome da clinica</td>
+                        <td>CRN do nutricionista</td>
+                        <td><code>/nutricionista/dashboard</code></td>
+                    </tr>
+                    <tr>
+                        <td>Paciente</td>
+                        <td>Sim (<code>/login?role=paciente</code>, aba Cadastrar)</td>
+                        <td>Nome, e-mail, senha</td>
+                        <td>Telefone, objetivo nutricional</td>
+                        <td><code>/paciente</code></td>
+                    </tr>
+                    <tr>
+                        <td>Cozinha (fabrica)</td>
+                        <td>Sim (<code>/login?role=cozinha</code>, aba Cadastrar)</td>
+                        <td>Nome da fabrica, e-mail, senha</td>
+                        <td>&mdash;</td>
+                        <td><code>/cozinha/dashboard</code></td>
+                    </tr>
+                    <tr>
+                        <td>Admin</td>
+                        <td>Nao disponivel na UI</td>
+                        <td>Credenciais seed (hardcoded)</td>
+                        <td>&mdash;</td>
+                        <td><code>/admin/dashboard</code></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>A conta admin e provisionada como seed do sistema com as credenciais <code>admin@fastinbox.com.br</code> / <code>123456</code>. Nao existe tela publica de cadastro admin por design: a expansao dessa camada e prevista para a Sprint 5 (gestao administrativa server-side).</p>
+        </section>
+
+        <section>
+            <h2>3. Regras de negocio</h2>
+            <h3>3.1 Restricoes gerais</h3>
+            <ul>
+                <li>O e-mail e unico no sistema: o cadastro rejeita e-mails ja existentes (normalizacao por <code>trim + lowercase</code>).</li>
+                <li>O papel e parte da identidade: no login, a combinacao e-mail + senha e comparada junto com o papel selecionado; e-mail certo com papel errado e tratado como credencial invalida.</li>
+                <li>Registro automaticamente autentica o usuario (nao ha tela de confirmacao por e-mail no MVP).</li>
+                <li>Cadastro admin nao pode ser feito pela interface publica.</li>
+            </ul>
+
+            <h3>3.2 Restricoes especificas por perfil</h3>
+            <table>
+                <thead><tr><th>Perfil</th><th>Regra</th></tr></thead>
+                <tbody>
+                    <tr><td>Nutricionista</td><td>Obrigatorio informar o nome da clinica (sem clinica, o cadastro nao e concluido). CRN e opcional, usado apenas para exibicao.</td></tr>
+                    <tr><td>Paciente</td><td>Ao registrar, tambem cria um registro de paciente vinculado ao proprio usuario (estrutura usada pela jornada do paciente), com objetivo &quot;A definir&quot; e restricoes &quot;Nenhuma&quot; como defaults.</td></tr>
+                    <tr><td>Cozinha</td><td>O nome informado e usado como nome comercial da fabrica, aparecendo como unidade responsavel nos pedidos.</td></tr>
+                    <tr><td>Admin</td><td>Sem auto-registro; a conta e criada uma unica vez como seed do sistema.</td></tr>
+                </tbody>
+            </table>
+
+            <h3>3.3 Validacoes aplicadas no MVP</h3>
+            <ul>
+                <li>Campos obrigatorios validados antes do submit: nome, e-mail, senha.</li>
+                <li>Validacao de formato de e-mail feita apenas pelo navegador (input <code>type="email"</code>).</li>
+                <li>Senha sem restricao minima (sem regra de tamanho, complexidade ou expiracao no MVP).</li>
+                <li>CPF, telefone e CRN nao passam por validacao de formato (campos livres).</li>
+                <li>Clinica obrigatoria para nutricionista checada explicitamente antes do submit.</li>
+            </ul>
+            <div class="note">As validacoes acima sao suficientes para demonstracao academica, mas estao listadas como hardening na Sprint 5 (rate limiting, MFA admin, endurecimento de credenciais e politicas). A validacao formal por regex, tamanho minimo, forca de senha e verificacao de e-mail real sao carry-over tecnico.</div>
+        </section>
+
+        <section>
+            <h2>4. Campos capturados por perfil</h2>
+            <table>
+                <thead><tr><th>Perfil</th><th>Campos armazenados</th></tr></thead>
+                <tbody>
+                    <tr><td>Nutricionista</td><td>id, nome, e-mail, senha, papel, nome da clinica, CRN (opcional), data de criacao.</td></tr>
+                    <tr><td>Paciente</td><td>id do usuario, nome, e-mail, senha, papel, telefone, objetivo. Entidade paciente associada com id proprio, CPF vazio, data de nascimento vazia, objetivo, restricoes e contagem inicial de pedidos zerada.</td></tr>
+                    <tr><td>Cozinha</td><td>id, nome, e-mail, senha, papel, nome da fabrica.</td></tr>
+                    <tr><td>Admin</td><td>id seed, nome, e-mail seed, senha seed, papel admin.</td></tr>
+                </tbody>
+            </table>
+            <p>Todos os ids sao gerados no front no padrao <code>&lt;perfil&gt;-&lt;timestamp&gt;</code>. Nao ha id transacional vindo do back-end no MVP.</p>
+        </section>
+
+        <section>
+            <h2>5. Persistencia e sessao</h2>
+            <table>
+                <thead><tr><th>Camada</th><th>Onde vive</th><th>Finalidade</th></tr></thead>
+                <tbody>
+                    <tr><td>Estado principal</td><td>localStorage <code>fastinbox-sprint1-state-v1</code></td><td>Clinica, usuarios, pacientes, pedidos e sessao ativa.</td></tr>
+                    <tr><td>Auditoria</td><td>localStorage <code>fastinbox-sprint2-audit-v1</code></td><td>Eventos criticos (registro, login, login_failed, pedidos, pagamento, mudanca de status) com limite de 200 itens.</td></tr>
+                    <tr><td>Sessao</td><td>Chave <code>currentUserId</code> dentro do estado principal</td><td>Define o usuario logado. Nao ha JWT ou cookie no MVP.</td></tr>
+                    <tr><td>Sync entre abas</td><td>Evento <code>storage</code> do navegador</td><td>Alteracoes em uma aba refletem nas outras.</td></tr>
+                </tbody>
+            </table>
+            <div class="note">A Sprint 3 cobre justamente a migracao dessa camada: autenticacao server-side, persistencia em PostgreSQL e contratos de API. A partir desse ponto, senhas passam por hash server-side e sessao passa a ser representada por token.</div>
+        </section>
+
+        <section>
+            <h2>6. Passos numerados do fluxo (por agente)</h2>
+            <ol>
+                <li>Visitante abre a home (<code>/</code>) e escolhe o perfil. Nutricionista e paciente tem CTAs diretos; cozinha acessa por <code>/cozinha/login</code>.</li>
+                <li>Visitante chega em <code>/login</code> com <code>?role=</code> preenchido, troca para a aba &quot;Cadastrar&quot; e preenche os campos obrigatorios do perfil.</li>
+                <li>O front valida campos obrigatorios e regras especificas do perfil (ex: clinica para nutricionista).</li>
+                <li>Submit chama a acao de registro do store: normaliza e-mail, verifica duplicidade, cria o usuario e, no caso de paciente, tambem a entidade paciente vinculada.</li>
+                <li>A acao define <code>currentUserId</code> no estado (login automatico), salva no localStorage e registra o evento <em>user_registered</em> na trilha de auditoria.</li>
+                <li>O usuario e redirecionado para o dashboard correspondente ao seu perfil.</li>
+                <li>Sair: cada layout tem botao dedicado que limpa a sessao e redireciona para o login do perfil correspondente (admin volta para <code>/login</code>).</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>7. Fluxo de login e recuperacao de senha</h2>
+            <h3>7.1 Login</h3>
+            <ul>
+                <li>Validacao: campos obrigatorios preenchidos.</li>
+                <li>Autenticacao: compara e-mail normalizado, senha e papel selecionado contra o estado salvo.</li>
+                <li>Credencial invalida ou papel errado: grava evento <em>login_failed</em> na auditoria e exibe mensagem generica.</li>
+                <li>Credencial valida: define <code>currentUserId</code>, grava evento <em>login_success</em> e redireciona para o dashboard.</li>
+            </ul>
+            <h3>7.2 Recuperar senha</h3>
+            <p>A tela <code>/recuperar-senha</code> solicita o e-mail e exibe confirmacao apos envio simulado. No MVP <strong>nao ha token de reset, nao ha alteracao real da senha</strong>: a tela e um placeholder fiel ao design do fluxo. A implementacao server-side (token temporario, e-mail transacional, expiracao) esta prevista na Sprint 3 (autenticacao server-side) em conjunto com a Sprint 5 (hardening).</p>
+        </section>
+
+        <section>
+            <h2>8. Edge cases</h2>
+            <table>
+                <thead><tr><th>Cenario</th><th>Comportamento atual</th></tr></thead>
+                <tbody>
+                    <tr><td>E-mail ja cadastrado</td><td>Registro rejeitado com mensagem &quot;E-mail ja cadastrado&quot;.</td></tr>
+                    <tr><td>Campos obrigatorios ausentes</td><td>Submit bloqueado com toast de erro indicando o grupo de campos.</td></tr>
+                    <tr><td>Nutricionista sem clinica</td><td>Bloqueado com toast especifico.</td></tr>
+                    <tr><td>Credencial correta com papel errado</td><td>Tratado como credencial invalida; auditoria registra tentativa.</td></tr>
+                    <tr><td>Storage corrompido ou indisponivel</td><td>Estado volta a estrutura inicial com apenas seed admin.</td></tr>
+                    <tr><td>Navegador sem suporte a localStorage</td><td>Fallback para estado em memoria da sessao (sem persistencia).</td></tr>
+                    <tr><td>Acesso direto a dashboard sem sessao</td><td>Layouts esperam sessao valida; sem ela, botao Sair retorna para o login do perfil.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>9. Arquitetura de referencia</h2>
+            <table>
+                <thead><tr><th>Camada</th><th>Arquivo / caminho</th></tr></thead>
+                <tbody>
+                    <tr><td>Rotas da SPA</td><td><code>front/src/figma-app/app/routes.ts</code></td></tr>
+                    <tr><td>Store de usuarios/pacientes/pedidos</td><td><code>front/src/figma-app/app/data/sprintStore.ts</code></td></tr>
+                    <tr><td>Auditoria</td><td><code>front/src/figma-app/app/data/auditStore.ts</code></td></tr>
+                    <tr><td>Tela de login e cadastro</td><td><code>front/src/figma-app/app/pages/public/LoginPage.tsx</code></td></tr>
+                    <tr><td>Tela de recuperar senha</td><td><code>front/src/figma-app/app/pages/public/ForgotPasswordPage.tsx</code></td></tr>
+                    <tr><td>Login dedicado da cozinha</td><td><code>front/src/figma-app/app/pages/cozinha/CozinhaLoginPage.tsx</code></td></tr>
+                    <tr><td>Layouts por perfil</td><td><code>front/src/figma-app/app/components/layout/*</code></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>10. Evolucao prevista</h2>
+            <ul>
+                <li><strong>Sprint 3:</strong> autenticacao e autorizacao server-side, JWT/refresh, matriz de permissoes por perfil e persistencia de usuarios em PostgreSQL.</li>
+                <li><strong>Sprint 4:</strong> vinculacao com eventos transacionais (conta paciente x pedido pago).</li>
+                <li><strong>Sprint 5:</strong> MFA obrigatorio para admin, rate limiting em login e cadastro, hardening de sessao e trilhas administrativas dedicadas.</li>
+                <li><strong>Sprint 6:</strong> autoatendimento do paciente com vinculo por codigo do nutricionista, abrindo uma entrada alternativa de cadastro.</li>
+            </ul>
+            <div class="note">Este documento e vivo: deve ser revisado ao final de cada sprint que toque em autenticacao, permissoes ou gestao de conta.</div>
+        </section>
+
+        <footer class="footer">
+            Fluxo operacional de criacao de conta do FastInBox, refletindo o estado real implementado no MVP academico e o roadmap de evolucao por sprint.
+        </footer>
+    </main>
+</body>
+</html>

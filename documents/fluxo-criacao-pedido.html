@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Fluxo de criacao de pedido</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./fluxo-criacao-conta.html">Fluxo de criacao de conta</a>
+            <a href="./fluxo-criacao-pedido.html">Fluxo de criacao de pedido</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Fluxos operacionais</p>
+            <h1>Fluxo de criacao de pedido</h1>
+            <p>Documento pratico: como um pedido nasce, circula e chega ao paciente final no FastInBox. Mostra agentes envolvidos, informacoes trocadas em cada etapa, regras de preco, maquina de estados, validacoes, acesso seguro por codigo e caminho de pagamento. Reflete o MVP implementado hoje e sinaliza o que vira server-side a partir da Sprint 3.</p>
+        </header>
+
+        <section>
+            <h2>1. Visao geral do fluxo</h2>
+            <p>O pedido e sempre iniciado pela nutricionista para um paciente cadastrado e enviado a uma fabrica/cozinha responsavel. Um codigo unico e gerado no momento da criacao e e a chave que o paciente usa para revisar, confirmar e pagar. Apos o pagamento, a cozinha visualiza o pedido no kanban e conduz a producao ate a entrega, registrando cada transicao em auditoria.</p>
+            <div class="note">Essencial: o codigo do pedido e a unica chave necessaria para o paciente acessar seu pedido. Nao e preciso ter conta para consultar, mas e preciso ter conta para gerenciar historico consolidado.</div>
+        </section>
+
+        <section>
+            <h2>2. Agentes envolvidos</h2>
+            <table>
+                <thead><tr><th>Agente</th><th>Responsabilidade no fluxo</th><th>Acesso principal</th></tr></thead>
+                <tbody>
+                    <tr><td>Nutricionista</td><td>Cria o pedido, monta as marmitas, define preco e escolhe a fabrica responsavel.</td><td><code>/nutricionista/pedidos/novo</code></td></tr>
+                    <tr><td>Paciente</td><td>Recebe o codigo, revisa o pedido, confirma e paga.</td><td><code>/paciente/pedido/&lt;codigo&gt;</code></td></tr>
+                    <tr><td>Fabrica / Cozinha</td><td>Recebe o pedido ja pago, produz, embala, libera para entrega.</td><td><code>/cozinha/dashboard</code></td></tr>
+                    <tr><td>Admin</td><td>Observa transicoes, auditoria e saude operacional.</td><td><code>/admin/pedidos</code>, <code>/admin/auditoria</code></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Entidade pedido (dados capturados)</h2>
+            <table>
+                <thead><tr><th>Campo</th><th>Descricao</th></tr></thead>
+                <tbody>
+                    <tr><td>id</td><td>Identificador interno gerado no padrao <code>ord-&lt;timestamp&gt;</code>.</td></tr>
+                    <tr><td>codigo</td><td>Codigo unico publico no padrao <code>FIB-2026-NNN</code>, usado pelo paciente para acessar o pedido.</td></tr>
+                    <tr><td>paciente</td><td>id e nome do paciente alvo do pedido.</td></tr>
+                    <tr><td>nutricionista</td><td>id e nome da nutricionista responsavel + nome da clinica.</td></tr>
+                    <tr><td>fabrica</td><td>id e nome da cozinha responsavel pela producao.</td></tr>
+                    <tr><td>itens</td><td>Lista de marmitas (cada uma com nome, embalagem, observacoes, quantidade e ingredientes por categoria: proteina, carboidrato, vegetal, gordura, tempero).</td></tr>
+                    <tr><td>preco base</td><td>Valor de custo operacional estimado.</td></tr>
+                    <tr><td>margem</td><td>Margem aplicada ao preco base.</td></tr>
+                    <tr><td>preco final</td><td>Valor cobrado do paciente (preco base + margem).</td></tr>
+                    <tr><td>observacoes nutricionais</td><td>Texto geral do pedido escrito pela nutricionista.</td></tr>
+                    <tr><td>data de entrega</td><td>Data alvo; se vazia, assume o dia atual como fallback.</td></tr>
+                    <tr><td>metodo de pagamento</td><td>Preenchido apenas apos a acao de pagamento.</td></tr>
+                    <tr><td>status</td><td>Estado atual do pedido, definido pela maquina de estados (secao 5).</td></tr>
+                    <tr><td>permite edicao pelo paciente</td><td>Flag controlada pela nutricionista no momento da criacao.</td></tr>
+                    <tr><td>auditoria</td><td>Eventos de criacao, pagamento e transicao armazenados no audit store.</td></tr>
+                </tbody>
+            </table>
+            <p>Precos sao armazenados em centavos para evitar erros de arredondamento. A exibicao formatada em reais ocorre apenas na camada de apresentacao.</p>
+        </section>
+
+        <section>
+            <h2>4. Informacoes necessarias em cada etapa</h2>
+            <table>
+                <thead><tr><th>Etapa</th><th>Quem informa</th><th>O que e preciso informar</th></tr></thead>
+                <tbody>
+                    <tr><td>Passo 1 &mdash; Contexto</td><td>Nutricionista</td><td>Paciente-alvo, fabrica responsavel, data de entrega, permissao de edicao.</td></tr>
+                    <tr><td>Passo 2 &mdash; Marmitas</td><td>Nutricionista</td><td>Uma ou mais marmitas com: nome, ingredientes por categoria, embalagem, observacoes e quantidade prevista.</td></tr>
+                    <tr><td>Passo 3 &mdash; Preco</td><td>Nutricionista</td><td>Preco base e margem; o front calcula e exibe o preco final ao paciente.</td></tr>
+                    <tr><td>Passo 4 &mdash; Revisao</td><td>Nutricionista</td><td>Confirma os dados e envia para a fabrica, gerando o codigo publico.</td></tr>
+                    <tr><td>Revisao do paciente</td><td>Paciente</td><td>Abre pelo codigo; pode incluir observacoes se a edicao estiver habilitada.</td></tr>
+                    <tr><td>Pagamento</td><td>Paciente</td><td>Escolhe PIX, cartao ou boleto. Cartao exige dados do titular; PIX/Boleto seguem fluxo simulado.</td></tr>
+                    <tr><td>Producao</td><td>Cozinha</td><td>Nao insere dados, apenas transiciona status (kanban ou botao proximo status).</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Maquina de estados do pedido</h2>
+            <ol>
+                <li><strong>rascunho</strong> &mdash; estado reservado para futuras telas de pre-preenchimento (nao usado pelo wizard atual).</li>
+                <li><strong>aguardando_confirmacao</strong> &mdash; pedido recebido pelo paciente e aguardando revisao.</li>
+                <li><strong>aguardando_pagamento</strong> &mdash; paciente confirmou os itens e precisa pagar.</li>
+                <li><strong>pago</strong> &mdash; pagamento registrado, pedido liberado para a cozinha.</li>
+                <li><strong>em_producao</strong> &mdash; fabrica iniciou o preparo.</li>
+                <li><strong>pronto</strong> &mdash; producao concluida, aguardando coleta/entrega.</li>
+                <li><strong>em_entrega</strong> &mdash; em rota para o paciente.</li>
+                <li><strong>entregue</strong> &mdash; ciclo finalizado com sucesso.</li>
+                <li><strong>cancelado</strong> &mdash; pedido encerrado sem entrega.</li>
+            </ol>
+            <p>No MVP atual, o wizard da nutricionista cria o pedido ja com status <em>pago</em> (pagamento mock no ato da criacao para acelerar demonstracao). O fluxo pelo paciente via landing <code>/paciente</code> tambem pode marcar o pedido como <em>pago</em> via pagamento simulado. O kanban da cozinha e a pagina de detalhe do pedido operam as transicoes subsequentes.</p>
+            <div class="note">A maquina de estados foi projetada para suportar o fluxo completo descrito acima, mas nem todas as transicoes tem tela dedicada ainda. A Sprint 3 formaliza a transicao server-side (auditoria imutavel + regras de validacao por estado) e a Sprint 4 integra pagamento real com liberacao automatica via webhook.</div>
+        </section>
+
+        <section>
+            <h2>6. Regras de preco</h2>
+            <ul>
+                <li>Precos operam em centavos para evitar perdas de precisao.</li>
+                <li><code>preco final = preco base + margem</code>.</li>
+                <li>A margem e visivel apenas para a nutricionista; o paciente enxerga somente o preco final.</li>
+                <li>Submit bloqueia pedido com <code>preco final = 0</code>.</li>
+                <li>A comissao por pedido e um campo derivado (calculado sobre a margem) e sera formalizada no back-end a partir da Sprint 3; hoje e apresentada apenas na visao agregada do dashboard.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>7. Acesso do paciente pelo codigo</h2>
+            <table>
+                <thead><tr><th>Situacao</th><th>Comportamento</th></tr></thead>
+                <tbody>
+                    <tr><td>Codigo valido, pedido aguardando pagamento</td><td>Paciente ve resumo, pode editar se a flag estiver ativa, e prossegue para pagamento.</td></tr>
+                    <tr><td>Codigo valido, pedido pago ou em producao</td><td>Paciente ve resumo e link para acompanhar entrega. Nao ha mais edicao ou pagamento.</td></tr>
+                    <tr><td>Codigo valido, pedido com <code>permite edicao = false</code></td><td>Paciente ve resumo com selo de bloqueado; confirmacao e feita direto com os itens recebidos.</td></tr>
+                    <tr><td>Codigo invalido ou pedido inexistente</td><td>Pagina exibe mensagem &quot;Pedido nao encontrado&quot; e oferece volta para a home do paciente.</td></tr>
+                </tbody>
+            </table>
+            <p>O codigo e gerado com 20 tentativas para evitar colisao e possui fallback determinista baseado em timestamp, garantindo unicidade no escopo do estado atual. A migracao para o back-end move a geracao para o servidor, com indice unico no banco.</p>
+        </section>
+
+        <section>
+            <h2>8. Fluxo de pagamento</h2>
+            <ol>
+                <li>Paciente escolhe o metodo: PIX, Cartao ou Boleto.</li>
+                <li>Para cartao, valida numero, titular, validade e CVV (campos obrigatorios no front). PIX e Boleto seguem fluxo simulado.</li>
+                <li>Sequencia simulada de verificacao/processamento/confirmacao com feedback visual em etapas.</li>
+                <li>Ao final, o pedido e marcado como pago, registra metodo e data do pagamento e publica evento <em>order_paid</em> na auditoria.</li>
+                <li>Paciente e encaminhado para tela de sucesso; em seguida, para a tela de acompanhamento de entrega.</li>
+            </ol>
+            <div class="note">A integracao com gateway real (intent, captura, reembolso, chargeback) e webhooks idempotentes e a espinha dorsal da Sprint 4. Ate la, o comportamento e financeiramente simulado mas funcionalmente coerente (transicao, auditoria, telas).</div>
+        </section>
+
+        <section>
+            <h2>9. Fluxo na cozinha</h2>
+            <ul>
+                <li>A cozinha ve apenas os pedidos direcionados a sua fabrica (filtro por id do usuario logado).</li>
+                <li>O kanban expoe cinco colunas: pago, em_producao, pronto, em_entrega, entregue.</li>
+                <li>A cozinha pode arrastar o card para a coluna desejada ou usar o botao &quot;Proximo status&quot; na pagina de detalhe.</li>
+                <li>Cada transicao gera evento de auditoria <em>order_status_changed</em> com carimbo de horario.</li>
+                <li>Pedidos em status nao operacional (rascunho, aguardando_pagamento, cancelado) nao aparecem no kanban por design.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>10. Passos numerados do fluxo completo</h2>
+            <ol>
+                <li>Nutricionista loga em <code>/login?role=nutricionista</code>.</li>
+                <li>Acessa &quot;Pacientes&quot;, clica no paciente e abre o wizard; ou inicia em branco em &quot;Novo pedido&quot;.</li>
+                <li>Passo 0 &mdash; define paciente, fabrica, data de entrega e permissao de edicao.</li>
+                <li>Passo 1 &mdash; cria as marmitas com ingredientes por categoria, embalagem, observacoes e quantidade.</li>
+                <li>Passo 2 &mdash; define preco base e margem; o sistema calcula o preco final.</li>
+                <li>Passo 3 &mdash; revisa resumo e envia o pedido.</li>
+                <li>Sistema gera <em>id</em> e <em>codigo unico</em>, grava pedido no estado, aumenta contagem de pedidos do paciente e registra evento <em>order_created</em>.</li>
+                <li>Nutricionista obtem o codigo e o link <code>/paciente/pedido/&lt;codigo&gt;</code>; pode copiar e compartilhar.</li>
+                <li>Paciente abre o link, revisa e, se aplicavel, edita observacoes; confirma e segue para pagamento.</li>
+                <li>Paciente paga; sistema marca o pedido como pago, grava <em>order_paid</em> e redireciona para a tela de sucesso.</li>
+                <li>Cozinha visualiza o pedido no kanban, inicia a producao e conduz os proximos estados ate a entrega.</li>
+                <li>Admin acompanha pelo painel, com auditoria consolidada para verificacao e suporte.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>11. Validacoes e restricoes</h2>
+            <table>
+                <thead><tr><th>Regra</th><th>Comportamento</th></tr></thead>
+                <tbody>
+                    <tr><td>Paciente e fabrica obrigatorios no passo inicial</td><td>Submit bloqueia com mensagem especifica.</td></tr>
+                    <tr><td>Marmitas completas</td><td>Cada marmita deve ter nome e ingredientes com nome preenchido.</td></tr>
+                    <tr><td>Preco final &gt; 0</td><td>Submit bloqueado se preco final for zero.</td></tr>
+                    <tr><td>Nutricionista autenticado</td><td>Sem sessao ativa, o usuario e redirecionado para <code>/login?role=nutricionista</code>.</td></tr>
+                    <tr><td>Codigo unico</td><td>Gerador tenta 20 combinacoes; em caso extremo usa fallback determinista por timestamp.</td></tr>
+                    <tr><td>Edicao apos pagamento</td><td>Bloqueada: nenhum campo do pedido pode ser alterado pelo paciente depois de pago.</td></tr>
+                    <tr><td>Pagamento com cartao</td><td>Exige numero, titular, validade e CVV preenchidos.</td></tr>
+                    <tr><td>Auditoria minima</td><td>Toda criacao, pagamento e mudanca de status gera evento auditavel com carimbo de horario.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>12. Edge cases</h2>
+            <table>
+                <thead><tr><th>Cenario</th><th>Comportamento</th></tr></thead>
+                <tbody>
+                    <tr><td>Codigo errado na home do paciente</td><td>Mensagem &quot;Codigo nao encontrado&quot; sem expor detalhe do erro.</td></tr>
+                    <tr><td>Paciente tenta pagar pedido ja pago</td><td>Tela de pagamento oculta CTA e oferece acompanhamento de entrega.</td></tr>
+                    <tr><td>Pedido com edicao bloqueada</td><td>Selo de &quot;Bloqueado&quot; exibido; CTA unica e confirmar e pagar.</td></tr>
+                    <tr><td>Cozinha errada com pedido na tela</td><td>O filtro por id da fabrica impede a exposicao; caso contorno, kanban do admin e usado para auditar.</td></tr>
+                    <tr><td>Estado corrompido ou ausente</td><td>Estado e recarregado do zero com dados seed; pedidos existentes no storage sao preservados.</td></tr>
+                    <tr><td>Navegador com restricao a storage</td><td>Operacao continua em memoria da sessao; pedidos somem ao fechar.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>13. Persistencia e auditoria</h2>
+            <ul>
+                <li>Pedidos vivem no estado principal do front, persistido em <code>fastinbox-sprint1-state-v1</code>.</li>
+                <li>Auditoria dedicada registra ate 200 eventos em <code>fastinbox-sprint2-audit-v1</code>.</li>
+                <li>Eventos relevantes: <em>order_created</em>, <em>order_paid</em>, <em>order_status_changed</em>, <em>login_failed</em> quando o paciente erra credenciais.</li>
+                <li>A migracao para persistencia server-side (Sprint 3) transforma esses eventos em registros imutaveis em banco, consumidos pelo admin (Sprint 5).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>14. Arquitetura de referencia</h2>
+            <table>
+                <thead><tr><th>Camada</th><th>Arquivo / caminho</th></tr></thead>
+                <tbody>
+                    <tr><td>Wizard de criacao</td><td><code>front/src/figma-app/app/pages/nutricionista/NovoPedidoPage.tsx</code></td></tr>
+                    <tr><td>Resumo do pedido pela nutricionista</td><td><code>front/src/figma-app/app/pages/nutricionista/PedidoResumoPage.tsx</code></td></tr>
+                    <tr><td>Landing do paciente</td><td><code>front/src/figma-app/app/pages/paciente/LandingPage.tsx</code></td></tr>
+                    <tr><td>Revisao e confirmacao</td><td><code>front/src/figma-app/app/pages/paciente/PedidoViewPage.tsx</code></td></tr>
+                    <tr><td>Pagamento</td><td><code>front/src/figma-app/app/pages/paciente/PagamentoPage.tsx</code></td></tr>
+                    <tr><td>Sucesso e acompanhamento</td><td><code>front/src/figma-app/app/pages/paciente/{SucessoPage,StatusPage}.tsx</code></td></tr>
+                    <tr><td>Kanban da cozinha</td><td><code>front/src/figma-app/app/pages/cozinha/CozinhaDashboardPage.tsx</code></td></tr>
+                    <tr><td>Detalhe na cozinha</td><td><code>front/src/figma-app/app/pages/cozinha/CozinhaPedidoPage.tsx</code></td></tr>
+                    <tr><td>Store e entidades</td><td><code>front/src/figma-app/app/data/{sprintStore,mockData,auditStore}.ts</code></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>15. Evolucao prevista</h2>
+            <ul>
+                <li><strong>Sprint 3:</strong> dominio de pedidos persistido em PostgreSQL, maquina de estados validada server-side, codigo unico com indice e historico de status imutavel.</li>
+                <li><strong>Sprint 4:</strong> integracao real com gateway de pagamento, webhooks idempotentes e fila operacional da cozinha por janela de entrega.</li>
+                <li><strong>Sprint 5:</strong> relatorios de comissao exportaveis e admin com visao transversal de pedidos, cozinhas e financeiro.</li>
+                <li><strong>Sprint 6:</strong> assinaturas recorrentes geram pedidos futuros automaticos com os mesmos agentes descritos aqui.</li>
+                <li><strong>Sprint 7:</strong> validacao final do fluxo em producao com smoke de release e runbooks de incidente.</li>
+            </ul>
+            <div class="note">Este documento e vivo: cada sprint que toque no ciclo de pedido (criacao, pagamento, producao, entrega, auditoria) deve revisar esta pagina antes do fechamento para manter a narrativa tecnica alinhada.</div>
+        </section>
+
+        <footer class="footer">
+            Fluxo operacional de criacao e ciclo de pedido no FastInBox, refletindo o estado real do MVP academico e o roadmap de evolucao server-side por sprint.
+        </footer>
+    </main>
+</body>
+</html>
