@@ -341,6 +341,199 @@ a {
     box-shadow: 1px 1px 0 #000000;
 }
 
+/* Governanca de Sprints | pair-per-sprint pattern */
+.sprints-governance {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+}
+
+.sprint-block {
+    border: 3px solid #000000;
+    background: #ffffff;
+    box-shadow: var(--offset-sm) var(--offset-sm) 0 #000000;
+    padding: 18px;
+    display: grid;
+    grid-template-columns: minmax(220px, 0.9fr) 2.1fr;
+    gap: 18px;
+    align-items: stretch;
+}
+
+.sprint-block-head {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-right: 3px solid #000000;
+    padding-right: 18px;
+}
+
+.sprint-block-id {
+    display: inline-block;
+    align-self: flex-start;
+    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.74rem;
+    border: 2px solid #000000;
+    padding: 4px 8px;
+    background: #000000;
+    color: #ffffff;
+}
+
+.sprint-block-status {
+    display: inline-block;
+    align-self: flex-start;
+    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.66rem;
+    border: 2px solid #000000;
+    padding: 3px 7px;
+    background: #ffffff;
+    color: #000000;
+}
+
+.sprint-block-status.status-done {
+    background: #000000;
+    color: #ffffff;
+}
+
+.sprint-block-status.status-next {
+    background: #ffffff;
+    color: #000000;
+    box-shadow: 3px 3px 0 #000000;
+}
+
+.sprint-block-status.status-plan {
+    background: #f4f4f4;
+    color: #000000;
+}
+
+.sprint-block-head h3 {
+    margin: 6px 0 0;
+    font-size: 1.05rem;
+    line-height: 1.15;
+}
+
+.sprint-block-sub {
+    margin: 4px 0 0;
+    font-size: 0.86rem;
+    color: #1f1f1f;
+    line-height: 1.4;
+}
+
+.sprint-block-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.sprint-doc-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    border: 2px solid #000000;
+    background: #ffffff;
+    padding: 14px;
+    text-decoration: none;
+    color: #000000;
+    box-shadow: 4px 4px 0 #000000;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.sprint-doc-card:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #000000;
+}
+
+.sprint-doc-kind {
+    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.72rem;
+    border-bottom: 2px solid #000000;
+    padding-bottom: 6px;
+}
+
+.sprint-doc-card p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: #1f1f1f;
+    line-height: 1.45;
+}
+
+.sprint-doc-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 0.86rem;
+    align-self: flex-start;
+    border-top: 2px solid #000000;
+    padding-top: 8px;
+    width: 100%;
+}
+
+.sprint-doc-cta i {
+    font-size: 0.78rem;
+}
+
+.sprint-doc-disabled {
+    position: relative;
+    cursor: not-allowed;
+    color: #6b6b6b;
+    background: repeating-linear-gradient(
+        135deg,
+        #ffffff 0 9px,
+        #ebebeb 9px 11px
+    );
+    box-shadow: 3px 3px 0 #b3b3b3;
+    border-color: #9a9a9a;
+}
+
+.sprint-doc-disabled:hover {
+    transform: none;
+    box-shadow: 3px 3px 0 #b3b3b3;
+}
+
+.sprint-doc-disabled .sprint-doc-kind {
+    color: #555555;
+    border-bottom-color: #9a9a9a;
+}
+
+.sprint-doc-disabled p {
+    color: #555555;
+}
+
+.sprint-doc-disabled .sprint-doc-cta {
+    color: #555555;
+    border-top-color: #9a9a9a;
+    font-style: italic;
+}
+
+@media (max-width: 880px) {
+    .sprint-block {
+        grid-template-columns: 1fr;
+    }
+
+    .sprint-block-head {
+        border-right: none;
+        border-bottom: 3px solid #000000;
+        padding-right: 0;
+        padding-bottom: 14px;
+    }
+}
+
+@media (max-width: 560px) {
+    .sprint-block-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
 .footer {
     padding: 34px 0;
     text-align: center;

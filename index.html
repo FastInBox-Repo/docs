@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="./styles.css?v=20260424-2">
+    <link rel="stylesheet" href="./styles.css?v=20260424-3">
 </head>
 <body>
     <nav class="navbar" id="navbar">
@@ -168,17 +168,159 @@
                 <div class="section-header reveal">
                     <h2>Governanca de Sprints</h2>
                     <p>
-                        Bloco dedicado ao acompanhamento iterativo do projeto. Aqui ficam as reviews ja encerradas,
-                        os documentos da sprint seguinte e o backlog operacional usado para execucao e acompanhamento no GitHub Project.
+                        Padrao de governanca iterativa do FastInBox: cada sprint tem um documento de planning com backlog,
+                        objetivos e criterios de aceite e um documento de evidencias com prints e validacoes reais produzidas
+                        ao final da execucao. Sprints ainda nao executadas tem o bloco de evidencias sinalizado como pendente.
                     </p>
                 </div>
 
-                <div class="documents-grid">
-                    <article class="document-card reveal"><h3>Sprint 1 Review</h3><p>Review consolidada da Sprint 1 com entregaveis, evidencias, dificuldades, feedback dos stakeholders e carry-over.</p><a href="./documents/sprint-review.html">Abrir review</a></article>
-                    <article class="document-card reveal"><h3>Evidencias Sprint 1</h3><p>Entregas fundacionais da Sprint 1 com prints reais por fluxo, validacao tecnica da jornada E2E e autoria registrada.</p><a href="./documents/evidencias-sprint-1.html">Abrir evidencias</a></article>
-                    <article class="document-card reveal"><h3>Sprint 2 Planning</h3><p>Planejamento da Sprint 2 com objetivo central, backlog detalhado, criterios de aceite, riscos e definition of done.</p><a href="./documents/sprint-2-planning.html">Abrir planejamento</a></article>
-                    <article class="document-card reveal"><h3>Evidencias Sprint 2</h3><p>Entregas concluidas na Sprint 2 com prints reais por fluxo, roteiro de teste manual, smoke test E2E e autoria registrada.</p><a href="./documents/evidencias-sprint-2.html">Abrir evidencias</a></article>
-                    <article class="document-card reveal"><h3>Tasks Sprint 2</h3><p>Backlog acionavel da proxima sprint em formato direto para acompanhamento da execucao e desdobramento em issues.</p><a href="./content/sprint-2-project-tasks.md">Abrir backlog</a></article>
+                <div class="sprints-governance">
+                    <article class="sprint-block reveal" data-sprint="1">
+                        <header class="sprint-block-head">
+                            <span class="sprint-block-id">Sprint 1</span>
+                            <span class="sprint-block-status status-done">Entregue</span>
+                            <h3>Fundacao e MVP navegavel</h3>
+                            <p class="sprint-block-sub">Design system, autenticacao, builder de pedido, kanban e jornada do paciente.</p>
+                        </header>
+                        <div class="sprint-block-cards">
+                            <a class="sprint-doc-card" href="./documents/sprint-1-planning.html">
+                                <span class="sprint-doc-kind">Planning</span>
+                                <p>Objetivo, backlog executado, review consolidada, evidencias e carry-over formal da sprint fundacional.</p>
+                                <span class="sprint-doc-cta">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                            </a>
+                            <a class="sprint-doc-card" href="./documents/evidencias-sprint-1.html">
+                                <span class="sprint-doc-kind">Evidencias</span>
+                                <p>Entregas fundacionais com prints reais por fluxo, validacao tecnica da jornada E2E e autoria registrada.</p>
+                                <span class="sprint-doc-cta">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="sprint-block reveal" data-sprint="2">
+                        <header class="sprint-block-head">
+                            <span class="sprint-block-id">Sprint 2</span>
+                            <span class="sprint-block-status status-done">Entregue</span>
+                            <h3>Auditoria, eventos e evidencias</h3>
+                            <p class="sprint-block-sub">Eventos criticos, smoke E2E, painel administrativo e feedbacks visuais.</p>
+                        </header>
+                        <div class="sprint-block-cards">
+                            <a class="sprint-doc-card" href="./documents/sprint-2-planning.html">
+                                <span class="sprint-doc-kind">Planning</span>
+                                <p>Objetivo, backlog detalhado, criterios de aceite, riscos e definition of done da Sprint 2.</p>
+                                <span class="sprint-doc-cta">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                            </a>
+                            <a class="sprint-doc-card" href="./documents/evidencias-sprint-2.html">
+                                <span class="sprint-doc-kind">Evidencias</span>
+                                <p>Entregas concluidas com prints por fluxo, roteiro de teste manual, smoke test E2E e autoria registrada.</p>
+                                <span class="sprint-doc-cta">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="sprint-block reveal" data-sprint="3">
+                        <header class="sprint-block-head">
+                            <span class="sprint-block-id">Sprint 3</span>
+                            <span class="sprint-block-status status-next">Em execucao</span>
+                            <h3>Persistencia real e API</h3>
+                            <p class="sprint-block-sub">NestJS, Postgres, autenticacao server-side e kanban da fabrica sincronizado.</p>
+                        </header>
+                        <div class="sprint-block-cards">
+                            <a class="sprint-doc-card" href="./documents/sprint-3-planning.html">
+                                <span class="sprint-doc-kind">Planning</span>
+                                <p>Backlog tecnico da migracao para API real: arquitetura NestJS, banco PostgreSQL, auth e autorizacao por perfil.</p>
+                                <span class="sprint-doc-cta">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                            </a>
+                            <span class="sprint-doc-card sprint-doc-disabled" aria-disabled="true" role="note">
+                                <span class="sprint-doc-kind">Evidencias</span>
+                                <p>Sera publicado ao final da sprint com prints de migrations, autenticacao via API e kanban sincronizado.</p>
+                                <span class="sprint-doc-cta">Ainda nao disponivel</span>
+                            </span>
+                        </div>
+                    </article>
+
+                    <article class="sprint-block reveal" data-sprint="4">
+                        <header class="sprint-block-head">
+                            <span class="sprint-block-id">Sprint 4</span>
+                            <span class="sprint-block-status status-plan">Planejada</span>
+                            <h3>Pagamento real e fila da fabrica</h3>
+                            <p class="sprint-block-sub">Integracao com gateway, webhooks idempotentes e fila operacional da cozinha.</p>
+                        </header>
+                        <div class="sprint-block-cards">
+                            <a class="sprint-doc-card" href="./documents/sprint-4-planning.html">
+                                <span class="sprint-doc-kind">Planning</span>
+                                <p>Backlog transacional: gateway de pagamento, webhooks idempotentes, fila da cozinha e regras logisticas.</p>
+                                <span class="sprint-doc-cta">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                            </a>
+                            <span class="sprint-doc-card sprint-doc-disabled" aria-disabled="true" role="note">
+                                <span class="sprint-doc-kind">Evidencias</span>
+                                <p>Sera publicado ao final da sprint com logs de sandbox do gateway, webhook idempotente e kanban por janela.</p>
+                                <span class="sprint-doc-cta">Ainda nao disponivel</span>
+                            </span>
+                        </div>
+                    </article>
+
+                    <article class="sprint-block reveal" data-sprint="5">
+                        <header class="sprint-block-head">
+                            <span class="sprint-block-id">Sprint 5</span>
+                            <span class="sprint-block-status status-plan">Planejada</span>
+                            <h3>Admin, observabilidade e hardening</h3>
+                            <p class="sprint-block-sub">APIs admin, RBAC, relatorios de comissao, logs centralizados e hardening.</p>
+                        </header>
+                        <div class="sprint-block-cards">
+                            <a class="sprint-doc-card" href="./documents/sprint-5-planning.html">
+                                <span class="sprint-doc-kind">Planning</span>
+                                <p>Backlog administrativo: APIs admin, gestao de cozinhas, relatorios exportaveis, logs e hardening operacional.</p>
+                                <span class="sprint-doc-cta">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                            </a>
+                            <span class="sprint-doc-card sprint-doc-disabled" aria-disabled="true" role="note">
+                                <span class="sprint-doc-kind">Evidencias</span>
+                                <p>Sera publicado ao final da sprint com prints de admin, relatorios exportados e alertas ativos.</p>
+                                <span class="sprint-doc-cta">Ainda nao disponivel</span>
+                            </span>
+                        </div>
+                    </article>
+
+                    <article class="sprint-block reveal" data-sprint="6">
+                        <header class="sprint-block-head">
+                            <span class="sprint-block-id">Sprint 6</span>
+                            <span class="sprint-block-status status-plan">Planejada</span>
+                            <h3>Escala comercial</h3>
+                            <p class="sprint-block-sub">Autoatendimento do paciente, assinaturas recorrentes e previsao de demanda.</p>
+                        </header>
+                        <div class="sprint-block-cards">
+                            <a class="sprint-doc-card" href="./documents/sprint-6-planning.html">
+                                <span class="sprint-doc-kind">Planning</span>
+                                <p>Backlog de escala: autoatendimento por codigo, assinaturas recorrentes e previsao de demanda por janela.</p>
+                                <span class="sprint-doc-cta">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                            </a>
+                            <span class="sprint-doc-card sprint-doc-disabled" aria-disabled="true" role="note">
+                                <span class="sprint-doc-kind">Evidencias</span>
+                                <p>Sera publicado ao final da sprint com video de autoatendimento, print de assinatura e dashboard de previsao.</p>
+                                <span class="sprint-doc-cta">Ainda nao disponivel</span>
+                            </span>
+                        </div>
+                    </article>
+
+                    <article class="sprint-block reveal" data-sprint="7">
+                        <header class="sprint-block-head">
+                            <span class="sprint-block-id">Sprint 7</span>
+                            <span class="sprint-block-status status-plan">Planejada</span>
+                            <h3>Preparacao para producao</h3>
+                            <p class="sprint-block-sub">Revisao final de UX, runbooks, rollback, checklist de go-live e hardening.</p>
+                        </header>
+                        <div class="sprint-block-cards">
+                            <a class="sprint-doc-card" href="./documents/sprint-7-planning.html">
+                                <span class="sprint-doc-kind">Planning</span>
+                                <p>Backlog de producao: checklist de go-live, SLA, revisao UX cross-device, runbooks, rollback e hardening final.</p>
+                                <span class="sprint-doc-cta">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                            </a>
+                            <span class="sprint-doc-card sprint-doc-disabled" aria-disabled="true" role="note">
+                                <span class="sprint-doc-kind">Evidencias</span>
+                                <p>Sera publicado ao final da sprint com checklist assinado, smoke de release e runbooks operacionais.</p>
+                                <span class="sprint-doc-cta">Ainda nao disponivel</span>
+                            </span>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
