@@ -105,6 +105,24 @@ a {
     box-shadow: 2px 2px 0 #000000;
 }
 
+.nav-links a.nav-cta {
+    background: #000000;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-links a.nav-cta i {
+    font-size: 0.75rem;
+}
+
+.nav-links a.nav-cta:hover,
+.nav-links a.nav-cta:focus-visible {
+    background: #ffffff;
+    color: #000000;
+}
+
 .menu-toggle {
     display: none;
     border: 2px solid #000000;
@@ -156,19 +174,39 @@ a {
 }
 
 .cta-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     border: 3px solid #000000;
     text-decoration: none;
     font-weight: 700;
     background: #000000;
     color: #ffffff;
-    padding: 11px 14px;
+    padding: 11px 16px;
     box-shadow: var(--offset-sm) var(--offset-sm) 0 #000000;
 }
 
-.cta-button:hover {
+.cta-button:hover,
+.cta-button:focus-visible {
     transform: translate(2px, 2px);
     box-shadow: 2px 2px 0 #000000;
+}
+
+.cta-button.cta-secondary {
+    background: #ffffff;
+    color: #000000;
+}
+
+.cta-button.cta-secondary:hover,
+.cta-button.cta-secondary:focus-visible {
+    background: #f2f2f2;
+}
+
+.hero-cta-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 0.4rem;
 }
 
 .hero-metrics {
@@ -310,6 +348,17 @@ a {
     padding: 6px 10px;
     font-size: 0.88rem;
     font-weight: 700;
+}
+
+.footer-links a.footer-cta {
+    background: #000000;
+    color: #ffffff;
+}
+
+.footer-links a.footer-cta:hover,
+.footer-links a.footer-cta:focus-visible {
+    background: #ffffff;
+    color: #000000;
 }
 
 .reveal {
