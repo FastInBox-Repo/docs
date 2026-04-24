@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./styles.css?v=20260424-2">
 </head>
 <body>
     <nav class="navbar" id="navbar">
@@ -185,52 +185,128 @@
 
         <section id="backlog" class="board-section">
             <div class="container">
-                <div class="section-header reveal">
-                    <h2>Backlog vivo no GitHub Project</h2>
-                    <p>
-                        O GitHub Project e a fonte unica da verdade operacional do FastInBox. Concentra todo o caminho
-                        do produto, da concepcao ao go-live: requisitos, design, front, back, infra e QA organizados por
-                        sprint, prioridade e responsavel. Cada item viaja pelos status Todo, Ready, In Progress, In Review,
-                        QA e Done, com rastreabilidade ate o commit.
-                    </p>
+                <div class="board-head reveal">
+                    <div class="board-head-text">
+                        <p class="board-kicker">Backlog vivo no GitHub Project</p>
+                        <h2>Da concepcao ao go-live em 7 sprints</h2>
+                        <p class="board-lead">Fonte unica de verdade operacional. Cada task tem area, prioridade, owner e sprint, percorrendo Todo, Ready, In Progress, In Review, QA e Done.</p>
+                    </div>
+                    <a href="https://github.com/orgs/FastInBox-Repo/projects/1" class="board-cta" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-github" aria-hidden="true"></i>
+                        Abrir GitHub Project
+                    </a>
                 </div>
 
-                <div class="board-wrap">
-                    <article class="board-card reveal">
-                        <h3>Board operacional</h3>
-                        <p>
-                            Backlog cobrindo as sete sprints previstas do produto: fundacao, nutricionista e paciente,
-                            pagamento e fabrica, painel administrativo, escala comercial e preparacao para producao.
-                            Cada task carrega area, prioridade, owner sugerido e sprint planejada.
-                        </p>
-                        <div class="board-stats">
-                            <div class="board-stat"><strong>78</strong><span>Itens no board</span></div>
-                            <div class="board-stat"><strong>7</strong><span>Sprints mapeadas</span></div>
-                            <div class="board-stat"><strong>6</strong><span>Areas operacionais</span></div>
-                            <div class="board-stat"><strong>3</strong><span>Repositorios conectados</span></div>
-                        </div>
-                        <a href="https://github.com/orgs/FastInBox-Repo/projects/1" class="board-cta" target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-github" aria-hidden="true"></i>
-                            Abrir GitHub Project
-                        </a>
+                <div class="board-kpis reveal">
+                    <div class="board-kpi kpi-done">
+                        <strong>34</strong>
+                        <span>Entregues</span>
+                    </div>
+                    <div class="board-kpi kpi-progress">
+                        <strong>3</strong>
+                        <span>Em andamento</span>
+                    </div>
+                    <div class="board-kpi kpi-todo">
+                        <strong>41</strong>
+                        <span>Planejadas</span>
+                    </div>
+                    <div class="board-kpi kpi-total">
+                        <strong>78</strong>
+                        <span>Itens no board</span>
+                    </div>
+                </div>
+
+                <div class="board-progress reveal" aria-label="Progresso geral do backlog">
+                    <div class="board-progress-track">
+                        <div class="board-progress-fill" style="width: 43.6%"></div>
+                        <div class="board-progress-marker" style="left: 43.6%"><span>Sprint 3 em execucao</span></div>
+                    </div>
+                    <div class="board-progress-meta">
+                        <span><strong>43%</strong> do backlog entregue</span>
+                        <span>2 de 7 sprints concluidas</span>
+                    </div>
+                </div>
+
+                <div class="board-sprints reveal">
+                    <article class="board-sprint sprint-done">
+                        <header>
+                            <span class="sprint-id">Sprint 1</span>
+                            <span class="sprint-chip chip-done">Done</span>
+                        </header>
+                        <h3>Fundacao e MVP navegavel</h3>
+                        <p>Design system, autenticacao, builder de pedido, kanban e jornada do paciente.</p>
+                        <footer><strong>26</strong> tasks entregues</footer>
                     </article>
 
-                    <article class="board-card reveal">
-                        <h3>Pipeline do MVP por sprint</h3>
-                        <p>
-                            Organizacao incremental da jornada de entrega. Sprints 1 e 2 ja foram concluidas com evidencias
-                            publicadas; as proximas sprints estao pre-planejadas no board para permitir acompanhamento
-                            continuo e redistribuicao de prioridade em tempo real.
-                        </p>
-                        <div class="board-pipeline">
-                            <div class="board-pipeline-item"><span class="pipe-label">Sprint 1</span><span class="pipe-desc">Fundacao, design system, MVP navegavel do nutricionista e paciente.</span><span class="pipe-count">Done</span></div>
-                            <div class="board-pipeline-item"><span class="pipe-label">Sprint 2</span><span class="pipe-desc">Auditoria, instrumentacao de eventos, smoke E2E e evidencias.</span><span class="pipe-count">Done</span></div>
-                            <div class="board-pipeline-item"><span class="pipe-label">Sprint 3</span><span class="pipe-desc">Persistencia real em API NestJS, autenticacao server-side e kanban sincronizado.</span><span class="pipe-count">Next</span></div>
-                            <div class="board-pipeline-item"><span class="pipe-label">Sprint 4</span><span class="pipe-desc">Integracao com gateway de pagamento, webhooks e fila operacional da cozinha.</span><span class="pipe-count">Plan</span></div>
-                            <div class="board-pipeline-item"><span class="pipe-label">Sprint 5</span><span class="pipe-desc">APIs e RBAC do painel administrativo, observabilidade e hardening.</span><span class="pipe-count">Plan</span></div>
-                            <div class="board-pipeline-item"><span class="pipe-label">Sprint 6</span><span class="pipe-desc">Autoatendimento do paciente, assinaturas recorrentes e previsao de demanda.</span><span class="pipe-count">Plan</span></div>
-                            <div class="board-pipeline-item"><span class="pipe-label">Sprint 7</span><span class="pipe-desc">Hardening final, runbooks de producao e checklist de go-live.</span><span class="pipe-count">Plan</span></div>
-                        </div>
+                    <article class="board-sprint sprint-done">
+                        <header>
+                            <span class="sprint-id">Sprint 2</span>
+                            <span class="sprint-chip chip-done">Done</span>
+                        </header>
+                        <h3>Auditoria e evidencias</h3>
+                        <p>Eventos criticos, smoke E2E, painel administrativo e feedbacks visuais.</p>
+                        <footer><strong>8</strong> tasks entregues</footer>
+                    </article>
+
+                    <article class="board-sprint sprint-next">
+                        <header>
+                            <span class="sprint-id">Sprint 3</span>
+                            <span class="sprint-chip chip-next">Next</span>
+                        </header>
+                        <h3>Persistencia real e API</h3>
+                        <p>NestJS, Postgres, autenticacao server-side e kanban da fabrica sincronizado.</p>
+                        <footer><strong>20</strong> tasks no backlog</footer>
+                    </article>
+
+                    <article class="board-sprint sprint-plan">
+                        <header>
+                            <span class="sprint-id">Sprint 4</span>
+                            <span class="sprint-chip chip-plan">Plan</span>
+                        </header>
+                        <h3>Pagamento e fabrica</h3>
+                        <p>Integracao com gateway, webhooks idempotentes e fila operacional da cozinha.</p>
+                        <footer><strong>7</strong> tasks no backlog</footer>
+                    </article>
+
+                    <article class="board-sprint sprint-plan">
+                        <header>
+                            <span class="sprint-id">Sprint 5</span>
+                            <span class="sprint-chip chip-plan">Plan</span>
+                        </header>
+                        <h3>Admin e observabilidade</h3>
+                        <p>APIs admin, RBAC, relatorios de comissao, logs centralizados e hardening.</p>
+                        <footer><strong>7</strong> tasks no backlog</footer>
+                    </article>
+
+                    <article class="board-sprint sprint-plan">
+                        <header>
+                            <span class="sprint-id">Sprint 6</span>
+                            <span class="sprint-chip chip-plan">Plan</span>
+                        </header>
+                        <h3>Escala comercial</h3>
+                        <p>Autoatendimento do paciente, assinaturas recorrentes e previsao de demanda.</p>
+                        <footer><strong>6</strong> tasks no backlog</footer>
+                    </article>
+
+                    <article class="board-sprint sprint-plan">
+                        <header>
+                            <span class="sprint-id">Sprint 7</span>
+                            <span class="sprint-chip chip-plan">Plan</span>
+                        </header>
+                        <h3>Preparacao para producao</h3>
+                        <p>Revisao final de UX, runbooks, rollback, checklist de go-live e hardening.</p>
+                        <footer><strong>4</strong> tasks no backlog</footer>
+                    </article>
+
+                    <article class="board-sprint sprint-cta">
+                        <header>
+                            <span class="sprint-id">Explorar</span>
+                        </header>
+                        <h3>Veja o board completo</h3>
+                        <p>Abra o GitHub Project para filtrar por area, prioridade, owner ou sprint e acompanhar cada status em tempo real.</p>
+                        <a href="https://github.com/orgs/FastInBox-Repo/projects/1" target="_blank" rel="noopener noreferrer" class="sprint-cta-link">
+                            Abrir <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                        </a>
                     </article>
                 </div>
             </div>

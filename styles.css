@@ -390,6 +390,9 @@ a {
     transform: translateY(0);
 }
 
+/* ============================================================
+   BACKLOG DASHBOARD  --  neo-brutal B&W
+   ============================================================ */
 .board-section {
     padding: 82px 0;
     background: #000000;
@@ -398,84 +401,62 @@ a {
     border-bottom: 3px solid #000000;
 }
 
-.board-section .section-header h2 {
-    color: #ffffff;
-}
-
-.board-section .section-header p {
-    color: #e5e5e5;
-}
-
-.board-wrap {
+.board-head {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 24px;
-    align-items: stretch;
+    align-items: end;
+    margin-bottom: 28px;
 }
 
-.board-card {
-    border: 3px solid #ffffff;
-    background: #000000;
-    box-shadow: var(--offset-md) var(--offset-md) 0 #ffffff;
-    padding: 26px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+.board-head-text {
+    max-width: 780px;
 }
 
-.board-card h3 {
-    font-size: 1.1rem;
-    color: #ffffff;
-    letter-spacing: -0.01em;
-}
-
-.board-card p {
-    font-size: 0.94rem;
-    color: #e5e5e5;
-}
-
-.board-stats {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 10px;
-    margin-top: auto;
-}
-
-.board-stat {
-    border: 2px solid #ffffff;
-    background: #000000;
-    padding: 10px;
-    text-align: center;
-}
-
-.board-stat strong {
-    display: block;
-    font-family: "Space Grotesk", "Segoe UI", sans-serif;
-    font-size: 1.35rem;
-    color: #ffffff;
-    margin-bottom: 2px;
-}
-
-.board-stat span {
+.board-kicker {
+    display: inline-block;
     font-size: 0.72rem;
-    color: #d9d9d9;
-    letter-spacing: 0.04em;
+    font-weight: 700;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
+    color: #000000;
+    background: #ffffff;
+    padding: 5px 10px;
+    margin-bottom: 14px;
+    border: 2px solid #ffffff;
+}
+
+.board-head h2 {
+    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-bottom: 0.7rem;
+}
+
+.board-lead {
+    color: #cfcfcf;
+    font-size: 0.96rem;
+    max-width: 720px;
 }
 
 .board-cta {
-    align-self: flex-start;
     display: inline-flex;
     align-items: center;
     gap: 10px;
     border: 3px solid #ffffff;
     background: #ffffff;
     color: #000000;
-    padding: 11px 16px;
+    padding: 12px 18px;
     text-decoration: none;
     font-weight: 700;
+    white-space: nowrap;
     box-shadow: var(--offset-sm) var(--offset-sm) 0 #ffffff;
-    margin-top: 6px;
+}
+
+.board-cta i {
+    font-size: 1rem;
 }
 
 .board-cta:hover,
@@ -484,57 +465,335 @@ a {
     box-shadow: 2px 2px 0 #ffffff;
     background: #000000;
     color: #ffffff;
-    border-color: #ffffff;
 }
 
-.board-pipeline {
+/* KPIs --------------------------------------------------------- */
+.board-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 26px;
+}
+
+.board-kpi {
+    border: 2px solid #ffffff;
+    background: #0a0a0a;
+    padding: 18px 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.board-kpi::before {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 5px;
+    background: #ffffff;
+}
+
+.board-kpi.kpi-done::before    { background: #ffffff; }
+.board-kpi.kpi-progress::before{ background: #ffffff; opacity: 0.75; }
+.board-kpi.kpi-todo::before    { background: #ffffff; opacity: 0.45; }
+.board-kpi.kpi-total::before   { background: #ffffff; opacity: 0.25; }
+
+.board-kpi strong {
+    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    font-size: 2.4rem;
+    line-height: 1;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+}
+
+.board-kpi span {
+    font-size: 0.75rem;
+    color: #cfcfcf;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+}
+
+/* Progress bar ------------------------------------------------ */
+.board-progress {
+    margin-bottom: 32px;
+}
+
+.board-progress-track {
+    position: relative;
+    height: 18px;
+    border: 2px solid #ffffff;
+    background: #0a0a0a;
+    margin-bottom: 10px;
+}
+
+.board-progress-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background:
+        repeating-linear-gradient(
+            -45deg,
+            #ffffff 0 8px,
+            #d9d9d9 8px 16px
+        );
+}
+
+.board-progress-marker {
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    width: 2px;
+    background: #ffffff;
+    transform: translateX(-1px);
+}
+
+.board-progress-marker span {
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: #000000;
+    background: #ffffff;
+    padding: 3px 8px;
+    border: 2px solid #ffffff;
+}
+
+.board-progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #cfcfcf;
+    letter-spacing: 0.02em;
+}
+
+.board-progress-meta strong {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* Sprint grid ------------------------------------------------- */
+.board-sprints {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.board-sprint {
+    border: 3px solid #ffffff;
+    background: #000000;
+    padding: 20px 20px 18px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    min-height: 220px;
+    box-shadow: var(--offset-sm) var(--offset-sm) 0 #ffffff;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.board-pipeline-item {
-    display: grid;
-    grid-template-columns: 90px 1fr 60px;
-    gap: 12px;
+.board-sprint:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #ffffff;
+}
+
+.board-sprint header {
+    display: flex;
     align-items: center;
-    padding: 12px 14px;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.sprint-id {
+    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #cfcfcf;
+}
+
+.sprint-chip {
+    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 9px;
     border: 2px solid #ffffff;
+    background: #000000;
+    color: #ffffff;
+}
+
+.chip-done {
+    background: #ffffff;
+    color: #000000;
+}
+
+.chip-next {
+    background: #ffffff;
+    color: #000000;
+    position: relative;
+}
+
+.chip-next::before {
+    content: "> ";
+}
+
+.chip-plan {
+    background: #000000;
+    color: #ffffff;
+}
+
+.board-sprint h3 {
+    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.board-sprint p {
+    font-size: 0.88rem;
+    color: #cfcfcf;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.board-sprint footer {
+    border-top: 1px dashed rgba(255, 255, 255, 0.25);
+    padding-top: 10px;
+    font-size: 0.78rem;
+    color: #cfcfcf;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.board-sprint footer strong {
+    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    font-size: 1rem;
+    color: #ffffff;
+    margin-right: 4px;
+}
+
+/* Done sprint gets a subtle solid accent */
+.board-sprint.sprint-done {
     background: #0a0a0a;
 }
 
-.board-pipeline-item .pipe-label {
-    font-family: "Space Grotesk", "Segoe UI", sans-serif;
-    font-weight: 700;
-    font-size: 0.82rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: #ffffff;
+/* Next sprint -- spotlight */
+.board-sprint.sprint-next {
+    background: #ffffff;
+    color: #000000;
+    box-shadow: var(--offset-md) var(--offset-md) 0 #ffffff;
 }
 
-.board-pipeline-item .pipe-desc {
-    font-size: 0.86rem;
-    color: #d9d9d9;
+.board-sprint.sprint-next .sprint-id {
+    color: #333333;
 }
 
-.board-pipeline-item .pipe-count {
-    text-align: right;
-    font-family: "Space Grotesk", "Segoe UI", sans-serif;
-    font-weight: 700;
+.board-sprint.sprint-next .sprint-chip {
+    background: #000000;
     color: #ffffff;
+    border-color: #000000;
+}
+
+.board-sprint.sprint-next h3 {
+    color: #000000;
+}
+
+.board-sprint.sprint-next p {
+    color: #222222;
+}
+
+.board-sprint.sprint-next footer {
+    border-top-color: rgba(0, 0, 0, 0.2);
+    color: #333333;
+}
+
+.board-sprint.sprint-next footer strong {
+    color: #000000;
+}
+
+.board-sprint.sprint-next:hover {
+    box-shadow: 3px 3px 0 #ffffff;
+}
+
+/* Plan sprints -- dimmed */
+.board-sprint.sprint-plan {
+    opacity: 0.82;
+}
+
+/* Explorar CTA card */
+.board-sprint.sprint-cta {
+    border-style: dashed;
+    border-color: #ffffff;
+    background: transparent;
+    justify-content: space-between;
+}
+
+.sprint-cta-link {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-bottom: 2px solid #ffffff;
+    padding-bottom: 2px;
+    margin-top: auto;
+}
+
+.sprint-cta-link:hover,
+.sprint-cta-link:focus-visible {
+    color: #000000;
+    background: #ffffff;
+    padding: 2px 8px;
+    border-bottom-color: transparent;
+}
+
+/* Responsive -------------------------------------------------- */
+@media (max-width: 1100px) {
+    .board-sprints {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
 }
 
 @media (max-width: 880px) {
-    .board-wrap {
+    .board-head {
         grid-template-columns: 1fr;
+        align-items: start;
     }
 
-    .board-stats {
+    .board-kpis {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .board-pipeline-item {
-        grid-template-columns: 80px 1fr 50px;
+    .board-sprints {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .board-kpi strong {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 560px) {
+    .board-sprints {
+        grid-template-columns: 1fr;
+    }
+
+    .board-progress-meta {
+        flex-direction: column;
+        gap: 4px;
     }
 }
 
