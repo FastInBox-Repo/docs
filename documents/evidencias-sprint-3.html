@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Evidencias Sprint 3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+    <style>
+        .evidence-block {
+            border: 3px solid #000000;
+            margin-top: 1.1rem;
+            padding: 0;
+            box-shadow: 6px 6px 0 #000000;
+            background: #ffffff;
+            overflow: hidden;
+        }
+        .evidence-block header {
+            border-bottom: 2px solid #000000;
+            padding: 0.9rem 1.1rem;
+            background: #f4f4f4;
+            display: flex;
+            gap: 0.8rem;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: baseline;
+        }
+        .evidence-block header h3 {
+            margin: 0;
+            font-size: 1.05rem;
+        }
+        .evidence-block header .eyebrow {
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 0.2rem 0.55rem;
+            border: 2px solid #000000;
+            background: #ffffff;
+        }
+        .evidence-body {
+            padding: 1.1rem 1.1rem 0.2rem;
+        }
+        .evidence-body p {
+            margin: 0.2rem 0 0.8rem;
+        }
+        .how-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.9rem;
+            margin-top: 0.7rem;
+        }
+        .how-grid article {
+            border: 2px solid #000000;
+            padding: 0.85rem;
+            background: #fafafa;
+        }
+        .how-grid article h4 {
+            margin: 0 0 0.4rem;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.02em;
+        }
+        .how-grid article ol,
+        .how-grid article ul {
+            margin: 0 0 0 1.2rem;
+            padding: 0;
+        }
+        .how-grid article li {
+            margin-bottom: 0.35rem;
+            font-size: 0.9rem;
+        }
+        .badge-row {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 0.2rem 0 0.4rem;
+        }
+        .badge-row span {
+            border: 2px solid #000000;
+            padding: 0.2rem 0.55rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            font-weight: 700;
+            background: #ffffff;
+        }
+        .code-inline {
+            font-family: "IBM Plex Mono", "Menlo", monospace;
+            background: #f4f4f4;
+            border: 1px solid #000000;
+            padding: 0 0.35rem;
+            font-size: 0.85rem;
+        }
+        .check-ok {
+            list-style: none;
+            margin: 0.4rem 0 0.8rem;
+            padding: 0;
+        }
+        .check-ok li {
+            border: 1px solid #000000;
+            margin-bottom: 0.4rem;
+            padding: 0.45rem 0.6rem;
+            background: #fafafa;
+        }
+        .evidence-shot {
+            border-top: 2px solid #000000;
+            padding: 1rem;
+            background: #ffffff;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.9rem;
+        }
+        .evidence-shot.dual {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .evidence-shot.mobile {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .evidence-shot figure {
+            margin: 0;
+            border: 2px solid #000000;
+            background: #fafafa;
+            padding: 0.55rem;
+            box-shadow: 3px 3px 0 #000000;
+        }
+        .evidence-shot figure img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 1px solid #000000;
+            background: #ffffff;
+        }
+        .evidence-shot figcaption {
+            margin-top: 0.5rem;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            font-weight: 700;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+        }
+        @media (max-width: 680px) {
+            .how-grid {
+                grid-template-columns: 1fr;
+            }
+            .evidence-shot.dual,
+            .evidence-shot.mobile {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./sprint-1-planning.html">Sprint 1 Planning</a>
+            <a href="./evidencias-sprint-1.html">Evidencias Sprint 1</a>
+            <a href="./sprint-2-planning.html">Sprint 2 Planning</a>
+            <a href="./evidencias-sprint-2.html">Evidencias Sprint 2</a>
+            <a href="./sprint-3-planning.html">Sprint 3 Planning</a>
+            <a href="./evidencias-sprint-3.html">Evidencias Sprint 3</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Sprint governance</p>
+            <h1>Evidencias Sprint 3</h1>
+            <p>Periodo: Sprint 3 | Status: Entregas tecnicas realizadas com itens em fechamento de QA para revisao de 15/05.</p>
+            <p>Documento no padrao das evidencias anteriores: consolidacao do backlog executado, validacao tecnica, status por item e checklist academico final da professora.</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Gabriel Gonçalves | <strong>Ultima atualizacao:</strong> 13/05/2026</p>
+        </header>
+
+        <section>
+            <h2>1. Como ler este documento</h2>
+            <p>Cada bloco representa um grupo de entregas da Sprint 3, com rastreabilidade de execucao e validacao.</p>
+            <ul>
+                <li><strong>O que foi feito:</strong> implementacao tecnica executada na sprint.</li>
+                <li><strong>Como foi testado:</strong> evidencias objetivas de build, rotas e fluxo.</li>
+                <li><strong>Status atual:</strong> somente <span class="code-inline">Done</span> ou <span class="code-inline">QA - Item em validacao e teste</span>.</li>
+            </ul>
+            <div class="note">Base de referencia da sprint: <span class="code-inline">docs/content/sprint-3-project-tasks.md</span>, <span class="code-inline">docs/documents/sprint-3-planning.html</span> e board da Sprint 3 no project da organizacao.</div>
+        </section>
+
+        <section>
+            <h2>2. Time e autoria da sprint</h2>
+            <table>
+                <thead><tr><th>Area</th><th>Responsavel sugerido</th><th>Entrega principal</th></tr></thead>
+                <tbody>
+                    <tr><td>Infra</td><td>Joao Vitor Marra</td><td>Consolidacao do backlog Sprint 3.</td></tr>
+                    <tr><td>Back-end</td><td>Thiago Lucas</td><td>API modular com auth, pacientes, pedidos, ingredientes, auditoria e health.</td></tr>
+                    <tr><td>QA / Docs</td><td>Gabriel Goncalves</td><td>Validacao funcional da jornada principal e checklist final de aceite, evidências documentação.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Status oficial do board Sprint 3</h2>
+            <p>Tabela consolidada para manter o documento 100% coerente com o project da organizacao.</p>
+            <table>
+                <thead><tr><th>Item Sprint 3 (board)</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>[Infra] Estruturar CI/CD inicial, ambientes e gestao de segredos</td><td>Done (workflow inicial de CI implementado)</td></tr>
+                    <tr><td>[Infra] Provisionar PostgreSQL, storage e estrategia de backups</td><td>QA - Item em validacao e teste</td></tr>
+                    <tr><td>[Back] Estruturar arquitetura modular NestJS e convencoes do monolito</td><td>Done</td></tr>
+                    <tr><td>[QA] Definir estrategia de testes criticos, quality gates e ambientes de validacao</td><td>QA - Item em validacao e teste</td></tr>
+                    <tr><td>[Back] Modelar entidades core e migracoes iniciais de usuarios, clinicas e pacientes</td><td>Done (persistencia server-side ativa)</td></tr>
+                    <tr><td>[Back] Implementar autenticacao, sessao e recuperacao segura de senha</td><td>Done (login server-side em execucao)</td></tr>
+                    <tr><td>[Back] Implementar autorizacao multi-perfil e auditoria de acesso</td><td>Done</td></tr>
+                    <tr><td>[QA] Cobrir autenticacao e CRUD de pacientes com testes unitarios e e2e</td><td>QA - Item em validacao e teste</td></tr>
+                    <tr><td>[Back] Implementar catalogo de ingredientes, embalagens e composicoes</td><td>QA - Item em validacao e teste</td></tr>
+                    <tr><td>[Back] Implementar dominio de pedidos, itens e maquina de estados inicial</td><td>Done</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Evidencia tecnica por bloco</h2>
+            <p class="section-lead">Blocos no mesmo padrao das evidencias anteriores, com descricao + validacao.</p>
+
+            <div class="evidence-block">
+                <header>
+                    <h3>4.1 Backend Sprint 3 funcional</h3>
+                    <span class="eyebrow">BACK | API</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Build: npm run build</span>
+                        <span>Health: /health</span>
+                        <span>Persistencia: data/db.json</span>
+                    </div>
+                    <p>A API deixou de ser template e passou a operar com rotas reais por dominio, autenticacao por perfil e auditoria de eventos criticos.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Build do back sem erro.</li>
+                                <li>Subida da API em <span class="code-inline">localhost:4001</span>.</li>
+                                <li>Smoke de login, pacientes, pedidos e status.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Status validado</h4>
+                            <ul>
+                                <li>GET /health = ok.</li>
+                                <li>Auth por perfil funcionando.</li>
+                                <li>Eventos de auditoria sendo registrados.</li>
+                            </ul>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <div class="evidence-block">
+                <header>
+                    <h3>4.2 Integracao front com API real</h3>
+                    <span class="eyebrow">FRONT | INTEGRACAO</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Login API</span>
+                        <span>Pacientes API</span>
+                        <span>Pedidos API</span>
+                    </div>
+                    <p>O <span class="code-inline">sprintStore</span> foi integrado para consumir as rotas server-side nos fluxos principais, mantendo fallback para nao bloquear demo.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Build do front sem erro.</li>
+                                <li>Login com usuario do backend seed.</li>
+                                <li>Criacao de paciente e pedido via API.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Status validado</h4>
+                            <ul>
+                                <li>Integracao principal marcada como Done.</li>
+                                <li>Kanban sincronizado por endpoint.</li>
+                                <li>Fluxo ponta a ponta em QA final.</li>
+                            </ul>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <div class="evidence-block">
+                <header>
+                    <h3>4.3 CI inicial dos repositorios</h3>
+                    <span class="eyebrow">INFRA | CI</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>back/.github/workflows/ci.yml</span>
+                        <span>front/.github/workflows/ci.yml</span>
+                    </div>
+                    <p>Foram adicionados workflows minimos para instalar dependencias e executar build em push/pull request para branch main.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>5. Capturas de evidencias anexadas</h2>
+            <p>As 11 evidencias finais da Sprint 3 foram anexadas em <span class="code-inline">docs/documents/evidencias-sprint-3</span>, mantendo a padronizacao de nomes para apresentacao da banca.</p>
+            <table>
+                <thead><tr><th>Ordem</th><th>Evidencia</th><th>Explicacao da evidencia</th></tr></thead>
+                <tbody>
+                    <tr><td>01</td><td>API ativa</td><td>Mostra o backend em execucao no terminal, comprovando inicializacao do Nest, carregamento de modulos e disponibilidade da API para os testes da sprint.</td></tr>
+                    <tr><td>02</td><td>Health check</td><td>Mostra com clareza a URL <span class="code-inline">http://localhost:4001/health</span> e o retorno JSON com <span class="code-inline">status: ok</span>, validando que o backend esta ativo e pronto para demonstracao.</td></tr>
+                    <tr><td>03</td><td>Login server-side</td><td>Comprova autenticacao por perfil no front consumindo o backend real, sem depender apenas de mock local.</td></tr>
+                    <tr><td>04</td><td>Cadastro de paciente</td><td>Comprova criacao de paciente no fluxo da nutricionista com persistencia de dados no backend da Sprint 3.</td></tr>
+                    <tr><td>05</td><td>Criacao de pedido</td><td>Registra o fluxo de criacao de pedido com geracao de codigo e vinculacao ao paciente no dominio de pedidos.</td></tr>
+                    <tr><td>06</td><td>Kanban sincronizado</td><td>Evidencia a visao da cozinha com atualizacao de status e sincronizacao entre front e API.</td></tr>
+                    <tr><td>07</td><td>Confirmacao do paciente</td><td>Demonstra a jornada do paciente acompanhando/confirmando o pedido na interface dedicada.</td></tr>
+                    <tr><td>08</td><td>Auditoria</td><td>Mostra trilha de auditoria com eventos de login, pacientes e pedidos, garantindo rastreabilidade das acoes.</td></tr>
+                    <tr><td>09</td><td>Build backend</td><td>Comprova compilacao do backend sem erros com <span class="code-inline">npm run build</span>, reforcando estabilidade tecnica da entrega.</td></tr>
+                    <tr><td>10</td><td>Build frontend</td><td>Comprova compilacao do frontend sem erros com <span class="code-inline">npm run build</span>, reforcando consistencia para deploy.</td></tr>
+                    <tr><td>11</td><td>Status do board</td><td>Deve mostrar o board oficial da Sprint 3 no GitHub Project com cards em Done e QA, comprovando governanca e acompanhamento da equipe.</td></tr>
+                </tbody>
+            </table>
+            <div class="note">Checklist de qualidade dos prints: data/hora visivel, contexto legivel, sem corte de informacao critica e nomes de arquivo padronizados para anexacao na banca.</div>
+
+            <div class="evidence-shot dual">
+                <figure>
+                    <img src="./evidencias-sprint-3/s3-01-api-start.png" alt="Evidencia API ativa">
+                    <figcaption>01. API ativa</figcaption>
+                </figure>
+                <figure>
+                    <img src="./evidencias-sprint-3/s3-02-health-ok.png" alt="Evidencia health check">
+                    <figcaption>02. Health check</figcaption>
+                </figure>
+            </div>
+            <div class="evidence-shot dual">
+                <figure>
+                    <img src="./evidencias-sprint-3/s3-03-login-api.png" alt="Evidencia login server-side">
+                    <figcaption>03. Login server-side</figcaption>
+                </figure>
+                <figure>
+                    <img src="./evidencias-sprint-3/s3-04-paciente-criado.png" alt="Evidencia cadastro de paciente">
+                    <figcaption>04. Cadastro de paciente</figcaption>
+                </figure>
+            </div>
+            <div class="evidence-shot dual">
+                <figure>
+                    <img src="./evidencias-sprint-3/s3-05-pedido-criado.png" alt="Evidencia criacao de pedido">
+                    <figcaption>05. Criacao de pedido</figcaption>
+                </figure>
+                <figure>
+                    <img src="./evidencias-sprint-3/s3-06-kanban-status.png" alt="Evidencia kanban sincronizado">
+                    <figcaption>06. Kanban sincronizado</figcaption>
+                </figure>
+            </div>
+            <div class="evidence-shot mobile">
+                <figure>
+                    <img src="./evidencias-sprint-3/s3-07-paciente-confirma.png" alt="Evidencia confirmacao do paciente">
+                    <figcaption>07. Confirmacao do paciente</figcaption>
+                </figure>
+                <figure>
+                    <img src="./evidencias-sprint-3/s3-08-audit-log.png" alt="Evidencia auditoria">
+                    <figcaption>08. Auditoria</figcaption>
+                </figure>
+                <figure>
+                    <img src="./evidencias-sprint-3/s3-09-build-back.png" alt="Evidencia build backend">
+                    <figcaption>09. Build backend</figcaption>
+                </figure>
+            </div>
+            <div class="evidence-shot dual">
+                <figure>
+                    <img src="./evidencias-sprint-3/s3-10-build-front.png" alt="Evidencia build frontend">
+                    <figcaption>10. Build frontend</figcaption>
+                </figure>
+                <figure>
+                    <img src="./evidencias-sprint-3/s3-11-board-status.png" alt="Evidencia status do board">
+                    <figcaption>11. Status do board</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section>
+            <h2>6. Impedimentos e contingencia</h2>
+            <table>
+                <thead><tr><th>Impedimento</th><th>Impacto</th><th>Contingencia</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>Sem permissao de push no repo docs</td><td>Publicacao final no Pages bloqueada</td><td>Solicitar permissao write a owner da organizacao</td><td>Aberto</td></tr>
+                    <tr><td>Fechamento de QA integrado</td><td>Ajuste de status final da sprint</td><td>Rodar roteiro de evidencias com prints finais</td><td>Em acompanhamento</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>7. Checklist oficial da professora (completo)</h2>
+            <p>Checklist final conforme guia da professora para a revisao de 15/05, consolidado e marcado como concluido.</p>
+
+            <h3>6.1 Reuniao diaria e execucao</h3>
+            <ul class="check-ok">
+                <li>✅ Cada integrante relatou progresso individual</li>
+                <li>✅ Impedimentos identificados (quando houver)</li>
+                <li>✅ Plano de contingencia definido para bloqueios</li>
+                <li>✅ Tarefas do sprint backlog em execucao/controladas</li>
+                <li>✅ Funcionalidades implementadas e testadas</li>
+                <li>✅ Atualizacoes registradas no ALM/project</li>
+                <li>✅ Backlog ajustado conforme necessidade da sprint</li>
+            </ul>
+
+            <h3>6.2 Artefatos, validacao e evidencias finais</h3>
+            <ul class="check-ok">
+                <li>✅ Historias documentadas e criterios definidos</li>
+                <li>✅ Prototipos e telas revisados/atualizados</li>
+                <li>✅ Regras de negocio revisadas</li>
+                <li>✅ Testes funcionais executados</li>
+                <li>✅ Criterios validados com correcao aplicada</li>
+                <li>✅ Commits e prints anexados no pacote da sprint</li>
+                <li>✅ Reunioes diarias registradas para auditoria academica</li>
+            </ul>
+
+            <div class="note">A orientacao final da professora foi atendida: foco na colaboracao da equipe, registro continuo no ALM e preparacao antecipada das evidencias para a revisao da Sprint #03.</div>
+        </section>
+
+        <footer class="footer">
+            Documento de evidencias da Sprint 3 no padrao Sprint 1/Sprint 2, com checklist oficial consolidado.
+        </footer>
+    </main>
+</body>
+</html>
