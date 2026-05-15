@@ -14,9 +14,14 @@
 <body>
     <nav class="navbar" id="navbar">
         <div class="container nav-wrap">
-            <a href="#inicio" class="logo" aria-label="Ir para o inicio">
-                <i class="fa-solid fa-box"></i>
-                <span>FASTINBOX DOCS</span>
+            <a href="#inicio" class="logo" aria-label="Ir para o inicio FastInBox Docs">
+                <span class="logo-mark" aria-hidden="true">
+                    <i class="fa-solid fa-box"></i>
+                </span>
+                <span class="logo-text">
+                    <span class="logo-name">FastInBox</span>
+                    <span class="logo-tag">Docs</span>
+                </span>
             </a>
             <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-controls="nav-links" aria-expanded="false">
                 <span></span>
@@ -63,12 +68,16 @@
 
             <div class="hero-metrics">
                 <article class="metric-chip">
-                    <strong>13 documentos</strong>
+                    <strong>24 documentos</strong>
                     <span>Paginas completas em formato tecnico</span>
                 </article>
                 <article class="metric-chip">
-                    <strong>1 fluxo E2E</strong>
-                    <span>Criacao -> pagamento -> producao -> entrega</span>
+                    <strong>3 / 7 sprints</strong>
+                    <span>Sprints 1, 2 e 3 entregues; Sprint 4 em execucao</span>
+                </article>
+                <article class="metric-chip">
+                    <strong>2 fluxos E2E</strong>
+                    <span>Criacao de conta e criacao de pedido ponta a ponta</span>
                 </article>
                 <article class="metric-chip">
                     <strong>2 canais publicos</strong>
@@ -221,19 +230,19 @@
                     <article class="sprint-block reveal" data-sprint="3">
                         <header class="sprint-block-head">
                             <span class="sprint-block-id">Sprint 3</span>
-                            <span class="sprint-block-status status-next">Em execucao</span>
+                            <span class="sprint-block-status status-done">Entregue</span>
                             <h3>Persistencia real e API</h3>
-                            <p class="sprint-block-sub">NestJS, Postgres, autenticacao server-side e kanban da fabrica sincronizado.</p>
+                            <p class="sprint-block-sub">Monolito NestJS modular com auth, dominio rico de pedidos, codigo unico, public lookup e kanban server-side.</p>
                         </header>
                         <div class="sprint-block-cards">
                             <a class="sprint-doc-card" href="./documents/sprint-3-planning.html">
                                 <span class="sprint-doc-kind">Planning</span>
-                                <p>Backlog tecnico da migracao para API real: arquitetura NestJS, banco PostgreSQL, auth e autorizacao por perfil.</p>
+                                <p>Backlog tecnico da migracao para API real: arquitetura NestJS, dominio core, auth/authz multi-perfil e fluxo nutri-paciente.</p>
                                 <span class="sprint-doc-cta">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
                             </a>
                             <a class="sprint-doc-card" href="./documents/evidencias-sprint-3.html">
                                 <span class="sprint-doc-kind">Evidencias</span>
-                                <p>Checklist oficial da professora, status do backlog, plano de validacao e roteiro de anexos para a revisao da Sprint 3.</p>
+                                <p>Modulos NestJS, autenticacao com rotacao de refresh, fluxo nutri-paciente integrado e kanban server-side com event log auditavel.</p>
                                 <span class="sprint-doc-cta">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
                             </a>
                         </div>
@@ -242,9 +251,9 @@
                     <article class="sprint-block reveal" data-sprint="4">
                         <header class="sprint-block-head">
                             <span class="sprint-block-id">Sprint 4</span>
-                            <span class="sprint-block-status status-plan">Planejada</span>
+                            <span class="sprint-block-status status-next">Em execucao</span>
                             <h3>Pagamento real e fila da fabrica</h3>
-                            <p class="sprint-block-sub">Integracao com gateway, webhooks idempotentes e fila operacional da cozinha.</p>
+                            <p class="sprint-block-sub">Adapter de gateway, intent transacional, webhook idempotente HMAC e fila operacional por janela de entrega.</p>
                         </header>
                         <div class="sprint-block-cards">
                             <a class="sprint-doc-card" href="./documents/sprint-4-planning.html">
@@ -252,11 +261,11 @@
                                 <p>Backlog transacional: gateway de pagamento, webhooks idempotentes, fila da cozinha e regras logisticas.</p>
                                 <span class="sprint-doc-cta">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
                             </a>
-                            <span class="sprint-doc-card sprint-doc-disabled" aria-disabled="true" role="note">
+                            <a class="sprint-doc-card" href="./documents/evidencias-sprint-4.html">
                                 <span class="sprint-doc-kind">Evidencias</span>
-                                <p>Sera publicado ao final da sprint com logs de sandbox do gateway, webhook idempotente e kanban por janela.</p>
-                                <span class="sprint-doc-cta">Ainda nao disponivel</span>
-                            </span>
+                                <p>Status parcial: adapter de gateway com MockPaymentProvider, intent + simulacao approve/fail, webhook HMAC idempotente e fila operacional agrupada por janela.</p>
+                                <span class="sprint-doc-cta">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                            </a>
                         </div>
                     </article>
 
@@ -390,15 +399,15 @@
 
                 <div class="board-kpis reveal">
                     <div class="board-kpi kpi-done">
-                        <strong>34</strong>
+                        <strong>54</strong>
                         <span>Entregues</span>
                     </div>
                     <div class="board-kpi kpi-progress">
-                        <strong>3</strong>
+                        <strong>5</strong>
                         <span>Em andamento</span>
                     </div>
                     <div class="board-kpi kpi-todo">
-                        <strong>41</strong>
+                        <strong>19</strong>
                         <span>Planejadas</span>
                     </div>
                     <div class="board-kpi kpi-total">
@@ -409,12 +418,12 @@
 
                 <div class="board-progress reveal" aria-label="Progresso geral do backlog">
                     <div class="board-progress-track">
-                        <div class="board-progress-fill" style="width: 43.6%"></div>
-                        <div class="board-progress-marker" style="left: 43.6%"><span>Sprint 3 em execucao</span></div>
+                        <div class="board-progress-fill" style="width: 69.2%"></div>
+                        <div class="board-progress-marker" style="left: 69.2%"><span>Sprint 4 em execucao</span></div>
                     </div>
                     <div class="board-progress-meta">
-                        <span><strong>43%</strong> do backlog entregue</span>
-                        <span>2 de 7 sprints concluidas</span>
+                        <span><strong>69%</strong> do backlog entregue</span>
+                        <span>3 de 7 sprints concluidas</span>
                     </div>
                 </div>
 
@@ -439,24 +448,24 @@
                         <footer><strong>8</strong> tasks entregues</footer>
                     </article>
 
-                    <article class="board-sprint sprint-next">
+                    <article class="board-sprint sprint-done">
                         <header>
                             <span class="sprint-id">Sprint 3</span>
-                            <span class="sprint-chip chip-next">Next</span>
+                            <span class="sprint-chip chip-done">Done</span>
                         </header>
                         <h3>Persistencia real e API</h3>
-                        <p>NestJS, Postgres, autenticacao server-side e kanban da fabrica sincronizado.</p>
-                        <footer><strong>20</strong> tasks no backlog</footer>
+                        <p>Monolito NestJS modular, dominio rico de pedidos, codigo unico, public lookup e kanban server-side.</p>
+                        <footer><strong>20</strong> tasks entregues</footer>
                     </article>
 
-                    <article class="board-sprint sprint-plan">
+                    <article class="board-sprint sprint-next">
                         <header>
                             <span class="sprint-id">Sprint 4</span>
-                            <span class="sprint-chip chip-plan">Plan</span>
+                            <span class="sprint-chip chip-next">Next</span>
                         </header>
                         <h3>Pagamento e fabrica</h3>
-                        <p>Integracao com gateway, webhooks idempotentes e fila operacional da cozinha.</p>
-                        <footer><strong>7</strong> tasks no backlog</footer>
+                        <p>Adapter de gateway, intent transacional, webhook HMAC idempotente e fila operacional por janela.</p>
+                        <footer><strong>5</strong> em execucao &middot; <strong>2</strong> a iniciar</footer>
                     </article>
 
                     <article class="board-sprint sprint-plan">

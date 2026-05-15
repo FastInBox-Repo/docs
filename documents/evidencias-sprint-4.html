@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Evidencias Sprint 4 (parcial)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+    <style>
+        .evidence-block {
+            border: 3px solid #000;
+            margin-top: 1.1rem;
+            box-shadow: 6px 6px 0 #000;
+            background: #fff;
+            overflow: hidden;
+        }
+        .evidence-block header {
+            border-bottom: 2px solid #000;
+            padding: 0.9rem 1.1rem;
+            background: #f4f4f4;
+            display: flex;
+            gap: 0.8rem;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: baseline;
+        }
+        .evidence-block header h3 { margin: 0; font-size: 1.05rem; }
+        .evidence-block header .eyebrow {
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 0.2rem 0.55rem;
+            border: 2px solid #000;
+            background: #fff;
+        }
+        .evidence-body { padding: 1.1rem 1.1rem 0.4rem; }
+        .evidence-body p { margin: 0.2rem 0 0.8rem; }
+        .badge-row {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 0.2rem 0 0.7rem;
+        }
+        .badge-row span {
+            border: 2px solid #000;
+            padding: 0.2rem 0.55rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            font-weight: 700;
+            background: #fff;
+        }
+        .how-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.9rem;
+            margin-top: 0.7rem;
+        }
+        .how-grid article {
+            border: 2px solid #000;
+            padding: 0.85rem;
+            background: #fafafa;
+        }
+        .how-grid article h4 {
+            margin: 0 0 0.4rem;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.02em;
+        }
+        .how-grid article ol, .how-grid article ul {
+            margin: 0 0 0 1.2rem;
+            padding: 0;
+        }
+        .how-grid article li {
+            margin-bottom: 0.35rem;
+            font-size: 0.9rem;
+        }
+        .code-block {
+            border: 2px solid #000;
+            background: #0a0a0a;
+            color: #f4f4f4;
+            font-family: "IBM Plex Mono", "Menlo", monospace;
+            font-size: 0.78rem;
+            line-height: 1.45;
+            padding: 0.9rem;
+            margin: 0.6rem 0 0;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        .code-inline {
+            font-family: "IBM Plex Mono", "Menlo", monospace;
+            background: #f4f4f4;
+            border: 1px solid #000;
+            padding: 0 0.35rem;
+            font-size: 0.85rem;
+        }
+        .status-pill {
+            display: inline-block;
+            border: 2px solid #000;
+            padding: 0.2rem 0.55rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            font-weight: 700;
+            background: #fff;
+        }
+        .status-pill.in-progress { background: #fff7d6; }
+        .status-pill.in-review { background: #d6e4ff; }
+        .status-pill.todo { background: #f0f0f0; }
+        @media (max-width: 680px) {
+            .how-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./sprint-1-planning.html">Sprint 1 Planning</a>
+            <a href="./evidencias-sprint-1.html">Evidencias Sprint 1</a>
+            <a href="./sprint-2-planning.html">Sprint 2 Planning</a>
+            <a href="./evidencias-sprint-2.html">Evidencias Sprint 2</a>
+            <a href="./sprint-3-planning.html">Sprint 3 Planning</a>
+            <a href="./evidencias-sprint-3.html">Evidencias Sprint 3</a>
+            <a href="./sprint-4-planning.html">Sprint 4 Planning</a>
+            <a href="./evidencias-sprint-4.html">Evidencias Sprint 4</a>
+            <a href="./sprint-5-planning.html">Sprint 5 Planning</a>
+            <a href="./sprint-6-planning.html">Sprint 6 Planning</a>
+            <a href="./sprint-7-planning.html">Sprint 7 Planning</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Sprint governance</p>
+            <h1>Evidencias Sprint 4 (parcial)</h1>
+            <p>Periodo: Sprint 4 | Status: Em execucao - 4 itens In Progress, 1 item In Review, 2 itens Todo aguardando dependencias.</p>
+            <p>Documento de progresso da sprint transacional do FastInBox. Foco em pagamento real, webhook idempotente e fila operacional da cozinha. Os artefatos publicados aqui sao snapshots do trabalho ja em main com status atual; o documento sera atualizado ao final da sprint com as evidencias finais consolidadas.</p>
+        </header>
+
+        <section>
+            <h2>1. Status do board no fechamento parcial</h2>
+            <p>Snapshot do <a href="https://github.com/orgs/FastInBox-Repo/projects/1" target="_blank" rel="noopener noreferrer">GitHub Project FastInBox MVP Delivery</a> filtrado por <span class="code-inline">Sprint = Sprint 4</span>:</p>
+            <table>
+                <thead><tr><th>Item</th><th>Area</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>Definir fluxo operacional de pagamento, conciliacao minima e falhas</td><td>Product</td><td><span class="status-pill in-review">In Review</span></td></tr>
+                    <tr><td>Formalizar regras logisticas de entrega, agrupamento e SLA operacional</td><td>Product</td><td><span class="status-pill in-progress">In Progress</span></td></tr>
+                    <tr><td>Configurar segredos de pagamento, webhooks e observabilidade transacional</td><td>Infra</td><td><span class="status-pill in-progress">In Progress</span></td></tr>
+                    <tr><td>Implementar integracao com gateway de pagamento e intents transacionais</td><td>Back</td><td><span class="status-pill in-progress">In Progress</span></td></tr>
+                    <tr><td>Implementar webhooks idempotentes e liberacao do pedido para a cozinha</td><td>Back</td><td><span class="status-pill in-progress">In Progress</span></td></tr>
+                    <tr><td>Implementar fila operacional da cozinha e agrupamento por janela de entrega</td><td>Back</td><td><span class="status-pill todo">Todo</span></td></tr>
+                    <tr><td>Cobrir pagamento aprovado/reprovado e fluxo ate producao</td><td>QA</td><td><span class="status-pill todo">Todo</span></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>2. O que ja entrou em main</h2>
+            <p>Implementacoes ja consolidadas, que sustentam os caminhos felizes do fluxo transacional. Os itens marcados <span class="code-inline">In Progress</span> sao codigo verde rodando em desenvolvimento, com revisao formal pendente para promocao a <span class="code-inline">In Review</span>.</p>
+            <table>
+                <thead><tr><th>Entregavel parcial</th><th>Implementacao atual</th><th>Arquivos principais</th></tr></thead>
+                <tbody>
+                    <tr><td>Adapter de gateway transacional</td><td>Interface <span class="code-inline">PaymentProvider</span> implícita via <span class="code-inline">MockPaymentProvider</span> que produz <span class="code-inline">providerIntentId</span> randomico, redirect URL determinístico para sandbox e expiracao de 90 minutos.</td><td><span class="code-inline">back/src/modules/payments/mock-provider.ts</span></td></tr>
+                    <tr><td>Criacao de payment intent</td><td>Endpoint publico <span class="code-inline">POST /public/orders/:code/payment-intent</span> que valida status do pedido em <span class="code-inline">AWAITING_PAYMENT</span>, monta payload com totais snapshot do <span class="code-inline">PricingService</span> e grava evento <span class="code-inline">payment.intent.created</span> em <span class="code-inline">order_events</span>.</td><td><span class="code-inline">back/src/modules/payments/payments.service.ts</span></td></tr>
+                    <tr><td>Webhook idempotente HMAC SHA256</td><td>Endpoint <span class="code-inline">POST /payments/webhook</span> valida assinatura via <span class="code-inline">timingSafeEqual</span>, exige header <span class="code-inline">X-Timestamp</span> dentro de janela de 5 min e ignora reentregas via lookup em <span class="code-inline">webhook_events.providerEventId</span>.</td><td><span class="code-inline">back/src/modules/payments/payments.service.ts</span></td></tr>
+                    <tr><td>Liberacao do pedido para cozinha</td><td>Recepcao de evento <span class="code-inline">payment.approved</span> dispara <span class="code-inline">OrdersService.markAsPaid()</span> que faz transicao <span class="code-inline">AWAITING_PAYMENT -&gt; PAID</span>, atribui <span class="code-inline">kitchenId</span> via round-robin, registra evento de auditoria.</td><td><span class="code-inline">back/src/modules/orders/orders.service.ts</span></td></tr>
+                    <tr><td>Simulador para QA e demo</td><td>Endpoints <span class="code-inline">POST /payments/simulate/:providerIntentId/approve</span> e <span class="code-inline">/fail</span> reproduzem o caminho do webhook sem dependencia externa. Permite roteiros de demo determinísticos e alimenta testes E2E.</td><td><span class="code-inline">back/src/modules/payments/payments.controller.ts</span></td></tr>
+                    <tr><td>Fila operacional agrupada por janela</td><td>Endpoint <span class="code-inline">GET /kitchens/:kitchenId/queue</span> agrupa pedidos liberados por <span class="code-inline">deliveryWindow.date|slot|regionCode</span>, retornando estrutura pronta para o kanban com colunas operacionais. Status do item: <span class="code-inline">Todo</span>.</td><td><span class="code-inline">back/src/modules/kitchen/kitchen-queue.service.ts</span></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Prova ponta a ponta</h2>
+            <p>Roteiro reproduzivel localmente que percorre <em>confirm -&gt; intent -&gt; approve -&gt; PAID -&gt; start-production</em> usando o servidor da Sprint 3 mais o adapter de gateway desta sprint.</p>
+
+            <div class="evidence-block" id="ev-confirm-intent">
+                <header>
+                    <h3>3.1 Confirmacao do paciente + criacao do intent</h3>
+                    <span class="eyebrow">BACK | PAYMENT</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Status pre: AWAITING_PATIENT_REVIEW</span>
+                        <span>Status pos: AWAITING_PAYMENT</span>
+                        <span>Provider: MockPaymentProvider</span>
+                    </div>
+                    <p>O paciente confirma o pedido e o front (ou um cliente HTTP) requisita o intent transacional. O servico aplica o gate de status, gera <span class="code-inline">providerIntentId</span> e devolve uma URL de checkout. O front redirecionaria o usuario para essa URL no provider real.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Confirm em pedido com status diferente: rejeitado com 409.</li>
+                                <li>Criacao de intent duplicada para mesmo pedido em <span class="code-inline">pending</span>: retorna o mesmo intent (idempotente).</li>
+                                <li>Confirmacao + intent + simulacao geram 3 eventos consistentes.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li><span class="code-inline">curl -X POST http://localhost:4001/public/orders/&lt;code&gt;/confirm</span></li>
+                                <li><span class="code-inline">curl -X POST http://localhost:4001/public/orders/&lt;code&gt;/payment-intent</span></li>
+                                <li>Anote <span class="code-inline">providerIntentId</span> retornado.</li>
+                            </ol>
+                        </article>
+                    </div>
+<pre class="code-block">$ curl -sX POST http://localhost:4001/public/orders/P73EKFYY/confirm | jq
+{
+  "code": "P73EKFYY",
+  "status": "AWAITING_PAYMENT",
+  "paymentStatus": "pending",
+  "totalCents": 10164,
+  "allowedActions": ["pay"]
+}
+
+$ curl -sX POST http://localhost:4001/public/orders/P73EKFYY/payment-intent | jq
+{
+  "id": "98c2fbb3-76f4-4f1d-89e8-142c401849b4",
+  "providerIntentId": "mock_96cf6616-b0cf-4d50-b075-0847558b7f99",
+  "orderId": "0a4f7b41-48eb-42c8-85f5-bf96e0abef62",
+  "amountCents": 10164,
+  "currency": "BRL",
+  "status": "pending",
+  "redirectUrl": "https://sandbox.fastinbox.test/checkout/mock_96cf6616...",
+  "expiresAt": "2026-05-06T18:08:54.229Z"
+}</pre>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-webhook-approve">
+                <header>
+                    <h3>3.2 Aprovacao via simulador (caminho do webhook)</h3>
+                    <span class="eyebrow">BACK | WEBHOOK</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Idempotente por providerEventId</span>
+                        <span>Atomico</span>
+                        <span>Side effect: PAID + kitchen assigned</span>
+                    </div>
+                    <p>O simulador reproduz exatamente o caminho do webhook do provider real. O servico marca o evento como processado, transiciona o pedido para <span class="code-inline">PAID</span>, atribui cozinha via round-robin e grava todos os eventos de auditoria correlacionados.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Aprovacao com <span class="code-inline">providerIntentId</span> valido: pedido vai para PAID e kitchen e atribuida.</li>
+                                <li>Reenvio do mesmo evento: retorna <span class="code-inline">duplicated:true</span> e nao reprocessa estado.</li>
+                                <li>Aprovacao com <span class="code-inline">providerIntentId</span> desconhecido: retorna <span class="code-inline">status:unknown_intent</span> e marca terminal_failed.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li><span class="code-inline">curl -X POST http://localhost:4001/payments/simulate/&lt;providerIntentId&gt;/approve</span></li>
+                                <li>Repita o comando para ver idempotencia.</li>
+                                <li>Bata em <span class="code-inline">GET /orders/&lt;id&gt;</span> e veja status <span class="code-inline">PAID</span>.</li>
+                            </ol>
+                        </article>
+                    </div>
+<pre class="code-block">$ curl -sX POST http://localhost:4001/payments/simulate/mock_96cf6616-.../approve | jq
+{ "duplicated": false, "providerEventId": "evt_4af2705e-...", "status": "approved" }
+
+$ curl -sX POST http://localhost:4001/payments/simulate/mock_96cf6616-.../approve | jq
+{ "duplicated": true,  "providerEventId": "evt_4af2705e-..." }
+
+$ curl -s -H "Authorization: Bearer $T" http://localhost:4001/orders/$ID | jq '{status, paymentStatus, kitchenId, paidAt}'
+{
+  "status": "PAID",
+  "paymentStatus": "approved",
+  "kitchenId": "kitchen-e71ccfdc-A",
+  "paidAt": "2026-05-06T16:38:54.232Z"
+}</pre>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-kitchen-takeover">
+                <header>
+                    <h3>3.3 Cozinha assume + start-production</h3>
+                    <span class="eyebrow">BACK | OPS</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Role: kitchen</span>
+                        <span>Transicao: PAID -> IN_PRODUCTION</span>
+                        <span>Trilha auditavel ativa</span>
+                    </div>
+                    <p>O usuario da cozinha autentica e ja enxerga o pedido na sua lista. O start-production aplica a transicao validada pela maquina de estados, e o historico do pedido cresce linearmente com cada avanco operacional.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Listagem por <span class="code-inline">kitchenId</span> retorna o pedido recem-pago.</li>
+                                <li>Tentativa de start-production em pedido em outra clinica: 403.</li>
+                                <li>Tentativa em status diferente: 409.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Login como cozinha (<span class="code-inline">cozinha@fastinbox.test</span>).</li>
+                                <li><span class="code-inline">POST /orders/&lt;id&gt;/start-production</span></li>
+                                <li>Confira <span class="code-inline">GET /orders/&lt;id&gt;/history</span>.</li>
+                            </ol>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Pendencias para fechamento da sprint</h2>
+            <table>
+                <thead><tr><th>Item</th><th>Status</th><th>Bloqueio / proximo passo</th></tr></thead>
+                <tbody>
+                    <tr><td>Product - fluxo operacional de pagamento</td><td><span class="status-pill in-review">In Review</span></td><td>Documento finalizado pelo PO; aguarda validacao da engenharia sobre a implementabilidade dos 6 caminhos alternativos antes da aprovacao formal.</td></tr>
+                    <tr><td>Product - regras logisticas e SLA</td><td><span class="status-pill in-progress">In Progress</span></td><td>Tabela de SLAs ja escrita; aguardando alinhamento com a operacao sobre capacidade default por slot e thresholds de alerta.</td></tr>
+                    <tr><td>Infra - segredos + observabilidade transacional</td><td><span class="status-pill in-progress">In Progress</span></td><td>Secrets configurados em staging; pendente revalidacao das faixas de IP whitelist do provider e publicacao do runbook de rotacao trimestral.</td></tr>
+                    <tr><td>Back - gateway + intents</td><td><span class="status-pill in-progress">In Progress</span></td><td>Adapter mock 100%, adapter real em sandbox respondendo. Faltam testes integrados de cenarios negativos (5xx do provider, timeout, circuit breaker).</td></tr>
+                    <tr><td>Back - webhook idempotente</td><td><span class="status-pill in-progress">In Progress</span></td><td>Caminho feliz (approved) implementado e testado. Faltam <span class="code-inline">payment.failed</span>/<span class="code-inline">payment.refunded</span> com testes integrados e metrica de eventos fora de ordem.</td></tr>
+                    <tr><td>Back - fila operacional</td><td><span class="status-pill todo">Todo</span></td><td>Depende de webhook em In Review. Estrutura de leitura ja esta no <span class="code-inline">KitchenQueueService</span>; falta a rotina de regrouping, alerta de SLA e politica de janela esgotada.</td></tr>
+                    <tr><td>QA - cobertura pagamento</td><td><span class="status-pill todo">Todo</span></td><td>Aguarda webhook In Review. Esqueleto de fixtures e mock provider preparados para reduzir o lead time da suite.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Riscos abertos</h2>
+            <table>
+                <thead><tr><th>Risco</th><th>Severidade</th><th>Mitigacao em andamento</th></tr></thead>
+                <tbody>
+                    <tr><td>Provider real recusar carga de teste agendada</td><td>media</td><td>MockPaymentProvider atende 100% do caminho de demo academica, sem dependencia externa.</td></tr>
+                    <tr><td>Janela de entrega esgotada sem fallback claro para o paciente</td><td>baixa</td><td>Item de logistica em andamento define mensageria padronizada e proxima janela disponivel.</td></tr>
+                    <tr><td>Reentregas fora de ordem (refunded antes do approved)</td><td>baixa</td><td>Estrutura idempotente ja prevista; metrica <span class="code-inline">webhook_out_of_order_total</span> a ser instrumentada.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>6. Observacoes para a banca</h2>
+            <p>O documento sera atualizado ao fechar a sprint. Por ora, todos os endpoints listados acima respondem em ambiente local conforme demonstrado nos blocos de evidencia. O painel do <a href="https://github.com/orgs/FastInBox-Repo/projects/1" target="_blank" rel="noopener noreferrer">GitHub Project FastInBox MVP Delivery</a> e a fonte da verdade do andamento; este documento e um snapshot didatico que respeita o padrao neo-brutal preto e branco do hub.</p>
+            <p>Para a Sprint 5 estao mapeados os items de admin completo, observabilidade externa e hardening final. O carry-over desta sprint sera consolidado naquele planning.</p>
+        </section>
+    </main>
+</body>
+</html>
