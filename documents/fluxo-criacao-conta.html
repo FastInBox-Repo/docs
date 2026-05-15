@@ -22,16 +22,19 @@
             <h1>Fluxo de criacao de conta</h1>
             <p>Documento pratico: como a criacao de conta funciona hoje no FastInBox, quais tipos de conta existem, regras, restricoes, persistencia e casos de borda. Reflete o estado atual do MVP (front em Next.js com persistencia local); os pontos que passarao a ser server-side a partir da Sprint 3 estao sinalizados como carry-over.</p>
             <p class="doc-authorship"><strong>Autor:</strong> Thiago Lucas | <strong>Ultima atualizacao:</strong> 13/05/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
         </header>
 
         <section>
             <h2>1. Visao geral do fluxo</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <p>Existem quatro tipos de conta no FastInBox: nutricionista, paciente, cozinha (fabrica) e admin. Tres deles (nutricionista, paciente e cozinha) sao registraveis via interface publica; admin nao aparece na UI de cadastro e e seed do sistema. Toda a criacao hoje roda no front-end (SPA Next.js) com persistencia em <code>localStorage</code>; o back-end NestJS existe como base para Sprint 3 em diante mas ainda nao participa do fluxo.</p>
             <div class="note">Resumo pratico: o fluxo atual e client-side, serve para demonstrar jornada e regra de negocio. As regras abaixo sao as que estao implementadas no codigo, e nao apenas as desejadas.</div>
         </section>
 
         <section>
             <h2>2. Tipos de conta</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Tipo</th><th>Registro via UI</th><th>Campos obrigatorios</th><th>Campos opcionais</th><th>Destino apos criar</th></tr></thead>
                 <tbody>
@@ -70,6 +73,7 @@
 
         <section>
             <h2>3. Regras de negocio</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <h3>3.1 Restricoes gerais</h3>
             <ul>
                 <li>O e-mail e unico no sistema: o cadastro rejeita e-mails ja existentes (normalizacao por <code>trim + lowercase</code>).</li>
@@ -102,6 +106,7 @@
 
         <section>
             <h2>4. Campos capturados por perfil</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <table>
                 <thead><tr><th>Perfil</th><th>Campos armazenados</th></tr></thead>
                 <tbody>
@@ -116,6 +121,7 @@
 
         <section>
             <h2>5. Persistencia e sessao</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
             <table>
                 <thead><tr><th>Camada</th><th>Onde vive</th><th>Finalidade</th></tr></thead>
                 <tbody>
@@ -130,6 +136,7 @@
 
         <section>
             <h2>6. Passos numerados do fluxo (por agente)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <ol>
                 <li>Visitante abre a home (<code>/</code>) e escolhe o perfil. Nutricionista e paciente tem CTAs diretos; cozinha acessa por <code>/cozinha/login</code>.</li>
                 <li>Visitante chega em <code>/login</code> com <code>?role=</code> preenchido, troca para a aba &quot;Cadastrar&quot; e preenche os campos obrigatorios do perfil.</li>
@@ -143,6 +150,7 @@
 
         <section>
             <h2>7. Fluxo de login e recuperacao de senha</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <h3>7.1 Login</h3>
             <ul>
                 <li>Validacao: campos obrigatorios preenchidos.</li>
@@ -156,6 +164,7 @@
 
         <section>
             <h2>8. Edge cases</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Cenario</th><th>Comportamento atual</th></tr></thead>
                 <tbody>
@@ -172,6 +181,7 @@
 
         <section>
             <h2>9. Arquitetura de referencia</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <table>
                 <thead><tr><th>Camada</th><th>Arquivo / caminho</th></tr></thead>
                 <tbody>
@@ -188,6 +198,7 @@
 
         <section>
             <h2>10. Evolucao prevista</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
             <ul>
                 <li><strong>Sprint 3:</strong> autenticacao e autorizacao server-side, JWT/refresh, matriz de permissoes por perfil e persistencia de usuarios em PostgreSQL.</li>
                 <li><strong>Sprint 4:</strong> vinculacao com eventos transacionais (conta paciente x pedido pago).</li>

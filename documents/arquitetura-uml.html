@@ -23,16 +23,19 @@
             <p>Versao: 2.0 | Status: Aprovado para apresentacao academica | Data-base: 2026-04-10</p>
             <p>Este documento descreve a arquitetura logica e comportamental do FastInBox por meio de visoes UML textuais, cobrindo fronteiras de contexto, contratos entre modulos, classes de dominio e sequencias operacionais criticas.</p>
             <p class="doc-authorship"><strong>Autor:</strong> Thiago Lucas | <strong>Ultima atualizacao:</strong> 13/05/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
         </header>
 
         <section>
             <h2>1. Objetivo arquitetural</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <p>O objetivo principal da arquitetura e garantir rastreabilidade ponta a ponta no fluxo de pedido white label: cadastro de paciente, configuracao de marmita, confirmacao, pagamento, encaminhamento para fabrica e atualizacao de entrega. A modelagem UML foi desenhada para reduzir ambiguidade entre front-end, back-end e operacao.</p>
             <p>A arquitetura adota uma abordagem orientada a dominios de negocio com separacao funcional por perfil de usuario, o que facilita a evolucao por sprint e reduz acoplamento entre interface de uso e regra transacional.</p>
         </section>
 
         <section>
             <h2>2. Visao de contexto</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <h3>2.1 Fronteiras de sistema</h3>
             <ul>
                 <li>Contexto Clinico: nutricionista, cadastro de pacientes, composicao de pedido.</li>
@@ -46,6 +49,7 @@
 
         <section>
             <h2>3. Modelo de classes de dominio</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <h3>3.1 Classes nucleares</h3>
             <table>
                 <thead>
@@ -72,6 +76,7 @@
 
         <section>
             <h2>4. Diagramas de sequencia (visao textual)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <h3>4.1 Criacao de pedido</h3>
             <ol>
                 <li>Nutricionista autentica e seleciona paciente.</li>
@@ -97,6 +102,7 @@
 
         <section>
             <h2>5. Principios de engenharia adotados</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <ul>
                 <li>Segregacao por responsabilidade: telas nao carregam regra de negocio sensivel.</li>
                 <li>Persistencia orientada a estado: entidades transacionais possuem ciclo de vida explicito.</li>
@@ -109,6 +115,7 @@
 
         <section>
             <h2>6. Riscos e mitigacoes</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Risco</th><th>Impacto</th><th>Mitigacao arquitetural</th></tr></thead>
                 <tbody>
@@ -122,6 +129,7 @@
 
         <section>
             <h2>7. Visao de componentes e responsabilidade</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Componente</th><th>Entrada principal</th><th>Saida principal</th><th>Dependencias</th></tr></thead>
                 <tbody>
@@ -136,6 +144,7 @@
 
         <section>
             <h2>8. Mapeamento RF -> componente</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Requisito</th><th>Componente primario</th><th>Componente de suporte</th></tr></thead>
                 <tbody>
@@ -150,6 +159,7 @@
 
         <section>
             <h2>9. Estrategia de evolucao arquitetural</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <ol>
                 <li>Fase 1: consolidar contrato de dominio e estado transacional no front.</li>
                 <li>Fase 2: mover persistencia e validacao critica para API server-side.</li>
@@ -161,6 +171,7 @@
 
         <section>
             <h2>10. Maquina de estados do pedido</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Estado</th><th>Origem</th><th>Proximo estado valido</th><th>Responsavel primario</th></tr></thead>
                 <tbody>
@@ -179,6 +190,7 @@
 
         <section>
             <h2>11. Contratos de interface e navegacao</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Entrada de interface</th><th>Contrato esperado</th><th>Saida arquitetural</th></tr></thead>
                 <tbody>
@@ -194,6 +206,7 @@
 
         <section>
             <h2>12. Decisoes arquiteturais registradas</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>ADR</th><th>Decisao</th><th>Motivacao</th><th>Impacto</th></tr></thead>
                 <tbody>

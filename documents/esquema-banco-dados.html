@@ -23,10 +23,12 @@
             <p>Versao: 1.0 estrutural | Objetivo: baseline relacional para migracao da persistencia local</p>
             <p>Documento tecnico de modelagem com entidades, cardinalidade, integridade e diretrizes de indexacao para suportar o fluxo de pedidos white label da plataforma.</p>
             <p class="doc-authorship"><strong>Autor:</strong> Thiago Lucas | <strong>Ultima atualizacao:</strong> 13/05/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
         </header>
 
         <section>
             <h2>1. Premissas de modelagem</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <ul>
                 <li>Modelo relacional com foco em consistencia transacional.</li>
                 <li>Eventos operacionais registrados para rastreabilidade.</li>
@@ -37,6 +39,7 @@
 
         <section>
             <h2>2. Entidades principais</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Tabela</th><th>Objetivo</th><th>Chave primaria</th></tr></thead>
                 <tbody>
@@ -53,6 +56,7 @@
 
         <section>
             <h2>3. Relacionamentos</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
             <ul>
                 <li>clinics 1:N users (nutricionistas da clinica)</li>
                 <li>users (nutricionista) 1:N patients</li>
@@ -66,6 +70,7 @@
 
         <section>
             <h2>4. Regras de integridade</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Regra</th><th>Implementacao sugerida</th><th>Motivo</th></tr></thead>
                 <tbody>
@@ -79,6 +84,7 @@
 
         <section>
             <h2>5. Indexacao recomendada</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <ul>
                 <li>users(email), patients(email), orders(order_code) para busca direta.</li>
                 <li>orders(status, delivery_date) para fila operacional.</li>
@@ -90,6 +96,7 @@
 
         <section>
             <h2>6. Politica de evolucao de schema</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
             <ol>
                 <li>Versionar migracoes com rollback explicito.</li>
                 <li>Evitar mudancas destrutivas sem janela de compatibilidade.</li>
@@ -101,6 +108,7 @@
 
         <section>
             <h2>7. Dicionario de campos criticos</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <table>
                 <thead><tr><th>Tabela.Campo</th><th>Tipo sugerido</th><th>Regra</th><th>Observacao</th></tr></thead>
                 <tbody>
@@ -116,6 +124,7 @@
 
         <section>
             <h2>8. Backup, restauracao e auditoria</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <ul>
                 <li>Backup periodico com retencao por janela minima definida em politica interna.</li>
                 <li>Teste de restauracao em ambiente isolado para validar recuperacao.</li>
@@ -128,6 +137,7 @@
 
         <section>
             <h2>9. Consultas criticas orientadas ao negocio</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Consulta</th><th>Tabelas envolvidas</th><th>Finalidade</th></tr></thead>
                 <tbody>
@@ -142,6 +152,7 @@
 
         <section>
             <h2>10. Normalizacao e extensoes futuras</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
             <ul>
                 <li>Separar catalogo de ingredientes e embalagens em tabelas proprias quando houver reuso sistematico entre pedidos.</li>
                 <li>Introduzir tabela de commissions para fechar trilha financeira sem depender apenas de campos calculados em orders.</li>
@@ -152,6 +163,7 @@
 
         <section>
             <h2>11. Prioridades de migracao da persistencia atual</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Prioridade</th><th>Escopo de migracao</th><th>Razao</th></tr></thead>
                 <tbody>

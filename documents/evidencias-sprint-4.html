@@ -141,10 +141,12 @@
             <h1>Evidencias Sprint 4 (parcial)</h1>
             <p>Periodo: Sprint 4 | Status: Em execucao - 4 itens In Progress, 1 item In Review, 2 itens Todo aguardando dependencias.</p>
             <p>Documento de progresso da sprint transacional do FastInBox. Foco em pagamento real, webhook idempotente e fila operacional da cozinha. Os artefatos publicados aqui sao snapshots do trabalho ja em main com status atual; o documento sera atualizado ao final da sprint com as evidencias finais consolidadas.</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
         </header>
 
         <section>
             <h2>1. Status do board no fechamento parcial</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
             <p>Snapshot do <a href="https://github.com/orgs/FastInBox-Repo/projects/1" target="_blank" rel="noopener noreferrer">GitHub Project FastInBox MVP Delivery</a> filtrado por <span class="code-inline">Sprint = Sprint 4</span>:</p>
             <table>
                 <thead><tr><th>Item</th><th>Area</th><th>Status</th></tr></thead>
@@ -162,6 +164,7 @@
 
         <section>
             <h2>2. O que ja entrou em main</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <p>Implementacoes ja consolidadas, que sustentam os caminhos felizes do fluxo transacional. Os itens marcados <span class="code-inline">In Progress</span> sao codigo verde rodando em desenvolvimento, com revisao formal pendente para promocao a <span class="code-inline">In Review</span>.</p>
             <table>
                 <thead><tr><th>Entregavel parcial</th><th>Implementacao atual</th><th>Arquivos principais</th></tr></thead>
@@ -178,6 +181,7 @@
 
         <section>
             <h2>3. Prova ponta a ponta</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <p>Roteiro reproduzivel localmente que percorre <em>confirm -&gt; intent -&gt; approve -&gt; PAID -&gt; start-production</em> usando o servidor da Sprint 3 mais o adapter de gateway desta sprint.</p>
 
             <div class="evidence-block" id="ev-confirm-intent">
@@ -195,6 +199,7 @@
                     <div class="how-grid">
                         <article>
                             <h4>Como foi testado</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
                             <ol>
                                 <li>Confirm em pedido com status diferente: rejeitado com 409.</li>
                                 <li>Criacao de intent duplicada para mesmo pedido em <span class="code-inline">pending</span>: retorna o mesmo intent (idempotente).</li>
@@ -203,6 +208,7 @@
                         </article>
                         <article>
                             <h4>Como voce testa</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
                             <ol>
                                 <li><span class="code-inline">curl -X POST http://localhost:4001/public/orders/&lt;code&gt;/confirm</span></li>
                                 <li><span class="code-inline">curl -X POST http://localhost:4001/public/orders/&lt;code&gt;/payment-intent</span></li>
@@ -248,6 +254,7 @@ $ curl -sX POST http://localhost:4001/public/orders/P73EKFYY/payment-intent | jq
                     <div class="how-grid">
                         <article>
                             <h4>Como foi testado</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
                             <ol>
                                 <li>Aprovacao com <span class="code-inline">providerIntentId</span> valido: pedido vai para PAID e kitchen e atribuida.</li>
                                 <li>Reenvio do mesmo evento: retorna <span class="code-inline">duplicated:true</span> e nao reprocessa estado.</li>
@@ -256,6 +263,7 @@ $ curl -sX POST http://localhost:4001/public/orders/P73EKFYY/payment-intent | jq
                         </article>
                         <article>
                             <h4>Como voce testa</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
                             <ol>
                                 <li><span class="code-inline">curl -X POST http://localhost:4001/payments/simulate/&lt;providerIntentId&gt;/approve</span></li>
                                 <li>Repita o comando para ver idempotencia.</li>
@@ -294,6 +302,7 @@ $ curl -s -H "Authorization: Bearer $T" http://localhost:4001/orders/$ID | jq '{
                     <div class="how-grid">
                         <article>
                             <h4>Como foi testado</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
                             <ol>
                                 <li>Listagem por <span class="code-inline">kitchenId</span> retorna o pedido recem-pago.</li>
                                 <li>Tentativa de start-production em pedido em outra clinica: 403.</li>
@@ -302,6 +311,7 @@ $ curl -s -H "Authorization: Bearer $T" http://localhost:4001/orders/$ID | jq '{
                         </article>
                         <article>
                             <h4>Como voce testa</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
                             <ol>
                                 <li>Login como cozinha (<span class="code-inline">cozinha@fastinbox.test</span>).</li>
                                 <li><span class="code-inline">POST /orders/&lt;id&gt;/start-production</span></li>
@@ -315,6 +325,7 @@ $ curl -s -H "Authorization: Bearer $T" http://localhost:4001/orders/$ID | jq '{
 
         <section>
             <h2>4. Pendencias para fechamento da sprint</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Item</th><th>Status</th><th>Bloqueio / proximo passo</th></tr></thead>
                 <tbody>
@@ -331,6 +342,7 @@ $ curl -s -H "Authorization: Bearer $T" http://localhost:4001/orders/$ID | jq '{
 
         <section>
             <h2>5. Riscos abertos</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Risco</th><th>Severidade</th><th>Mitigacao em andamento</th></tr></thead>
                 <tbody>
@@ -343,6 +355,7 @@ $ curl -s -H "Authorization: Bearer $T" http://localhost:4001/orders/$ID | jq '{
 
         <section>
             <h2>6. Observacoes para a banca</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
             <p>O documento sera atualizado ao fechar a sprint. Por ora, todos os endpoints listados acima respondem em ambiente local conforme demonstrado nos blocos de evidencia. O painel do <a href="https://github.com/orgs/FastInBox-Repo/projects/1" target="_blank" rel="noopener noreferrer">GitHub Project FastInBox MVP Delivery</a> e a fonte da verdade do andamento; este documento e um snapshot didatico que respeita o padrao neo-brutal preto e branco do hub.</p>
             <p>Para a Sprint 5 estao mapeados os items de admin completo, observabilidade externa e hardening final. O carry-over desta sprint sera consolidado naquele planning.</p>
         </section>

@@ -23,10 +23,12 @@
             <p>Versao: 1.0 publica | Natureza: referencia tecnica-juridica para operacao do MVP</p>
             <p>Documento de referencia para tratamento de dados, responsabilidade de uso, segregacao de acesso e diretrizes de seguranca aplicadas ao contexto do FastInBox.</p>
             <p class="doc-authorship"><strong>Autor:</strong> Gabriel Gonçalves | <strong>Ultima atualizacao:</strong> 13/05/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
         </header>
 
         <section>
             <h2>1. Escopo normativo</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <p>Este termo define diretrizes minimas de conformidade para o ciclo de vida de pedidos, dados pessoais e operacao de usuarios da plataforma. Seu objetivo e alinhar desenvolvimento e uso do sistema a boas praticas de seguranca, privacidade e rastreabilidade.</p>
             <ul>
                 <li>Aplica-se a todos os perfis de usuario e administradores.</li>
@@ -37,6 +39,7 @@
 
         <section>
             <h2>2. Tratamento de dados pessoais</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <h3>2.1 Finalidade</h3>
             <p>Dados pessoais sao tratados exclusivamente para execucao da operacao de pedido, comunicacao de status, faturamento e suporte. E vedado uso para finalidade nao prevista sem base legal adequada.</p>
             <h3>2.2 Principios aplicados</h3>
@@ -50,6 +53,7 @@
 
         <section>
             <h2>3. Controle de acesso e responsabilidade</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
             <table>
                 <thead><tr><th>Perfil</th><th>Permissao principal</th><th>Restricao obrigatoria</th></tr></thead>
                 <tbody>
@@ -63,6 +67,7 @@
 
         <section>
             <h2>4. Pagamento e trilha financeira</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <p>A liberacao de pedido para producao depende de evento financeiro valido. Falha de pagamento deve manter pedido em estado bloqueado para fabrica, preservando integridade operacional e comercial.</p>
             <ul>
                 <li>Confirmacao financeira e requisito de transicao de estado.</li>
@@ -73,6 +78,7 @@
 
         <section>
             <h2>5. Retencao e descarte</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <p>O ciclo de retencao deve equilibrar necessidade de auditoria e minimizacao de dados. Como diretriz tecnica inicial:</p>
             <ul>
                 <li>Dados transacionais de pedido: retencao para historico operacional.</li>
@@ -84,6 +90,7 @@
 
         <section>
             <h2>6. Incidentes e resposta</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <ol>
                 <li>Detectar evento anomalo (acesso indevido, perda de consistencia, falha critica).</li>
                 <li>Isolar impacto funcional no menor escopo possivel.</li>
@@ -95,6 +102,7 @@
 
         <section>
             <h2>7. Clausulas de uso operacional</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <ul>
                 <li>Uso da plataforma implica aceite das regras de perfil e segregacao de dados.</li>
                 <li>E proibido exportar ou compartilhar dados sem autorizacao institucional.</li>
@@ -105,6 +113,7 @@
 
         <section>
             <h2>8. Matriz de base legal por tratamento</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Operacao de dados</th><th>Finalidade</th><th>Base legal de referencia</th><th>Retencao recomendada</th></tr></thead>
                 <tbody>
@@ -118,6 +127,7 @@
 
         <section>
             <h2>9. Direitos do titular e fluxo de atendimento</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <ol>
                 <li>Receber solicitacao formal de acesso, correcao ou eliminacao de dados.</li>
                 <li>Validar identidade do solicitante antes de qualquer acao.</li>
@@ -130,6 +140,7 @@
 
         <section>
             <h2>10. Controles minimos de seguranca</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <ul>
                 <li>Autenticacao por perfil com segregacao de rotas e escopo.</li>
                 <li>Registro de eventos sensiveis para investigacao posterior.</li>
@@ -141,6 +152,7 @@
 
         <section>
             <h2>11. Matriz de responsabilidade compartilhada</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Domino</th><th>Plataforma</th><th>Clinica / parceiro</th><th>Observacao</th></tr></thead>
                 <tbody>
@@ -154,6 +166,7 @@
 
         <section>
             <h2>12. Classificacao minima de dados</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Categoria</th><th>Exemplos</th><th>Nivel de cuidado</th></tr></thead>
                 <tbody>
@@ -167,6 +180,7 @@
 
         <section>
             <h2>13. Janela de resposta a incidente</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Severidade</th><th>Exemplo</th><th>Resposta inicial</th><th>Registro obrigatorio</th></tr></thead>
                 <tbody>

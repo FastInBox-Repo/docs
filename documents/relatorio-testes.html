@@ -428,6 +428,7 @@
             <p>Periodo: Sprint 1 a Sprint 3 | Data de fechamento: 14/05/2026 | Versao: 1.0 (release-ready)</p>
             <p>Documento oficial de validacao funcional, tecnica e de integracao do MVP FastInBox para apresentacao academica do Projeto Integrador III. Alinhado as praticas IEEE 829-2008, ISO/IEC 25010 (qualidade de produto), ISTQB Foundation Level (estrategia de testes) e ao modelo de piramide de testes de Mike Cohn.</p>
             <p class="doc-authorship">Autor: Joao Vitor Tomas Marra &middot; Revisao tecnica: Thiago Lucas Alves, Gabriel Goncalves &middot; Aprovacao: Equipe FastInBox</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
         </header>
 
         <div class="pdf-banner">
@@ -440,25 +441,30 @@
 
         <section>
             <h2>1. Sumario executivo</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <p class="section-lead">Resultado consolidado dos ciclos de teste das tres primeiras sprints, com indicadores quantitativos, marcos qualitativos e veredito formal de prontidao.</p>
 
             <div class="kpi-row">
                 <article class="kpi-card kpi-good">
+            <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
                     <span class="kpi-eyebrow">Pass rate</span>
                     <span class="kpi-value">100%</span>
                     <span class="kpi-foot">11 / 11 cenarios principais aprovados</span>
                 </article>
                 <article class="kpi-card kpi-warn">
+            <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
                     <span class="kpi-eyebrow">Defect Removal Efficiency</span>
                     <span class="kpi-value">100%</span>
                     <span class="kpi-foot">2 ocorrencias detectadas e corrigidas dentro do ciclo</span>
                 </article>
                 <article class="kpi-card kpi-cold">
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
                     <span class="kpi-eyebrow">Cobertura RF</span>
                     <span class="kpi-value">14 / 14</span>
                     <span class="kpi-foot">Requisitos funcionais do MVP cobertos por pelo menos 1 caso</span>
                 </article>
                 <article class="kpi-card kpi-dark">
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
                     <span class="kpi-eyebrow">Bloqueantes abertos</span>
                     <span class="kpi-value">0</span>
                     <span class="kpi-foot">Nenhum impedimento ativo na transicao para Sprint 4</span>
@@ -468,6 +474,7 @@
             <div class="qa-hero">
                 <article>
                     <h2>Visao geral do ciclo</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
                     <p>O sistema FastInBox foi submetido a um plano estruturado de testes em tres camadas (unitario, integracao, end-to-end) acoplado a um conjunto de smoke tests por sprint. As tres primeiras sprints encerram a fase de fundacao tecnica do MVP: jornadas principais validadas com persistencia real (Sprint 3), painel kanban da cozinha sincronizado e trilha de auditoria operacional registrada para todas as transicoes sensiveis.</p>
                     <div class="badge-row">
                         <span class="b-pass">Status: Aprovado</span>
@@ -479,6 +486,7 @@
                 </article>
                 <article>
                     <h2>Piramide de testes adotada</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
                     <div class="pyramid">
                         <div class="pyramid-row lvl-e2e">
                             E2E
@@ -499,6 +507,7 @@
 
         <section>
             <h2>2. Objetivo e escopo</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <p>Registrar formalmente o ciclo completo de testes executado sobre o sistema FastInBox ao longo das Sprints 1, 2 e 3, garantindo rastreabilidade entre <strong>requisitos funcionais (RF001-RF014)</strong>, <strong>casos de teste (TC)</strong>, <strong>evidencias capturadas</strong> e <strong>defeitos tratados</strong>. Esta documentacao serve como fonte unica para revisao academica, auditoria de governanca de produto e baseline para a continuidade da Sprint 4.</p>
 
             <div class="pillars-grid">
@@ -529,12 +538,14 @@
 
         <section>
             <h2>3. Metodologia e estrategia de teste</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <p>Estrategia hibrida orientada a risco com base em ISTQB Foundation Level: combinacao de tecnicas de caixa-preta (particao de equivalencia, transicao de estados, casos de uso) e caixa-branca (cobertura de instrucao em servicos puros). A piramide de testes (Cohn, 2009) fundamenta a alocacao de esforco entre os niveis.</p>
 
             <div class="strategy-grid">
                 <article class="strategy-card">
                     <span class="num">01</span>
                     <h3>Teste funcional E2E manual</h3>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
                     <p>Simulacao da jornada real por perfil. Roteiro versionado, executado em baseline antes do fechamento de cada sprint.</p>
                     <div class="badge-row">
                         <span class="b-info">Caixa-preta</span>
@@ -544,6 +555,7 @@
                 <article class="strategy-card">
                     <span class="num">02</span>
                     <h3>Teste tecnico de API (smoke)</h3>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
                     <p>Verificacao de endpoints criticos com payloads reais via curl. Resposta esperada confrontada com contrato OpenAPI definido na Sprint 3.</p>
                     <div class="badge-row">
                         <span class="b-info">Integracao</span>
@@ -553,6 +565,7 @@
                 <article class="strategy-card">
                     <span class="num">03</span>
                     <h3>Teste de estabilidade (build)</h3>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
                     <p>Pipeline local <code>npm run build</code> em front e back. Pre-condicao para qualquer deploy de PR ou tag de sprint.</p>
                     <div class="badge-row">
                         <span class="b-info">Compilacao</span>
@@ -577,21 +590,25 @@
 
         <section>
             <h2>4. Responsabilidades da equipe (matriz RACI)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <p class="section-lead">A divisao de papeis segue o padrao RACI (Responsavel, Aprovador, Consultado, Informado), com QA encabecada pelo Joao Vitor Tomas Marra.</p>
             <div class="responsibility-grid">
                 <article class="responsibility-card">
                     <span class="role">QA Lead</span>
                     <h4>Joao Vitor Tomas Marra</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
                     <p>Coordenacao de validacao tecnica, planejamento de testes, execucao do smoke E2E manual e consolidacao das evidencias do ciclo.</p>
                 </article>
                 <article class="responsibility-card">
                     <span class="role">Backend &amp; API</span>
                     <h4>Thiago Lucas Alves</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
                     <p>Testes de endpoints, regras de negocio, contratos HTTP e validacao das migracoes da camada de persistencia da Sprint 3.</p>
                 </article>
                 <article class="responsibility-card">
                     <span class="role">Frontend &amp; UX</span>
                     <h4>Gabriel Goncalves</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
                     <p>Testes funcionais de interface, revisao documental, captura de evidencia visual e consolidacao do material para a banca academica.</p>
                 </article>
             </div>
@@ -613,6 +630,7 @@
 
         <section>
             <h2>5. Ambiente de testes</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Camada</th><th>Tecnologia</th><th>Versao</th><th>Endpoint / detalhe</th></tr></thead>
                 <tbody>
@@ -636,6 +654,7 @@
 
         <section>
             <h2>6. Criterios de aceite aplicados</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
             <p>Um caso de teste e considerado <span class="pill pill-pass">APROVADO</span> apenas quando todas as condicoes a seguir sao satisfeitas. Caso uma falhe, o caso retorna para correcao sem ambiguidade na triagem.</p>
             <ol>
                 <li>O fluxo atinge o resultado esperado sem erro bloqueante observavel pelo ator.</li>
@@ -649,6 +668,7 @@
 
         <section>
             <h2>7. Casos de teste executados (TC-001 a TC-011)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <p class="section-lead">Casos consolidados por sprint com vinculacao a requisitos funcionais (RF), tipo de teste e veredito.</p>
 
             <h3>7.1 Sprint 1 &mdash; Base funcional do MVP</h3>
@@ -686,23 +706,28 @@
 
         <section>
             <h2>8. Resumo executivo dos resultados</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
             <div class="kpi-row">
                 <article class="kpi-card kpi-cold">
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
                     <span class="kpi-eyebrow">Cenarios planejados</span>
                     <span class="kpi-value">11</span>
                     <span class="kpi-foot">Distribuidos em 3 sprints</span>
                 </article>
                 <article class="kpi-card kpi-cold">
+            <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
                     <span class="kpi-eyebrow">Cenarios executados</span>
                     <span class="kpi-value">11</span>
                     <span class="kpi-foot">100% de execucao planejada</span>
                 </article>
                 <article class="kpi-card kpi-good">
+            <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
                     <span class="kpi-eyebrow">Aprovados</span>
                     <span class="kpi-value">11</span>
                     <span class="kpi-foot">0 falhas bloqueantes</span>
                 </article>
                 <article class="kpi-card kpi-warn">
+            <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
                     <span class="kpi-eyebrow">Falhas pontuais</span>
                     <span class="kpi-value">2</span>
                     <span class="kpi-foot">Corrigidas e revalidadas no mesmo ciclo</span>
@@ -722,9 +747,11 @@
 
         <section>
             <h2>9. Ocorrencias identificadas e correcoes aplicadas</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <p class="section-lead">Defeitos detectados durante a execucao, classificados por severidade conforme tabela ISO/IEC 25010 (Manutenibilidade &middot; Funcionalidade &middot; Seguranca).</p>
 
             <article class="occ-row">
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
                 <div class="occ-head">
                     <strong>OC-001 &middot; Payload de teste em formato incorreto (PowerShell)</strong>
                     <span class="sev fixed">Severidade Baixa &middot; Corrigido</span>
@@ -739,6 +766,7 @@
             </article>
 
             <article class="occ-row">
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
                 <div class="occ-head">
                     <strong>OC-002 &middot; Tentativa de confirmacao com usuario sem vinculo ao pedido</strong>
                     <span class="sev fixed">Severidade Informativa &middot; Comportamento esperado</span>
@@ -755,89 +783,104 @@
 
         <section>
             <h2>10. Impedimentos</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <p>Nao houve impedimentos bloqueantes no ciclo de testes. A execucao ocorreu dentro do planejado, com ajustes pontuais resolvidos de forma rapida no proprio ciclo. Riscos monitorados e plano de contingencia para a Sprint 4 estao documentados em <a href="./sprint-4-planning.html">Sprint 4 Planning</a>.</p>
         </section>
 
         <section>
             <h2>11. Evidencias tecnicas</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <p class="section-lead">Cada evidencia esta arquivada no PDF base linkado no topo deste documento. Resumo categorizado abaixo, com referencia cruzada aos casos de teste.</p>
 
             <div class="evidence-grid">
                 <article class="evidence-card">
                     <span class="eid">EV-01</span>
                     <h4>API ativa</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
                     <p>Terminal backend com NestJS subindo todas as rotas e o RouterExplorer mapeando os controllers da Sprint 3.</p>
                     <div class="meta"><span>Tipo: Log</span><span>Cobre: TC-007</span></div>
                 </article>
                 <article class="evidence-card">
                     <span class="eid">EV-02</span>
                     <h4>Health check</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
                     <p>Resposta JSON do endpoint <code>/health</code> exibindo <code>status: ok</code> e timestamp.</p>
                     <div class="meta"><span>Tipo: Print</span><span>Cobre: TC-007</span></div>
                 </article>
                 <article class="evidence-card">
                     <span class="eid">EV-03</span>
                     <h4>Login server-side</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
                     <p>Tela de login do figma-app autenticando com backend real (perfil nutricionista).</p>
                     <div class="meta"><span>Tipo: Print</span><span>Cobre: TC-008</span></div>
                 </article>
                 <article class="evidence-card">
                     <span class="eid">EV-04</span>
                     <h4>Cadastro de paciente</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
                     <p>Confirmacao visual de paciente criado via fluxo integrado (toast e linha na tabela).</p>
                     <div class="meta"><span>Tipo: Print</span><span>Cobre: TC-009</span></div>
                 </article>
                 <article class="evidence-card">
                     <span class="eid">EV-05</span>
                     <h4>Criacao de pedido</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
                     <p>Pedido <code>FIB-2026-125</code> gerado com sucesso e codigo unico exibido no resumo.</p>
                     <div class="meta"><span>Tipo: Print</span><span>Cobre: TC-010</span></div>
                 </article>
                 <article class="evidence-card">
                     <span class="eid">EV-06</span>
                     <h4>Kanban sincronizado</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
                     <p>Painel da fabrica com colunas Novo / Em producao / Pronto / Em entrega / Entregue sincronizado pelo back-end.</p>
                     <div class="meta"><span>Tipo: Print</span><span>Cobre: TC-005</span></div>
                 </article>
                 <article class="evidence-card">
                     <span class="eid">EV-07</span>
                     <h4>Fluxo do paciente</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
                     <p>Landing publica do paciente exibindo status do pedido <code>FIB-2026-485</code> com pagamento confirmado.</p>
                     <div class="meta"><span>Tipo: Print</span><span>Cobre: TC-011</span></div>
                 </article>
                 <article class="evidence-card">
                     <span class="eid">EV-08</span>
                     <h4>Auditoria</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
                     <p>Trilha de eventos sensiveis registrada em <code>order_events</code> e exposta via <code>GET /orders/:id/history</code>.</p>
                     <div class="meta"><span>Tipo: Payload</span><span>Cobre: TC-011, RNF008</span></div>
                 </article>
                 <article class="evidence-card">
                     <span class="eid">EV-09</span>
                     <h4>Build backend</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
                     <p>Saida do <code>npm run build</code> em <code>back/</code> sem warnings ou erros TypeScript.</p>
                     <div class="meta"><span>Tipo: Terminal</span><span>Cobre: Estabilidade</span></div>
                 </article>
                 <article class="evidence-card">
                     <span class="eid">EV-10</span>
                     <h4>Build frontend</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
                     <p>Saida do <code>npm run build</code> em <code>front/</code> com Next 15.5 compilado em 5.8s.</p>
                     <div class="meta"><span>Tipo: Terminal</span><span>Cobre: Estabilidade</span></div>
                 </article>
                 <article class="evidence-card">
                     <span class="eid">EV-11</span>
                     <h4>Board da sprint</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
                     <p>GitHub Project FastInBox MVP Delivery filtrado por Sprint 3, mostrando colunas In Progress / Blocked / In Review / QA / Done.</p>
                     <div class="meta"><span>Tipo: Print</span><span>Cobre: Governanca</span></div>
                 </article>
                 <article class="evidence-card">
                     <span class="eid">EV-12</span>
                     <h4>Reuniao da equipe</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
                     <p>Registro da call de fechamento da Sprint 3 (Google Meet) com QA, Back e Front presentes.</p>
                     <div class="meta"><span>Tipo: Foto</span><span>Cobre: Cerimonia</span></div>
                 </article>
                 <article class="evidence-card">
                     <span class="eid">EV-13</span>
                     <h4>Teste com usuaria real</h4>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
                     <p>Sessao de usabilidade com usuaria externa avaliando navegacao do figma-app.</p>
                     <div class="meta"><span>Tipo: Foto</span><span>Cobre: Usabilidade</span></div>
                 </article>
@@ -846,6 +889,7 @@
 
         <section>
             <h2>12. Matriz de rastreabilidade RF &harr; TC</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <p class="section-lead">Conforme recomendado pela IEEE 829-2008 (Test Documentation), cada requisito funcional deve estar mapeado a pelo menos um caso de teste com veredito documentado.</p>
             <table class="traceability-table">
                 <thead><tr><th>Requisito</th><th>Descricao resumida</th><th>Casos cobrindo</th><th>Cobertura</th></tr></thead>
@@ -870,6 +914,7 @@
 
         <section>
             <h2>13. Metricas de qualidade (ISO/IEC 25010)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Caracteristica</th><th>Indicador</th><th>Valor / Status</th></tr></thead>
                 <tbody>
@@ -887,6 +932,7 @@
 
         <section>
             <h2>14. Plano de evolucao para a Sprint 4</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
             <div class="pillars-grid">
                 <div class="pillar">
                     <h4>Cobertura adicional planejada</h4>
@@ -911,6 +957,7 @@
 
         <section>
             <h2>15. Glossario</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <div class="glossary-grid">
                 <div class="term"><strong>API</strong>Interface de comunicacao entre sistemas (frontend e backend), exposta como endpoints HTTP.</div>
                 <div class="term"><strong>Backend</strong>Camada de regras de negocio e dados; no FastInBox e o monolito NestJS.</div>
@@ -935,6 +982,7 @@
 
         <section>
             <h2>16. Parecer final</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <div class="verdict">
                 <h3>Veredito: Aprovado para apresentacao academica</h3>
                 <p>Com base na execucao dos testes registrados nas Sprints 1, 2 e 3, nas evidencias anexadas e na rastreabilidade entre requisitos funcionais e casos de teste, as entregas do FastInBox encontram-se <strong>funcionais, estaveis e aptas para apresentacao</strong> na banca do Projeto Integrador III. As ocorrencias detectadas (OC-001 e OC-002) foram pontuais, corrigidas dentro do mesmo ciclo e sem impacto nos criterios de aceite finais. A Sprint 4 inicia com baseline tecnico solido e zero divida de regressao remanescente.</p>

@@ -303,6 +303,186 @@ a {
     border-bottom: 3px solid #000000;
 }
 
+/* === QA section header + framework intro (distinct neo-brutal variant) === */
+.qa-section-header {
+    text-align: left;
+    max-width: none;
+    margin-bottom: 1.5rem;
+}
+
+.qa-section-kicker {
+    display: inline-block;
+    font-family: 'Space Grotesk', 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    font-weight: 700;
+    color: #000000;
+    background: #f4f4f4;
+    border: 2px solid #000000;
+    padding: 0.3rem 0.7rem;
+    margin-bottom: 0.85rem;
+    box-shadow: 3px 3px 0 #000000;
+}
+
+.qa-section-lead {
+    font-size: 1.05rem;
+    line-height: 1.55;
+    max-width: 720px;
+    border-left: 6px solid #000000;
+    padding-left: 1rem;
+    margin-top: 0.25rem;
+}
+
+.qa-framework {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 0 0 1.4rem 0;
+}
+
+.qa-pillar {
+    position: relative;
+    background: #ffffff;
+    border: 3px solid #000000;
+    padding: 1.1rem 1.05rem 1rem;
+    box-shadow: 6px 6px 0 #000000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    background-image: repeating-linear-gradient(135deg, transparent 0 12px, rgba(0,0,0,0.035) 12px 13px);
+    transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.qa-pillar::before {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: 28px;
+    height: 8px;
+    background: #000000;
+}
+
+.qa-pillar:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 #000000;
+}
+
+.qa-pillar-tag {
+    font-family: 'IBM Plex Mono', 'Space Grotesk', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #000000;
+    opacity: 0.78;
+}
+
+.qa-pillar h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.18rem;
+    line-height: 1.15;
+    margin: 0;
+    padding-bottom: 0.35rem;
+    border-bottom: 3px solid #000000;
+    letter-spacing: -0.01em;
+}
+
+.qa-pillar p {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: #1a1a1a;
+}
+
+.qa-pillar .owners {
+    margin-top: auto;
+}
+
+.qa-pillar.qa-pillar-result {
+    background: #000000;
+    color: #ffffff;
+    background-image: repeating-linear-gradient(135deg, transparent 0 12px, rgba(255,255,255,0.05) 12px 13px);
+}
+
+.qa-pillar.qa-pillar-result::before { background: #ffffff; }
+.qa-pillar.qa-pillar-result .qa-pillar-tag { color: #ffffff; opacity: 0.9; }
+.qa-pillar.qa-pillar-result h3 { color: #ffffff; border-color: #ffffff; }
+.qa-pillar.qa-pillar-result p { color: #f0f0f0; }
+.qa-pillar.qa-pillar-result .owner-tag.back { background: #ffffff; color: #000000; }
+.qa-pillar.qa-pillar-result .owner-tag.back .owner-role { border-color: #000000; }
+
+.qa-coverage {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 1rem 1.4rem;
+    align-items: center;
+    background: #ffffff;
+    border: 3px solid #000000;
+    padding: 1rem 1.2rem;
+    box-shadow: 6px 6px 0 #000000;
+    margin-bottom: 1.6rem;
+}
+
+.qa-coverage-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    line-height: 1.25;
+    border-right: 3px solid #000000;
+    padding-right: 1rem;
+}
+
+.qa-coverage-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem 1.2rem;
+}
+
+.qa-coverage-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 500;
+    border-bottom: 2px dashed #000000;
+    padding-bottom: 0.4rem;
+}
+
+.qa-coverage-list li i {
+    width: 26px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #000000;
+    color: #ffffff;
+    font-size: 0.78rem;
+    flex-shrink: 0;
+}
+
+.qa-coverage > .owners {
+    grid-column: 1 / -1;
+    margin: 0;
+}
+
+@media (max-width: 960px) {
+    .qa-framework { grid-template-columns: repeat(2, 1fr); }
+    .qa-coverage { grid-template-columns: 1fr; }
+    .qa-coverage-label { border-right: none; border-bottom: 3px solid #000000; padding-right: 0; padding-bottom: 0.6rem; }
+    .qa-coverage-list { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+    .qa-framework { grid-template-columns: 1fr; }
+}
+
 .qa-kpi-row {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1379,4 +1559,67 @@ a {
     .nav-links.open {
         display: flex;
     }
+}
+
+/* === Owner / Responsavel badges === */
+.owners {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+    padding-top: 0.75rem;
+    border-top: 2px dashed #000000;
+}
+
+.owners-label {
+    width: 100%;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 0.15rem 0;
+}
+
+.owner-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.55rem;
+    border: 2px solid #000000;
+    border-radius: 999px;
+    background: #ffffff;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.1;
+    color: #000000;
+    box-shadow: 2px 2px 0 #000000;
+}
+
+.owner-tag i {
+    font-size: 0.7rem;
+}
+
+.owner-tag .owner-role {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.65rem;
+    padding-right: 0.4rem;
+    border-right: 1.5px solid #000000;
+    margin-right: 0.1rem;
+}
+
+.owner-tag.back { background: #000000; color: #ffffff; }
+.owner-tag.back .owner-role { border-color: #ffffff; }
+.owner-tag.front { background: #ffffff; color: #000000; }
+.owner-tag.arch { background: #f4f4f4; color: #000000; }
+
+.owners-inline {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0.75rem;
 }

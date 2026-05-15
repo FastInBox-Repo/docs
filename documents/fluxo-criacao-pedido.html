@@ -22,16 +22,19 @@
             <h1>Fluxo de criacao de pedido</h1>
             <p>Documento pratico: como um pedido nasce, circula e chega ao paciente final no FastInBox. Mostra agentes envolvidos, informacoes trocadas em cada etapa, regras de preco, maquina de estados, validacoes, acesso seguro por codigo e caminho de pagamento. Reflete o MVP implementado hoje e sinaliza o que vira server-side a partir da Sprint 3.</p>
             <p class="doc-authorship"><strong>Autor:</strong> João Vitor Marra | <strong>Ultima atualizacao:</strong> 13/05/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
         </header>
 
         <section>
             <h2>1. Visao geral do fluxo</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <p>O pedido e sempre iniciado pela nutricionista para um paciente cadastrado e enviado a uma fabrica/cozinha responsavel. Um codigo unico e gerado no momento da criacao e e a chave que o paciente usa para revisar, confirmar e pagar. Apos o pagamento, a cozinha visualiza o pedido no kanban e conduz a producao ate a entrega, registrando cada transicao em auditoria.</p>
             <div class="note">Essencial: o codigo do pedido e a unica chave necessaria para o paciente acessar seu pedido. Nao e preciso ter conta para consultar, mas e preciso ter conta para gerenciar historico consolidado.</div>
         </section>
 
         <section>
             <h2>2. Agentes envolvidos</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <table>
                 <thead><tr><th>Agente</th><th>Responsabilidade no fluxo</th><th>Acesso principal</th></tr></thead>
                 <tbody>
@@ -45,6 +48,7 @@
 
         <section>
             <h2>3. Entidade pedido (dados capturados)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Campo</th><th>Descricao</th></tr></thead>
                 <tbody>
@@ -70,6 +74,7 @@
 
         <section>
             <h2>4. Informacoes necessarias em cada etapa</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Etapa</th><th>Quem informa</th><th>O que e preciso informar</th></tr></thead>
                 <tbody>
@@ -86,6 +91,7 @@
 
         <section>
             <h2>5. Maquina de estados do pedido</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <ol>
                 <li><strong>rascunho</strong> &mdash; estado reservado para futuras telas de pre-preenchimento (nao usado pelo wizard atual).</li>
                 <li><strong>aguardando_confirmacao</strong> &mdash; pedido recebido pelo paciente e aguardando revisao.</li>
@@ -103,6 +109,7 @@
 
         <section>
             <h2>6. Regras de preco</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
             <ul>
                 <li>Precos operam em centavos para evitar perdas de precisao.</li>
                 <li><code>preco final = preco base + margem</code>.</li>
@@ -114,6 +121,7 @@
 
         <section>
             <h2>7. Acesso do paciente pelo codigo</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Situacao</th><th>Comportamento</th></tr></thead>
                 <tbody>
@@ -128,6 +136,7 @@
 
         <section>
             <h2>8. Fluxo de pagamento</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <ol>
                 <li>Paciente escolhe o metodo: PIX, Cartao ou Boleto.</li>
                 <li>Para cartao, valida numero, titular, validade e CVV (campos obrigatorios no front). PIX e Boleto seguem fluxo simulado.</li>
@@ -140,6 +149,7 @@
 
         <section>
             <h2>9. Fluxo na cozinha</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <ul>
                 <li>A cozinha ve apenas os pedidos direcionados a sua fabrica (filtro por id do usuario logado).</li>
                 <li>O kanban expoe cinco colunas: pago, em_producao, pronto, em_entrega, entregue.</li>
@@ -151,6 +161,7 @@
 
         <section>
             <h2>10. Passos numerados do fluxo completo</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <ol>
                 <li>Nutricionista loga em <code>/login?role=nutricionista</code>.</li>
                 <li>Acessa &quot;Pacientes&quot;, clica no paciente e abre o wizard; ou inicia em branco em &quot;Novo pedido&quot;.</li>
@@ -169,6 +180,7 @@
 
         <section>
             <h2>11. Validacoes e restricoes</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Regra</th><th>Comportamento</th></tr></thead>
                 <tbody>
@@ -186,6 +198,7 @@
 
         <section>
             <h2>12. Edge cases</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Cenario</th><th>Comportamento</th></tr></thead>
                 <tbody>
@@ -201,6 +214,7 @@
 
         <section>
             <h2>13. Persistencia e auditoria</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <ul>
                 <li>Pedidos vivem no estado principal do front, persistido em <code>fastinbox-sprint1-state-v1</code>.</li>
                 <li>Auditoria dedicada registra ate 200 eventos em <code>fastinbox-sprint2-audit-v1</code>.</li>
@@ -211,6 +225,7 @@
 
         <section>
             <h2>14. Arquitetura de referencia</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Camada</th><th>Arquivo / caminho</th></tr></thead>
                 <tbody>
@@ -229,6 +244,7 @@
 
         <section>
             <h2>15. Evolucao prevista</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <ul>
                 <li><strong>Sprint 3:</strong> dominio de pedidos persistido em PostgreSQL, maquina de estados validada server-side, codigo unico com indice e historico de status imutavel.</li>
                 <li><strong>Sprint 4:</strong> integracao real com gateway de pagamento, webhooks idempotentes e fila operacional da cozinha por janela de entrega.</li>

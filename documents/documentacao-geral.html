@@ -23,16 +23,19 @@
             <p>Versao: 2.0 | Documento guarda-chuva de produto e engenharia</p>
             <p>Este manual consolida visao de produto, jornada por perfil, arquitetura funcional, modelo de entrega e diretrizes de continuidade da plataforma FastInBox.</p>
             <p class="doc-authorship"><strong>Autor:</strong> Thiago Lucas | <strong>Ultima atualizacao:</strong> 13/05/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
         </header>
 
         <section>
             <h2>1. Resumo executivo</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <p>FastInBox e uma plataforma white label para operacao de marmitas personalizadas. O produto conecta os atores do processo em fluxo transacional unico, minimizando dependencias de ferramentas paralelas e melhorando governanca de status.</p>
             <p>O recorte atual prioriza demonstrabilidade academica sem comprometer evolucao tecnica futura.</p>
         </section>
 
         <section>
             <h2>2. Arquitetura funcional por modulo</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <h3>2.1 Modulo nutricionista</h3>
             <ul>
                 <li>Cadastro e atualizacao de pacientes.</li>
@@ -61,6 +64,7 @@
 
         <section>
             <h2>3. Stack e repositorios</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Camada</th><th>Tecnologia</th><th>Repositorio</th></tr></thead>
                 <tbody>
@@ -74,6 +78,7 @@
 
         <section>
             <h2>4. Fluxo operacional detalhado</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <ol>
                 <li>Nutricionista registra paciente ou seleciona existente.</li>
                 <li>Pedido e montado com itens, observacoes e data de entrega.</li>
@@ -87,6 +92,7 @@
 
         <section>
             <h2>5. Niveis de qualidade esperados</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <ul>
                 <li>Consistencia de navegacao: sem rotas quebradas entre jornadas.</li>
                 <li>Confiabilidade visual: layout responsivo e legivel.</li>
@@ -98,12 +104,14 @@
 
         <section>
             <h2>6. Limites da versao atual</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <p>A Sprint 1 adota persistencia local para reduzir complexidade e garantir um unico deploy funcional para demonstracao. Esta decisao e intencional e controlada, com plano de migracao para persistencia real na sequencia do roadmap.</p>
             <div class="note">Nao e um limite de arquitetura final; e uma estrategia de entrega incremental para validar valor de negocio com baixo risco operacional.</div>
         </section>
 
         <section>
             <h2>7. Diretrizes de evolucao</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <ul>
                 <li>Integrar API com persistencia em banco relacional.</li>
                 <li>Introduzir testes automatizados por jornada critica.</li>
@@ -115,6 +123,7 @@
 
         <section>
             <h2>8. Ambientes e publicacao</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Ambiente</th><th>Finalidade</th><th>Artefato de validacao</th></tr></thead>
                 <tbody>
@@ -127,6 +136,7 @@
 
         <section>
             <h2>9. Runbook resumido de operacao</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <ol>
                 <li>Confirmar estado do repositorio alvo e branch principal.</li>
                 <li>Executar build do modulo alterado.</li>
@@ -139,6 +149,7 @@
 
         <section>
             <h2>10. Matriz de conformidade documental</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <table>
                 <thead><tr><th>Artefato</th><th>Pergunta de conformidade</th><th>Status esperado</th></tr></thead>
                 <tbody>
@@ -153,6 +164,7 @@
 
         <section>
             <h2>11. Personas e drivers de decisao</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Persona</th><th>Contexto principal</th><th>Driver de decisao</th><th>Implicacao no sistema</th></tr></thead>
                 <tbody>
@@ -166,6 +178,7 @@
 
         <section>
             <h2>12. Regras de negocio consolidadas</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
             <ul>
                 <li>A marca da clinica e a identidade dominante na experiencia do paciente.</li>
                 <li>Somente pedidos confirmados e pagos podem seguir para producao.</li>
@@ -177,6 +190,7 @@
 
         <section>
             <h2>13. Matriz de evidencia por repositorio</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <table>
                 <thead><tr><th>Repositorio</th><th>Evidencia principal</th><th>Uso na avaliacao</th></tr></thead>
                 <tbody>
@@ -190,6 +204,7 @@
 
         <section>
             <h2>14. Prioridades do proximo ciclo</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <ol>
                 <li>Migrar persistencia local para arquitetura com API e banco relacional.</li>
                 <li>Formalizar criterios de permissao e sessao por perfil.</li>

@@ -533,3 +533,67 @@ th {
             "revenue";
     }
 }
+
+/* === Owner / Responsavel badges (document scope) === */
+.owners {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 1rem 0 1.25rem;
+    padding: 0.75rem 0.85rem;
+    border: 2.5px solid #000000;
+    background: #ffffff;
+    box-shadow: 4px 4px 0 #000000;
+}
+
+.owners-label {
+    width: 100%;
+    font-family: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 0.2rem 0;
+}
+
+.owner-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.6rem;
+    border: 2px solid #000000;
+    border-radius: 999px;
+    background: #ffffff;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.1;
+    color: #000000;
+    box-shadow: 2px 2px 0 #000000;
+}
+
+.owner-tag i { font-size: 0.72rem; }
+
+.owner-tag .owner-role {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.66rem;
+    padding-right: 0.45rem;
+    border-right: 1.5px solid #000000;
+    margin-right: 0.1rem;
+}
+
+.owner-tag.back { background: #000000; color: #ffffff; }
+.owner-tag.back .owner-role { border-color: #ffffff; }
+.owner-tag.front { background: #ffffff; color: #000000; }
+.owner-tag.arch { background: #f4f4f4; color: #000000; }
+
+.owners-inline {
+    margin-top: 0.6rem;
+    margin-bottom: 0.4rem;
+    padding: 0.5rem 0.65rem;
+    box-shadow: 2px 2px 0 #000000;
+}
