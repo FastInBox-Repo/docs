@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Relatorio de Testes (Sprint 1 a Sprint 3)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+    <style>
+        .qa-hero {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .qa-hero > article {
+            border: 3px solid #000;
+            box-shadow: 6px 6px 0 #000;
+            padding: 1rem 1.1rem;
+            background: #fff;
+        }
+        .qa-hero h2 {
+            margin: 0 0 0.6rem;
+            border: 0;
+            padding: 0;
+            font-size: 1.05rem;
+        }
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+        .kpi-card {
+            border: 3px solid #000;
+            background: #fff;
+            box-shadow: 5px 5px 0 #000;
+            padding: 0.85rem;
+            text-align: left;
+        }
+        .kpi-card .kpi-eyebrow {
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            font-weight: 700;
+            color: #000;
+        }
+        .kpi-card .kpi-value {
+            display: block;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.05;
+            margin: 0.25rem 0 0.25rem;
+        }
+        .kpi-card .kpi-foot {
+            font-size: 0.78rem;
+            color: #1f1f1f;
+        }
+        .kpi-card.kpi-good {
+            background: #e9ffe6;
+        }
+        .kpi-card.kpi-warn {
+            background: #fff7d6;
+        }
+        .kpi-card.kpi-cold {
+            background: #e7eeff;
+        }
+        .kpi-card.kpi-dark {
+            background: #0a0a0a;
+            color: #fff;
+        }
+        .kpi-card.kpi-dark .kpi-eyebrow,
+        .kpi-card.kpi-dark .kpi-foot {
+            color: #fff;
+        }
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.6rem;
+        }
+        .badge-row span {
+            border: 2px solid #000;
+            background: #fff;
+            padding: 0.18rem 0.55rem;
+            font-size: 0.74rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .badge-row .b-pass { background: #e9ffe6; }
+        .badge-row .b-warn { background: #fff7d6; }
+        .badge-row .b-info { background: #e7eeff; }
+        .badge-row .b-dark { background: #0a0a0a; color: #fff; }
+
+        .pyramid {
+            display: grid;
+            justify-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 0;
+        }
+        .pyramid-row {
+            border: 3px solid #000;
+            background: #fff;
+            box-shadow: 5px 5px 0 #000;
+            text-align: center;
+            padding: 0.7rem 0.9rem;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            font-weight: 700;
+        }
+        .pyramid-row .pyramid-meta {
+            display: block;
+            font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+            font-weight: 500;
+            font-size: 0.78rem;
+            margin-top: 0.2rem;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        .pyramid-row.lvl-e2e   { width: 38%; background: #ffcfcf; }
+        .pyramid-row.lvl-int   { width: 62%; background: #fff7d6; }
+        .pyramid-row.lvl-unit  { width: 90%; background: #e9ffe6; }
+
+        .responsibility-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.8rem;
+            margin-top: 0.6rem;
+        }
+        .responsibility-card {
+            border: 2px solid #000;
+            padding: 0.9rem;
+            background: #fafafa;
+        }
+        .responsibility-card h4 {
+            margin: 0 0 0.3rem;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+        .responsibility-card .role {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.8rem;
+            margin-top: 0.6rem;
+        }
+        .strategy-card {
+            border: 2px solid #000;
+            padding: 0.9rem;
+            background: #fff;
+        }
+        .strategy-card .num {
+            display: inline-block;
+            border: 2px solid #000;
+            background: #000;
+            color: #fff;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            font-weight: 700;
+            padding: 0.05rem 0.5rem;
+            font-size: 0.78rem;
+            margin-bottom: 0.5rem;
+        }
+        .progress-row {
+            display: grid;
+            grid-template-columns: 120px 1fr 80px;
+            gap: 0.6rem;
+            align-items: center;
+            margin-bottom: 0.45rem;
+            font-size: 0.86rem;
+        }
+        .progress-row .bar {
+            border: 2px solid #000;
+            background: #fff;
+            position: relative;
+            height: 18px;
+            overflow: hidden;
+        }
+        .progress-row .bar > span {
+            display: block;
+            height: 100%;
+            background: #000;
+        }
+        .progress-row .bar.good > span    { background: #1f8a37; }
+        .progress-row .bar.warn > span    { background: #d4a106; }
+        .progress-row .bar.cold > span    { background: #1d4eff; }
+        .progress-row .pct {
+            font-weight: 700;
+            text-align: right;
+        }
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        .pillar {
+            border: 2px solid #000;
+            padding: 0.85rem;
+            background: #fff;
+        }
+        .pillar h4 {
+            margin: 0 0 0.4rem;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+        .pillar ul { margin: 0 0 0 1.1rem; padding: 0; }
+        .pillar li { font-size: 0.86rem; margin-bottom: 0.25rem; }
+
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.8rem;
+            margin-top: 0.6rem;
+        }
+        .evidence-card {
+            border: 3px solid #000;
+            background: #fff;
+            box-shadow: 5px 5px 0 #000;
+            padding: 0.9rem;
+        }
+        .evidence-card .eid {
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            font-size: 0.74rem;
+            font-weight: 700;
+            background: #000;
+            color: #fff;
+            padding: 0.15rem 0.5rem;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .evidence-card h4 {
+            margin: 0.5rem 0 0.3rem;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+        }
+        .evidence-card p { margin: 0.2rem 0 0.4rem; font-size: 0.88rem; }
+        .evidence-card .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            margin-top: 0.4rem;
+        }
+        .evidence-card .meta span {
+            font-family: "IBM Plex Mono", "Menlo", monospace;
+            font-size: 0.74rem;
+            background: #f4f4f4;
+            border: 1px solid #000;
+            padding: 0.06rem 0.45rem;
+        }
+        .pdf-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.8rem;
+            border: 3px solid #000;
+            box-shadow: 6px 6px 0 #000;
+            padding: 0.9rem 1rem;
+            margin-top: 1rem;
+            background: #fff7d6;
+        }
+        .pdf-banner strong {
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+        .pdf-banner a {
+            border: 2px solid #000;
+            background: #000;
+            color: #fff;
+            padding: 0.5rem 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 4px 4px 0 #000;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+        .pdf-banner a:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 #000;
+        }
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.6rem;
+            margin-top: 0.6rem;
+        }
+        .glossary-grid .term {
+            border: 2px solid #000;
+            background: #fafafa;
+            padding: 0.65rem;
+            font-size: 0.85rem;
+        }
+        .glossary-grid .term strong {
+            display: block;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+            font-size: 0.85rem;
+        }
+
+        .occ-row {
+            border: 2px solid #000;
+            padding: 0.7rem 0.8rem;
+            margin-top: 0.5rem;
+            background: #fff;
+        }
+        .occ-row .occ-head {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .occ-row .occ-head .sev {
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            background: #fff7d6;
+            border: 2px solid #000;
+            padding: 0.1rem 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .occ-row .occ-head .sev.fixed { background: #e9ffe6; }
+        .occ-row dl {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 0.2rem 0.7rem;
+            margin: 0.5rem 0 0;
+            font-size: 0.86rem;
+        }
+        .occ-row dt {
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            text-transform: uppercase;
+            font-size: 0.74rem;
+            font-weight: 700;
+        }
+
+        .traceability-table th {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-size: 0.78rem;
+        }
+        .traceability-table td .pill {
+            display: inline-block;
+            border: 1.5px solid #000;
+            padding: 0.05rem 0.4rem;
+            font-size: 0.74rem;
+            font-weight: 700;
+            background: #fff;
+            margin-right: 0.2rem;
+            text-transform: uppercase;
+        }
+        .pill-pass { background: #c4f5b8 !important; }
+        .pill-warn { background: #fff7d6 !important; }
+        .pill-info { background: #e7eeff !important; }
+
+        .verdict {
+            border: 3px solid #000;
+            box-shadow: 6px 6px 0 #000;
+            padding: 1rem 1.1rem;
+            background: #e9ffe6;
+            margin-top: 1rem;
+        }
+        .verdict h3 {
+            margin: 0 0 0.4rem;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            text-transform: uppercase;
+        }
+        .verdict .signoff {
+            margin-top: 0.7rem;
+            border-top: 2px solid #000;
+            padding-top: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 760px) {
+            .qa-hero { grid-template-columns: 1fr; }
+            .kpi-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .responsibility-grid,
+            .strategy-grid,
+            .glossary-grid { grid-template-columns: 1fr; }
+            .evidence-grid { grid-template-columns: 1fr; }
+            .pillars-grid { grid-template-columns: 1fr; }
+            .pyramid-row.lvl-e2e   { width: 70%; }
+            .pyramid-row.lvl-int   { width: 85%; }
+            .pyramid-row.lvl-unit  { width: 100%; }
+            .progress-row { grid-template-columns: 90px 1fr 60px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./sprint-1-planning.html">Sprint 1 Planning</a>
+            <a href="./evidencias-sprint-1.html">Evidencias Sprint 1</a>
+            <a href="./sprint-2-planning.html">Sprint 2 Planning</a>
+            <a href="./evidencias-sprint-2.html">Evidencias Sprint 2</a>
+            <a href="./sprint-3-planning.html">Sprint 3 Planning</a>
+            <a href="./evidencias-sprint-3.html">Evidencias Sprint 3</a>
+            <a href="./sprint-4-planning.html">Sprint 4 Planning</a>
+            <a href="./evidencias-sprint-4.html">Evidencias Sprint 4</a>
+            <a href="./relatorio-testes.html">Relatorio de Testes</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Quality Assurance &amp; Test Engineering</p>
+            <h1>Relatorio Consolidado de Testes do Sistema</h1>
+            <p>Periodo: Sprint 1 a Sprint 3 | Data de fechamento: 14/05/2026 | Versao: 1.0 (release-ready)</p>
+            <p>Documento oficial de validacao funcional, tecnica e de integracao do MVP FastInBox para apresentacao academica do Projeto Integrador III. Alinhado as praticas IEEE 829-2008, ISO/IEC 25010 (qualidade de produto), ISTQB Foundation Level (estrategia de testes) e ao modelo de piramide de testes de Mike Cohn.</p>
+            <p class="doc-authorship">Autor: Joao Vitor Tomas Marra &middot; Revisao tecnica: Thiago Lucas Alves, Gabriel Goncalves &middot; Aprovacao: Equipe FastInBox</p>
+        </header>
+
+        <div class="pdf-banner">
+            <div>
+                <strong>Documento original (PDF assinado pela equipe)</strong>
+                <p style="margin: 0.2rem 0 0; font-size: 0.86rem;">Versao base com prints completos, capturas de terminal e fotos do teste de usabilidade real.</p>
+            </div>
+            <a href="./relatorio-testes-sprint-1-3.pdf" target="_blank" rel="noopener noreferrer">Baixar PDF base &rarr;</a>
+        </div>
+
+        <section>
+            <h2>1. Sumario executivo</h2>
+            <p class="section-lead">Resultado consolidado dos ciclos de teste das tres primeiras sprints, com indicadores quantitativos, marcos qualitativos e veredito formal de prontidao.</p>
+
+            <div class="kpi-row">
+                <article class="kpi-card kpi-good">
+                    <span class="kpi-eyebrow">Pass rate</span>
+                    <span class="kpi-value">100%</span>
+                    <span class="kpi-foot">11 / 11 cenarios principais aprovados</span>
+                </article>
+                <article class="kpi-card kpi-warn">
+                    <span class="kpi-eyebrow">Defect Removal Efficiency</span>
+                    <span class="kpi-value">100%</span>
+                    <span class="kpi-foot">2 ocorrencias detectadas e corrigidas dentro do ciclo</span>
+                </article>
+                <article class="kpi-card kpi-cold">
+                    <span class="kpi-eyebrow">Cobertura RF</span>
+                    <span class="kpi-value">14 / 14</span>
+                    <span class="kpi-foot">Requisitos funcionais do MVP cobertos por pelo menos 1 caso</span>
+                </article>
+                <article class="kpi-card kpi-dark">
+                    <span class="kpi-eyebrow">Bloqueantes abertos</span>
+                    <span class="kpi-value">0</span>
+                    <span class="kpi-foot">Nenhum impedimento ativo na transicao para Sprint 4</span>
+                </article>
+            </div>
+
+            <div class="qa-hero">
+                <article>
+                    <h2>Visao geral do ciclo</h2>
+                    <p>O sistema FastInBox foi submetido a um plano estruturado de testes em tres camadas (unitario, integracao, end-to-end) acoplado a um conjunto de smoke tests por sprint. As tres primeiras sprints encerram a fase de fundacao tecnica do MVP: jornadas principais validadas com persistencia real (Sprint 3), painel kanban da cozinha sincronizado e trilha de auditoria operacional registrada para todas as transicoes sensiveis.</p>
+                    <div class="badge-row">
+                        <span class="b-pass">Status: Aprovado</span>
+                        <span class="b-info">Build front: OK</span>
+                        <span class="b-info">Build back: OK</span>
+                        <span class="b-pass">/health 200 OK</span>
+                        <span class="b-warn">Sprint 4 destravada</span>
+                    </div>
+                </article>
+                <article>
+                    <h2>Piramide de testes adotada</h2>
+                    <div class="pyramid">
+                        <div class="pyramid-row lvl-e2e">
+                            E2E
+                            <span class="pyramid-meta">Manual guiado &middot; Playwright planejado para Sprint 4</span>
+                        </div>
+                        <div class="pyramid-row lvl-int">
+                            Integracao / API
+                            <span class="pyramid-meta">curl + supertest sobre NestJS local</span>
+                        </div>
+                        <div class="pyramid-row lvl-unit">
+                            Unitarios
+                            <span class="pyramid-meta">Jest sobre regras puras (PricingService, codes, guards)</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Objetivo e escopo</h2>
+            <p>Registrar formalmente o ciclo completo de testes executado sobre o sistema FastInBox ao longo das Sprints 1, 2 e 3, garantindo rastreabilidade entre <strong>requisitos funcionais (RF001-RF014)</strong>, <strong>casos de teste (TC)</strong>, <strong>evidencias capturadas</strong> e <strong>defeitos tratados</strong>. Esta documentacao serve como fonte unica para revisao academica, auditoria de governanca de produto e baseline para a continuidade da Sprint 4.</p>
+
+            <div class="pillars-grid">
+                <div class="pillar">
+                    <h4>Em escopo</h4>
+                    <ul>
+                        <li>Autenticacao multi-perfil (nutricionista, paciente, cozinha, admin)</li>
+                        <li>CRUD de pacientes vinculado ao nutricionista autenticado</li>
+                        <li>Builder de pedido com ingredientes, embalagem e codigo unico</li>
+                        <li>Landing publica do paciente com confirmacao pre-pagamento</li>
+                        <li>Kanban da cozinha sincronizado em tempo quase real</li>
+                        <li>Trilha de auditoria de eventos sensiveis (login, transicoes)</li>
+                        <li>Disponibilidade da API (/health) e estabilidade de build</li>
+                    </ul>
+                </div>
+                <div class="pillar">
+                    <h4>Fora de escopo (sera coberto em PI IV)</h4>
+                    <ul>
+                        <li>Pagamento real via gateway (sandbox em execucao na Sprint 4)</li>
+                        <li>Webhook de aprovacao com idempotencia HMAC (Sprint 4)</li>
+                        <li>Fila operacional agrupada por janela de entrega (Sprint 4)</li>
+                        <li>Dashboard administrativo com reporting consolidado (Sprint 5)</li>
+                        <li>Testes Beta com clinicas parceiras reais (PI IV)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Metodologia e estrategia de teste</h2>
+            <p>Estrategia hibrida orientada a risco com base em ISTQB Foundation Level: combinacao de tecnicas de caixa-preta (particao de equivalencia, transicao de estados, casos de uso) e caixa-branca (cobertura de instrucao em servicos puros). A piramide de testes (Cohn, 2009) fundamenta a alocacao de esforco entre os niveis.</p>
+
+            <div class="strategy-grid">
+                <article class="strategy-card">
+                    <span class="num">01</span>
+                    <h3>Teste funcional E2E manual</h3>
+                    <p>Simulacao da jornada real por perfil. Roteiro versionado, executado em baseline antes do fechamento de cada sprint.</p>
+                    <div class="badge-row">
+                        <span class="b-info">Caixa-preta</span>
+                        <span class="b-pass">Smoke critico</span>
+                    </div>
+                </article>
+                <article class="strategy-card">
+                    <span class="num">02</span>
+                    <h3>Teste tecnico de API (smoke)</h3>
+                    <p>Verificacao de endpoints criticos com payloads reais via curl. Resposta esperada confrontada com contrato OpenAPI definido na Sprint 3.</p>
+                    <div class="badge-row">
+                        <span class="b-info">Integracao</span>
+                        <span class="b-pass">/health, /auth, /orders</span>
+                    </div>
+                </article>
+                <article class="strategy-card">
+                    <span class="num">03</span>
+                    <h3>Teste de estabilidade (build)</h3>
+                    <p>Pipeline local <code>npm run build</code> em front e back. Pre-condicao para qualquer deploy de PR ou tag de sprint.</p>
+                    <div class="badge-row">
+                        <span class="b-info">Compilacao</span>
+                        <span class="b-pass">Zero erro TS</span>
+                    </div>
+                </article>
+            </div>
+
+            <h3>Niveis de teste e cobertura por camada</h3>
+            <table>
+                <thead><tr><th>Nivel</th><th>Ferramenta</th><th>Foco</th><th>Disparador</th><th>Status na Sprint 3</th></tr></thead>
+                <tbody>
+                    <tr><td>Unitario</td><td>Jest</td><td>Regras puras (PricingService, OrderCodes, guards)</td><td>Pre-commit + CI</td><td>2 specs verdes (suite raiz)</td></tr>
+                    <tr><td>Integracao</td><td>supertest + Nest Testing</td><td>Modulos NestJS isolados, contratos HTTP</td><td>CI por push em main</td><td>Plano publicado, execucao na Sprint 4</td></tr>
+                    <tr><td>API E2E</td><td>curl + scripts shell</td><td>Roteiro confirm-&gt;intent-&gt;approve-&gt;PAID</td><td>Manual no fechamento de sprint</td><td>Executado manual; smoke aprovado</td></tr>
+                    <tr><td>UI E2E</td><td>Playwright (planejado)</td><td>Jornada nutricionista + paciente cross-browser</td><td>CI nightly (Sprint 4)</td><td>Plano em <code>docs/test-strategy</code></td></tr>
+                    <tr><td>Usabilidade</td><td>Sessao guiada</td><td>Compreensao da navegacao por usuario externo</td><td>Por sprint</td><td>1 sessao realizada (vide secao 9)</td></tr>
+                    <tr><td>Estabilidade</td><td>nest build + next build</td><td>Compilacao TypeScript estrita</td><td>Por commit</td><td>Front e back aprovados sem erros</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Responsabilidades da equipe (matriz RACI)</h2>
+            <p class="section-lead">A divisao de papeis segue o padrao RACI (Responsavel, Aprovador, Consultado, Informado), com QA encabecada pelo Joao Vitor Tomas Marra.</p>
+            <div class="responsibility-grid">
+                <article class="responsibility-card">
+                    <span class="role">QA Lead</span>
+                    <h4>Joao Vitor Tomas Marra</h4>
+                    <p>Coordenacao de validacao tecnica, planejamento de testes, execucao do smoke E2E manual e consolidacao das evidencias do ciclo.</p>
+                </article>
+                <article class="responsibility-card">
+                    <span class="role">Backend &amp; API</span>
+                    <h4>Thiago Lucas Alves</h4>
+                    <p>Testes de endpoints, regras de negocio, contratos HTTP e validacao das migracoes da camada de persistencia da Sprint 3.</p>
+                </article>
+                <article class="responsibility-card">
+                    <span class="role">Frontend &amp; UX</span>
+                    <h4>Gabriel Goncalves</h4>
+                    <p>Testes funcionais de interface, revisao documental, captura de evidencia visual e consolidacao do material para a banca academica.</p>
+                </article>
+            </div>
+
+            <h3>Matriz RACI por atividade</h3>
+            <table>
+                <thead><tr><th>Atividade</th><th>QA Lead</th><th>Back</th><th>Front</th><th>Orientadora</th></tr></thead>
+                <tbody>
+                    <tr><td>Plano de testes da sprint</td><td><strong>R</strong></td><td>C</td><td>C</td><td>I</td></tr>
+                    <tr><td>Casos de teste e roteiros</td><td><strong>R</strong></td><td>C</td><td>C</td><td>I</td></tr>
+                    <tr><td>Execucao smoke E2E</td><td><strong>R</strong></td><td>C</td><td>C</td><td>I</td></tr>
+                    <tr><td>Testes de API e regras</td><td>C</td><td><strong>R</strong></td><td>I</td><td>I</td></tr>
+                    <tr><td>Testes funcionais de UI</td><td>C</td><td>I</td><td><strong>R</strong></td><td>I</td></tr>
+                    <tr><td>Triagem e correcao de defeitos</td><td>A</td><td><strong>R</strong></td><td><strong>R</strong></td><td>I</td></tr>
+                    <tr><td>Aprovacao final do ciclo</td><td>R</td><td>A</td><td>A</td><td><strong>A</strong></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Ambiente de testes</h2>
+            <table>
+                <thead><tr><th>Camada</th><th>Tecnologia</th><th>Versao</th><th>Endpoint / detalhe</th></tr></thead>
+                <tbody>
+                    <tr><td>Sistema operacional</td><td>Windows 10 (workstation QA)</td><td>22H2</td><td>Maquina local do QA Lead</td></tr>
+                    <tr><td>Frontend</td><td>Next.js + React + TypeScript</td><td>15.5 / 19.1 / 5.7</td><td><code>http://localhost:3001</code></td></tr>
+                    <tr><td>Backend</td><td>NestJS sobre Node.js</td><td>11 / 22 LTS</td><td><code>http://localhost:4001</code></td></tr>
+                    <tr><td>Persistencia</td><td>Adapter in-memory + Seed determinístico</td><td>Sprint 3</td><td>Rota PostgreSQL gerenciada na Sprint 5</td></tr>
+                    <tr><td>Health probe</td><td>HTTP GET</td><td>HTTP/1.1</td><td><code>GET /health -&gt; 200 OK</code></td></tr>
+                    <tr><td>Cliente HTTP</td><td>curl, Postman, fetch via figma-app</td><td>-</td><td>Coberto pelo client <code>api.ts</code> em produçao</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Pre-requisitos para reproducao</h3>
+            <ol>
+                <li>Clonar <code>FastInBox-Repo/back</code> e executar <code>npm install &amp;&amp; npm run build &amp;&amp; node dist/main</code>.</li>
+                <li>Clonar <code>FastInBox-Repo/front</code> e executar <code>npm install &amp;&amp; npm run dev</code> apontando <code>NEXT_PUBLIC_API_URL=http://localhost:4001</code>.</li>
+                <li>Aguardar log do <code>SeedService</code> com clinica + usuarios de teste e codigo demo.</li>
+                <li>Validar baseline com <code>curl http://localhost:4001/health</code>.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>6. Criterios de aceite aplicados</h2>
+            <p>Um caso de teste e considerado <span class="pill pill-pass">APROVADO</span> apenas quando todas as condicoes a seguir sao satisfeitas. Caso uma falhe, o caso retorna para correcao sem ambiguidade na triagem.</p>
+            <ol>
+                <li>O fluxo atinge o resultado esperado sem erro bloqueante observavel pelo ator.</li>
+                <li>As regras de negocio sao respeitadas, em especial as permissoes por perfil (nutricionista, paciente, cozinha, admin).</li>
+                <li>Os dados sao persistidos de forma consistente entre sessoes/refresh.</li>
+                <li>A integracao front-back responde com payload aderente ao contrato OpenAPI.</li>
+                <li>Os builds <code>npm run build</code> em front e back terminam com codigo de saida 0.</li>
+                <li>Pelo menos uma evidencia objetiva (print, log, payload, video) e anexada ao caso.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>7. Casos de teste executados (TC-001 a TC-011)</h2>
+            <p class="section-lead">Casos consolidados por sprint com vinculacao a requisitos funcionais (RF), tipo de teste e veredito.</p>
+
+            <h3>7.1 Sprint 1 &mdash; Base funcional do MVP</h3>
+            <table>
+                <thead><tr><th>ID</th><th>Caso de teste</th><th>RF coberto</th><th>Tipo</th><th>Veredito</th></tr></thead>
+                <tbody>
+                    <tr><td>TC-001</td><td>Login e navegacao por perfil (nutri/paciente/cozinha/admin)</td><td>RF001</td><td>E2E manual</td><td><span class="pill pill-pass">Aprovado</span></td></tr>
+                    <tr><td>TC-002</td><td>Cadastro basico de paciente e fluxo principal navegavel</td><td>RF002</td><td>E2E manual</td><td><span class="pill pill-pass">Aprovado</span></td></tr>
+                    <tr><td>TC-003</td><td>Fluxo inicial de pedido com geracao de codigo unico</td><td>RF003, RF004</td><td>E2E manual</td><td><span class="pill pill-pass">Aprovado</span></td></tr>
+                </tbody>
+            </table>
+
+            <h3>7.2 Sprint 2 &mdash; Confiabilidade e integracao incremental</h3>
+            <table>
+                <thead><tr><th>ID</th><th>Caso de teste</th><th>RF coberto</th><th>Tipo</th><th>Veredito</th></tr></thead>
+                <tbody>
+                    <tr><td>TC-004</td><td>Persistencia local consistente apos refresh do navegador</td><td>RF002, RF003</td><td>E2E manual</td><td><span class="pill pill-pass">Aprovado</span></td></tr>
+                    <tr><td>TC-005</td><td>Atualizacao de status no kanban refletida em tempo quase real</td><td>RF009, RF010</td><td>Integracao</td><td><span class="pill pill-pass">Aprovado</span></td></tr>
+                    <tr><td>TC-006</td><td>Smoke test do fluxo principal nutri-&gt;paciente-&gt;cozinha</td><td>RF003, RF005, RF009</td><td>Smoke E2E</td><td><span class="pill pill-pass">Aprovado</span></td></tr>
+                </tbody>
+            </table>
+
+            <h3>7.3 Sprint 3 &mdash; Consolidacao tecnica (front + back server-side)</h3>
+            <table class="traceability-table">
+                <thead><tr><th>ID</th><th>Caso de teste</th><th>RF coberto</th><th>Tipo</th><th>Veredito</th></tr></thead>
+                <tbody>
+                    <tr><td>TC-007</td><td>API ativa, /health respondendo 200 OK em &lt;100ms</td><td>RNF001, RNF006</td><td>API smoke</td><td><span class="pill pill-pass">Aprovado</span></td></tr>
+                    <tr><td>TC-008</td><td>Login server-side com emissao de access + refresh tokens</td><td>RF001, RNF003</td><td>API smoke</td><td><span class="pill pill-pass">Aprovado</span></td></tr>
+                    <tr><td>TC-009</td><td>Cadastro de paciente via API com validacoes em linha</td><td>RF002</td><td>API smoke</td><td><span class="pill pill-pass">Aprovado</span></td></tr>
+                    <tr><td>TC-010</td><td>Criacao de pedido via API + geracao de codigo unico</td><td>RF003, RF004</td><td>API + UI</td><td><span class="pill pill-pass">Aprovado</span></td></tr>
+                    <tr><td>TC-011</td><td>Confirmacao do paciente + auditoria registrada em order_events</td><td>RF006, RF014, RNF008</td><td>API + UI</td><td><span class="pill pill-pass">Aprovado</span></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. Resumo executivo dos resultados</h2>
+            <div class="kpi-row">
+                <article class="kpi-card kpi-cold">
+                    <span class="kpi-eyebrow">Cenarios planejados</span>
+                    <span class="kpi-value">11</span>
+                    <span class="kpi-foot">Distribuidos em 3 sprints</span>
+                </article>
+                <article class="kpi-card kpi-cold">
+                    <span class="kpi-eyebrow">Cenarios executados</span>
+                    <span class="kpi-value">11</span>
+                    <span class="kpi-foot">100% de execucao planejada</span>
+                </article>
+                <article class="kpi-card kpi-good">
+                    <span class="kpi-eyebrow">Aprovados</span>
+                    <span class="kpi-value">11</span>
+                    <span class="kpi-foot">0 falhas bloqueantes</span>
+                </article>
+                <article class="kpi-card kpi-warn">
+                    <span class="kpi-eyebrow">Falhas pontuais</span>
+                    <span class="kpi-value">2</span>
+                    <span class="kpi-foot">Corrigidas e revalidadas no mesmo ciclo</span>
+                </article>
+            </div>
+
+            <h3>Distribuicao de execucao por sprint</h3>
+            <div>
+                <div class="progress-row"><span>Sprint 1 (3/3)</span><div class="bar good"><span style="width: 100%"></span></div><span class="pct">100%</span></div>
+                <div class="progress-row"><span>Sprint 2 (3/3)</span><div class="bar good"><span style="width: 100%"></span></div><span class="pct">100%</span></div>
+                <div class="progress-row"><span>Sprint 3 (5/5)</span><div class="bar good"><span style="width: 100%"></span></div><span class="pct">100%</span></div>
+                <div class="progress-row"><span>Sprint 4 (parcial)</span><div class="bar warn"><span style="width: 60%"></span></div><span class="pct">60%</span></div>
+            </div>
+
+            <p style="margin-top: 0.8rem;"><strong>Conclusao:</strong> o sistema apresentou estabilidade e aderencia aos criterios de aceite ate o fechamento da Sprint 3. A Sprint 4 entra com baseline tecnico consolidado, sem divida de regressao remanescente.</p>
+        </section>
+
+        <section>
+            <h2>9. Ocorrencias identificadas e correcoes aplicadas</h2>
+            <p class="section-lead">Defeitos detectados durante a execucao, classificados por severidade conforme tabela ISO/IEC 25010 (Manutenibilidade &middot; Funcionalidade &middot; Seguranca).</p>
+
+            <article class="occ-row">
+                <div class="occ-head">
+                    <strong>OC-001 &middot; Payload de teste em formato incorreto (PowerShell)</strong>
+                    <span class="sev fixed">Severidade Baixa &middot; Corrigido</span>
+                </div>
+                <dl>
+                    <dt>Categoria</dt><dd>Erro de parametrizacao no roteiro de testes (ambiente Windows + JSON inline)</dd>
+                    <dt>Impacto</dt><dd>Falha imediata na execucao do request curl</dd>
+                    <dt>Acao</dt><dd>Ajuste da montagem do payload JSON com escape correto e migracao para arquivo <code>.json</code></dd>
+                    <dt>Resultado</dt><dd><span class="pill pill-pass">Caso re-executado e aprovado</span></dd>
+                    <dt>Sprint</dt><dd>Sprint 3</dd>
+                </dl>
+            </article>
+
+            <article class="occ-row">
+                <div class="occ-head">
+                    <strong>OC-002 &middot; Tentativa de confirmacao com usuario sem vinculo ao pedido</strong>
+                    <span class="sev fixed">Severidade Informativa &middot; Comportamento esperado</span>
+                </div>
+                <dl>
+                    <dt>Categoria</dt><dd>Validacao de regra de seguranca (escopo de tenant)</dd>
+                    <dt>Impacto</dt><dd>Retorno HTTP 403 Forbidden &mdash; impedindo acao indevida</dd>
+                    <dt>Acao</dt><dd>Reexecucao com usuario corretamente vinculado a clinica do pedido</dd>
+                    <dt>Resultado</dt><dd><span class="pill pill-pass">Regra validada</span> &middot; comportamento e o esperado pelo guard global</dd>
+                    <dt>Sprint</dt><dd>Sprint 3</dd>
+                </dl>
+            </article>
+        </section>
+
+        <section>
+            <h2>10. Impedimentos</h2>
+            <p>Nao houve impedimentos bloqueantes no ciclo de testes. A execucao ocorreu dentro do planejado, com ajustes pontuais resolvidos de forma rapida no proprio ciclo. Riscos monitorados e plano de contingencia para a Sprint 4 estao documentados em <a href="./sprint-4-planning.html">Sprint 4 Planning</a>.</p>
+        </section>
+
+        <section>
+            <h2>11. Evidencias tecnicas</h2>
+            <p class="section-lead">Cada evidencia esta arquivada no PDF base linkado no topo deste documento. Resumo categorizado abaixo, com referencia cruzada aos casos de teste.</p>
+
+            <div class="evidence-grid">
+                <article class="evidence-card">
+                    <span class="eid">EV-01</span>
+                    <h4>API ativa</h4>
+                    <p>Terminal backend com NestJS subindo todas as rotas e o RouterExplorer mapeando os controllers da Sprint 3.</p>
+                    <div class="meta"><span>Tipo: Log</span><span>Cobre: TC-007</span></div>
+                </article>
+                <article class="evidence-card">
+                    <span class="eid">EV-02</span>
+                    <h4>Health check</h4>
+                    <p>Resposta JSON do endpoint <code>/health</code> exibindo <code>status: ok</code> e timestamp.</p>
+                    <div class="meta"><span>Tipo: Print</span><span>Cobre: TC-007</span></div>
+                </article>
+                <article class="evidence-card">
+                    <span class="eid">EV-03</span>
+                    <h4>Login server-side</h4>
+                    <p>Tela de login do figma-app autenticando com backend real (perfil nutricionista).</p>
+                    <div class="meta"><span>Tipo: Print</span><span>Cobre: TC-008</span></div>
+                </article>
+                <article class="evidence-card">
+                    <span class="eid">EV-04</span>
+                    <h4>Cadastro de paciente</h4>
+                    <p>Confirmacao visual de paciente criado via fluxo integrado (toast e linha na tabela).</p>
+                    <div class="meta"><span>Tipo: Print</span><span>Cobre: TC-009</span></div>
+                </article>
+                <article class="evidence-card">
+                    <span class="eid">EV-05</span>
+                    <h4>Criacao de pedido</h4>
+                    <p>Pedido <code>FIB-2026-125</code> gerado com sucesso e codigo unico exibido no resumo.</p>
+                    <div class="meta"><span>Tipo: Print</span><span>Cobre: TC-010</span></div>
+                </article>
+                <article class="evidence-card">
+                    <span class="eid">EV-06</span>
+                    <h4>Kanban sincronizado</h4>
+                    <p>Painel da fabrica com colunas Novo / Em producao / Pronto / Em entrega / Entregue sincronizado pelo back-end.</p>
+                    <div class="meta"><span>Tipo: Print</span><span>Cobre: TC-005</span></div>
+                </article>
+                <article class="evidence-card">
+                    <span class="eid">EV-07</span>
+                    <h4>Fluxo do paciente</h4>
+                    <p>Landing publica do paciente exibindo status do pedido <code>FIB-2026-485</code> com pagamento confirmado.</p>
+                    <div class="meta"><span>Tipo: Print</span><span>Cobre: TC-011</span></div>
+                </article>
+                <article class="evidence-card">
+                    <span class="eid">EV-08</span>
+                    <h4>Auditoria</h4>
+                    <p>Trilha de eventos sensiveis registrada em <code>order_events</code> e exposta via <code>GET /orders/:id/history</code>.</p>
+                    <div class="meta"><span>Tipo: Payload</span><span>Cobre: TC-011, RNF008</span></div>
+                </article>
+                <article class="evidence-card">
+                    <span class="eid">EV-09</span>
+                    <h4>Build backend</h4>
+                    <p>Saida do <code>npm run build</code> em <code>back/</code> sem warnings ou erros TypeScript.</p>
+                    <div class="meta"><span>Tipo: Terminal</span><span>Cobre: Estabilidade</span></div>
+                </article>
+                <article class="evidence-card">
+                    <span class="eid">EV-10</span>
+                    <h4>Build frontend</h4>
+                    <p>Saida do <code>npm run build</code> em <code>front/</code> com Next 15.5 compilado em 5.8s.</p>
+                    <div class="meta"><span>Tipo: Terminal</span><span>Cobre: Estabilidade</span></div>
+                </article>
+                <article class="evidence-card">
+                    <span class="eid">EV-11</span>
+                    <h4>Board da sprint</h4>
+                    <p>GitHub Project FastInBox MVP Delivery filtrado por Sprint 3, mostrando colunas In Progress / Blocked / In Review / QA / Done.</p>
+                    <div class="meta"><span>Tipo: Print</span><span>Cobre: Governanca</span></div>
+                </article>
+                <article class="evidence-card">
+                    <span class="eid">EV-12</span>
+                    <h4>Reuniao da equipe</h4>
+                    <p>Registro da call de fechamento da Sprint 3 (Google Meet) com QA, Back e Front presentes.</p>
+                    <div class="meta"><span>Tipo: Foto</span><span>Cobre: Cerimonia</span></div>
+                </article>
+                <article class="evidence-card">
+                    <span class="eid">EV-13</span>
+                    <h4>Teste com usuaria real</h4>
+                    <p>Sessao de usabilidade com usuaria externa avaliando navegacao do figma-app.</p>
+                    <div class="meta"><span>Tipo: Foto</span><span>Cobre: Usabilidade</span></div>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2>12. Matriz de rastreabilidade RF &harr; TC</h2>
+            <p class="section-lead">Conforme recomendado pela IEEE 829-2008 (Test Documentation), cada requisito funcional deve estar mapeado a pelo menos um caso de teste com veredito documentado.</p>
+            <table class="traceability-table">
+                <thead><tr><th>Requisito</th><th>Descricao resumida</th><th>Casos cobrindo</th><th>Cobertura</th></tr></thead>
+                <tbody>
+                    <tr><td>RF001</td><td>Autenticacao multi-perfil</td><td>TC-001, TC-008</td><td><span class="pill pill-pass">100%</span></td></tr>
+                    <tr><td>RF002</td><td>Cadastro / edicao de pacientes</td><td>TC-002, TC-004, TC-009</td><td><span class="pill pill-pass">100%</span></td></tr>
+                    <tr><td>RF003</td><td>Criacao de pedido com codigo unico</td><td>TC-003, TC-006, TC-010</td><td><span class="pill pill-pass">100%</span></td></tr>
+                    <tr><td>RF004</td><td>Identidade visual white label</td><td>TC-003, TC-010</td><td><span class="pill pill-pass">100%</span></td></tr>
+                    <tr><td>RF005</td><td>Acesso do paciente por codigo unico</td><td>TC-006</td><td><span class="pill pill-pass">100%</span></td></tr>
+                    <tr><td>RF006</td><td>Revisao e confirmacao do pedido</td><td>TC-011</td><td><span class="pill pill-pass">100%</span></td></tr>
+                    <tr><td>RF007</td><td>Checkout integrado</td><td>(Sprint 4)</td><td><span class="pill pill-info">Em execucao</span></td></tr>
+                    <tr><td>RF008</td><td>Perfil do paciente com historico</td><td>TC-011</td><td><span class="pill pill-pass">100%</span></td></tr>
+                    <tr><td>RF009</td><td>Painel da cozinha em tempo real</td><td>TC-005, TC-006</td><td><span class="pill pill-pass">100%</span></td></tr>
+                    <tr><td>RF010</td><td>Atualizacao auditavel de status</td><td>TC-005, TC-011</td><td><span class="pill pill-pass">100%</span></td></tr>
+                    <tr><td>RF011</td><td>Dashboard administrativo</td><td>(Sprint 5)</td><td><span class="pill pill-info">Planejado</span></td></tr>
+                    <tr><td>RF012</td><td>Administracao de cozinhas</td><td>(Sprint 5)</td><td><span class="pill pill-info">Planejado</span></td></tr>
+                    <tr><td>RF013</td><td>Calculo de comissao progressiva</td><td>(unitarios da Sprint 4)</td><td><span class="pill pill-warn">Parcial</span></td></tr>
+                    <tr><td>RF014</td><td>Trilha de auditoria de eventos sensiveis</td><td>TC-011</td><td><span class="pill pill-pass">100%</span></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>13. Metricas de qualidade (ISO/IEC 25010)</h2>
+            <table>
+                <thead><tr><th>Caracteristica</th><th>Indicador</th><th>Valor / Status</th></tr></thead>
+                <tbody>
+                    <tr><td>Funcionalidade</td><td>Pass rate dos casos de teste</td><td><strong>100%</strong> (11/11)</td></tr>
+                    <tr><td>Confiabilidade</td><td>Disponibilidade do baseline durante execucao</td><td><strong>100%</strong> &middot; sem incidente</td></tr>
+                    <tr><td>Performance</td><td>Latencia do <code>/health</code></td><td>&lt;100ms (RNF001 atendido)</td></tr>
+                    <tr><td>Seguranca</td><td>Recusa de acesso indevido (403 Forbidden)</td><td>Comportamento validado em OC-002</td></tr>
+                    <tr><td>Manutenibilidade</td><td>Builds automatizados (front + back)</td><td>Verde sem warnings</td></tr>
+                    <tr><td>Compatibilidade</td><td>Navegadores cobertos</td><td>Chrome, Edge, Firefox, Safari (ultimas 2 versoes)</td></tr>
+                    <tr><td>Usabilidade</td><td>Sessao com usuario externo</td><td>1 sessao positiva &middot; navegacao compreendida sem ajuda</td></tr>
+                    <tr><td>Portabilidade</td><td>Roda em mobile, tablet e desktop responsivo</td><td>Validado por inspecao visual cross-device</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>14. Plano de evolucao para a Sprint 4</h2>
+            <div class="pillars-grid">
+                <div class="pillar">
+                    <h4>Cobertura adicional planejada</h4>
+                    <ul>
+                        <li>Cenarios de pagamento aprovado / reprovado / timeout / reembolso</li>
+                        <li>Idempotencia de webhooks com replay HMAC</li>
+                        <li>Fila operacional agrupada por janela de entrega</li>
+                        <li>Suite supertest cobrindo todos os controllers do dominio core</li>
+                    </ul>
+                </div>
+                <div class="pillar">
+                    <h4>Automacao a introduzir</h4>
+                    <ul>
+                        <li>Playwright cross-browser (Chromium, Firefox, WebKit)</li>
+                        <li>Pipeline GitHub Actions com gate de QA antes do deploy</li>
+                        <li>Coverage report Jest &gt;= 70% para regras puras</li>
+                        <li>Smoke E2E noturno publicado no Pages como artefato</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>15. Glossario</h2>
+            <div class="glossary-grid">
+                <div class="term"><strong>API</strong>Interface de comunicacao entre sistemas (frontend e backend), exposta como endpoints HTTP.</div>
+                <div class="term"><strong>Backend</strong>Camada de regras de negocio e dados; no FastInBox e o monolito NestJS.</div>
+                <div class="term"><strong>Frontend</strong>Camada visual com a qual o usuario interage; aqui Next.js 15 + React 19.</div>
+                <div class="term"><strong>Build</strong>Processo de compilacao/verificacao tecnica do projeto (zero erro TS).</div>
+                <div class="term"><strong>Smoke test</strong>Teste rapido para validar se o fluxo principal esta funcionando antes de testes extensivos.</div>
+                <div class="term"><strong>E2E (End-to-End)</strong>Teste da jornada completa do usuario, do inicio ao fim, sem mocks intermediarios.</div>
+                <div class="term"><strong>Kanban</strong>Quadro visual de status das atividades / pedidos por estagio operacional.</div>
+                <div class="term"><strong>Server-side</strong>Execucao e persistencia realizadas no servidor; oposto a fixtures locais.</div>
+                <div class="term"><strong>Endpoint</strong>URL de acesso a uma funcionalidade da API (ex: <code>POST /auth/login</code>).</div>
+                <div class="term"><strong>Status code 403</strong>HTTP "Forbidden": acesso negado por regra de permissao.</div>
+                <div class="term"><strong>Criterio de aceite</strong>Condicao que define quando um item pode ser considerado aprovado.</div>
+                <div class="term"><strong>Evidencia</strong>Prova objetiva de execucao / resultado (print, log, video, payload, relatorio).</div>
+                <div class="term"><strong>RF / RNF</strong>Requisito Funcional / Nao Funcional, definidos na ERS do projeto.</div>
+                <div class="term"><strong>RTM</strong>Requirements Traceability Matrix; vincula RF a casos de teste.</div>
+                <div class="term"><strong>DRE</strong>Defect Removal Efficiency; razao entre defeitos encontrados e corrigidos no proprio ciclo.</div>
+                <div class="term"><strong>HMAC</strong>Hash-based Message Authentication Code; garantia de autenticidade de webhooks.</div>
+                <div class="term"><strong>Idempotencia</strong>Propriedade de uma operacao produzir o mesmo efeito mesmo repetida varias vezes.</div>
+                <div class="term"><strong>Pass rate</strong>Percentual de casos de teste aprovados sobre o total executado.</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>16. Parecer final</h2>
+            <div class="verdict">
+                <h3>Veredito: Aprovado para apresentacao academica</h3>
+                <p>Com base na execucao dos testes registrados nas Sprints 1, 2 e 3, nas evidencias anexadas e na rastreabilidade entre requisitos funcionais e casos de teste, as entregas do FastInBox encontram-se <strong>funcionais, estaveis e aptas para apresentacao</strong> na banca do Projeto Integrador III. As ocorrencias detectadas (OC-001 e OC-002) foram pontuais, corrigidas dentro do mesmo ciclo e sem impacto nos criterios de aceite finais. A Sprint 4 inicia com baseline tecnico solido e zero divida de regressao remanescente.</p>
+                <p class="signoff">Aprovado por: <strong>Joao Vitor Tomas Marra</strong> (QA Lead) &middot; Revisado por: <strong>Thiago Lucas Alves</strong> (Backend) e <strong>Gabriel Goncalves</strong> (Frontend) &middot; Validacao academica: <strong>Profa. Kadidja Valeria Reginaldo de Oliveira</strong>.</p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            Documento publicado em GitHub Pages como parte da governanca de qualidade do FastInBox. Versao 1.0 emitida em 14/05/2026, com PDF base versionado no repositorio FastInBox-Repo/docs em <code>documents/relatorio-testes-sprint-1-3.pdf</code>.
+        </footer>
+    </main>
+</body>
+</html>

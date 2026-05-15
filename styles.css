@@ -292,8 +292,202 @@ a {
 .stack-section,
 .sprints-section,
 .flows-section,
+.qa-section,
 .documents-section {
     padding: 82px 0;
+}
+
+.qa-section {
+    background: #ffffff;
+    border-top: 3px solid #000000;
+    border-bottom: 3px solid #000000;
+}
+
+.qa-kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 0 0 2rem;
+}
+
+.qa-kpi {
+    border: 3px solid #000000;
+    background: #ffffff;
+    box-shadow: 6px 6px 0 #000000;
+    padding: 1rem 1.1rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.qa-kpi:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 4px 4px 0 #000000;
+}
+
+.qa-kpi strong {
+    display: block;
+    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.05;
+}
+
+.qa-kpi span {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.86rem;
+    color: #1f1f1f;
+    font-weight: 500;
+}
+
+.qa-kpi.qa-kpi-good { background: #e9ffe6; }
+.qa-kpi.qa-kpi-cold { background: #e7eeff; }
+.qa-kpi.qa-kpi-dark { background: #0a0a0a; color: #ffffff; }
+.qa-kpi.qa-kpi-dark span { color: #ffffff; }
+
+.qa-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.qa-doc-card {
+    border: 3px solid #000000;
+    background: #ffffff;
+    box-shadow: 8px 8px 0 #000000;
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.qa-doc-card:hover {
+    transform: translate(3px, 3px);
+    box-shadow: 5px 5px 0 #000000;
+}
+
+.qa-doc-card.qa-doc-pdf {
+    background: #fff7d6;
+}
+
+.qa-doc-kind {
+    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border: 2px solid #000000;
+    padding: 0.2rem 0.6rem;
+    background: #ffffff;
+    align-self: flex-start;
+}
+
+.qa-doc-card h3 {
+    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    text-transform: uppercase;
+    font-size: 1.15rem;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.qa-doc-topics {
+    list-style: none;
+    margin: 0.3rem 0 0.4rem;
+    padding: 0;
+    display: grid;
+    gap: 0.3rem;
+}
+
+.qa-doc-topics li {
+    position: relative;
+    padding-left: 1.2rem;
+    font-size: 0.9rem;
+    color: #1f1f1f;
+}
+
+.qa-doc-topics li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 0.7em;
+    height: 0.7em;
+    background: #000000;
+}
+
+.qa-doc-cta {
+    margin-top: auto;
+    align-self: flex-start;
+    border: 2px solid #000000;
+    background: #000000;
+    color: #ffffff;
+    padding: 0.55rem 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    box-shadow: 4px 4px 0 #000000;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.qa-doc-cta:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #000000;
+}
+
+.qa-strategy {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.qa-strat {
+    border: 2px solid #000000;
+    padding: 1rem 1.1rem;
+    background: #fafafa;
+}
+
+.qa-strat-num {
+    display: inline-block;
+    background: #000000;
+    color: #ffffff;
+    border: 2px solid #000000;
+    padding: 0.05rem 0.55rem;
+    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+}
+
+.qa-strat h4 {
+    margin: 0 0 0.3rem;
+    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+}
+
+.qa-strat p {
+    margin: 0;
+    font-size: 0.86rem;
+    color: #1f1f1f;
+}
+
+@media (max-width: 880px) {
+    .qa-kpi-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .qa-grid {
+        grid-template-columns: 1fr;
+    }
+    .qa-strategy {
+        grid-template-columns: 1fr;
+    }
 }
 
 .idv-section,
