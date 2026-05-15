@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FastInBox - Relatorio E2E com video</title>
+  <meta name="description" content="Relatorio profissional de testes E2E do FastInBox: para cada funcionalidade, descricao do que e testado e o video da execucao." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #000;
+      --paper: #fff;
+      --soft: #f6f6f6;
+      --softer: #fafafa;
+      --muted: #555;
+      --line: #111;
+      --ok: #0a8a3f;
+      --bad: #b8242b;
+      --warn: #b48000;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'IBM Plex Sans', system-ui, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      line-height: 1.5;
+    }
+    a { color: inherit; }
+    .top {
+      border-bottom: 2px solid var(--line);
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .top .crumb {
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+    .top h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      margin: 4px 0 0;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 2px solid var(--line);
+      padding: 8px 16px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .pill[data-status="failed"] { background: var(--bad); border-color: var(--bad); }
+    main { padding: 32px; max-width: 1280px; margin: 0 auto; }
+    .meta {
+      border: 2px solid var(--line);
+      box-shadow: 8px 8px 0 var(--line);
+      padding: 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+      background: var(--paper);
+    }
+    .meta .kpi {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      margin: 0;
+    }
+    .meta .label {
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      margin: 0 0 4px;
+    }
+    .areas-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 28px;
+    }
+    .areas-nav a {
+      border: 2px solid var(--line);
+      padding: 8px 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      background: var(--paper);
+      transition: transform 0.15s ease;
+    }
+    .areas-nav a:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--line); }
+    .areas-nav a span {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 0 6px;
+      background: var(--ink);
+      color: var(--paper);
+      border-radius: 999px;
+      font-size: 0.7rem;
+    }
+    .area {
+      margin-bottom: 48px;
+    }
+    .area-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--line);
+      padding-bottom: 8px;
+      margin-bottom: 18px;
+      gap: 12px;
+    }
+    .area-head h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin: 0;
+    }
+    .area-count {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 22px;
+    }
+    .card {
+      border: 2px solid var(--line);
+      background: var(--paper);
+      box-shadow: 6px 6px 0 var(--line);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 10px 10px 0 var(--line);
+    }
+    .card-thumb {
+      position: relative;
+      background: var(--ink);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      display: block;
+      color: var(--paper);
+    }
+    .card-thumb:disabled { cursor: not-allowed; opacity: 0.85; }
+    .card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .thumb-empty {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+    }
+    .play-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--paper);
+      background: rgba(0,0,0,0.18);
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+    .card-thumb:hover .play-overlay,
+    .card-thumb:focus-visible .play-overlay {
+      opacity: 1;
+    }
+    .play-overlay svg {
+      background: rgba(0,0,0,0.55);
+      border: 2px solid var(--paper);
+      border-radius: 999px;
+      padding: 12px;
+      width: 64px;
+      height: 64px;
+    }
+    .card-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--paper);
+      color: var(--ink);
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      border: 2px solid var(--line);
+    }
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 2px solid var(--paper);
+      background: var(--ok);
+      color: var(--paper);
+    }
+    .card-badge--failed,
+    .card-badge--timedOut { background: var(--bad); }
+    .card-badge--skipped { background: var(--warn); }
+    .card-body {
+      padding: 18px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+    .card-area {
+      margin: 0;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .card-summary {
+      margin: 0;
+      color: #2b2b2b;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+    .card-steps {
+      margin: 0;
+      padding: 12px 16px 12px 28px;
+      background: var(--softer);
+      border-left: 4px solid var(--ink);
+      color: #1a1a1a;
+      font-size: 0.85rem;
+      line-height: 1.55;
+    }
+    .card-steps li { margin: 0 0 4px; }
+    .card-foot {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 8px;
+      border-top: 1px dashed #d3d3d3;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .card-play {
+      background: var(--ink);
+      color: var(--paper);
+      border: none;
+      padding: 8px 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+    }
+    .card-play:hover { background: #1d1d1d; }
+    .card-foot-dim { font-style: italic; color: #999; }
+    .card-error {
+      margin-top: 4px;
+    }
+    .card-error summary {
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--bad);
+    }
+    .card-error pre {
+      margin: 8px 0 0;
+      background: var(--softer);
+      border: 2px solid var(--bad);
+      padding: 10px;
+      font-size: 0.75rem;
+      white-space: pre-wrap;
+    }
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.86);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease;
+    }
+    .modal.open { opacity: 1; pointer-events: auto; }
+    .modal-card {
+      background: var(--paper);
+      border: 2px solid var(--paper);
+      max-width: 1080px;
+      width: 100%;
+      max-height: 90vh;
+      overflow: auto;
+      box-shadow: 14px 14px 0 #fff2;
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 22px;
+      border-bottom: 2px solid var(--ink);
+      gap: 12px;
+    }
+    .modal-head h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      margin: 0;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+    }
+    .modal-close {
+      background: var(--ink);
+      color: var(--paper);
+      border: none;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .modal-body {
+      padding: 0 22px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .modal-desc {
+      margin: 12px 0 0;
+      color: #1c1c1c;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .modal-video {
+      width: 100%;
+      max-height: 70vh;
+      background: #000;
+      border: 2px solid var(--ink);
+    }
+    footer.bottom {
+      padding: 32px;
+      border-top: 2px solid var(--line);
+      color: var(--muted);
+      font-size: 0.78rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    footer.bottom a { font-weight: 700; }
+    @media (max-width: 720px) {
+      .top, main, footer.bottom { padding: 22px; }
+      .area-head { flex-direction: column; align-items: flex-start; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div>
+      <p class="crumb">FastInBox - QA - Suite End-to-End</p>
+      <h1>Relatorio E2E com video por funcionalidade</h1>
+    </div>
+    <span class="pill" data-status="passed">Suite saudavel</span>
+  </header>
+  <main>
+    <section class="meta">
+      <div><p class="label">Cenarios</p><p class="kpi">22</p></div>
+      <div><p class="label">Aprovados</p><p class="kpi" style="color: var(--ok)">22</p></div>
+      <div><p class="label">Falhas</p><p class="kpi" style="color: var(--bad)">0</p></div>
+      <div><p class="label">Ignorados</p><p class="kpi" style="color: var(--warn)">0</p></div>
+    </section>
+    <nav class="areas-nav"><a href="#area-publico">Publico <span>4</span></a><a href="#area-nutricionista">Nutricionista <span>5</span></a><a href="#area-paciente">Paciente <span>4</span></a><a href="#area-cozinha">Cozinha <span>3</span></a><a href="#area-admin">Admin <span>6</span></a></nav>
+    <section class="area" id="area-publico">
+        <header class="area-head">
+          <h2>Publico</h2>
+          <span class="area-count">4 cenarios</span>
+        </header>
+        <div class="grid"><article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/01-home-tracking-home-publica-e-rastreio-de-pedido.webm" data-title="Home publica e rastreio de pedido" data-desc="Valida a landing page institucional do FastInBox e o atalho de rastreio que abre direto a timeline de um pedido a partir do codigo informado." >
+      <img loading="lazy" src="posters/01-home-tracking-home-publica-e-rastreio-de-pedido.jpg" alt="Preview: Home publica e rastreio de pedido" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#01</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Publico</p>
+      <h3 class="card-title">Home publica e rastreio de pedido</h3>
+      <p class="card-summary">Valida a landing page institucional do FastInBox e o atalho de rastreio que abre direto a timeline de um pedido a partir do codigo informado.</p>
+      <ol class="card-steps"><li>Abre a home publica e confirma o hero principal</li><li>Navega pelas ancoras de Como funciona, Beneficios e FAQ</li><li>Expande uma pergunta do FAQ</li><li>Informa um codigo de pedido (FIB-2026-001) no atalho de rastreio</li><li>Confirma que a rota redireciona para o status do pedido do paciente</li></ol>
+      <footer class="card-foot">
+        <span>8s</span>
+        <button class="card-play" type="button" data-video="videos/01-home-tracking-home-publica-e-rastreio-de-pedido.webm" data-title="Home publica e rastreio de pedido" data-desc="Valida a landing page institucional do FastInBox e o atalho de rastreio que abre direto a timeline de um pedido a partir do codigo informado.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article>
+<article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/02-auth-login-login-para-tres-perfis-distintos.webm" data-title="Login multi-perfil + erro com credencial invalida" data-desc="Garante que os tres perfis publicos (nutricionista, paciente e cozinha) conseguem autenticar com sucesso e que credenciais invalidas permanecem na tela de login." >
+      <img loading="lazy" src="posters/02-auth-login-login-para-tres-perfis-distintos.jpg" alt="Preview: Login multi-perfil + erro com credencial invalida" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#02</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Publico</p>
+      <h3 class="card-title">Login multi-perfil + erro com credencial invalida</h3>
+      <p class="card-summary">Garante que os tres perfis publicos (nutricionista, paciente e cozinha) conseguem autenticar com sucesso e que credenciais invalidas permanecem na tela de login.</p>
+      <ol class="card-steps"><li>Faz login como nutricionista (ana@nutritionvida.com.br) e valida redirecionamento</li><li>Refaz o fluxo como paciente seedado</li><li>Refaz o fluxo como cozinha (fabrica@fastinbox.com.br)</li><li>Tenta uma combinacao invalida e confirma que segue em /login</li></ol>
+      <footer class="card-foot">
+        <span>41s</span>
+        <button class="card-play" type="button" data-video="videos/02-auth-login-login-para-tres-perfis-distintos.webm" data-title="Login multi-perfil + erro com credencial invalida" data-desc="Garante que os tres perfis publicos (nutricionista, paciente e cozinha) conseguem autenticar com sucesso e que credenciais invalidas permanecem na tela de login.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article>
+<article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/03-auth-register-cadastro-de-novo-paciente.webm" data-title="Cadastro de novo paciente" data-desc="Cobre o auto-atendimento de cadastro: o paciente preenche os dados minimos e a plataforma cria a conta + direciona para a area logada." >
+      <img loading="lazy" src="posters/03-auth-register-cadastro-de-novo-paciente.jpg" alt="Preview: Cadastro de novo paciente" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#03</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Publico</p>
+      <h3 class="card-title">Cadastro de novo paciente</h3>
+      <p class="card-summary">Cobre o auto-atendimento de cadastro: o paciente preenche os dados minimos e a plataforma cria a conta + direciona para a area logada.</p>
+      <ol class="card-steps"><li>Acessa /login?role=paciente</li><li>Alterna para a aba Cadastrar via role=tab</li><li>Seleciona o perfil Paciente</li><li>Preenche nome, telefone, objetivo, e-mail e senha</li><li>Clica em Criar conta e valida redirecionamento para /paciente</li></ol>
+      <footer class="card-foot">
+        <span>4s</span>
+        <button class="card-play" type="button" data-video="videos/03-auth-register-cadastro-de-novo-paciente.webm" data-title="Cadastro de novo paciente" data-desc="Cobre o auto-atendimento de cadastro: o paciente preenche os dados minimos e a plataforma cria a conta + direciona para a area logada.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article>
+<article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/04-auth-forgot-password-recuperacao-de-senha.webm" data-title="Recuperacao de senha" data-desc="Confirma o fluxo de auto-recuperacao com a tela de sucesso (E-mail enviado) e o atalho de retorno ao login." >
+      <img loading="lazy" src="posters/04-auth-forgot-password-recuperacao-de-senha.jpg" alt="Preview: Recuperacao de senha" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#04</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Publico</p>
+      <h3 class="card-title">Recuperacao de senha</h3>
+      <p class="card-summary">Confirma o fluxo de auto-recuperacao com a tela de sucesso (E-mail enviado) e o atalho de retorno ao login.</p>
+      <ol class="card-steps"><li>Abre /recuperar-senha</li><li>Submete um e-mail valido (ana@nutritionvida.com.br)</li><li>Aguarda a confirmacao 'E-mail enviado'</li><li>Volta para a tela de login pelo atalho</li></ol>
+      <footer class="card-foot">
+        <span>2s</span>
+        <button class="card-play" type="button" data-video="videos/04-auth-forgot-password-recuperacao-de-senha.webm" data-title="Recuperacao de senha" data-desc="Confirma o fluxo de auto-recuperacao com a tela de sucesso (E-mail enviado) e o atalho de retorno ao login.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article></div>
+      </section>
+<section class="area" id="area-nutricionista">
+        <header class="area-head">
+          <h2>Nutricionista</h2>
+          <span class="area-count">5 cenarios</span>
+        </header>
+        <div class="grid"><article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/05-nutri-dashboard-dashboard-do-nutricionista.webm" data-title="Dashboard do nutricionista" data-desc="Verifica os indicadores principais do nutricionista: pacientes ativos, rascunhos, pagos, em producao e faturamento." >
+      <img loading="lazy" src="posters/05-nutri-dashboard-dashboard-do-nutricionista.jpg" alt="Preview: Dashboard do nutricionista" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#05</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Nutricionista</p>
+      <h3 class="card-title">Dashboard do nutricionista</h3>
+      <p class="card-summary">Verifica os indicadores principais do nutricionista: pacientes ativos, rascunhos, pagos, em producao e faturamento.</p>
+      <ol class="card-steps"><li>Login como nutricionista</li><li>Confirma os cards de metricas (Pacientes, Pagos, Faturamento)</li><li>Navega rapidamente para a area de Pacientes pelo menu lateral</li><li>Volta para o dashboard</li></ol>
+      <footer class="card-foot">
+        <span>19s</span>
+        <button class="card-play" type="button" data-video="videos/05-nutri-dashboard-dashboard-do-nutricionista.webm" data-title="Dashboard do nutricionista" data-desc="Verifica os indicadores principais do nutricionista: pacientes ativos, rascunhos, pagos, em producao e faturamento.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article>
+<article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/06-nutri-pacientes-cadastro-e-busca-de-pacientes.webm" data-title="Gestao de pacientes" data-desc="Cobre a tabela de pacientes (busca + lista) e o cadastro completo via modal lateral." >
+      <img loading="lazy" src="posters/06-nutri-pacientes-cadastro-e-busca-de-pacientes.jpg" alt="Preview: Gestao de pacientes" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#06</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Nutricionista</p>
+      <h3 class="card-title">Gestao de pacientes</h3>
+      <p class="card-summary">Cobre a tabela de pacientes (busca + lista) e o cadastro completo via modal lateral.</p>
+      <ol class="card-steps"><li>Login como nutricionista e acesso a /nutricionista/pacientes</li><li>Pesquisa por 'Maria' e limpa o filtro</li><li>Abre o modal 'Novo Paciente'</li><li>Preenche nome, e-mail, telefone e CPF e confirma cadastro</li><li>Valida que o novo paciente aparece na listagem</li></ol>
+      <footer class="card-foot">
+        <span>20s</span>
+        <button class="card-play" type="button" data-video="videos/06-nutri-pacientes-cadastro-e-busca-de-pacientes.webm" data-title="Gestao de pacientes" data-desc="Cobre a tabela de pacientes (busca + lista) e o cadastro completo via modal lateral.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article>
+<article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/07-nutri-novo-pedido-wizard-de-novo-pedido.webm" data-title="Wizard de novo pedido" data-desc="Percorre os quatro passos do wizard (Paciente, Marmitas, Precos, Revisao) garantindo que cada etapa avanca corretamente." >
+      <img loading="lazy" src="posters/07-nutri-novo-pedido-wizard-de-novo-pedido.jpg" alt="Preview: Wizard de novo pedido" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#07</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Nutricionista</p>
+      <h3 class="card-title">Wizard de novo pedido</h3>
+      <p class="card-summary">Percorre os quatro passos do wizard (Paciente, Marmitas, Precos, Revisao) garantindo que cada etapa avanca corretamente.</p>
+      <ol class="card-steps"><li>Login como nutricionista</li><li>Abre /nutricionista/pedidos/novo</li><li>Seleciona um paciente</li><li>Avanca para as etapas seguintes ate a revisao</li></ol>
+      <footer class="card-foot">
+        <span>38s</span>
+        <button class="card-play" type="button" data-video="videos/07-nutri-novo-pedido-wizard-de-novo-pedido.webm" data-title="Wizard de novo pedido" data-desc="Percorre os quatro passos do wizard (Paciente, Marmitas, Precos, Revisao) garantindo que cada etapa avanca corretamente.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article>
+<article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/08-nutri-pedido-resumo-resumo-de-pedido-existente.webm" data-title="Resumo de pedido" data-desc="Abre um pedido existente a partir do dashboard e confirma que o nutricionista visualiza codigo, status e acoes disponiveis." >
+      <img loading="lazy" src="posters/08-nutri-pedido-resumo-resumo-de-pedido-existente.jpg" alt="Preview: Resumo de pedido" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#08</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Nutricionista</p>
+      <h3 class="card-title">Resumo de pedido</h3>
+      <p class="card-summary">Abre um pedido existente a partir do dashboard e confirma que o nutricionista visualiza codigo, status e acoes disponiveis.</p>
+      <ol class="card-steps"><li>Login como nutricionista</li><li>Busca pelo link FIB- no dashboard ou abre /nutricionista/pedidos/1</li><li>Confirma que a pagina exibe titulo, codigo e status</li></ol>
+      <footer class="card-foot">
+        <span>19s</span>
+        <button class="card-play" type="button" data-video="videos/08-nutri-pedido-resumo-resumo-de-pedido-existente.webm" data-title="Resumo de pedido" data-desc="Abre um pedido existente a partir do dashboard e confirma que o nutricionista visualiza codigo, status e acoes disponiveis.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article>
+<article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/09-nutri-configuracoes-configuracoes-da-clinica.webm" data-title="Configuracoes da clinica" data-desc="Valida a tela de personalizacao da clinica (marca, identidade e preferencias) e o botao de salvar." >
+      <img loading="lazy" src="posters/09-nutri-configuracoes-configuracoes-da-clinica.jpg" alt="Preview: Configuracoes da clinica" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#09</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Nutricionista</p>
+      <h3 class="card-title">Configuracoes da clinica</h3>
+      <p class="card-summary">Valida a tela de personalizacao da clinica (marca, identidade e preferencias) e o botao de salvar.</p>
+      <ol class="card-steps"><li>Login como nutricionista</li><li>Abre /nutricionista/configuracoes</li><li>Altera o primeiro campo editavel</li><li>Aciona o botao Salvar (quando disponivel)</li></ol>
+      <footer class="card-foot">
+        <span>21s</span>
+        <button class="card-play" type="button" data-video="videos/09-nutri-configuracoes-configuracoes-da-clinica.webm" data-title="Configuracoes da clinica" data-desc="Valida a tela de personalizacao da clinica (marca, identidade e preferencias) e o botao de salvar.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article></div>
+      </section>
+<section class="area" id="area-paciente">
+        <header class="area-head">
+          <h2>Paciente</h2>
+          <span class="area-count">4 cenarios</span>
+        </header>
+        <div class="grid"><article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/10-paciente-landing-landing-do-paciente.webm" data-title="Landing do paciente" data-desc="Garante que o paciente desconectado consegue consultar um pedido a partir da landing publica /paciente." >
+      <img loading="lazy" src="posters/10-paciente-landing-landing-do-paciente.jpg" alt="Preview: Landing do paciente" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#10</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Paciente</p>
+      <h3 class="card-title">Landing do paciente</h3>
+      <p class="card-summary">Garante que o paciente desconectado consegue consultar um pedido a partir da landing publica /paciente.</p>
+      <ol class="card-steps"><li>Acessa /paciente sem sessao</li><li>Informa um codigo de pedido (FIB-2026-001)</li><li>Confirma redirecionamento para a tela do pedido</li></ol>
+      <footer class="card-foot">
+        <span>2s</span>
+        <button class="card-play" type="button" data-video="videos/10-paciente-landing-landing-do-paciente.webm" data-title="Landing do paciente" data-desc="Garante que o paciente desconectado consegue consultar um pedido a partir da landing publica /paciente.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article>
+<article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/11-paciente-pedido-paciente-visualiza-pedido.webm" data-title="Visualizacao e confirmacao de pedido" data-desc="Abre o pedido na visao do paciente com itens, observacoes e CTA principal (Confirmar / Prosseguir / Pagar)." >
+      <img loading="lazy" src="posters/11-paciente-pedido-paciente-visualiza-pedido.jpg" alt="Preview: Visualizacao e confirmacao de pedido" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#11</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Paciente</p>
+      <h3 class="card-title">Visualizacao e confirmacao de pedido</h3>
+      <p class="card-summary">Abre o pedido na visao do paciente com itens, observacoes e CTA principal (Confirmar / Prosseguir / Pagar).</p>
+      <ol class="card-steps"><li>Acessa diretamente /paciente/pedido/FIB-2026-001</li><li>Confirma que o conteudo do pedido carrega</li><li>Aciona o CTA principal quando disponivel</li></ol>
+      <footer class="card-foot">
+        <span>2s</span>
+        <button class="card-play" type="button" data-video="videos/11-paciente-pedido-paciente-visualiza-pedido.webm" data-title="Visualizacao e confirmacao de pedido" data-desc="Abre o pedido na visao do paciente com itens, observacoes e CTA principal (Confirmar / Prosseguir / Pagar).">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article>
+<article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/12-paciente-pagamento-paciente-escolhe-metodo-de-pagamento.webm" data-title="Escolha de metodo de pagamento" data-desc="Demonstra a alternancia entre as tres formas de pagamento (PIX, cartao e boleto) e o disparo do pagamento." >
+      <img loading="lazy" src="posters/12-paciente-pagamento-paciente-escolhe-metodo-de-pagamento.jpg" alt="Preview: Escolha de metodo de pagamento" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#12</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Paciente</p>
+      <h3 class="card-title">Escolha de metodo de pagamento</h3>
+      <p class="card-summary">Demonstra a alternancia entre as tres formas de pagamento (PIX, cartao e boleto) e o disparo do pagamento.</p>
+      <ol class="card-steps"><li>Abre /paciente/pedido/FIB-2026-001/pagamento</li><li>Alterna entre PIX, Cartao e Boleto</li><li>Aciona o botao final de pagamento</li></ol>
+      <footer class="card-foot">
+        <span>5s</span>
+        <button class="card-play" type="button" data-video="videos/12-paciente-pagamento-paciente-escolhe-metodo-de-pagamento.webm" data-title="Escolha de metodo de pagamento" data-desc="Demonstra a alternancia entre as tres formas de pagamento (PIX, cartao e boleto) e o disparo do pagamento.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article>
+<article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/13-paciente-status-timeline-de-status-do-pedido.webm" data-title="Timeline de status do pedido" data-desc="Acompanha em tempo real a evolucao do pedido (producao, entrega) na visao do paciente." >
+      <img loading="lazy" src="posters/13-paciente-status-timeline-de-status-do-pedido.jpg" alt="Preview: Timeline de status do pedido" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#13</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Paciente</p>
+      <h3 class="card-title">Timeline de status do pedido</h3>
+      <p class="card-summary">Acompanha em tempo real a evolucao do pedido (producao, entrega) na visao do paciente.</p>
+      <ol class="card-steps"><li>Abre /paciente/pedido/FIB-2026-001/status</li><li>Confirma a presenca da timeline (producao / entrega / preparo)</li></ol>
+      <footer class="card-foot">
+        <span>4s</span>
+        <button class="card-play" type="button" data-video="videos/13-paciente-status-timeline-de-status-do-pedido.webm" data-title="Timeline de status do pedido" data-desc="Acompanha em tempo real a evolucao do pedido (producao, entrega) na visao do paciente.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article></div>
+      </section>
+<section class="area" id="area-cozinha">
+        <header class="area-head">
+          <h2>Cozinha</h2>
+          <span class="area-count">3 cenarios</span>
+        </header>
+        <div class="grid"><article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/14-cozinha-login-login-da-fabrica.webm" data-title="Login da fabrica" data-desc="Cobre o login dedicado da cozinha em /cozinha/login e o acesso ao painel operacional." >
+      <img loading="lazy" src="posters/14-cozinha-login-login-da-fabrica.jpg" alt="Preview: Login da fabrica" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#14</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Cozinha</p>
+      <h3 class="card-title">Login da fabrica</h3>
+      <p class="card-summary">Cobre o login dedicado da cozinha em /cozinha/login e o acesso ao painel operacional.</p>
+      <ol class="card-steps"><li>Acessa /cozinha/login</li><li>Preenche usuario e senha</li><li>Confirma redirecionamento para /cozinha/dashboard</li></ol>
+      <footer class="card-foot">
+        <span>2s</span>
+        <button class="card-play" type="button" data-video="videos/14-cozinha-login-login-da-fabrica.webm" data-title="Login da fabrica" data-desc="Cobre o login dedicado da cozinha em /cozinha/login e o acesso ao painel operacional.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article>
+<article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/15-cozinha-dashboard-dashboard-de-producao.webm" data-title="Painel de producao (kanban)" data-desc="Verifica o kanban da cozinha com as colunas Novo, Em producao, Pronto, Em entrega e Entregue." >
+      <img loading="lazy" src="posters/15-cozinha-dashboard-dashboard-de-producao.jpg" alt="Preview: Painel de producao (kanban)" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#15</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Cozinha</p>
+      <h3 class="card-title">Painel de producao (kanban)</h3>
+      <p class="card-summary">Verifica o kanban da cozinha com as colunas Novo, Em producao, Pronto, Em entrega e Entregue.</p>
+      <ol class="card-steps"><li>Login como cozinha</li><li>Abre /cozinha/dashboard</li><li>Confirma a presenca das 5 colunas do fluxo</li></ol>
+      <footer class="card-foot">
+        <span>49s</span>
+        <button class="card-play" type="button" data-video="videos/15-cozinha-dashboard-dashboard-de-producao.webm" data-title="Painel de producao (kanban)" data-desc="Verifica o kanban da cozinha com as colunas Novo, Em producao, Pronto, Em entrega e Entregue.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article>
+<article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/16-cozinha-pedido-cozinha-abre-e-movimenta-pedido.webm" data-title="Atualizacao de pedido em producao" data-desc="Abre um pedido a partir do kanban e movimenta o status (producao -&gt; pronto -&gt; entrega)." >
+      <img loading="lazy" src="posters/16-cozinha-pedido-cozinha-abre-e-movimenta-pedido.jpg" alt="Preview: Atualizacao de pedido em producao" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#16</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Cozinha</p>
+      <h3 class="card-title">Atualizacao de pedido em producao</h3>
+      <p class="card-summary">Abre um pedido a partir do kanban e movimenta o status (producao -&gt; pronto -&gt; entrega).</p>
+      <ol class="card-steps"><li>Login como cozinha</li><li>Abre o primeiro card do kanban ou /cozinha/pedido/1</li><li>Aciona o botao de avanco de status</li></ol>
+      <footer class="card-foot">
+        <span>20s</span>
+        <button class="card-play" type="button" data-video="videos/16-cozinha-pedido-cozinha-abre-e-movimenta-pedido.webm" data-title="Atualizacao de pedido em producao" data-desc="Abre um pedido a partir do kanban e movimenta o status (producao -&gt; pronto -&gt; entrega).">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article></div>
+      </section>
+<section class="area" id="area-admin">
+        <header class="area-head">
+          <h2>Admin</h2>
+          <span class="area-count">6 cenarios</span>
+        </header>
+        <div class="grid"><article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/17-admin-dashboard-dashboard-administrativo.webm" data-title="Dashboard administrativo" data-desc="Mostra a visao global da operacao FastInBox com pedidos totais, faturamento e pacientes ativos." >
+      <img loading="lazy" src="posters/17-admin-dashboard-dashboard-administrativo.jpg" alt="Preview: Dashboard administrativo" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#17</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Admin</p>
+      <h3 class="card-title">Dashboard administrativo</h3>
+      <p class="card-summary">Mostra a visao global da operacao FastInBox com pedidos totais, faturamento e pacientes ativos.</p>
+      <ol class="card-steps"><li>Acessa /admin/dashboard (rota administrativa)</li><li>Confirma o titulo e os cards principais</li></ol>
+      <footer class="card-foot">
+        <span>3s</span>
+        <button class="card-play" type="button" data-video="videos/17-admin-dashboard-dashboard-administrativo.webm" data-title="Dashboard administrativo" data-desc="Mostra a visao global da operacao FastInBox com pedidos totais, faturamento e pacientes ativos.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article>
+<article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/18-admin-usuarios-gestao-de-usuarios-admin.webm" data-title="Gestao de usuarios e papeis" data-desc="Lista todos os usuarios da plataforma, permite busca e acionamento do CTA de novo usuario." >
+      <img loading="lazy" src="posters/18-admin-usuarios-gestao-de-usuarios-admin.jpg" alt="Preview: Gestao de usuarios e papeis" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#18</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Admin</p>
+      <h3 class="card-title">Gestao de usuarios e papeis</h3>
+      <p class="card-summary">Lista todos os usuarios da plataforma, permite busca e acionamento do CTA de novo usuario.</p>
+      <ol class="card-steps"><li>Abre /admin/usuarios</li><li>Pesquisa por 'Ana' e limpa o filtro</li><li>Aciona o botao 'Novo usuario'</li></ol>
+      <footer class="card-foot">
+        <span>3s</span>
+        <button class="card-play" type="button" data-video="videos/18-admin-usuarios-gestao-de-usuarios-admin.webm" data-title="Gestao de usuarios e papeis" data-desc="Lista todos os usuarios da plataforma, permite busca e acionamento do CTA de novo usuario.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article>
+<article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/19-admin-pedidos-admin-auditoria-de-pedidos.webm" data-title="Auditoria de pedidos" data-desc="Consulta global de pedidos com filtros por status / clinica e visao consolidada." >
+      <img loading="lazy" src="posters/19-admin-pedidos-admin-auditoria-de-pedidos.jpg" alt="Preview: Auditoria de pedidos" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#19</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Admin</p>
+      <h3 class="card-title">Auditoria de pedidos</h3>
+      <p class="card-summary">Consulta global de pedidos com filtros por status / clinica e visao consolidada.</p>
+      <ol class="card-steps"><li>Abre /admin/pedidos</li><li>Aplica um filtro de status (quando disponivel)</li></ol>
+      <footer class="card-foot">
+        <span>2s</span>
+        <button class="card-play" type="button" data-video="videos/19-admin-pedidos-admin-auditoria-de-pedidos.webm" data-title="Auditoria de pedidos" data-desc="Consulta global de pedidos com filtros por status / clinica e visao consolidada.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article>
+<article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/20-admin-auditoria-admin-auditoria-global.webm" data-title="Trilha de auditoria" data-desc="Mostra a trilha de eventos da plataforma (logins, criacoes, alteracoes) com filtros por ator e periodo." >
+      <img loading="lazy" src="posters/20-admin-auditoria-admin-auditoria-global.jpg" alt="Preview: Trilha de auditoria" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#20</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Admin</p>
+      <h3 class="card-title">Trilha de auditoria</h3>
+      <p class="card-summary">Mostra a trilha de eventos da plataforma (logins, criacoes, alteracoes) com filtros por ator e periodo.</p>
+      <ol class="card-steps"><li>Abre /admin/auditoria</li><li>Aplica filtros sequenciais nos selects disponiveis</li></ol>
+      <footer class="card-foot">
+        <span>2s</span>
+        <button class="card-play" type="button" data-video="videos/20-admin-auditoria-admin-auditoria-global.webm" data-title="Trilha de auditoria" data-desc="Mostra a trilha de eventos da plataforma (logins, criacoes, alteracoes) com filtros por ator e periodo.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article>
+<article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/21-admin-diagnostico-admin-diagnostico-de-sistema.webm" data-title="Diagnostico de sistema" data-desc="Executa checagens automaticas de saude (banco, fila, integracoes) e oferece um botao de re-execucao." >
+      <img loading="lazy" src="posters/21-admin-diagnostico-admin-diagnostico-de-sistema.jpg" alt="Preview: Diagnostico de sistema" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#21</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Admin</p>
+      <h3 class="card-title">Diagnostico de sistema</h3>
+      <p class="card-summary">Executa checagens automaticas de saude (banco, fila, integracoes) e oferece um botao de re-execucao.</p>
+      <ol class="card-steps"><li>Abre /admin/diagnostico</li><li>Aciona o botao de re-executar checagens</li></ol>
+      <footer class="card-foot">
+        <span>4s</span>
+        <button class="card-play" type="button" data-video="videos/21-admin-diagnostico-admin-diagnostico-de-sistema.webm" data-title="Diagnostico de sistema" data-desc="Executa checagens automaticas de saude (banco, fila, integracoes) e oferece um botao de re-execucao.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article>
+<article class="card" data-status="passed">
+    <button class="card-thumb" type="button" data-video="videos/22-admin-configuracoes-admin-configuracoes-globais.webm" data-title="Configuracoes globais" data-desc="Cobre os parametros globais da plataforma e o toggle de preferencias administrativas." >
+      <img loading="lazy" src="posters/22-admin-configuracoes-admin-configuracoes-globais.jpg" alt="Preview: Configuracoes globais" />
+      <span class="play-overlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="card-tag">#22</span>
+      <span class="card-badge card-badge--passed">Aprovado</span>
+    </button>
+    <div class="card-body">
+      <p class="card-area">Admin</p>
+      <h3 class="card-title">Configuracoes globais</h3>
+      <p class="card-summary">Cobre os parametros globais da plataforma e o toggle de preferencias administrativas.</p>
+      <ol class="card-steps"><li>Abre /admin/configuracoes</li><li>Alterna um toggle/switch da pagina</li></ol>
+      <footer class="card-foot">
+        <span>3s</span>
+        <button class="card-play" type="button" data-video="videos/22-admin-configuracoes-admin-configuracoes-globais.webm" data-title="Configuracoes globais" data-desc="Cobre os parametros globais da plataforma e o toggle de preferencias administrativas.">Assistir video &rarr;</button>
+      </footer>
+      
+    </div>
+  </article></div>
+      </section>
+  </main>
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-card">
+      <header class="modal-head">
+        <h3 id="modal-title">Video</h3>
+        <button type="button" class="modal-close" id="modal-close" aria-label="Fechar">Fechar</button>
+      </header>
+      <div class="modal-body">
+        <video id="modal-video" class="modal-video" controls playsinline preload="metadata"></video>
+        <p class="modal-desc" id="modal-desc"></p>
+      </div>
+    </div>
+  </div>
+  <footer class="bottom">
+    <span>Gerado em 2026-05-15T20:09:00.039Z - Stack: Playwright + Chromium + NestJS + Next.js</span>
+    <a href="../../index.html">&larr; Voltar ao hub de documentacao</a>
+  </footer>
+  <script>
+    (function () {
+      var modal = document.getElementById('modal');
+      var modalVideo = document.getElementById('modal-video');
+      var modalTitle = document.getElementById('modal-title');
+      var modalDesc = document.getElementById('modal-desc');
+      var modalClose = document.getElementById('modal-close');
+
+      function open(src, title, desc) {
+        if (!src) return;
+        modalVideo.src = src;
+        modalTitle.textContent = title || 'Video';
+        modalDesc.textContent = desc || '';
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        try { modalVideo.currentTime = 0; modalVideo.play(); } catch (e) {}
+      }
+
+      function close() {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        try { modalVideo.pause(); } catch (e) {}
+        modalVideo.removeAttribute('src');
+        modalVideo.load();
+      }
+
+      document.querySelectorAll('[data-video]').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          var src = btn.getAttribute('data-video');
+          var title = btn.getAttribute('data-title');
+          var desc = btn.getAttribute('data-desc');
+          if (src) open(src, title, desc);
+        });
+      });
+
+      modalClose.addEventListener('click', close);
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) close();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') close();
+      });
+    })();
+  </script>
+</body>
+</html>
