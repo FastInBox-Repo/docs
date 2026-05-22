@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | CI/CD - Estudo e Aplicabilidade</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./repositorio-configuracao.html">Repositorio de Configuracao</a>
+            <a href="./plano-de-testes.html">Plano de Testes</a>
+            <a href="./retrospectiva-sprints-1-3.html">Retrospectiva</a>
+            <a href="./sprint-5-planning.html">Sprint 5 Planning</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | DevOps e Engenharia de Entrega</p>
+            <h1>CI/CD - Integracao Continua e Entrega Continua</h1>
+            <p>Versao: 1.0 | Padrao GitHub Actions + Vercel + Heroku + GitHub Pages</p>
+            <p>Estudo formal de CI/CD aplicado ao FastInBox. Documento produzido como atividade da Aula 14 PI III. Cobre definicoes, referencias, beneficios, decisoes do time e pipeline implementado nos 3 repositorios.</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Joao Vitor Marra | <strong>Ultima atualizacao:</strong> 22/05/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+        </header>
+
+        <section>
+            <h2>1. Definicoes (ISTQB + DORA)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Termo</th><th>Definicao</th><th>Aplicacao FastInBox</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>CI</strong> - Continuous Integration</td><td>Pratica de integrar codigo na branch principal varias vezes ao dia, validado por build automatizado e testes.</td><td>Cada PR dispara lint + typecheck + build + unit tests via GitHub Actions.</td></tr>
+                    <tr><td><strong>CD</strong> - Continuous Delivery</td><td>Codigo aprovado na main esta sempre apto a deploy para producao, com aprovacao manual final.</td><td>Vercel e Heroku geram preview por PR; merge em main libera deploy automatico apos build verde.</td></tr>
+                    <tr><td><strong>CD</strong> - Continuous Deployment</td><td>Deploy automatico para producao a cada merge na main, sem aprovacao manual.</td><td>Adotado nos 3 repositorios. Rollback via tag SemVer ou revert commit.</td></tr>
+                    <tr><td><strong>Deployment Frequency</strong></td><td>DORA metric: quantos deploys por unidade de tempo.</td><td>FastInBox: ~5 deploys/semana em desenvolvimento ativo.</td></tr>
+                    <tr><td><strong>Lead Time for Changes</strong></td><td>Tempo entre commit e producao.</td><td>FastInBox: mediana 12 min (build + deploy + smoke).</td></tr>
+                    <tr><td><strong>Change Failure Rate</strong></td><td>Percentual de deploys que causam falha em producao.</td><td>FastInBox: 0% nas Sprints 1-5 (rollback nao necessario).</td></tr>
+                    <tr><td><strong>MTTR</strong></td><td>Mean Time To Recovery em incidente.</td><td>Sem incidente registrado; estimativa em testes: &lt; 5 min via revert + redeploy.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>2. Referencias consultadas pelo time</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <table>
+                <thead><tr><th>Fonte</th><th>Tipo</th><th>Conclusao aplicada</th></tr></thead>
+                <tbody>
+                    <tr><td>"Continuous Delivery" - Jez Humble &amp; David Farley</td><td>Livro</td><td>Pipeline como deployment pipeline (build -&gt; test -&gt; preview -&gt; producao).</td></tr>
+                    <tr><td>DORA State of DevOps Report</td><td>Estudo anual</td><td>4 metricas DORA como bussola de evolucao da entrega.</td></tr>
+                    <tr><td>Martin Fowler - "ContinuousIntegration"</td><td>Artigo</td><td>10 praticas centrais (single source repo, automate build, self-testing, fast build...).</td></tr>
+                    <tr><td>GitHub Actions Documentation</td><td>Documentacao oficial</td><td>workflows.yaml, secrets, environment protection rules.</td></tr>
+                    <tr><td>Vercel Docs - Git Integration</td><td>Documentacao oficial</td><td>Preview deployments por branch + production deployment via main.</td></tr>
+                    <tr><td>Heroku Dev Center - Pipelines</td><td>Documentacao oficial</td><td>review apps + staging + production com promote manual.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Beneficios concretos para o FastInBox</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <ul>
+                <li><strong>Risco menor por deploy:</strong> diffs pequenos sao mais faceis de revisar e reverter.</li>
+                <li><strong>Feedback rapido:</strong> autor descobre regressao em ~10 min, nao em sprint review.</li>
+                <li><strong>Confianca para refatorar:</strong> suite de testes serve como rede de seguranca em mudancas grandes (ex: migracao para NestJS na Sprint 3).</li>
+                <li><strong>Docs sincronizadas:</strong> diff de /docs faz parte do mesmo PR da feature.</li>
+                <li><strong>Demo sempre disponivel:</strong> URL Vercel viva para banca, sem janela de manutencao.</li>
+                <li><strong>Auditoria:</strong> cada commit tem hash, autor, build log e link para deploy.</li>
+                <li><strong>Rollback rapido:</strong> revert + push restaura producao em &lt; 5 min.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. Pipeline implementado - visao geral</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <pre style="border:3px solid #000;padding:14px;box-shadow:5px 5px 0 #000;background:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;line-height:1.45;overflow:auto;">
+   Developer            GitHub             GitHub Actions             Vercel / Heroku             Production
+   -------------------------------------------------------------------------------------------------------
+   git push feat/x  -->  PR open      -->   workflow run         -->   preview-x.vercel.app  -->  visivel
+                                            - npm ci
+                                            - npm run lint
+                                            - tsc --noEmit
+                                            - npm run build
+                                            - npm test (jest)
+                                            - npx playwright smoke
+                                            green? ok : block PR
+
+   PR review (peer)  --> approve      -->   merge main           -->   front-chi-flame...    -->  live
+                                            - tag SemVer auto
+                                            - changelog
+                                            - publish docs
+
+   Hotfix tag         -->   workflow rollback   -->   redeploy previous tag    -->  recovery &lt; 5 min
+</pre>
+        </section>
+
+        <section>
+            <h2>5. Pipeline por repositorio</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <table>
+                <thead><tr><th>Repositorio</th><th>Trigger</th><th>Quality gates</th><th>Deploy</th></tr></thead>
+                <tbody>
+                    <tr><td><a href="https://github.com/FastInBox-Repo/front" target="_blank" rel="noopener noreferrer">front</a></td><td>push em qualquer branch + PR</td><td>npm run lint, tsc, next build, playwright smoke (22 specs)</td><td>Vercel: preview por PR; production em merge main</td></tr>
+                    <tr><td><a href="https://github.com/FastInBox-Repo/back" target="_blank" rel="noopener noreferrer">back</a></td><td>push em qualquer branch + PR</td><td>npm run lint, tsc, nest build, jest unit + integration</td><td>Heroku Docker via Procfile; release em merge main</td></tr>
+                    <tr><td><a href="https://github.com/FastInBox-Repo/docs" target="_blank" rel="noopener noreferrer">docs</a></td><td>push em main</td><td>HTML validation + link check</td><td>GitHub Pages auto-build branch main</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>6. Quality gates obrigatorios</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <ol>
+                <li><strong>Lint zero-error:</strong> ESLint configurado com rules estritas. Falha bloqueia PR.</li>
+                <li><strong>Type check estrito:</strong> TypeScript em modo strict. Falha bloqueia PR.</li>
+                <li><strong>Build verde:</strong> next build (front) e nest build (back) precisam terminar sem erro.</li>
+                <li><strong>Unit tests verdes:</strong> Jest 100% verde nos repos com testes.</li>
+                <li><strong>Smoke E2E verde:</strong> 22 specs Playwright executam em preview do front antes do merge.</li>
+                <li><strong>Review obrigatoria:</strong> pelo menos 1 reviewer aprovando o PR.</li>
+                <li><strong>Sem secrets em commit:</strong> .gitignore + gitleaks pre-commit hook.</li>
+            </ol>
+            <div class="note">Qualquer falha em qualquer gate impede merge. main e protegida via GitHub branch protection rules.</div>
+        </section>
+
+        <section>
+            <h2>7. Gestao de segredos no pipeline</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <thead><tr><th>Segredo</th><th>Local</th><th>Rotacao</th></tr></thead>
+                <tbody>
+                    <tr><td>DATABASE_URL</td><td>Heroku Config Vars</td><td>Trimestral</td></tr>
+                    <tr><td>JWT_SECRET</td><td>Heroku Config Vars</td><td>Trimestral</td></tr>
+                    <tr><td>REFRESH_SECRET</td><td>Heroku Config Vars</td><td>Trimestral</td></tr>
+                    <tr><td>PAYMENT_WEBHOOK_SECRET</td><td>Heroku Config Vars</td><td>Trimestral</td></tr>
+                    <tr><td>NEXT_PUBLIC_API_URL</td><td>Vercel Environment Variables</td><td>Conforme troca de URL</td></tr>
+                    <tr><td>VERCEL_TOKEN (deploy)</td><td>GitHub Actions Secrets</td><td>Semestral</td></tr>
+                    <tr><td>HEROKU_API_KEY (deploy)</td><td>GitHub Actions Secrets</td><td>Semestral</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. Aplicabilidade ao projeto FastInBox</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Pratica CI/CD</th><th>Aplicabilidade</th><th>Status no projeto</th></tr></thead>
+                <tbody>
+                    <tr><td>Trunk-based development</td><td>Adequado para time pequeno (3 pessoas)</td><td><strong>Implementado</strong> desde S1</td></tr>
+                    <tr><td>Feature flags</td><td>Excessivo para MVP academico</td><td>Nao aplicado (decisao consciente)</td></tr>
+                    <tr><td>Blue-green deployment</td><td>Excessivo - Vercel/Heroku ja fazem rollover sem downtime</td><td>Nao aplicado</td></tr>
+                    <tr><td>Canary release</td><td>Sem volume de usuarios real para amostragem estatistica</td><td>Adiado pos go-live comercial</td></tr>
+                    <tr><td>Preview deployments por PR</td><td>Critico para review de UI</td><td><strong>Implementado</strong> via Vercel</td></tr>
+                    <tr><td>Automated rollback</td><td>Necessario apos go-live</td><td>Planejado Sprint 7 (runbook + script)</td></tr>
+                    <tr><td>Monitoramento + alerta</td><td>Necessario apos go-live</td><td><strong>Parcial</strong> via /admin/diagnostics; alerta externo planejado S7</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>9. Metricas DORA atuais</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Metrica DORA</th><th>Valor atual</th><th>Classificacao</th></tr></thead>
+                <tbody>
+                    <tr><td>Deployment Frequency</td><td>~5 deploys/semana</td><td>High performer</td></tr>
+                    <tr><td>Lead Time for Changes</td><td>~12 min (mediana commit-&gt;prod)</td><td>Elite performer</td></tr>
+                    <tr><td>Change Failure Rate</td><td>0% (Sprints 1-5)</td><td>Elite performer</td></tr>
+                    <tr><td>MTTR (estimado em drill)</td><td>&lt; 5 min</td><td>Elite performer</td></tr>
+                </tbody>
+            </table>
+            <div class="note">Classificacao DORA: Elite (&lt; 1h lead time + diario + &lt; 15% failure + &lt; 1h MTTR), High, Medium, Low. FastInBox opera na faixa Elite para um MVP academico, beneficio direto de pipeline simples + escopo controlado.</div>
+        </section>
+
+        <section>
+            <h2>10. Discussao do time e decisoes</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <p><strong>Sessao remota 21/05/2026 - 1h.</strong> Pauta: avaliar pipeline atual frente as referencias e decidir evolucoes para Sprint 6 e 7.</p>
+            <table>
+                <thead><tr><th>Decisao</th><th>Justificativa</th><th>Sprint alvo</th></tr></thead>
+                <tbody>
+                    <tr><td>Manter Continuous Deployment</td><td>Nao houve incidente em 5 sprints. Velocidade compensa risco baixo.</td><td>Continua</td></tr>
+                    <tr><td>Adicionar workflow de release notes automatico</td><td>Tag SemVer + changelog gerado a partir dos PRs.</td><td>Sprint 7</td></tr>
+                    <tr><td>Implementar runbook de rollback</td><td>Documentar passos manuais e revert via tag.</td><td>Sprint 7</td></tr>
+                    <tr><td>Externalizar monitoramento</td><td>Datadog/Sentry para producao real pos go-live.</td><td>Pos PI III</td></tr>
+                    <tr><td>Manter Playwright como smoke gate</td><td>22 specs pegam regressoes que typecheck nao pega.</td><td>Continua</td></tr>
+                    <tr><td>Nao adotar feature flags ainda</td><td>Custo de manutencao maior que beneficio em MVP.</td><td>Reavaliar pos go-live</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>11. Conclusao academica</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <div class="note">
+                <p>CI/CD foi adotado desde a Sprint 1 do FastInBox, nao como ferramenta separada, mas como disciplina de engenharia. O resultado mensuravel: 5 sprints fechadas com 0 incidentes de regressao em producao, lead time sub-15 minutos e cobertura de testes que cresceu de 3 specs para 22 specs sem dessincronia.</p>
+                <p>A combinacao trunk-based + PR obrigatorio + suite E2E gratuita do Playwright em preview deployments e o sweet spot para times pequenos que precisam entregar qualidade alta com sobrecarga operacional baixa. Tooling mais sofisticado (feature flags, canary, blue-green) so faz sentido com volume de usuarios e equipe grande - nenhum dos dois aplicaveis a um MVP academico.</p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            Documento CI/CD do FastInBox. Atividade da Aula 14 PI III. Revisao a cada release MAJOR ou mudanca de provedor.
+        </footer>
+    </main>
+</body>
+</html>

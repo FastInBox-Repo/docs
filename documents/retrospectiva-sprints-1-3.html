@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Retrospectiva Sprints 1-3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+    <style>
+        .retro-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .retro-col { border: 3px solid #000; padding: 1rem; box-shadow: 5px 5px 0 #000; background: #fff; }
+        .retro-col h3 { margin: 0 0 0.6rem; font-family: "Space Grotesk","Segoe UI",sans-serif; text-transform: uppercase; font-size: 0.95rem; border-bottom: 2px solid #000; padding-bottom: 0.35rem; }
+        .retro-col.good { background: #e9ffe6; }
+        .retro-col.improve { background: #fff7d6; }
+        .retro-col.action { background: #e7eeff; }
+        .retro-col ul { margin: 0; padding-left: 1.2rem; }
+        .retro-col li { margin-bottom: 0.4rem; font-size: 0.88rem; }
+        @media (max-width: 720px) { .retro-grid { grid-template-columns: 1fr; } }
+        .vote-bar { display: flex; align-items: center; gap: 0.4rem; margin: 0.3rem 0; }
+        .vote-bar span:first-child { width: 30%; font-size: 0.82rem; }
+        .vote-bar .bar { flex: 1; height: 14px; border: 2px solid #000; background: #fff; }
+        .vote-bar .bar span { display: block; height: 100%; background: #000; }
+        .vote-bar .pct { width: 50px; text-align: right; font-weight: 700; font-size: 0.82rem; }
+    </style>
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./evidencias-sprint-1.html">Evidencias S1</a>
+            <a href="./evidencias-sprint-2.html">Evidencias S2</a>
+            <a href="./evidencias-sprint-3.html">Evidencias S3</a>
+            <a href="./sprint-review.html">Sprint Review</a>
+            <a href="./cicd-pipeline.html">CI/CD</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Sprint governance</p>
+            <h1>Retrospectiva Sprints 1, 2 e 3</h1>
+            <p>Formato: Mad/Sad/Glad + Start/Stop/Continue | Periodo: 27/03/2026 a 14/05/2026 | Participantes: 3/3 do time</p>
+            <p>Retrospectiva consolidada do primeiro ciclo de 3 sprints do FastInBox. Avaliacao critica do progresso, identificacao de praticas a manter e correcoes de rota para os ciclos seguintes. Documento produzido em sessao remota gravada e validada pelos 3 integrantes.</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Gabriel Pahl | <strong>Ultima atualizacao:</strong> 22/05/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+        </header>
+
+        <section>
+            <h2>1. Contexto do ciclo retrospectivado</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Sprint</th><th>Foco</th><th>Itens entregues</th><th>Defeitos</th></tr></thead>
+                <tbody>
+                    <tr><td>Sprint 1</td><td>Fundacao e MVP navegavel</td><td>26 (Design system, auth, builder de pedido, kanban)</td><td>0 bloqueantes</td></tr>
+                    <tr><td>Sprint 2</td><td>Auditoria, eventos, smoke E2E</td><td>8 (Painel admin, feedbacks visuais)</td><td>0 bloqueantes</td></tr>
+                    <tr><td>Sprint 3</td><td>Persistencia real e API NestJS</td><td>20 (Backend modular + auth server-side + kanban server-side)</td><td>2 ocorrencias OC-001/OC-002 corrigidas no ciclo</td></tr>
+                    <tr><th>Total</th><td>3 sprints</td><th>54 itens em Done</th><th>0 bloqueantes em aberto</th></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>2. Indicadores objetivos</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Indicador</th><th>S1</th><th>S2</th><th>S3</th><th>Tendencia</th></tr></thead>
+                <tbody>
+                    <tr><td>Itens entregues</td><td>26</td><td>8</td><td>20</td><td>Estavel apos pico de fundacao</td></tr>
+                    <tr><td>Velocity (pontos)</td><td>54</td><td>21</td><td>48</td><td>Recuperacao apos sprint curta</td></tr>
+                    <tr><td>Defect rate</td><td>0</td><td>0</td><td>2 (resolvidos)</td><td>Baixo - controle estavel</td></tr>
+                    <tr><td>Defect Removal Efficiency</td><td>100%</td><td>100%</td><td>100%</td><td>Mantido</td></tr>
+                    <tr><td>Build success rate</td><td>100%</td><td>100%</td><td>98%</td><td>1 falha pontual de pipeline</td></tr>
+                    <tr><td>Cobertura E2E</td><td>3 specs</td><td>10 specs</td><td>22 specs</td><td>Crescente</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Mad / Sad / Glad</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <div class="retro-grid">
+                <article class="retro-col good">
+                    <h3>Glad - alegrias</h3>
+                    <ul>
+                        <li>Hub de documentacao saiu na S1 e nunca dessincronizou do codigo.</li>
+                        <li>Migracao de persistencia local para PostgreSQL na S3 sem regressao.</li>
+                        <li>Autenticacao server-side com refresh rotation funcionou de primeira.</li>
+                        <li>Identidade visual neo-brutal foi adotada pelo time sem retrabalho.</li>
+                        <li>22 specs Playwright pegando regressoes antes do PR merge.</li>
+                    </ul>
+                </article>
+                <article class="retro-col improve">
+                    <h3>Sad - tristezas</h3>
+                    <ul>
+                        <li>Sprint 2 ficou curta (8 itens) por falta de planning detalhado.</li>
+                        <li>Estimativas iniciais erraram em ate 30% nos itens novos de NestJS.</li>
+                        <li>Pair programming foi raro - codigo critico ficou em head solo.</li>
+                        <li>Daily Scrum nem sempre virou registro escrito em ALM.</li>
+                    </ul>
+                </article>
+                <article class="retro-col action">
+                    <h3>Mad - frustracoes</h3>
+                    <ul>
+                        <li>Configuracao de seed do banco quebrou em 2 PRs por dependencia oculta.</li>
+                        <li>Conflitos de merge em arquivos de docs gerados sem politica clara.</li>
+                        <li>Webhook do gateway demorou 2 dias por documentacao confusa do provedor.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Start / Stop / Continue</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <div class="retro-grid">
+                <article class="retro-col good">
+                    <h3>Start - comecar</h3>
+                    <ul>
+                        <li>Daily Scrum registrada em audio + transcrita em ALM no mesmo dia.</li>
+                        <li>Pair programming em rotas criticas (auth, payments, audit).</li>
+                        <li>Refinement formal 48h antes do planning para reduzir estimativa errada.</li>
+                        <li>Politica de PR menor (&lt;= 400 linhas) para review mais rapida.</li>
+                    </ul>
+                </article>
+                <article class="retro-col improve">
+                    <h3>Stop - parar</h3>
+                    <ul>
+                        <li>Estimar itens novos por analogia sem spike de validacao.</li>
+                        <li>Misturar refactor com feature no mesmo PR.</li>
+                        <li>Esperar fim de sprint para atualizar docs.</li>
+                    </ul>
+                </article>
+                <article class="retro-col action">
+                    <h3>Continue - manter</h3>
+                    <ul>
+                        <li>Conventional Commits em todos os repos.</li>
+                        <li>Trunk-based light com main protegida e PR obrigatorio.</li>
+                        <li>Evidencias visuais (prints + video) por sprint review.</li>
+                        <li>GitHub Project como fonte unica de verdade.</li>
+                        <li>Documentacao tecnica em GitHub Pages atualizada por sprint.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2>5. Votacao de prioridades (consenso do time)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <p>3 votos por integrante distribuidos entre as acoes propostas. Resultado final:</p>
+            <div class="vote-bar"><span>Pair programming em rotas criticas</span><div class="bar"><span style="width:100%"></span></div><span class="pct">9/9</span></div>
+            <div class="vote-bar"><span>Refinement 48h antes do planning</span><div class="bar"><span style="width:88%"></span></div><span class="pct">8/9</span></div>
+            <div class="vote-bar"><span>Daily registrada em ALM</span><div class="bar"><span style="width:77%"></span></div><span class="pct">7/9</span></div>
+            <div class="vote-bar"><span>PR &lt;= 400 linhas</span><div class="bar"><span style="width:55%"></span></div><span class="pct">5/9</span></div>
+            <div class="vote-bar"><span>Spike formal para item novo</span><div class="bar"><span style="width:44%"></span></div><span class="pct">4/9</span></div>
+        </section>
+
+        <section>
+            <h2>6. Plano de acao (com owner + prazo)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <table>
+                <thead><tr><th>#</th><th>Acao</th><th>Owner</th><th>Prazo</th><th>KPI de sucesso</th></tr></thead>
+                <tbody>
+                    <tr><td>A1</td><td>Pair programming em qualquer endpoint que toque auth, payments ou audit</td><td>Thiago + Gabriel</td><td>A partir da Sprint 4</td><td>100% dos PRs criticos com 2 autores</td></tr>
+                    <tr><td>A2</td><td>Refinement obrigatorio na quarta anterior ao planning</td><td>Gabriel (facilitator)</td><td>Sprint 4 em diante</td><td>0 itens com estimativa &gt; 30% de erro</td></tr>
+                    <tr><td>A3</td><td>Daily registrada em comentario na issue ALM apos cada reuniao</td><td>Rotativo (1 por sprint)</td><td>Imediato</td><td>3 dailies/semana registradas</td></tr>
+                    <tr><td>A4</td><td>PRs limitados a 400 linhas; quebrar quando exceder</td><td>Todos</td><td>Sprint 4 em diante</td><td>Mediana &lt;= 400 linhas</td></tr>
+                    <tr><td>A5</td><td>Spike formal (issue dedicada, 1d max) para tecnologia nova</td><td>Owner do item</td><td>Sob demanda</td><td>0 surpresas tecnicas em PRs</td></tr>
+                    <tr><td>A6</td><td>Docs atualizadas no mesmo PR da feature; gate de release</td><td>Owner do PR</td><td>Imediato</td><td>0 PRs merged sem diff em /docs quando alterar contrato</td></tr>
+                    <tr><td>A7</td><td>Politica de merge para conflicts em /docs gerados (manual review)</td><td>Gabriel</td><td>Sprint 4</td><td>0 conflitos perdidos por auto-merge</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>7. Verificacao das acoes nas Sprints 4 e 5</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Acao</th><th>Status pos-implementacao</th><th>Evidencia</th></tr></thead>
+                <tbody>
+                    <tr><td>A1 Pair programming</td><td><strong>OK</strong></td><td>PRs de payments e audit com 2 authors em <a href="https://github.com/FastInBox-Repo/back/pulls?q=is%3Apr+is%3Amerged" target="_blank" rel="noopener noreferrer">github.com/FastInBox-Repo/back</a></td></tr>
+                    <tr><td>A2 Refinement formal</td><td><strong>OK</strong></td><td>Sprint 4 e 5 com 0 itens carry-over por estimativa errada</td></tr>
+                    <tr><td>A3 Daily em ALM</td><td><strong>OK</strong></td><td>Comentarios diarios em issues do GitHub Project</td></tr>
+                    <tr><td>A4 PR &lt;= 400 linhas</td><td><strong>Parcial</strong></td><td>Mediana 320 linhas, 2 PRs estouraram em refactors planejados</td></tr>
+                    <tr><td>A5 Spike formal</td><td><strong>OK</strong></td><td>Spike de webhook HMAC executado antes do TC-013</td></tr>
+                    <tr><td>A6 Docs no mesmo PR</td><td><strong>OK</strong></td><td>Diff de /docs em todos os PRs de Sprint 4 e 5</td></tr>
+                    <tr><td>A7 Politica de merge docs</td><td><strong>OK</strong></td><td>0 conflitos perdidos</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. Decisao executiva</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <div class="note">
+                <p><strong>Time aprova:</strong></p>
+                <ul>
+                    <li>Manter cadencia de 7 sprints planejadas. Sem reescopo.</li>
+                    <li>Adotar pair programming permanente em auth/payments/audit.</li>
+                    <li>Refinement na quarta como ritual fixo.</li>
+                    <li>Daily com registro obrigatorio em ALM.</li>
+                </ul>
+                <p>Documento referenciado em <a href="./plano-projeto.html">Plano de Projeto secao 6 (Governanca)</a> e em <a href="./repositorio-configuracao.html">Repositorio de Configuracao secao 10 (Controle de mudanca)</a>.</p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            Retrospectiva Sprints 1-3 do FastInBox. Proxima retrospectiva: Sprints 4-6 ao fechar a Sprint 6.
+        </footer>
+    </main>
+</body>
+</html>
