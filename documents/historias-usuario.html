@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Historias de Usuario</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./criterios-aceitacao.html">Criterios de Aceitacao</a>
+            <a href="./requisitos-software.html">Requisitos de Software</a>
+            <a href="./casos-de-teste.html">Casos de Teste</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Engenharia de Requisitos</p>
+            <h1>Historias de Usuario</h1>
+            <p>Versao: 2.0 | Formato Connextra + INVEST | 28 historias cobrindo 5 perfis</p>
+            <p>Backlog vivo de historias de usuario do FastInBox seguindo o formato Connextra (Como/Quero/Para). Cada historia mapeada para requisito funcional, sprint, persona e criterio de aceitacao em <a href="./criterios-aceitacao.html">documento dedicado</a>.</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Gabriel Pahl | <strong>Ultima atualizacao:</strong> 21/05/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+        </header>
+
+        <section>
+            <h2>1. Mapa de personas e historias</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <pre style="border:3px solid #000;padding:14px;box-shadow:5px 5px 0 #000;background:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;line-height:1.45;overflow:auto;">
+                       FastInBox - 28 historias / 5 perfis
+                                    |
+   +------------+------------+------------+------------+------------+
+   |            |            |            |            |            |
+   v            v            v            v            v            v
+[Publico]   [Nutri]     [Paciente]   [Cozinha]    [Admin]      [Sistema]
+   4 HU       8 HU         6 HU        4 HU         5 HU         1 HU
+   |          |            |            |            |            |
+   landing    pacientes    landing      kanban       usuarios     auditoria
+   login      pedidos      revisao      detalhes     auditoria    seeds
+   cadastro   resumo       pagamento    status       diagnostico
+   recuperar  config       status                    pedidos
+                                                     config
+</pre>
+        </section>
+
+        <section>
+            <h2>2. Historias - Publico (HU-001 a HU-004)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <table>
+                <thead><tr><th>ID</th><th>Historia</th><th>RF</th><th>Sprint</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>HU-001</td><td>Como visitante, quero ver a landing publica para entender o produto.</td><td>RF-019</td><td>S1</td><td>Done</td></tr>
+                    <tr><td>HU-002</td><td>Como visitante, quero consultar o status do meu pedido pelo codigo unico sem login.</td><td>RF-011</td><td>S1</td><td>Done</td></tr>
+                    <tr><td>HU-003</td><td>Como visitante, quero criar uma conta como paciente para receber pedidos.</td><td>RF-002</td><td>S1</td><td>Done</td></tr>
+                    <tr><td>HU-004</td><td>Como usuario, quero recuperar minha senha por e-mail para retomar acesso.</td><td>RF-009</td><td>S2</td><td>Done</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Historias - Nutricionista (HU-005 a HU-012)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <thead><tr><th>ID</th><th>Historia</th><th>RF</th><th>Sprint</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>HU-005</td><td>Como nutricionista, quero autenticar com email e senha para acessar minha area.</td><td>RF-001</td><td>S1</td><td>Done</td></tr>
+                    <tr><td>HU-006</td><td>Como nutricionista, quero cadastrar pacientes com restricoes alimentares para personalizar pedidos.</td><td>RF-002</td><td>S1</td><td>Done</td></tr>
+                    <tr><td>HU-007</td><td>Como nutricionista, quero editar dados de paciente existente para manter cadastro atualizado.</td><td>RF-002</td><td>S2</td><td>Done</td></tr>
+                    <tr><td>HU-008</td><td>Como nutricionista, quero criar pedido com multiplas marmitas para atender plano alimentar semanal.</td><td>RF-003</td><td>S1</td><td>Done</td></tr>
+                    <tr><td>HU-009</td><td>Como nutricionista, quero ver codigo unico do pedido gerado para enviar ao paciente.</td><td>RF-003</td><td>S1</td><td>Done</td></tr>
+                    <tr><td>HU-010</td><td>Como nutricionista, quero ver resumo financeiro do pedido (valor, comissao, repasse) para conferir antes de enviar.</td><td>RF-004</td><td>S1</td><td>Done</td></tr>
+                    <tr><td>HU-011</td><td>Como nutricionista, quero acompanhar status de cada pedido criado para responder o paciente.</td><td>RF-011</td><td>S2</td><td>Done</td></tr>
+                    <tr><td>HU-012</td><td>Como nutricionista, quero configurar identidade visual da clinica para aplicar white label.</td><td>RF-016</td><td>S2</td><td>Done</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Historias - Paciente (HU-013 a HU-018)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <table>
+                <thead><tr><th>ID</th><th>Historia</th><th>RF</th><th>Sprint</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>HU-013</td><td>Como paciente, quero acessar o pedido informando o codigo unico para ver os detalhes.</td><td>RF-005</td><td>S1</td><td>Done</td></tr>
+                    <tr><td>HU-014</td><td>Como paciente, quero revisar itens, observacoes e valor antes de confirmar para garantir que esta correto.</td><td>RF-006</td><td>S1</td><td>Done</td></tr>
+                    <tr><td>HU-015</td><td>Como paciente, quero confirmar o pedido para liberar o pagamento sem voltar a etapa de edicao.</td><td>RF-006</td><td>S1</td><td>Done</td></tr>
+                    <tr><td>HU-016</td><td>Como paciente, quero pagar diretamente na plataforma para nao depender de canal externo.</td><td>RF-007</td><td>S2</td><td>Done (mock S2 / real S4)</td></tr>
+                    <tr><td>HU-017</td><td>Como paciente, quero ver historico de status do pedido em timeline para saber o que esta acontecendo.</td><td>RF-011</td><td>S2</td><td>Done</td></tr>
+                    <tr><td>HU-018</td><td>Como paciente, quero receber notificacao de mudanca critica de status para nao precisar consultar manualmente.</td><td>RF-015</td><td>S5</td><td>Backlog</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Historias - Cozinha (HU-019 a HU-022)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <thead><tr><th>ID</th><th>Historia</th><th>RF</th><th>Sprint</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>HU-019</td><td>Como cozinha, quero autenticar com credencial dedicada para acessar painel operacional.</td><td>RF-001</td><td>S1</td><td>Done</td></tr>
+                    <tr><td>HU-020</td><td>Como cozinha, quero ver kanban com pedidos pagos para priorizar producao.</td><td>RF-010</td><td>S1</td><td>Done</td></tr>
+                    <tr><td>HU-021</td><td>Como cozinha, quero arrastar pedido entre colunas (Recebido, Em preparo, Pronto, Entregue) para atualizar status.</td><td>RF-010</td><td>S1</td><td>Done</td></tr>
+                    <tr><td>HU-022</td><td>Como cozinha, quero abrir detalhe de cada pedido para conferir restricoes e observacoes.</td><td>RF-010</td><td>S2</td><td>Done</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>6. Historias - Administrador (HU-023 a HU-027)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <thead><tr><th>ID</th><th>Historia</th><th>RF</th><th>Sprint</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>HU-023</td><td>Como admin, quero ver dashboard consolidado com volume de pedidos, receita e status para monitorar operacao.</td><td>RF-012</td><td>S2</td><td>Done</td></tr>
+                    <tr><td>HU-024</td><td>Como admin, quero listar e filtrar usuarios por perfil para gerir contas.</td><td>RF-013</td><td>S2</td><td>Done</td></tr>
+                    <tr><td>HU-025</td><td>Como admin, quero ver auditoria de eventos sensiveis para responder a incidentes.</td><td>RF-014</td><td>S2</td><td>Done</td></tr>
+                    <tr><td>HU-026</td><td>Como admin, quero ver diagnostico de saude da plataforma (banco, fila, gateway) para detectar problemas.</td><td>RF-018</td><td>S2</td><td>Done</td></tr>
+                    <tr><td>HU-027</td><td>Como admin, quero exportar relatorio de comissoes por periodo para repasse contabil.</td><td>RF-017</td><td>S5</td><td>Backlog</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>7. Historias - Sistema (HU-028)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <thead><tr><th>ID</th><th>Historia</th><th>RF</th><th>Sprint</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>HU-028</td><td>Como sistema, quero gerar codigo unico de pedido nao colidente para garantir acesso seguro do paciente.</td><td>RF-003</td><td>S3</td><td>Done</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. Aplicacao do framework INVEST</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Atributo</th><th>Significado</th><th>Como aplicamos</th></tr></thead>
+                <tbody>
+                    <tr><td>I - Independent</td><td>Independente de outras historias</td><td>Cada HU entrega valor isolado, salvo pre-requisito de autenticacao.</td></tr>
+                    <tr><td>N - Negotiable</td><td>Negociavel ate o sprint planning</td><td>HU detalhada na refinement; criterio fechado no kickoff.</td></tr>
+                    <tr><td>V - Valuable</td><td>Tem valor para usuario final</td><td>Toda HU mapeia para persona e fluxo do MVP Canvas.</td></tr>
+                    <tr><td>E - Estimable</td><td>Estimavel pelo time</td><td>Estimativa em pontos (1, 2, 3, 5, 8) durante refinement.</td></tr>
+                    <tr><td>S - Small</td><td>Pequena, cabe em 1 sprint</td><td>HU que ultrapassa 8 pontos e quebrada em sub-historias.</td></tr>
+                    <tr><td>T - Testable</td><td>Testavel objetivamente</td><td>Criterios de aceite em <a href="./criterios-aceitacao.html">documento dedicado</a> + casos TC.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>9. Rastreabilidade HU -> RF -> TC -> Evidencia</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <thead><tr><th>HU</th><th>RF</th><th>TC associado</th><th>Spec E2E</th><th>Evidencia</th></tr></thead>
+                <tbody>
+                    <tr><td>HU-005</td><td>RF-001</td><td>TC-001</td><td>02-auth-login.spec.ts</td><td>02-login.png</td></tr>
+                    <tr><td>HU-008</td><td>RF-003</td><td>TC-003</td><td>07-nutri-novo-pedido.spec.ts</td><td>05-nutri-paciente-novo.png + 07-nutri-pedido-marmitas.png</td></tr>
+                    <tr><td>HU-013</td><td>RF-005</td><td>TC-005</td><td>10-paciente-landing.spec.ts</td><td>10-paciente-landing.png</td></tr>
+                    <tr><td>HU-015</td><td>RF-006</td><td>TC-006</td><td>11-paciente-pedido.spec.ts</td><td>s3-07-paciente-confirma.png</td></tr>
+                    <tr><td>HU-021</td><td>RF-010</td><td>TC-010</td><td>15-cozinha-dashboard.spec.ts</td><td>05-cozinha-kanban.png + s3-06-kanban-status.png</td></tr>
+                    <tr><td>HU-025</td><td>RF-014</td><td>TC-011</td><td>20-admin-auditoria.spec.ts</td><td>07-admin-auditoria.png + s3-08-audit-log.png</td></tr>
+                </tbody>
+            </table>
+            <div class="note">Tabela completa de rastreabilidade publicada no <a href="./relatorio-testes.html">Relatorio de Testes</a>.</div>
+        </section>
+
+        <footer class="footer">
+            Documento de Historias de Usuario do FastInBox. Atualizar a cada refinement antes do sprint planning.
+        </footer>
+    </main>
+</body>
+</html>

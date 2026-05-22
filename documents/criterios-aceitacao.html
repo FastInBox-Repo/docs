@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Criterios de Aceitacao</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./historias-usuario.html">Historias de Usuario</a>
+            <a href="./casos-de-teste.html">Casos de Teste</a>
+            <a href="./plano-de-testes.html">Plano de Testes</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Engenharia de Requisitos</p>
+            <h1>Criterios de Aceitacao</h1>
+            <p>Versao: 2.0 | Formato Gherkin (Given/When/Then) | 28 historias cobertas</p>
+            <p>Conjunto formal de criterios de aceitacao das historias de usuario do FastInBox. Cada criterio descrito em Gherkin para alinhar produto, engenharia e QA. Documento fonte para geracao dos casos de teste TC-* e dos specs Playwright.</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Gabriel Pahl | <strong>Ultima atualizacao:</strong> 21/05/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+        </header>
+
+        <section>
+            <h2>1. Definicao de pronto (Definition of Done)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <ul>
+                <li>Todos os criterios de aceitacao Gherkin validados manualmente.</li>
+                <li>Caso de teste TC-* correspondente verde no roteiro.</li>
+                <li>Spec Playwright passando localmente e na pipeline.</li>
+                <li>Build sem erro de typecheck/lint nos repositorios afetados.</li>
+                <li>Evidencia (print ou video webm) anexada ao documento de evidencias da sprint.</li>
+                <li>Sem regressao em fluxos previamente verdes.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Criterios - Publico</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <pre style="border:3px solid #000;padding:14px;box-shadow:5px 5px 0 #000;background:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.82rem;line-height:1.5;overflow:auto;">
+HU-001 - Landing publica
+  CA-001.1
+    Dado que sou visitante nao logado
+    Quando acesso a rota /
+    Entao vejo hero principal, secao Como funciona, Beneficios e FAQ
+    E posso navegar pelas ancoras sem recarregar
+
+HU-002 - Rastreio por codigo
+  CA-002.1
+    Dado que informo o codigo FIB-2026-001 no atalho de rastreio
+    Quando confirmo a busca
+    Entao sou redirecionado para /paciente/status/FIB-2026-001
+    E vejo timeline atual do pedido
+
+HU-003 - Cadastro paciente
+  CA-003.1
+    Dado que estou em /login?role=paciente aba Cadastrar
+    Quando preencho nome, telefone, objetivo, email e senha validos
+    E clico em Criar conta
+    Entao a conta e criada e sou redirecionado para /paciente
+
+HU-004 - Recuperar senha
+  CA-004.1
+    Dado que esqueci minha senha
+    Quando informo email valido em /esqueci-senha
+    Entao recebo confirmacao de envio de link seguro
+    E ao clicar no link posso definir nova senha
+</pre>
+        </section>
+
+        <section>
+            <h2>3. Criterios - Nutricionista</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <pre style="border:3px solid #000;padding:14px;box-shadow:5px 5px 0 #000;background:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.82rem;line-height:1.5;overflow:auto;">
+HU-005 - Login
+  CA-005.1
+    Dado credenciais validas (ana@nutritionvida.com.br)
+    Quando faco login como nutricionista
+    Entao sou redirecionado para /nutricionista
+  CA-005.2
+    Dado credenciais invalidas
+    Quando tento login
+    Entao permaneco em /login com mensagem de erro
+
+HU-006 - Cadastrar paciente
+  CA-006.1
+    Dado que estou em /nutricionista/pacientes
+    Quando preencho nome, contato, plano, objetivo e restricoes
+    E clico em Salvar
+    Entao paciente aparece na lista e fica disponivel para criar pedido
+
+HU-008 - Criar pedido
+  CA-008.1
+    Dado paciente selecionado
+    Quando adiciono 1 ou mais marmitas com itens e observacoes
+    E confirmo o pedido
+    Entao pedido e criado com status Aguardando_Confirmacao
+    E codigo unico FIB-YYYY-NNN e exibido
+  CA-008.2
+    Dado pedido com itens
+    Quando tento confirmar sem janela de entrega
+    Entao recebo erro de validacao e pedido nao e salvo
+
+HU-009 - Codigo unico
+  CA-009.1
+    Dado pedido recem criado
+    Quando finalizo a criacao
+    Entao codigo unico de 12 caracteres alfanumericos e exibido
+    E o codigo pode ser copiado com 1 clique
+
+HU-010 - Resumo financeiro
+  CA-010.1
+    Dado pedido em construcao
+    Quando adiciono itens com precos
+    Entao vejo valor base, comissao FastInBox (taxa) e repasse nutricionista
+    E os valores atualizam em tempo real conforme edito o pedido
+
+HU-011 - Acompanhar status
+  CA-011.1
+    Dado nutricionista logada
+    Quando acesso /nutricionista/pedidos
+    Entao vejo todos meus pedidos com status atual e codigo
+    E posso filtrar por status
+
+HU-012 - White label
+  CA-012.1
+    Dado nutricionista em /nutricionista/configuracoes
+    Quando faco upload de logo e defino cor primaria
+    Entao a landing do paciente exibe a identidade aplicada
+</pre>
+        </section>
+
+        <section>
+            <h2>4. Criterios - Paciente</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <pre style="border:3px solid #000;padding:14px;box-shadow:5px 5px 0 #000;background:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.82rem;line-height:1.5;overflow:auto;">
+HU-013 - Acessar pedido por codigo
+  CA-013.1
+    Dado codigo FIB-2026-001 valido
+    Quando acesso /paciente/pedido/FIB-2026-001
+    Entao vejo detalhes completos do pedido (itens, valor, janela, observacoes)
+  CA-013.2
+    Dado codigo invalido FIB-9999-999
+    Quando tento acessar
+    Entao vejo mensagem "Pedido nao encontrado"
+
+HU-015 - Confirmar pedido
+  CA-015.1
+    Dado pedido em status Aguardando_Confirmacao
+    Quando reviso e clico em Confirmar
+    Entao status muda para Aguardando_Pagamento
+    E botao Pagar fica habilitado
+
+HU-016 - Pagar pedido
+  CA-016.1
+    Dado pedido em Aguardando_Pagamento
+    Quando seleciono cartao e clico em Pagar (mock approve)
+    Entao status muda para Pago
+    E webhook HMAC e validado idempotentemente
+  CA-016.2
+    Dado pagamento que falha (mock fail)
+    Quando o gateway recusa
+    Entao status volta para Aguardando_Pagamento
+    E paciente pode tentar novamente
+
+HU-017 - Timeline de status
+  CA-017.1
+    Dado pedido com historico de transicoes
+    Quando acesso /paciente/status/FIB-2026-001
+    Entao vejo timeline com cada evento (timestamp, autor, etapa)
+    E etapa atual destacada visualmente
+</pre>
+        </section>
+
+        <section>
+            <h2>5. Criterios - Cozinha</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <pre style="border:3px solid #000;padding:14px;box-shadow:5px 5px 0 #000;background:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.82rem;line-height:1.5;overflow:auto;">
+HU-020 - Kanban
+  CA-020.1
+    Dado cozinha autenticada
+    Quando acesso /cozinha
+    Entao vejo 4 colunas (Recebido, Em preparo, Pronto, Entregue)
+    E vejo apenas pedidos com status Pago em diante
+  CA-020.2
+    Dado pedido nao pago
+    Quando consulto kanban
+    Entao pedido nao aparece em nenhuma coluna
+
+HU-021 - Drag and drop
+  CA-021.1
+    Dado pedido na coluna Recebido
+    Quando arrasto para Em preparo
+    Entao status persiste no servidor
+    E evento e registrado em production_events com timestamp e usuario
+
+HU-022 - Detalhe do pedido
+  CA-022.1
+    Dado pedido no kanban
+    Quando clico no card
+    Entao modal abre com itens, restricoes alimentares e observacoes do nutri
+    E posso fechar sem alterar status
+</pre>
+        </section>
+
+        <section>
+            <h2>6. Criterios - Administrador</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <pre style="border:3px solid #000;padding:14px;box-shadow:5px 5px 0 #000;background:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.82rem;line-height:1.5;overflow:auto;">
+HU-023 - Dashboard
+  CA-023.1
+    Dado admin autenticado
+    Quando acesso /admin
+    Entao vejo cards com volume de pedidos do dia, receita e status agregado
+
+HU-024 - Listar usuarios
+  CA-024.1
+    Dado admin em /admin/usuarios
+    Quando filtro por perfil Nutricionista
+    Entao vejo lista paginada apenas com nutricionistas
+
+HU-025 - Auditoria
+  CA-025.1
+    Dado admin em /admin/auditoria
+    Quando consulto eventos das ultimas 24h
+    Entao vejo registros de login, criacao de pedido, mudanca de status e pagamento
+    E cada evento mostra ator, ip e timestamp
+
+HU-026 - Diagnostico
+  CA-026.1
+    Dado admin em /admin/diagnostico
+    Quando solicito health check
+    Entao vejo status do banco (latencia ms), fila operacional e gateway
+    E falha em qualquer componente exibe alerta vermelho
+</pre>
+        </section>
+
+        <section>
+            <h2>7. Resumo de cobertura</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Indicador</th><th>Valor</th></tr></thead>
+                <tbody>
+                    <tr><td>Total de historias de usuario</td><td>28</td></tr>
+                    <tr><td>Historias com criterio formal</td><td>28 (100%)</td></tr>
+                    <tr><td>Criterios validados (Sprints 1-3)</td><td>22 historias - 100% das jornadas Must-have</td></tr>
+                    <tr><td>Historias com spec E2E Playwright</td><td>22 specs cobrindo HU-001 a HU-026</td></tr>
+                    <tr><td>Defeitos abertos</td><td>0 bloqueantes</td></tr>
+                </tbody>
+            </table>
+            <div class="note">Os 6 itens em backlog (HU-018, HU-027 e refinamentos S5-S7) tem criterios em rascunho e serao detalhados antes do respectivo sprint planning.</div>
+        </section>
+
+        <footer class="footer">
+            Criterios de Aceitacao formais do FastInBox. Documento usado como contrato entre PO, dev e QA - alteracoes exigem aprovacao na review de sprint.
+        </footer>
+    </main>
+</body>
+</html>

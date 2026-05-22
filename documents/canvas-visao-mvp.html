@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Canvas com a Visao do Projeto (MVP Canvas)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./documento-visao.html">Documento de Visao</a>
+            <a href="./business-model-canvas.html">Business Model Canvas</a>
+            <a href="../fastinbox-mvp-canvas-paulo-caroli.md" target="_blank" rel="noopener noreferrer">Fonte markdown</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Visao do MVP</p>
+            <h1>Canvas com a Visao do Projeto</h1>
+            <p>Framework: MVP Canvas de Paulo Caroli | Versao: 1.0 | Status: validado para PI III</p>
+            <p>Canvas oficial de visao do FastInBox: proposta do MVP, personas, jornadas, funcionalidades, resultado esperado, metricas de validacao e cronograma. Documento de banca - usado para alinhar produto, engenharia e avaliacao academica.</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Gabriel Pahl | <strong>Ultima atualizacao:</strong> 21/05/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+        </header>
+
+        <section>
+            <h2>1. Proposta do MVP</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <p>Validar um fluxo white label ponta a ponta em que o nutricionista monta um pedido personalizado de marmitas, o paciente revisa e paga dentro da plataforma, e a cozinha recebe apenas pedidos pagos para producao e entrega.</p>
+            <p>Em termos praticos, este MVP comprova que:</p>
+            <ul>
+                <li>nutricionistas aceitam usar a plataforma para cadastrar pacientes e gerar pedidos personalizados</li>
+                <li>pacientes concluem revisao e pagamento com clareza e confianca</li>
+                <li>a operacao rastreia o pedido da criacao ate a entrega sem controle manual paralelo</li>
+                <li>o modelo white label aumenta a percepcao de continuidade entre clinica e experiencia do paciente</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Personas segmentadas</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Tipo</th><th>Persona</th><th>Dor central</th><th>Ganho esperado</th></tr></thead>
+                <tbody>
+                    <tr><td>Primaria</td><td>Nutricionista parceiro / clinica parceira</td><td>Operacao manual em WhatsApp, planilhas e retrabalho</td><td>Vender com marca propria e reduzir comunicacao informal</td></tr>
+                    <tr><td>Secundaria</td><td>Paciente da clinica</td><td>Falta de confianca no pedido e na operacao</td><td>Revisar e pagar com seguranca e acompanhar o pedido</td></tr>
+                    <tr><td>Operacional</td><td>Cozinha parceira</td><td>Receber pedidos incompletos ou nao pagos</td><td>Receber apenas pedidos validos e atualizar producao</td></tr>
+                    <tr><td>Governanca</td><td>Administrador FastInBox</td><td>Falta de visibilidade sobre pedidos e comissoes</td><td>Monitorar operacao, usuarios e regras globais</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Jornadas centrais</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <h3>3.1 Nutricionista cria pedido</h3>
+            <ol>
+                <li>Nutricionista autentica na plataforma.</li>
+                <li>Cadastra ou seleciona um paciente.</li>
+                <li>Monta um pedido com uma ou mais marmitas, embalagem e precificacao.</li>
+                <li>Gera um codigo unico de acesso ao pedido.</li>
+                <li>Compartilha o codigo com o paciente.</li>
+            </ol>
+            <h3>3.2 Paciente revisa e paga</h3>
+            <ol>
+                <li>Paciente acessa a landing page de pedido.</li>
+                <li>Informa o codigo unico recebido.</li>
+                <li>Revisa dados do pedido e faz ajustes permitidos antes da confirmacao.</li>
+                <li>Confirma as informacoes.</li>
+                <li>Realiza o pagamento no checkout integrado.</li>
+                <li>Consulta o status do pedido.</li>
+            </ol>
+            <h3>3.3 Cozinha executa operacao</h3>
+            <ol>
+                <li>Cozinha acessa o painel operacional.</li>
+                <li>Visualiza apenas pedidos pagos.</li>
+                <li>Consulta detalhes do pedido.</li>
+                <li>Atualiza os status operacionais.</li>
+                <li>Consolida a entrega conforme a janela definida.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>4. Funcionalidades do MVP</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <h3>Bloco produto</h3>
+            <ul>
+                <li>autenticacao por perfil e recuperacao segura de senha</li>
+                <li>rotas protegidas e segregacao de acesso</li>
+                <li>cadastro e edicao de pacientes pelo nutricionista</li>
+                <li>criacao de pedido com multiplas marmitas</li>
+                <li>calculo de valor base, valor final e comissao</li>
+                <li>geracao e validacao de codigo unico do pedido</li>
+                <li>configuracao basica de identidade visual da clinica</li>
+                <li>landing do paciente com acesso por codigo</li>
+                <li>revisao, edicao controlada e confirmacao do pedido</li>
+                <li>checkout integrado sem redirecionamento externo</li>
+                <li>historico e status resumido do pedido para o paciente</li>
+                <li>painel operacional da cozinha</li>
+                <li>atualizacao auditavel de status operacionais</li>
+                <li>dashboard administrativo basico</li>
+            </ul>
+            <h3>Bloco de suporte tecnico</h3>
+            <ul>
+                <li>arquitetura base front-end (Next.js 15 + React 19) e back-end (NestJS 11)</li>
+                <li>banco relacional PostgreSQL com migracoes iniciais</li>
+                <li>logs e auditoria de eventos sensiveis (modulo audit)</li>
+                <li>pipeline CI/CD inicial (Vercel + Heroku + GitHub Pages)</li>
+                <li>provisionamento de banco e storage</li>
+                <li>estrategia minima de testes e quality gates (Playwright + IEEE 829)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5. Resultado esperado</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <p>O MVP sera considerado validado se demonstrar, em ambiente real controlado ou piloto:</p>
+            <ul>
+                <li>capacidade de gerar pedidos white label sem dependencia de controle manual externo</li>
+                <li>conclusao do fluxo paciente -> confirmacao -> pagamento com taxa de sucesso aceitavel</li>
+                <li>liberacao automatica apenas de pedidos pagos para a cozinha</li>
+                <li>visibilidade operacional minima para nutricionista, cozinha e administracao</li>
+                <li>reducao perceptivel de friccao operacional frente ao processo manual atual</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>6. Metricas de validacao</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <thead><tr><th>Hipotese</th><th>Metricas</th></tr></thead>
+                <tbody>
+                    <tr><td>H1 Nutricionistas adotam a plataforma</td><td>nutris ativos, pacientes cadastrados/nutri, pedidos criados/nutri, tempo medio de criacao</td></tr>
+                    <tr><td>H2 Pacientes pagam sem alto abandono</td><td>acessos por codigo, taxa de confirmacao, conversao de pagamento, abandono revisao-checkout, tempo acesso-pagamento</td></tr>
+                    <tr><td>H3 Cozinha opera com mais confiabilidade</td><td>pedidos pagos recebidos, tempo pagamento-disponibilidade, percentual de status atualizado, inconsistencias reportadas</td></tr>
+                    <tr><td>H4 White label aumenta confianca</td><td>conclusao em pedidos com branding aplicado, feedback qualitativo, volume de suporte por duvida</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>7. Custo e cronograma</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <h3>Escopo recomendado</h3>
+            <ul>
+                <li>nutricionista cadastra paciente e cria pedido</li>
+                <li>paciente acessa por codigo, revisa, confirma e paga</li>
+                <li>cozinha recebe pedidos pagos e atualiza status</li>
+                <li>administrador consulta operacao basica</li>
+            </ul>
+            <h3>Itens fora do MVP imediato</h3>
+            <ul>
+                <li>autoatendimento completo do paciente</li>
+                <li>assinaturas recorrentes</li>
+                <li>previsao de demanda avancada</li>
+                <li>conciliacao financeira expandida</li>
+                <li>integracoes fiscais e ERP</li>
+                <li>aplicativo mobile nativo (substituido por web responsivo)</li>
+            </ul>
+            <h3>Faseamento</h3>
+            <table>
+                <thead><tr><th>Fase</th><th>Foco</th><th>Sprints associadas</th></tr></thead>
+                <tbody>
+                    <tr><td>Fase 1 - Fundacao</td><td>Arquitetura, auth, design system, regras de acesso</td><td>Sprint 1</td></tr>
+                    <tr><td>Fase 2 - Nucleo comercial</td><td>Pacientes, pedidos, comissao, branding white label</td><td>Sprint 2</td></tr>
+                    <tr><td>Fase 3 - Conversao e operacao</td><td>Codigo, revisao, confirmacao, pagamento, cozinha</td><td>Sprint 3 e 4</td></tr>
+                    <tr><td>Fase 4 - Governanca minima</td><td>Dashboard admin, relatorios, auditoria, hardening, go-live</td><td>Sprint 5 a 7</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. Hipotese central resumida</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <div class="note">Se entregarmos um fluxo white label simples, seguro e rastreavel para pedido personalizado de marmitas, entao nutricionistas conseguirao vender com menos operacao manual, pacientes conseguirao concluir o pedido com mais confianca, e a cozinha operara com menos ruido e mais previsibilidade.</div>
+        </section>
+
+        <section>
+            <h2>9. Recomendacao executiva</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <p>Nao ampliar o escopo antes de validar:</p>
+            <ul>
+                <li>adesao do nutricionista ao fluxo de criacao do pedido</li>
+                <li>conversao do paciente entre revisao e pagamento</li>
+                <li>consistencia operacional da cozinha com status e entrega</li>
+            </ul>
+            <p>O sucesso deste MVP depende mais da clareza do fluxo e da disciplina de validacao do que da quantidade de funcionalidades.</p>
+        </section>
+
+        <footer class="footer">
+            Canvas de Visao do FastInBox baseado no MVP Canvas de Paulo Caroli. Documento referenciado pelo Documento de Visao e pela EAP do Projeto.
+        </footer>
+    </main>
+</body>
+</html>

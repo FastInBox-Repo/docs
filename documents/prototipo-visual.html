@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Prototipo Visual</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+    <style>
+        .proto-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .proto-card {
+            border: 3px solid #000;
+            background: #fff;
+            box-shadow: 6px 6px 0 #000;
+            padding: 0.8rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .proto-card img {
+            width: 100%;
+            border: 2px solid #000;
+            margin-bottom: 0.6rem;
+            display: block;
+        }
+        .proto-card h4 {
+            margin: 0 0 0.3rem;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+        .proto-card p {
+            margin: 0;
+            font-size: 0.82rem;
+        }
+        .proto-tag {
+            display: inline-block;
+            border: 2px solid #000;
+            padding: 0.1rem 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+            background: #f4f4f4;
+        }
+        .swatch-row {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-top: 0.6rem;
+        }
+        .swatch {
+            border: 3px solid #000;
+            box-shadow: 4px 4px 0 #000;
+            padding: 0.6rem 0.8rem;
+            min-width: 140px;
+            background: #fff;
+        }
+        .swatch .sw-color {
+            display: block;
+            width: 100%;
+            height: 36px;
+            border: 2px solid #000;
+            margin-bottom: 0.4rem;
+        }
+        .swatch strong {
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            font-size: 0.85rem;
+        }
+        .swatch span {
+            font-family: "IBM Plex Mono", monospace;
+            font-size: 0.75rem;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./arquitetura-uml.html">Arquitetura UML</a>
+            <a href="./fluxo-criacao-pedido.html">Fluxo Pedido</a>
+            <a href="./fluxo-criacao-conta.html">Fluxo Conta</a>
+            <a href="https://front-chi-flame.vercel.app" target="_blank" rel="noopener noreferrer">Plataforma</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Design System e Prototipo</p>
+            <h1>Prototipo Visual</h1>
+            <p>Versao: 2.0 | Web responsivo high-fidelity em producao</p>
+            <p>Documento de prototipacao do FastInBox. Cobre identidade visual, design system, biblioteca de componentes, mapa de telas por perfil e link com a aplicacao real em producao. O prototipo nao e mock - e a propria aplicacao Next.js demonstravel em <a href="https://front-chi-flame.vercel.app" target="_blank" rel="noopener noreferrer">front-chi-flame.vercel.app</a>.</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Joao Vitor Marra | <strong>Ultima atualizacao:</strong> 21/05/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Design</span>Gabriel Pahl</span></div>
+        </header>
+
+        <section>
+            <h2>1. Decisao de prototipo</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Design</span>Gabriel Pahl</span></div>
+            <p>Optamos por prototipo high-fidelity como aplicacao real em producao em vez de mock estatico. Motivos:</p>
+            <ul>
+                <li>Reaproveitamento total do esforco - o prototipo evolui para produto.</li>
+                <li>Testes de usabilidade reais com paciente em sessao gravada.</li>
+                <li>Validacao automatica via Playwright (22 specs E2E).</li>
+                <li>Atualizacao continua sem dessincronia entre design e codigo.</li>
+            </ul>
+            <div class="note">Wireframes iniciais foram esbocados em FigJam e descartados apos Sprint 1 ao validar diretamente no Next.js. Identidade visual neo-brutal foi finalizada no codigo, e nao em ferramenta de design separada.</div>
+        </section>
+
+        <section>
+            <h2>2. Identidade visual - paleta neo-brutal</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Design</span>Gabriel Pahl</span></div>
+            <div class="swatch-row">
+                <article class="swatch"><span class="sw-color" style="background:#000000"></span><strong>Ink</strong><span>#000000</span></article>
+                <article class="swatch"><span class="sw-color" style="background:#FFFFFF;border:2px solid #000"></span><strong>Paper</strong><span>#FFFFFF</span></article>
+                <article class="swatch"><span class="sw-color" style="background:#1f1f1f"></span><strong>Ink Soft</strong><span>#1F1F1F</span></article>
+                <article class="swatch"><span class="sw-color" style="background:#e9ffe6"></span><strong>Success</strong><span>#E9FFE6</span></article>
+                <article class="swatch"><span class="sw-color" style="background:#fff7d6"></span><strong>Warning</strong><span>#FFF7D6</span></article>
+                <article class="swatch"><span class="sw-color" style="background:#e7eeff"></span><strong>Info</strong><span>#E7EEFF</span></article>
+            </div>
+            <p>Cor principal aplicada por clinica via white label (HU-012). Cada nutricionista define logo e accent que sobrescreve a paleta neutra na area do paciente.</p>
+        </section>
+
+        <section>
+            <h2>3. Tipografia</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Design</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Familia</th><th>Uso</th><th>Pesos</th></tr></thead>
+                <tbody>
+                    <tr><td>Space Grotesk</td><td>Titulos e elementos de marca</td><td>500, 700</td></tr>
+                    <tr><td>IBM Plex Sans</td><td>Corpo, paragrafos, formularios</td><td>400, 500, 600, 700</td></tr>
+                    <tr><td>IBM Plex Mono</td><td>Codigo, IDs, dados tecnicos</td><td>400, 500</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Telas do paciente - jornada publica</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <div class="proto-grid">
+                <article class="proto-card">
+                    <img src="./evidencias-sprint-2/01-home-public.png" alt="Home publica FastInBox">
+                    <span class="proto-tag">Publico</span>
+                    <h4>Home publica</h4>
+                    <p>Landing institucional com hero, beneficios, como funciona e atalho de rastreio por codigo.</p>
+                </article>
+                <article class="proto-card">
+                    <img src="./evidencias-sprint-2/02-login.png" alt="Login multi-perfil">
+                    <span class="proto-tag">Publico</span>
+                    <h4>Login multi-perfil</h4>
+                    <p>Tela de login segregada por perfil (nutri, paciente, cozinha, admin) com mensagens de erro objetivas.</p>
+                </article>
+                <article class="proto-card">
+                    <img src="./evidencias-sprint-2/10-paciente-landing.png" alt="Landing paciente">
+                    <span class="proto-tag">Paciente</span>
+                    <h4>Acesso por codigo</h4>
+                    <p>Landing do paciente: insere FIB-2026-NNN e revisa pedido recebido da nutricionista.</p>
+                </article>
+                <article class="proto-card">
+                    <img src="./evidencias-sprint-2/12-paciente-pagamento.png" alt="Pagamento paciente">
+                    <span class="proto-tag">Paciente</span>
+                    <h4>Pagamento integrado</h4>
+                    <p>Checkout dentro da plataforma com mock approve/fail e fluxo HMAC idempotente na Sprint 4.</p>
+                </article>
+                <article class="proto-card">
+                    <img src="./evidencias-sprint-2/11-paciente-status.png" alt="Status paciente">
+                    <span class="proto-tag">Paciente</span>
+                    <h4>Timeline de status</h4>
+                    <p>Acompanhamento etapa a etapa com timestamp e descricao operacional.</p>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2>5. Telas da nutricionista</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <div class="proto-grid">
+                <article class="proto-card">
+                    <img src="./evidencias-sprint-1/03-nutri-dashboard.png" alt="Dashboard nutri">
+                    <span class="proto-tag">Nutri</span>
+                    <h4>Dashboard</h4>
+                    <p>Visao do dia: pedidos em andamento, pacientes ativos, atalhos para criar pedido.</p>
+                </article>
+                <article class="proto-card">
+                    <img src="./evidencias-sprint-1/04-nutri-pacientes.png" alt="Pacientes">
+                    <span class="proto-tag">Nutri</span>
+                    <h4>Lista de pacientes</h4>
+                    <p>CRUD completo com filtro por nome, plano e restricao alimentar.</p>
+                </article>
+                <article class="proto-card">
+                    <img src="./evidencias-sprint-1/05-nutri-paciente-novo.png" alt="Novo paciente">
+                    <span class="proto-tag">Nutri</span>
+                    <h4>Cadastrar paciente</h4>
+                    <p>Formulario com validacao em linha de email, telefone, plano e restricoes.</p>
+                </article>
+                <article class="proto-card">
+                    <img src="./evidencias-sprint-1/07-nutri-pedido-marmitas.png" alt="Builder de pedido">
+                    <span class="proto-tag">Nutri</span>
+                    <h4>Builder de marmitas</h4>
+                    <p>Montagem item a item: proteinas, acompanhamentos, embalagem, observacoes.</p>
+                </article>
+                <article class="proto-card">
+                    <img src="./evidencias-sprint-1/08-nutri-pedido-resumo.png" alt="Resumo pedido">
+                    <span class="proto-tag">Nutri</span>
+                    <h4>Resumo financeiro</h4>
+                    <p>Calculo em tempo real: valor base, comissao FastInBox, repasse nutri, codigo unico FIB.</p>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2>6. Telas da cozinha</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <div class="proto-grid">
+                <article class="proto-card">
+                    <img src="./evidencias-sprint-2/05-cozinha-kanban.png" alt="Kanban cozinha">
+                    <span class="proto-tag">Cozinha</span>
+                    <h4>Kanban operacional</h4>
+                    <p>4 colunas (Recebido, Em preparo, Pronto, Entregue) com drag-and-drop persistente.</p>
+                </article>
+                <article class="proto-card">
+                    <img src="./evidencias-sprint-3/s3-06-kanban-status.png" alt="Kanban server-side">
+                    <span class="proto-tag">Cozinha</span>
+                    <h4>Kanban server-side</h4>
+                    <p>Sprint 3: kanban conectado a API real, sem persistencia local.</p>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2>7. Telas do administrador</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <div class="proto-grid">
+                <article class="proto-card">
+                    <img src="./evidencias-sprint-2/06-admin-dashboard.png" alt="Admin dashboard">
+                    <span class="proto-tag">Admin</span>
+                    <h4>Dashboard global</h4>
+                    <p>Visao executiva da operacao: pedidos do dia, receita, status agregado, alertas.</p>
+                </article>
+                <article class="proto-card">
+                    <img src="./evidencias-sprint-2/07-admin-auditoria.png" alt="Auditoria">
+                    <span class="proto-tag">Admin</span>
+                    <h4>Auditoria de eventos</h4>
+                    <p>Trilha completa de eventos sensiveis com filtros por ator, ip, tipo, periodo.</p>
+                </article>
+                <article class="proto-card">
+                    <img src="./evidencias-sprint-2/08-admin-diagnostico-inicial.png" alt="Diagnostico inicial">
+                    <span class="proto-tag">Admin</span>
+                    <h4>Diagnostico inicial</h4>
+                    <p>Health check da plataforma antes de aplicar reset.</p>
+                </article>
+                <article class="proto-card">
+                    <img src="./evidencias-sprint-2/09-admin-diagnostico-final.png" alt="Diagnostico final">
+                    <span class="proto-tag">Admin</span>
+                    <h4>Diagnostico final</h4>
+                    <p>Status pos-reset com confirmacao de banco, fila, gateway e tempos de resposta.</p>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2>8. Biblioteca de componentes</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <table>
+                <thead><tr><th>Componente</th><th>Uso</th><th>Estado</th></tr></thead>
+                <tbody>
+                    <tr><td>Button (primary, secondary, ghost)</td><td>Acao principal e secundaria</td><td>Done</td></tr>
+                    <tr><td>Input + label + helper</td><td>Formularios com validacao em linha</td><td>Done</td></tr>
+                    <tr><td>Card neo-brutal</td><td>Bloco semantico em listas e dashboards</td><td>Done</td></tr>
+                    <tr><td>Kanban column + draggable card</td><td>Painel operacional da cozinha</td><td>Done</td></tr>
+                    <tr><td>Timeline vertical</td><td>Status do paciente</td><td>Done</td></tr>
+                    <tr><td>Badge / Pill / Chip</td><td>Indicadores de status e taxonomia</td><td>Done</td></tr>
+                    <tr><td>Modal</td><td>Detalhe pedido, confirmacoes</td><td>Done</td></tr>
+                    <tr><td>Topbar e bottom-nav responsivos</td><td>Navegacao multi-perfil</td><td>Done</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>9. Responsividade</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <pre style="border:3px solid #000;padding:14px;box-shadow:5px 5px 0 #000;background:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.8rem;line-height:1.5;overflow:auto;">
+   360px         768px           1280px+
+   |             |               |
+   v             v               v
+  Mobile      Tablet         Desktop
+  Stack       2 colunas       3-4 colunas
+  Bottom nav  Side drawer     Top nav fixo
+  Cards full  Card 50%        Card 33%
+  Touch       Hybrid          Mouse + keyboard
+</pre>
+            <p>Aplicacao testada em Chrome, Safari iOS e Firefox em 3 viewports (360, 768, 1280). Sem app mobile nativo - decisao registrada na <a href="./eap-projeto.html">EAP secao 10</a>.</p>
+        </section>
+
+        <section>
+            <h2>10. Acesso a plataforma viva</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <table>
+                <thead><tr><th>Recurso</th><th>URL</th></tr></thead>
+                <tbody>
+                    <tr><td>Plataforma em producao</td><td><a href="https://front-chi-flame.vercel.app" target="_blank" rel="noopener noreferrer">front-chi-flame.vercel.app</a></td></tr>
+                    <tr><td>Relatorio E2E em video</td><td><a href="./e2e-report/">/documents/e2e-report/</a></td></tr>
+                    <tr><td>Repositorio do front</td><td><a href="https://github.com/FastInBox-Repo/front" target="_blank" rel="noopener noreferrer">github.com/FastInBox-Repo/front</a></td></tr>
+                </tbody>
+            </table>
+            <p><strong>Credenciais de demonstracao:</strong></p>
+            <ul>
+                <li>Nutricionista: ana@nutritionvida.com.br / senha em /login</li>
+                <li>Cozinha: fabrica@fastinbox.com.br / senha em /login</li>
+                <li>Paciente: acessar via codigo FIB-2026-001 em /paciente</li>
+                <li>Admin: admin@fastinbox.com.br / senha em /login</li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            Prototipo Visual do FastInBox - mantido sincronizado com a aplicacao em producao. Atualizado a cada sprint via prints do ambiente Vercel.
+        </footer>
+    </main>
+</body>
+</html>

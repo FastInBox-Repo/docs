@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Casos de Teste</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./plano-de-testes.html">Plano de Testes</a>
+            <a href="./relatorio-testes.html">Relatorio de Testes</a>
+            <a href="./criterios-aceitacao.html">Criterios de Aceitacao</a>
+            <a href="./e2e-report/" target="_blank" rel="noopener noreferrer">Suite E2E</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | QA - Especificacao de Casos de Teste</p>
+            <h1>Casos de Teste</h1>
+            <p>Versao: 3.0 | Formato IEEE 829 | 21 casos manuais TC-* + 22 casos automatizados Playwright</p>
+            <p>Especificacao detalhada de cada caso de teste do FastInBox: objetivo, pre-condicoes, dados de entrada, passos, resultado esperado, RF e HU cobertos, veredito e evidencia. Cobertura completa Sprints 1 a 5 - pagamento ponta a ponta, fila operacional, RBAC matrizado, relatorios admin e hardening.</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Gabriel Pahl | <strong>Ultima atualizacao:</strong> 21/05/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+        </header>
+
+        <section>
+            <h2>1. Sumario</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Indicador</th><th>Valor</th></tr></thead>
+                <tbody>
+                    <tr><td>Total de TCs manuais documentados</td><td>21 (TC-001 a TC-021)</td></tr>
+                    <tr><td>TCs automatizados (Playwright)</td><td>22 specs (01-22)</td></tr>
+                    <tr><td>Aprovados Sprints 1-5</td><td>21 / 21 (100%)</td></tr>
+                    <tr><td>Bloqueantes abertos</td><td>0</td></tr>
+                    <tr><td>Defect Removal Efficiency</td><td>100%</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>2. TC-001 - Login multi-perfil</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Validar autenticacao nos 4 perfis (nutri, paciente, cozinha, admin) e rejeicao de credenciais invalidas.</td></tr>
+                    <tr><th>RF / HU coberto</th><td>RF-001 / HU-005, HU-013, HU-019</td></tr>
+                    <tr><th>Pre-condicoes</th><td>Banco com usuarios seed: ana@nutritionvida.com.br, paciente seedado, fabrica@fastinbox.com.br, admin@fastinbox.com.br.</td></tr>
+                    <tr><th>Dados de entrada</th><td>Credenciais validas e 1 credencial invalida proposital.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. Abrir /login.<br>
+                        2. Selecionar perfil Nutricionista, informar credenciais validas, confirmar.<br>
+                        3. Repetir para Paciente, Cozinha, Admin.<br>
+                        4. Tentar combinacao invalida.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>3 redirecionamentos para area logada correta; 1 mensagem de erro mantendo o usuario em /login.</td></tr>
+                    <tr><th>Spec E2E</th><td>02-auth-login.spec.ts</td></tr>
+                    <tr><th>Sprint</th><td>S1</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. TC-002 - Cadastro de paciente</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Garantir que nutricionista consegue cadastrar paciente com restricoes alimentares.</td></tr>
+                    <tr><th>RF / HU</th><td>RF-002 / HU-006</td></tr>
+                    <tr><th>Pre-condicoes</th><td>Login como nutri Ana Carolina.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. Acessar /nutricionista/pacientes.<br>
+                        2. Clicar em Novo paciente.<br>
+                        3. Preencher nome, telefone, plano, objetivo, restricoes.<br>
+                        4. Salvar.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>Paciente listado na grid, contador atualizado, ID gerado.</td></tr>
+                    <tr><th>Spec E2E</th><td>06-nutri-pacientes.spec.ts</td></tr>
+                    <tr><th>Sprint</th><td>S1</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. TC-003 - Criacao de pedido com codigo unico</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Validar criacao de pedido com itens, observacoes, janela de entrega e geracao de codigo unico FIB-YYYY-NNN.</td></tr>
+                    <tr><th>RF / HU</th><td>RF-003, RF-004 / HU-008, HU-009</td></tr>
+                    <tr><th>Pre-condicoes</th><td>Paciente cadastrado, nutri logada.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. Acessar /nutricionista/pedidos/novo.<br>
+                        2. Selecionar paciente.<br>
+                        3. Adicionar 2 marmitas com itens e observacoes.<br>
+                        4. Definir janela de entrega.<br>
+                        5. Confirmar criacao.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>Pedido salvo, codigo FIB-2026-NNN exibido na tela de resumo, status = Aguardando_Confirmacao.</td></tr>
+                    <tr><th>Spec E2E</th><td>07-nutri-novo-pedido.spec.ts</td></tr>
+                    <tr><th>Sprint</th><td>S1</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. TC-004 - Persistencia apos refresh</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Verificar que dados de paciente e pedido permanecem apos recarregamento.</td></tr>
+                    <tr><th>RF / HU</th><td>RF-002, RF-003 / HU-006, HU-008</td></tr>
+                    <tr><th>Pre-condicoes</th><td>Paciente criado em TC-002, pedido criado em TC-003.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. Recarregar /nutricionista/pacientes - verificar paciente.<br>
+                        2. Recarregar /nutricionista/pedidos - verificar pedido.<br>
+                        3. Fazer logout e login - dados continuam.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>Dados persistidos no banco PostgreSQL, nao ha perda.</td></tr>
+                    <tr><th>Sprint</th><td>S2</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>6. TC-005 - Kanban da cozinha</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Validar drag-and-drop de pedido entre colunas e persistencia de status.</td></tr>
+                    <tr><th>RF / HU</th><td>RF-009, RF-010 / HU-020, HU-021</td></tr>
+                    <tr><th>Pre-condicoes</th><td>Pedido pago, cozinha logada.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. Acessar /cozinha.<br>
+                        2. Arrastar pedido de Recebido para Em preparo.<br>
+                        3. Recarregar pagina.<br>
+                        4. Verificar coluna atual.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>Pedido permanece em Em preparo, evento registrado em production_events com timestamp e usuario.</td></tr>
+                    <tr><th>Spec E2E</th><td>15-cozinha-dashboard.spec.ts</td></tr>
+                    <tr><th>Sprint</th><td>S2</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>7. TC-006 - Smoke E2E nutri-paciente-cozinha</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Smoke test do fluxo principal ponta a ponta.</td></tr>
+                    <tr><th>RF / HU</th><td>RF-003, RF-005, RF-009 / HU-008, HU-013, HU-020</td></tr>
+                    <tr><th>Pre-condicoes</th><td>Banco em estado inicial seed.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. Nutri cria pedido (codigo FIB-X gerado).<br>
+                        2. Paciente acessa /pedido/FIB-X.<br>
+                        3. Paciente confirma e paga (mock approve).<br>
+                        4. Cozinha visualiza pedido em Recebido.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>Fluxo conclui sem erro, status final = Recebido na cozinha.</td></tr>
+                    <tr><th>Spec E2E</th><td>Combinacao de 07, 10, 11, 12, 15</td></tr>
+                    <tr><th>Sprint</th><td>S2</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. TC-007 - Health check da API</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Confirmar que /health responde 200 OK em menos de 100ms.</td></tr>
+                    <tr><th>RF / HU</th><td>RNF-001, RNF-006 / -</td></tr>
+                    <tr><th>Pre-condicoes</th><td>API NestJS rodando.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. Executar curl -i http://localhost:3001/health.<br>
+                        2. Verificar codigo HTTP e latencia.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>HTTP 200, payload {"status":"ok"}, tempo &lt; 100ms.</td></tr>
+                    <tr><th>Sprint</th><td>S3</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong> (evidencia s3-02-health-ok.png)</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>9. TC-008 - Login server-side com JWT</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Validar autenticacao via API com emissao de access token + refresh token.</td></tr>
+                    <tr><th>RF / HU</th><td>RF-001, RNF-003 / HU-005</td></tr>
+                    <tr><th>Pre-condicoes</th><td>Usuario seedado.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. POST /auth/login com email e senha validos.<br>
+                        2. Inspecionar resposta.<br>
+                        3. POST /auth/refresh com refresh token.<br>
+                        4. Validar novo access token.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>HTTP 200 com tokens JWT validos, refresh com rotacao.</td></tr>
+                    <tr><th>Sprint</th><td>S3</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong> (evidencia s3-03-login-api.png)</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>10. TC-009 - Cadastro paciente via API</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Garantir que API cria paciente com validacao em linha (email valido, telefone formatado, restricoes opcionais).</td></tr>
+                    <tr><th>RF / HU</th><td>RF-002 / HU-006, HU-007</td></tr>
+                    <tr><th>Pre-condicoes</th><td>Token JWT de nutri.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. POST /patients com payload valido.<br>
+                        2. POST /patients com payload invalido (email vazio).<br>
+                        3. GET /patients listando.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>1=201 Created, 2=400 Bad Request, 3=200 com paciente listado.</td></tr>
+                    <tr><th>Sprint</th><td>S3</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong> (evidencia s3-04-paciente-criado.png)</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>11. TC-010 - Pedido via API com codigo unico</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Criar pedido via API e validar geracao de codigo unico nao colidente.</td></tr>
+                    <tr><th>RF / HU</th><td>RF-003, RF-004 / HU-008, HU-009, HU-028</td></tr>
+                    <tr><th>Pre-condicoes</th><td>Paciente criado em TC-009.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. POST /orders com patient_id e items.<br>
+                        2. Verificar order_code retornado.<br>
+                        3. Criar 100 pedidos consecutivos.<br>
+                        4. Validar unicidade.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>order_code unico FIB-2026-NNN, sem colisao em 100 tentativas.</td></tr>
+                    <tr><th>Sprint</th><td>S3</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong> (evidencia s3-05-pedido-criado.png)</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>12. TC-011 - Confirmacao do paciente + auditoria</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Validar confirmacao do paciente e registro em order_events.</td></tr>
+                    <tr><th>RF / HU</th><td>RF-006, RF-014, RNF-008 / HU-015, HU-025</td></tr>
+                    <tr><th>Pre-condicoes</th><td>Pedido em Aguardando_Confirmacao, paciente com acesso ao codigo.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. POST /public/orders/:code/confirm com token paciente.<br>
+                        2. Verificar status do pedido.<br>
+                        3. GET /audit/events filtrando order_id.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>Status muda para Aguardando_Pagamento, evento order.confirmed registrado com ator, ip, timestamp.</td></tr>
+                    <tr><th>Sprint</th><td>S3</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong> (evidencia s3-07-paciente-confirma.png + s3-08-audit-log.png)</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>13. TC-012 - Criacao de PaymentIntent (idempotente)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Validar criacao de payment intent transacional e idempotencia quando chamado duas vezes para o mesmo pedido.</td></tr>
+                    <tr><th>RF / HU</th><td>RF-007 / HU-016</td></tr>
+                    <tr><th>Pre-condicoes</th><td>Pedido em status AWAITING_PAYMENT.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. POST /public/orders/:code/payment-intent.<br>
+                        2. POST mesmo endpoint novamente.<br>
+                        3. Inspecionar IDs retornados.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>Segundo POST retorna o mesmo intent (status pending), sem criar duplicata.</td></tr>
+                    <tr><th>Sprint</th><td>S4</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>14. TC-013 - Webhook HMAC com janela anti-replay</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Seguranca</span>Gabriel Pahl</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Garantir que webhook so processa eventos com assinatura HMAC SHA-256 valida e timestamp dentro de +/- 5 min.</td></tr>
+                    <tr><th>RF / HU</th><td>RF-007, RNF-003 / HU-016</td></tr>
+                    <tr><th>Pre-condicoes</th><td>PaymentIntent criada para um pedido.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. POST /payments/webhook com signature valida + timestamp atual.<br>
+                        2. POST com timestamp -10 minutos.<br>
+                        3. POST com signature corrompida.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>1=200 processado, 2=401 timestamp invalido, 3=401 signature invalida.</td></tr>
+                    <tr><th>Sprint</th><td>S4</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>15. TC-014 - Liberacao para cozinha apos pagamento</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Validar transicao AWAITING_PAYMENT -> PAID via webhook payment.approved e atribuicao automatica de kitchenId.</td></tr>
+                    <tr><th>RF / HU</th><td>RF-007, RF-010 / HU-016</td></tr>
+                    <tr><th>Pre-condicoes</th><td>Pedido confirmado, intent em pending.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. Disparar evento payment.approved via simulate ou webhook.<br>
+                        2. GET /orders/:id.<br>
+                        3. GET /kitchens/:id/queue.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>Status PAID, paidAt populado, kitchenId atribuido por round-robin, pedido aparece na fila da cozinha.</td></tr>
+                    <tr><th>Sprint</th><td>S4</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>16. TC-015 - Fila operacional agrupada por janela</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Validar agrupamento de pedidos por delivery window (date + slot + region).</td></tr>
+                    <tr><th>RF / HU</th><td>RF-010 / HU-020</td></tr>
+                    <tr><th>Pre-condicoes</th><td>Multiplos pedidos pagos com janelas diferentes.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. Criar 5 pedidos com 3 janelas distintas.<br>
+                        2. Pagar todos.<br>
+                        3. GET /kitchens/:kitchenId/queue.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>Resposta agrupada em 3 QueueGroups, ordenada por data + slot crescente.</td></tr>
+                    <tr><th>Sprint</th><td>S4</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>17. TC-016 - Diagnostico profundo /admin/diagnostics</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Validar agregados consolidados de orders, payments e audit em uma chamada.</td></tr>
+                    <tr><th>RF / HU</th><td>RNF-006 / HU-026</td></tr>
+                    <tr><th>Pre-condicoes</th><td>Token admin valido.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. GET /admin/diagnostics com Bearer admin.<br>
+                        2. Comparar contadores com /orders e /payments/intents.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>Modulos retornam status=ok, contadores coerentes, uptimeMs &gt; 0.</td></tr>
+                    <tr><th>Sprint</th><td>S5</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>18. TC-017 - Relatorio /admin/reports/operations</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Validar agregacao de pedidos por status, faturamento, ticket medio e conversao.</td></tr>
+                    <tr><th>RF / HU</th><td>RF-012 / HU-023</td></tr>
+                    <tr><th>Pre-condicoes</th><td>Banco com pedidos em status variados.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. GET /admin/reports/operations?from=...&amp;to=...<br>
+                        2. Conferir somatorios.<br>
+                        3. Spec Jest <code>reports.service.spec.ts</code>.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>revenueCents, commissionCents, payoutCents, conversionPct corretos.</td></tr>
+                    <tr><th>Sprint</th><td>S5</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>19. TC-018 - Comissoes por nutricionista</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Agrupar pedidos pagos por (clinicId, nutritionistId) e ordenar decrescentemente por comissao.</td></tr>
+                    <tr><th>RF / HU</th><td>RF-017 / HU-027</td></tr>
+                    <tr><th>Pre-condicoes</th><td>Pedidos pagos em 2+ nutricionistas.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. GET /admin/reports/commissions.<br>
+                        2. Verificar ordering.<br>
+                        3. Verificar somatorios.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>Lista ordenada decrescente por commissionCents, soma fechando com /operations.</td></tr>
+                    <tr><th>Sprint</th><td>S5</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>20. TC-019 - Exportacao CSV de comissoes</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Garantir que /admin/reports/commissions.csv retorna CSV valido com header e linhas alinhadas.</td></tr>
+                    <tr><th>RF / HU</th><td>RF-017 / HU-027</td></tr>
+                    <tr><th>Pre-condicoes</th><td>Token admin valido.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. GET /admin/reports/commissions.csv.<br>
+                        2. Validar Content-Type=text/csv.<br>
+                        3. Parse das linhas.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>Header presente, N linhas correspondem a N rows do JSON.</td></tr>
+                    <tr><th>Sprint</th><td>S5</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>21. TC-020 - RBAC nega nutritionist em endpoints admin</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Seguranca</span>Gabriel Pahl</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Garantir que perfis nao-admin recebem 403 em rotas /admin/*.</td></tr>
+                    <tr><th>RF / HU</th><td>RF-001, RNF-003 / HU-025</td></tr>
+                    <tr><th>Pre-condicoes</th><td>Token de nutricionista valido.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. GET /admin/reports/operations com Bearer nutri.<br>
+                        2. GET /admin/diagnostics com Bearer kitchen.<br>
+                        3. GET /admin/audit com Bearer patient.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>Os 3 retornam 403 AUTH_INSUFFICIENT_ROLE.</td></tr>
+                    <tr><th>Sprint</th><td>S5</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>22. TC-021 - Audit log registra tentativa negada</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Objetivo</th><td>Confirmar que tentativas de acesso negadas geram entrada em audit_log com outcome=denied.</td></tr>
+                    <tr><th>RF / HU</th><td>RF-014 / HU-025</td></tr>
+                    <tr><th>Pre-condicoes</th><td>TC-020 executado.</td></tr>
+                    <tr><th>Passos</th><td>
+                        1. GET /admin/audit?outcome=denied apos TC-020.<br>
+                        2. Conferir ator, acao e timestamp.
+                    </td></tr>
+                    <tr><th>Resultado esperado</th><td>3 entradas com outcome=denied correspondendo aos 3 acessos do TC-020.</td></tr>
+                    <tr><th>Sprint</th><td>S5</td></tr>
+                    <tr><th>Veredito</th><td><strong>APROVADO</strong></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>23. Casos automatizados Playwright (22 specs)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <table>
+                <thead><tr><th>Spec</th><th>Area</th><th>Funcionalidade</th></tr></thead>
+                <tbody>
+                    <tr><td>01-home-tracking</td><td>Publico</td><td>Home + atalho rastreio</td></tr>
+                    <tr><td>02-auth-login</td><td>Publico</td><td>Login multi-perfil + erro</td></tr>
+                    <tr><td>03-auth-register</td><td>Publico</td><td>Cadastro de paciente</td></tr>
+                    <tr><td>04-auth-forgot-password</td><td>Publico</td><td>Recuperacao senha</td></tr>
+                    <tr><td>05-nutri-dashboard</td><td>Nutricionista</td><td>Dashboard</td></tr>
+                    <tr><td>06-nutri-pacientes</td><td>Nutricionista</td><td>CRUD pacientes</td></tr>
+                    <tr><td>07-nutri-novo-pedido</td><td>Nutricionista</td><td>Criacao pedido</td></tr>
+                    <tr><td>08-nutri-pedido-resumo</td><td>Nutricionista</td><td>Resumo financeiro</td></tr>
+                    <tr><td>09-nutri-configuracoes</td><td>Nutricionista</td><td>White label</td></tr>
+                    <tr><td>10-paciente-landing</td><td>Paciente</td><td>Acesso por codigo</td></tr>
+                    <tr><td>11-paciente-pedido</td><td>Paciente</td><td>Revisao e confirmacao</td></tr>
+                    <tr><td>12-paciente-pagamento</td><td>Paciente</td><td>Checkout</td></tr>
+                    <tr><td>13-paciente-status</td><td>Paciente</td><td>Timeline</td></tr>
+                    <tr><td>14-cozinha-login</td><td>Cozinha</td><td>Login dedicado</td></tr>
+                    <tr><td>15-cozinha-dashboard</td><td>Cozinha</td><td>Kanban drag-drop</td></tr>
+                    <tr><td>16-cozinha-pedido</td><td>Cozinha</td><td>Detalhe pedido</td></tr>
+                    <tr><td>17-admin-dashboard</td><td>Admin</td><td>Visao geral</td></tr>
+                    <tr><td>18-admin-usuarios</td><td>Admin</td><td>Listagem e filtros</td></tr>
+                    <tr><td>19-admin-pedidos</td><td>Admin</td><td>Consulta pedidos</td></tr>
+                    <tr><td>20-admin-auditoria</td><td>Admin</td><td>Eventos auditados</td></tr>
+                    <tr><td>21-admin-diagnostico</td><td>Admin</td><td>Health check</td></tr>
+                    <tr><td>22-admin-configuracoes</td><td>Admin</td><td>Configuracao global</td></tr>
+                </tbody>
+            </table>
+            <div class="note">Cada spec produz video webm 1280x720 + screenshot na falha. Relatorio executivo em <a href="./e2e-report/">/documents/e2e-report/</a>.</div>
+        </section>
+
+        <section>
+            <h2>24. Matriz RF -> TC</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>RF</th><th>Descricao</th><th>TCs cobertos</th><th>Cobertura</th></tr></thead>
+                <tbody>
+                    <tr><td>RF-001</td><td>Autenticacao multi-perfil</td><td>TC-001, TC-008</td><td>100%</td></tr>
+                    <tr><td>RF-002</td><td>Cadastro/edicao pacientes</td><td>TC-002, TC-004, TC-009</td><td>100%</td></tr>
+                    <tr><td>RF-003</td><td>Criacao pedido + codigo unico</td><td>TC-003, TC-006, TC-010</td><td>100%</td></tr>
+                    <tr><td>RF-004</td><td>White label</td><td>TC-003, TC-010</td><td>100%</td></tr>
+                    <tr><td>RF-005</td><td>Landing paciente por codigo</td><td>TC-006</td><td>100%</td></tr>
+                    <tr><td>RF-006</td><td>Confirmacao pedido</td><td>TC-011</td><td>100%</td></tr>
+                    <tr><td>RF-009</td><td>Persistencia consistente</td><td>TC-004, TC-005</td><td>100%</td></tr>
+                    <tr><td>RF-010</td><td>Status auditavel</td><td>TC-005, TC-011</td><td>100%</td></tr>
+                    <tr><td>RF-014</td><td>Auditoria de eventos</td><td>TC-011</td><td>100%</td></tr>
+                    <tr><td>RNF-001</td><td>Performance</td><td>TC-007</td><td>100%</td></tr>
+                    <tr><td>RNF-003</td><td>Seguranca JWT</td><td>TC-008</td><td>100%</td></tr>
+                    <tr><td>RNF-006</td><td>Disponibilidade</td><td>TC-007</td><td>100%</td></tr>
+                    <tr><td>RNF-008</td><td>Rastreabilidade</td><td>TC-011</td><td>100%</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <footer class="footer">
+            Casos de Teste do FastInBox em formato IEEE 829. Atualizado a cada sprint executada. Defeitos em <a href="./relatorio-testes.html">Relatorio de Testes</a> secao 9.
+        </footer>
+    </main>
+</body>
+</html>

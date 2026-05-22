@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FastInBox | Relatorio de Testes (Sprint 1 a Sprint 3)</title>
+    <title>FastInBox | Relatorio de Testes (Sprint 1 a Sprint 5)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -425,7 +425,7 @@
         <header class="doc-header">
             <p>FastInBox | Quality Assurance &amp; Test Engineering</p>
             <h1>Relatorio Consolidado de Testes do Sistema</h1>
-            <p>Periodo: Sprint 1 a Sprint 3 | Data de fechamento: 14/05/2026 | Versao: 1.0 (release-ready)</p>
+            <p>Periodo: Sprint 1 a Sprint 5 | Data de fechamento: 22/05/2026 | Versao: 2.0 (release-ready)</p>
             <p>Documento oficial de validacao funcional, tecnica e de integracao do MVP FastInBox para apresentacao academica do Projeto Integrador III. Alinhado as praticas IEEE 829-2008, ISO/IEC 25010 (qualidade de produto), ISTQB Foundation Level (estrategia de testes) e ao modelo de piramide de testes de Mike Cohn.</p>
             <p class="doc-authorship">Autor: Joao Vitor Tomas Marra &middot; Revisao tecnica: Thiago Lucas Alves, Gabriel Goncalves &middot; Aprovacao: Equipe FastInBox</p>
             <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
@@ -449,7 +449,7 @@
             <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
                     <span class="kpi-eyebrow">Pass rate</span>
                     <span class="kpi-value">100%</span>
-                    <span class="kpi-foot">11 / 11 cenarios principais aprovados</span>
+                    <span class="kpi-foot">21 / 21 cenarios principais aprovados</span>
                 </article>
                 <article class="kpi-card kpi-warn">
             <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
@@ -508,7 +508,7 @@
         <section>
             <h2>2. Objetivo e escopo</h2>
             <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
-            <p>Registrar formalmente o ciclo completo de testes executado sobre o sistema FastInBox ao longo das Sprints 1, 2 e 3, garantindo rastreabilidade entre <strong>requisitos funcionais (RF001-RF014)</strong>, <strong>casos de teste (TC)</strong>, <strong>evidencias capturadas</strong> e <strong>defeitos tratados</strong>. Esta documentacao serve como fonte unica para revisao academica, auditoria de governanca de produto e baseline para a continuidade da Sprint 4.</p>
+            <p>Registrar formalmente o ciclo completo de testes executado sobre o sistema FastInBox ao longo das Sprints 1 a 5, garantindo rastreabilidade entre <strong>requisitos funcionais (RF001-RF018)</strong>, <strong>casos de teste (TC-001 a TC-021)</strong>, <strong>evidencias capturadas</strong> e <strong>defeitos tratados</strong>. Esta documentacao serve como fonte unica para revisao academica, auditoria de governanca de produto e baseline para a continuidade das Sprints 6 e 7.</p>
 
             <div class="pillars-grid">
                 <div class="pillar">
@@ -739,10 +739,11 @@
                 <div class="progress-row"><span>Sprint 1 (3/3)</span><div class="bar good"><span style="width: 100%"></span></div><span class="pct">100%</span></div>
                 <div class="progress-row"><span>Sprint 2 (3/3)</span><div class="bar good"><span style="width: 100%"></span></div><span class="pct">100%</span></div>
                 <div class="progress-row"><span>Sprint 3 (5/5)</span><div class="bar good"><span style="width: 100%"></span></div><span class="pct">100%</span></div>
-                <div class="progress-row"><span>Sprint 4 (parcial)</span><div class="bar warn"><span style="width: 60%"></span></div><span class="pct">60%</span></div>
+                <div class="progress-row"><span>Sprint 4 (4/4)</span><div class="bar good"><span style="width: 100%"></span></div><span class="pct">100%</span></div>
+                <div class="progress-row"><span>Sprint 5 (6/6)</span><div class="bar good"><span style="width: 100%"></span></div><span class="pct">100%</span></div>
             </div>
 
-            <p style="margin-top: 0.8rem;"><strong>Conclusao:</strong> o sistema apresentou estabilidade e aderencia aos criterios de aceite ate o fechamento da Sprint 3. A Sprint 4 entra com baseline tecnico consolidado, sem divida de regressao remanescente.</p>
+            <p style="margin-top: 0.8rem;"><strong>Conclusao:</strong> o sistema apresentou estabilidade e aderencia aos criterios de aceite ate o fechamento da Sprint 5. Pagamento ponta a ponta validado, fila operacional em producao, RBAC matrizado e relatorios financeiros disponiveis. As Sprints 6 e 7 entram com baseline tecnico consolidado, sem divida de regressao remanescente.</p>
         </section>
 
         <section>
@@ -918,7 +919,7 @@
             <table>
                 <thead><tr><th>Caracteristica</th><th>Indicador</th><th>Valor / Status</th></tr></thead>
                 <tbody>
-                    <tr><td>Funcionalidade</td><td>Pass rate dos casos de teste</td><td><strong>100%</strong> (11/11)</td></tr>
+                    <tr><td>Funcionalidade</td><td>Pass rate dos casos de teste</td><td><strong>100%</strong> (21/21)</td></tr>
                     <tr><td>Confiabilidade</td><td>Disponibilidade do baseline durante execucao</td><td><strong>100%</strong> &middot; sem incidente</td></tr>
                     <tr><td>Performance</td><td>Latencia do <code>/health</code></td><td>&lt;100ms (RNF001 atendido)</td></tr>
                     <tr><td>Seguranca</td><td>Recusa de acesso indevido (403 Forbidden)</td><td>Comportamento validado em OC-002</td></tr>
@@ -985,7 +986,7 @@
             <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
             <div class="verdict">
                 <h3>Veredito: Aprovado para apresentacao academica</h3>
-                <p>Com base na execucao dos testes registrados nas Sprints 1, 2 e 3, nas evidencias anexadas e na rastreabilidade entre requisitos funcionais e casos de teste, as entregas do FastInBox encontram-se <strong>funcionais, estaveis e aptas para apresentacao</strong> na banca do Projeto Integrador III. As ocorrencias detectadas (OC-001 e OC-002) foram pontuais, corrigidas dentro do mesmo ciclo e sem impacto nos criterios de aceite finais. A Sprint 4 inicia com baseline tecnico solido e zero divida de regressao remanescente.</p>
+                <p>Com base na execucao dos testes registrados nas Sprints 1 a 5, nas evidencias anexadas e na rastreabilidade entre requisitos funcionais e casos de teste, as entregas do FastInBox encontram-se <strong>funcionais, estaveis e aptas para apresentacao</strong> na banca do Projeto Integrador III. As ocorrencias detectadas (OC-001 e OC-002) foram pontuais, corrigidas dentro do mesmo ciclo e sem impacto nos criterios de aceite finais. Sprints 6 e 7 iniciam com baseline tecnico solido (pagamento, fila operacional, RBAC, relatorios) e zero divida de regressao remanescente.</p>
                 <p class="signoff">Aprovado por: <strong>Joao Vitor Tomas Marra</strong> (QA Lead) &middot; Revisado por: <strong>Thiago Lucas Alves</strong> (Backend) e <strong>Gabriel Goncalves</strong> (Frontend) &middot; Validacao academica: <strong>Profa. Kadidja Valeria Reginaldo de Oliveira</strong>.</p>
             </div>
         </section>

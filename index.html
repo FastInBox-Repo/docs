@@ -36,6 +36,7 @@
                 <li><a href="#fluxos">Fluxos</a></li>
                 <li><a href="#testes">Testes</a></li>
                 <li><a href="#backlog">Backlog</a></li>
+                <li><a href="#checklist-pi3">Checklist PI III</a></li>
                 <li><a href="#documentos">Documentos</a></li>
                 <li><a href="https://github.com/orgs/FastInBox-Repo/projects/1" class="nav-project" target="_blank" rel="noopener noreferrer" aria-label="Abrir GitHub Project do FastInBox"><i class="fa-brands fa-github" aria-hidden="true"></i> Project</a></li>
                 <li><a href="https://front-chi-flame.vercel.app" class="nav-cta" target="_blank" rel="noopener noreferrer" aria-label="Acessar a plataforma FastInBox">Plataforma <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></li>
@@ -69,13 +70,13 @@
 
             <div class="hero-metrics">
                 <article class="metric-chip">
-                    <strong>25 documentos</strong>
+                    <strong>33 documentos</strong>
                     <span>Paginas completas em formato tecnico</span>
                     <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">Documentacao</span>Gabriel Pahl</span></div>
                 </article>
                 <article class="metric-chip">
-                    <strong>3 / 7 sprints</strong>
-                    <span>Sprints 1, 2 e 3 entregues; Sprint 4 em execucao</span>
+                    <strong>5 / 7 sprints</strong>
+                    <span>Sprints 1 a 5 entregues; Sprint 6 em planning</span>
                     <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
                 </article>
                 <article class="metric-chip">
@@ -272,9 +273,9 @@
                     <article class="sprint-block reveal" data-sprint="4">
                         <header class="sprint-block-head">
                             <span class="sprint-block-id">Sprint 4</span>
-                            <span class="sprint-block-status status-next">Em execucao</span>
-                            <h3>Pagamento real e fila da fabrica</h3>
-                            <p class="sprint-block-sub">Adapter de gateway, intent transacional, webhook idempotente HMAC e fila operacional por janela de entrega.</p>
+                            <span class="sprint-block-status status-done">Entregue</span>
+                            <h3>Pagamento e fila da fabrica</h3>
+                            <p class="sprint-block-sub">Gateway transacional, intent, webhook idempotente HMAC e fila operacional por janela de entrega.</p>
                         </header>
                         <div class="sprint-block-cards">
                             <a class="sprint-doc-card" href="./documents/sprint-4-planning.html">
@@ -285,7 +286,7 @@
                             </a>
                             <a class="sprint-doc-card" href="./documents/evidencias-sprint-4.html">
                                 <span class="sprint-doc-kind">Evidencias</span>
-                                <p>Status parcial: adapter de gateway com MockPaymentProvider, intent + simulacao approve/fail, webhook HMAC idempotente e fila operacional agrupada por janela.</p>
+                                <p>7/7 itens em Done. Gateway transacional, intents, webhook HMAC com janela anti-replay e fila operacional agrupada por janela.</p>
                                 <span class="sprint-doc-cta">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
                                 <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
                             </a>
@@ -296,9 +297,9 @@
                     <article class="sprint-block reveal" data-sprint="5">
                         <header class="sprint-block-head">
                             <span class="sprint-block-id">Sprint 5</span>
-                            <span class="sprint-block-status status-plan">Planejada</span>
+                            <span class="sprint-block-status status-done">Entregue</span>
                             <h3>Admin, observabilidade e hardening</h3>
-                            <p class="sprint-block-sub">APIs admin, RBAC, relatorios de comissao, logs centralizados e hardening.</p>
+                            <p class="sprint-block-sub">APIs admin, RBAC matrizado, relatorios de comissao com CSV, diagnostico profundo e hardening.</p>
                         </header>
                         <div class="sprint-block-cards">
                             <a class="sprint-doc-card" href="./documents/sprint-5-planning.html">
@@ -307,12 +308,12 @@
                                 <span class="sprint-doc-cta">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
                                 <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
                             </a>
-                            <span class="sprint-doc-card sprint-doc-disabled" aria-disabled="true" role="note">
+                            <a class="sprint-doc-card" href="./documents/evidencias-sprint-5.html">
                                 <span class="sprint-doc-kind">Evidencias</span>
-                                <p>Sera publicado ao final da sprint com prints de admin, relatorios exportados e alertas ativos.</p>
-                                <span class="sprint-doc-cta">Ainda nao disponivel</span>
+                                <p>7/7 itens em Done. ReportsService com operations/commissions, /admin/diagnostics profundo, pagina /admin/relatorios e RBAC matrizado.</p>
+                                <span class="sprint-doc-cta">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
                                 <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
-                            </span>
+                            </a>
                         </div>
                         <div class="owners owners-inline"><span class="owners-label">Responsaveis Sprint</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
                     </article>
@@ -447,8 +448,8 @@
                     </article>
                     <article class="qa-pillar qa-pillar-result">
                         <span class="qa-pillar-tag">[ Resultado MVP ]</span>
-                        <h3>11 / 11 cenarios aprovados</h3>
-                        <p>Sprints 1 a 3 encerradas com cobertura completa dos 14 requisitos funcionais, zero bloqueante e 100% de defect removal efficiency.</p>
+                        <h3>21 / 21 cenarios aprovados</h3>
+                        <p>Sprints 1 a 5 encerradas com cobertura completa dos requisitos funcionais e nao funcionais, zero bloqueante e 100% de defect removal efficiency.</p>
                         <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
                     </article>
                 </div>
@@ -466,8 +467,8 @@
 
                 <div class="qa-kpi-row reveal">
                     <article class="qa-kpi qa-kpi-good">
-                        <strong>11 / 11</strong>
-                        <span>Cenarios aprovados (Sprints 1-3)</span>
+                        <strong>21 / 21</strong>
+                        <span>Cenarios aprovados (Sprints 1-5)</span>
                         <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
                     </article>
                     <article class="qa-kpi qa-kpi-good">
@@ -576,15 +577,15 @@
 
                 <div class="board-kpis reveal">
                     <div class="board-kpi kpi-done">
-                        <strong>54</strong>
+                        <strong>68</strong>
                         <span>Entregues</span>
                     </div>
                     <div class="board-kpi kpi-progress">
-                        <strong>5</strong>
+                        <strong>0</strong>
                         <span>Em andamento</span>
                     </div>
                     <div class="board-kpi kpi-todo">
-                        <strong>19</strong>
+                        <strong>10</strong>
                         <span>Planejadas</span>
                     </div>
                     <div class="board-kpi kpi-total">
@@ -595,12 +596,12 @@
 
                 <div class="board-progress reveal" aria-label="Progresso geral do backlog">
                     <div class="board-progress-track">
-                        <div class="board-progress-fill" style="width: 69.2%"></div>
-                        <div class="board-progress-marker" style="left: 69.2%"><span>Sprint 4 em execucao</span></div>
+                        <div class="board-progress-fill" style="width: 87.2%"></div>
+                        <div class="board-progress-marker" style="left: 87.2%"><span>Sprint 5 entregue</span></div>
                     </div>
                     <div class="board-progress-meta">
-                        <span><strong>69%</strong> do backlog entregue</span>
-                        <span>3 de 7 sprints concluidas</span>
+                        <span><strong>87%</strong> do backlog entregue</span>
+                        <span>5 de 7 sprints concluidas</span>
                     </div>
                 </div>
 
@@ -638,25 +639,25 @@
                         <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
                     </article>
 
-                    <article class="board-sprint sprint-next">
+                    <article class="board-sprint sprint-done">
                         <header>
                             <span class="sprint-id">Sprint 4</span>
-                            <span class="sprint-chip chip-next">Next</span>
+                            <span class="sprint-chip chip-done">Done</span>
                         </header>
                         <h3>Pagamento e fabrica</h3>
-                        <p>Adapter de gateway, intent transacional, webhook HMAC idempotente e fila operacional por janela.</p>
-                        <footer><strong>5</strong> em execucao &middot; <strong>2</strong> a iniciar</footer>
+                        <p>Gateway transacional, intent, webhook HMAC idempotente e fila operacional por janela.</p>
+                        <footer><strong>7</strong> tasks entregues</footer>
                         <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
                     </article>
 
-                    <article class="board-sprint sprint-plan">
+                    <article class="board-sprint sprint-done">
                         <header>
                             <span class="sprint-id">Sprint 5</span>
-                            <span class="sprint-chip chip-plan">Plan</span>
+                            <span class="sprint-chip chip-done">Done</span>
                         </header>
                         <h3>Admin e observabilidade</h3>
-                        <p>APIs admin, RBAC, relatorios de comissao, logs centralizados e hardening.</p>
-                        <footer><strong>7</strong> tasks no backlog</footer>
+                        <p>APIs admin, RBAC matrizado, relatorios de comissao com CSV e hardening.</p>
+                        <footer><strong>7</strong> tasks entregues</footer>
                         <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
                     </article>
 
@@ -697,6 +698,232 @@
             </div>
         </section>
 
+        <section id="checklist-pi3" class="qa-section">
+            <div class="container">
+                <div class="section-header reveal qa-section-header">
+                    <span class="qa-section-kicker">[ PI III / CHECKLIST OFICIAL ]</span>
+                    <h2>Checklist de Entregaveis - Projeto Integrador III</h2>
+                    <p class="qa-section-lead">Mapeamento ponto-a-ponto da pauta da disciplina (Inicio 22/05, Modulos 3 e 4) com os artefatos publicados no hub. Cada item do checklist tem documento dedicado, evidencia e responsavel claramente identificados.</p>
+                </div>
+
+                <div class="qa-framework reveal">
+                    <article class="qa-pillar">
+                        <span class="qa-pillar-tag">[ Inicio ]</span>
+                        <h3>22 / 05 / 2026</h3>
+                        <p>Sprints 1 a 5 entregues e auditadas. Baseline tecnico consolidado: pagamento ponta a ponta, fila operacional, governanca administrativa e hardening em producao.</p>
+                        <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+                    </article>
+                    <article class="qa-pillar">
+                        <span class="qa-pillar-tag">[ Modulo 3 ]</span>
+                        <h3>Aplicacoes Moveis Multiplataforma</h3>
+                        <p>Atendido via aplicacao web responsiva (Next.js 15 + React 19) em substituicao ao app mobile nativo - decisao formal registrada na EAP secao 10 e na priorizacao MoSCoW da ERS.</p>
+                        <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+                    </article>
+                    <article class="qa-pillar">
+                        <span class="qa-pillar-tag">[ Modulo 4 ]</span>
+                        <h3>Otimizacao, Desempenho e Qualidade</h3>
+                        <p>21/21 cenarios aprovados, 100% DRE, 0 bloqueantes. Padroes IEEE 829 + ISTQB + ISO 25010 + IEEE 828 (Gestao da Configuracao).</p>
+                        <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+                    </article>
+                    <article class="qa-pillar qa-pillar-result">
+                        <span class="qa-pillar-tag">[ Status ]</span>
+                        <h3>10 / 12 entregaveis prontos</h3>
+                        <p>2 finalisticos (1 entregue, 1 substituido por web responsivo) + 10/10 intermediarios documentados.</p>
+                        <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+                    </article>
+                </div>
+
+                <div class="section-header reveal" style="margin-top:2.4rem;">
+                    <h2 style="font-size:1.4rem;">Finalisticos</h2>
+                    <p>Entregas de produto que comprovam o ciclo ponta a ponta do FastInBox em ambiente publico.</p>
+                </div>
+
+                <div class="qa-grid">
+                    <article class="qa-doc-card reveal">
+                        <span class="qa-doc-kind">F1 - Aplicacao WEB</span>
+                        <h3>Plataforma FastInBox em producao</h3>
+                        <p>Aplicacao administrativa e operacional cobrindo 5 perfis (publico, nutricionista, paciente, cozinha, admin). Next.js 15 + React 19 + TypeScript em Vercel, conectada a API NestJS 11 + PostgreSQL.</p>
+                        <ul class="qa-doc-topics">
+                            <li>5 perfis com rotas segregadas e RBAC</li>
+                            <li>22 specs E2E Playwright verdes</li>
+                            <li>Deploy continuo via Vercel + Heroku</li>
+                            <li>Responsivo em mobile, tablet e desktop</li>
+                        </ul>
+                        <a class="qa-doc-cta" href="https://front-chi-flame.vercel.app" target="_blank" rel="noopener noreferrer">Abrir plataforma <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                        <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+                    </article>
+
+                    <article class="qa-doc-card reveal" style="background:#e7eeff;">
+                        <span class="qa-doc-kind">F2 - Mobile (substituido)</span>
+                        <h3>App mobile - substituido por web responsivo</h3>
+                        <p>Decisao formal de escopo: nao construir app mobile nativo nesta fase. A aplicacao web foi desenhada mobile-first e validada em 360px, 768px e 1280px+. Suporte iOS Safari e Chrome mobile.</p>
+                        <ul class="qa-doc-topics">
+                            <li>Justificativa registrada na ERS (MoSCoW: Wont have)</li>
+                            <li>Out of WBS na EAP secao 10</li>
+                            <li>Decisao registrada no Canvas de Visao secao 7</li>
+                            <li>Cobertura mobile via web responsiva PWA-ready</li>
+                        </ul>
+                        <a class="qa-doc-cta" href="./documents/eap-projeto.html">Ver decisao na EAP <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+                    </article>
+                </div>
+
+                <div class="section-header reveal" style="margin-top:2rem;">
+                    <h2 style="font-size:1.4rem;">Intermediarios</h2>
+                    <p>10 artefatos de gestao, engenharia e qualidade. Cada item com documento dedicado seguindo padrao tecnico do hub.</p>
+                </div>
+
+                <div class="qa-grid">
+                    <article class="qa-doc-card reveal">
+                        <span class="qa-doc-kind">01 - Gestao</span>
+                        <h3>EAP do Projeto</h3>
+                        <p>Estrutura Analitica do Projeto (WBS) seguindo regra dos 100% do PMBOK. 5 fases, 25 entregaveis e 30+ pacotes de trabalho rastreaveis.</p>
+                        <ul class="qa-doc-topics">
+                            <li>Arvore EAP em 4 niveis</li>
+                            <li>Dicionario de pacotes com criterio de aceite</li>
+                            <li>Exclusoes formais (out of WBS)</li>
+                        </ul>
+                        <a class="qa-doc-cta" href="./documents/eap-projeto.html">Abrir EAP <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+                    </article>
+
+                    <article class="qa-doc-card reveal">
+                        <span class="qa-doc-kind">02 - Visao</span>
+                        <h3>Canvas com a Visao do Projeto</h3>
+                        <p>MVP Canvas (framework de Paulo Caroli) com proposta, personas, jornadas, funcionalidades, metricas e cronograma do MVP white label.</p>
+                        <ul class="qa-doc-topics">
+                            <li>4 personas segmentadas</li>
+                            <li>3 jornadas centrais</li>
+                            <li>4 hipoteses + metricas de validacao</li>
+                        </ul>
+                        <a class="qa-doc-cta" href="./documents/canvas-visao-mvp.html">Abrir canvas <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+                    </article>
+
+                    <article class="qa-doc-card reveal">
+                        <span class="qa-doc-kind">03 - SCM</span>
+                        <h3>Repositorio de Configuracao</h3>
+                        <p>Plano de Gestao da Configuracao (IEEE 828): topologia GitHub Org com 3 repos, trunk-based branching, SemVer, CI/CD multi-stage e gerenciamento de segredos.</p>
+                        <ul class="qa-doc-topics">
+                            <li>Org GitHub FastInBox-Repo (front, back, docs)</li>
+                            <li>Conventional Commits + protected main</li>
+                            <li>Pipeline Vercel + Heroku + GitHub Actions</li>
+                        </ul>
+                        <a class="qa-doc-cta" href="./documents/repositorio-configuracao.html">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+                    </article>
+
+                    <article class="qa-doc-card reveal">
+                        <span class="qa-doc-kind">04 - Requisitos</span>
+                        <h3>Historias de Usuario</h3>
+                        <p>28 historias em formato Connextra + INVEST, cobrindo 5 perfis (publico, nutri, paciente, cozinha, admin, sistema) com rastreabilidade HU -> RF -> TC.</p>
+                        <ul class="qa-doc-topics">
+                            <li>HU-001 a HU-028</li>
+                            <li>22 ja entregues, 6 em backlog</li>
+                            <li>Vinculo direto com criterios e specs E2E</li>
+                        </ul>
+                        <a class="qa-doc-cta" href="./documents/historias-usuario.html">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+                    </article>
+
+                    <article class="qa-doc-card reveal">
+                        <span class="qa-doc-kind">05 - Requisitos</span>
+                        <h3>Criterios de Aceitacao</h3>
+                        <p>Criterios formais em Gherkin (Given/When/Then) para todas as 28 historias. Contrato de validacao entre PO, dev e QA.</p>
+                        <ul class="qa-doc-topics">
+                            <li>Definition of Done formal</li>
+                            <li>Criterios por persona em codigo Gherkin</li>
+                            <li>100% das jornadas Must-have cobertas</li>
+                        </ul>
+                        <a class="qa-doc-cta" href="./documents/criterios-aceitacao.html">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+                    </article>
+
+                    <article class="qa-doc-card reveal">
+                        <span class="qa-doc-kind">06 - QA</span>
+                        <h3>Casos de Teste</h3>
+                        <p>11 casos manuais IEEE 829 (TC-001 a TC-011) + 22 specs Playwright automatizados. Cada caso com objetivo, pre-condicoes, passos, resultado esperado e evidencia.</p>
+                        <ul class="qa-doc-topics">
+                            <li>21/21 aprovados (Sprints 1-5)</li>
+                            <li>22 specs E2E em video webm 1280x720</li>
+                            <li>Matriz RF -> TC com 100% de cobertura</li>
+                        </ul>
+                        <a class="qa-doc-cta" href="./documents/casos-de-teste.html">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+                    </article>
+
+                    <article class="qa-doc-card reveal">
+                        <span class="qa-doc-kind">07 - QA</span>
+                        <h3>Plano de Testes</h3>
+                        <p>Master Test Plan IEEE 829 + ISTQB + ISO 25010: piramide de testes, niveis, tipos, ambientes, criterios de entrada/saida, RACI, riscos e plano por sprint.</p>
+                        <ul class="qa-doc-topics">
+                            <li>Estrategia por sprint (S1 a S7)</li>
+                            <li>Matriz RACI de QA</li>
+                            <li>Gestao de defeitos com SLA</li>
+                        </ul>
+                        <a class="qa-doc-cta" href="./documents/plano-de-testes.html">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        <div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+                    </article>
+
+                    <article class="qa-doc-card reveal">
+                        <span class="qa-doc-kind">08 - QA</span>
+                        <h3>Relatorio de Testes</h3>
+                        <p>Documento consolidado de QA com sumario executivo, matriz RF&harr;TC, ocorrencias, evidencias e parecer final. Sprints 1 a 5 encerradas.</p>
+                        <ul class="qa-doc-topics">
+                            <li>21/21 cenarios aprovados</li>
+                            <li>100% Defect Removal Efficiency</li>
+                            <li>13 evidencias tecnicas categorizadas</li>
+                        </ul>
+                        <a class="qa-doc-cta" href="./documents/relatorio-testes.html">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+                    </article>
+
+                    <article class="qa-doc-card reveal">
+                        <span class="qa-doc-kind">09 - Design</span>
+                        <h3>Prototipo Visual</h3>
+                        <p>Prototipo high-fidelity como aplicacao real em producao: identidade neo-brutal, paleta, tipografia, biblioteca de componentes e mapa de telas por perfil.</p>
+                        <ul class="qa-doc-topics">
+                            <li>Design system documentado</li>
+                            <li>10+ screenshots por perfil</li>
+                            <li>Responsivo 360 / 768 / 1280</li>
+                        </ul>
+                        <a class="qa-doc-cta" href="./documents/prototipo-visual.html">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Design</span>Gabriel Pahl</span></div>
+                    </article>
+
+                    <article class="qa-doc-card reveal">
+                        <span class="qa-doc-kind">10 - Dados</span>
+                        <h3>MER - Modelo Entidade-Relacionamento</h3>
+                        <p>Modelo entidade-relacionamento com 7 entidades core (users, clinics, patients, orders, order_items, payments, production_events), cardinalidade, indices e dicionario de campos.</p>
+                        <ul class="qa-doc-topics">
+                            <li>7 entidades + relacoes 1:N</li>
+                            <li>Regras de integridade e indexacao</li>
+                            <li>Politica de evolucao de schema</li>
+                        </ul>
+                        <a class="qa-doc-cta" href="./documents/esquema-banco-dados.html">Abrir documento <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Modelagem</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+                    </article>
+                </div>
+
+                <div class="section-header reveal" style="margin-top:2rem;">
+                    <h2 style="font-size:1.4rem;">Metodologia e Ferramental</h2>
+                    <p>Disciplinas operacionais aplicadas em todos os pacotes acima.</p>
+                </div>
+
+                <div class="qa-coverage reveal">
+                    <span class="qa-coverage-label">Daily Scrum + Agile + Gestao da Configuracao e de Projetos:</span>
+                    <ul class="qa-coverage-list">
+                        <li><i class="fa-solid fa-comments" aria-hidden="true"></i>Daily Scrum registrada em ALM (GitHub Project) - progresso, proximos passos, bloqueios</li>
+                        <li><i class="fa-solid fa-layer-group" aria-hidden="true"></i>Sprints com planning, execucao, review e evidencia documentada</li>
+                        <li><i class="fa-solid fa-code-branch" aria-hidden="true"></i>Gestao da Configuracao: branching trunk-based, SemVer e CI/CD</li>
+                        <li><i class="fa-solid fa-gear" aria-hidden="true"></i>Ferramental: VS Code + Cursor, Docker, Vercel, Heroku, Neon PostgreSQL, Playwright</li>
+                        <li><i class="fa-solid fa-cubes-stacked" aria-hidden="true"></i>Frameworks: Next.js 15, React 19, NestJS 11, TypeORM, JWT</li>
+                    </ul>
+                    <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+                </div>
+            </div>
+        </section>
+
         <section id="documentos" class="documents-section">
             <div class="container">
                 <div class="section-header reveal">
@@ -718,7 +945,15 @@
                     <article class="document-card reveal"><h3>Requisitos de Software</h3><p>Especificacao detalhada de funcoes, restricoes, regras de negocio e criterios de aceite.</p><a href="./documents/requisitos-software.html">Abrir documento completo</a><div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div></article>
                     <article class="document-card reveal"><h3>Plano de Projeto</h3><p>Cronograma, marcos, caminho critico, validacao de entrega e gestao de riscos.</p><a href="./documents/plano-projeto.html">Abrir documento completo</a><div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">Documentacao</span>Gabriel Pahl</span></div></article>
                     <article class="document-card reveal"><h3>Termos Legais</h3><p>Privacidade, bases de tratamento, conformidade, seguranca e resposta a incidentes.</p><a href="./documents/termos-legais.html">Abrir documento completo</a><div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">Documentacao</span>Gabriel Pahl</span></div></article>
-                    <article class="document-card reveal"><h3>Esquema de Banco</h3><p>Modelo entidade-relacionamento, integridade, indexacao e estrategia de migracao da persistencia.</p><a href="./documents/esquema-banco-dados.html">Abrir documento completo</a><div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Modelagem</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div></article>
+                    <article class="document-card reveal"><h3>Esquema de Banco (MER)</h3><p>Modelo entidade-relacionamento, integridade, indexacao e estrategia de migracao da persistencia.</p><a href="./documents/esquema-banco-dados.html">Abrir documento completo</a><div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Modelagem</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div></article>
+                    <article class="document-card reveal"><h3>EAP do Projeto</h3><p>Estrutura Analitica do Projeto em 4 niveis com pacotes de trabalho, dicionario e exclusoes formais.</p><a href="./documents/eap-projeto.html">Abrir documento completo</a><div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div></article>
+                    <article class="document-card reveal"><h3>Canvas com a Visao do Projeto</h3><p>MVP Canvas Paulo Caroli: proposta, personas, jornadas, metricas e cronograma do MVP white label.</p><a href="./documents/canvas-visao-mvp.html">Abrir documento completo</a><div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div></article>
+                    <article class="document-card reveal"><h3>Repositorio de Configuracao</h3><p>Plano de Gestao da Configuracao IEEE 828 com topologia GitHub, branching, releases e pipeline CI/CD.</p><a href="./documents/repositorio-configuracao.html">Abrir documento completo</a><div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div></article>
+                    <article class="document-card reveal"><h3>Historias de Usuario</h3><p>28 historias Connextra + INVEST cobrindo 5 perfis com rastreabilidade HU - RF - TC.</p><a href="./documents/historias-usuario.html">Abrir documento completo</a><div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div></article>
+                    <article class="document-card reveal"><h3>Criterios de Aceitacao</h3><p>Criterios formais em Gherkin (Given/When/Then) para todas as historias - contrato PO/dev/QA.</p><a href="./documents/criterios-aceitacao.html">Abrir documento completo</a><div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div></article>
+                    <article class="document-card reveal"><h3>Casos de Teste</h3><p>11 casos IEEE 829 (TC-001 a TC-011) + 22 specs Playwright com matriz RF - TC completa.</p><a href="./documents/casos-de-teste.html">Abrir documento completo</a><div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div></article>
+                    <article class="document-card reveal"><h3>Plano de Testes</h3><p>Master Test Plan IEEE 829 + ISTQB + ISO 25010 com piramide, niveis, ambientes e plano por sprint.</p><a href="./documents/plano-de-testes.html">Abrir documento completo</a><div class="owners owners-inline"><span class="owners-label">Responsavel</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div></article>
+                    <article class="document-card reveal"><h3>Prototipo Visual</h3><p>Design system neo-brutal, biblioteca de componentes e mapa de telas por perfil com screenshots reais.</p><a href="./documents/prototipo-visual.html">Abrir documento completo</a><div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Design</span>Gabriel Pahl</span></div></article>
                 </div>
             </div>
         </section>

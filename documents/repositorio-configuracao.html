@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Repositorio de Configuracao</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./eap-projeto.html">EAP do Projeto</a>
+            <a href="./plano-projeto.html">Plano de Projeto</a>
+            <a href="https://github.com/FastInBox-Repo" target="_blank" rel="noopener noreferrer">GitHub Org</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Gestao da Configuracao</p>
+            <h1>Repositorio de Configuracao</h1>
+            <p>Versao: 1.0 | Padrao Git + GitHub + CI/CD multi-ambiente</p>
+            <p>Documento oficial do plano de Gestao da Configuracao (SCM) do FastInBox. Define topologia de repositorios, branching, releases, versionamento, automacao de pipeline e politicas de governanca seguindo ISO/IEC 12207 e IEEE 828.</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Gabriel Pahl | <strong>Ultima atualizacao:</strong> 21/05/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+        </header>
+
+        <section>
+            <h2>1. Organizacao GitHub</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <p>Organizacao oficial: <strong>FastInBox-Repo</strong>. Tres repositorios primarios em monorepo logico, separados fisicamente para isolar pipeline, dominio e rastreabilidade academica.</p>
+            <table>
+                <thead><tr><th>Repositorio</th><th>Funcao</th><th>Stack principal</th><th>Deploy alvo</th></tr></thead>
+                <tbody>
+                    <tr><td><a href="https://github.com/FastInBox-Repo/front" target="_blank" rel="noopener noreferrer">FastInBox-Repo/front</a></td><td>Aplicacao WEB responsiva (5 perfis)</td><td>Next.js 15, React 19, TypeScript, Playwright</td><td>Vercel (front-chi-flame.vercel.app)</td></tr>
+                    <tr><td><a href="https://github.com/FastInBox-Repo/back" target="_blank" rel="noopener noreferrer">FastInBox-Repo/back</a></td><td>API REST e dominio de negocio</td><td>NestJS 11, TypeORM, PostgreSQL, JWT</td><td>Heroku (Docker + Procfile)</td></tr>
+                    <tr><td><a href="https://github.com/FastInBox-Repo/docs" target="_blank" rel="noopener noreferrer">FastInBox-Repo/docs</a></td><td>Hub tecnico e documental</td><td>HTML + CSS + JS estatico</td><td>GitHub Pages</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>2. Topologia visual</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <pre style="border:3px solid #000;padding:14px;box-shadow:5px 5px 0 #000;background:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;line-height:1.45;overflow:auto;">
+                              FastInBox-Repo (GitHub Org)
+                                       |
+        +------------------------------+------------------------------+
+        |                              |                              |
+        v                              v                              v
+   [ front ]                       [ back ]                       [ docs ]
+   Next.js 15                      NestJS 11                      HTML/CSS/JS
+   Playwright E2E                  PostgreSQL                     Markdown
+        |                              |                              |
+        v                              v                              v
+   Vercel CDN                      Heroku Dyno                   GitHub Pages
+   (preview/main)                  (Docker)                      (branch main)
+        |                              |                              |
+        +-----------+ -----------------+-----------------+ -----------+
+                    |                                    |
+                    v                                    v
+            GitHub Project (78 itens)            GitHub Actions
+            Backlog vivo cross-repo              CI/CD + E2E nightly
+</pre>
+        </section>
+
+        <section>
+            <h2>3. Estrategia de branching</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <p>Modelo adotado: <strong>Trunk-Based Light</strong> com main protegida e feature branches curtas. Hotfix isolado quando producao quebra.</p>
+            <table>
+                <thead><tr><th>Branch</th><th>Origem</th><th>Destino</th><th>Politica</th></tr></thead>
+                <tbody>
+                    <tr><td>main</td><td>-</td><td>-</td><td>Protegida. PR obrigatorio. Build verde + 1 review aprovada.</td></tr>
+                    <tr><td>feature/&lt;area&gt;-&lt;descricao&gt;</td><td>main</td><td>main via PR</td><td>Curta (&lt; 3 dias). Squash merge.</td></tr>
+                    <tr><td>fix/&lt;area&gt;-&lt;descricao&gt;</td><td>main</td><td>main via PR</td><td>Correcao pontual sem mudanca de contrato.</td></tr>
+                    <tr><td>hotfix/&lt;versao&gt;</td><td>tag de release</td><td>main + tag patch</td><td>Apenas para producao quebrada. Documentar em sprint review.</td></tr>
+                    <tr><td>chore/docs-&lt;tema&gt;</td><td>main</td><td>main via PR</td><td>Atualizacao de documentacao sem efeito em runtime.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Convencao de commits</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <p>Padrao Conventional Commits adotado em todos os repositorios.</p>
+            <table>
+                <thead><tr><th>Tipo</th><th>Quando usar</th><th>Exemplo</th></tr></thead>
+                <tbody>
+                    <tr><td>feat</td><td>Nova funcionalidade visivel ao usuario</td><td>feat(orders): adicionar codigo unico FIB</td></tr>
+                    <tr><td>fix</td><td>Correcao de bug</td><td>fix(auth): validar refresh token expirado</td></tr>
+                    <tr><td>chore</td><td>Configuracao, build, docs sem efeito runtime</td><td>chore(docs): atualizar README de testes</td></tr>
+                    <tr><td>refactor</td><td>Mudanca interna sem alterar comportamento</td><td>refactor(kitchen): extrair status enum</td></tr>
+                    <tr><td>test</td><td>Adicao ou correcao de testes</td><td>test(e2e): cobrir fluxo de pagamento</td></tr>
+                    <tr><td>perf</td><td>Otimizacao de performance</td><td>perf(orders): indice composto status+janela</td></tr>
+                </tbody>
+            </table>
+            <div class="note">Mensagem em portugues no corpo aceita. Subject obrigatoriamente em ingles tecnico curto (&lt;= 70 chars).</div>
+        </section>
+
+        <section>
+            <h2>5. Versionamento e releases</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <p>Versionamento <strong>SemVer 2.0.0</strong> com tag por sprint encerrada.</p>
+            <table>
+                <thead><tr><th>Componente</th><th>Significado</th><th>Exemplo</th></tr></thead>
+                <tbody>
+                    <tr><td>MAJOR</td><td>Mudanca de contrato incompativel</td><td>2.0.0 - troca de auth de session para JWT</td></tr>
+                    <tr><td>MINOR</td><td>Funcionalidade compativel</td><td>1.3.0 - adicao de modulo payments</td></tr>
+                    <tr><td>PATCH</td><td>Correcao de bug ou docs</td><td>1.3.1 - fix de timeline do paciente</td></tr>
+                </tbody>
+            </table>
+            <p><strong>Tags fechadas por sprint:</strong> v0.1.0 (S1), v0.2.0 (S2), v0.3.0 (S3), v0.4.0 (S4 em execucao). Tag dispara GitHub Release com changelog gerado a partir dos PRs.</p>
+        </section>
+
+        <section>
+            <h2>6. Pipeline CI/CD</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <pre style="border:3px solid #000;padding:14px;box-shadow:5px 5px 0 #000;background:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;line-height:1.45;overflow:auto;">
+   Developer push                Pull Request                  Merge main                   Production
+        |                            |                            |                            |
+        v                            v                            v                            v
+   pre-commit hook            GitHub Actions               GitHub Actions             Vercel / Heroku
+   (lint + typecheck)         - install deps               - tag + release             auto deploy
+                              - lint + typecheck           - publish docs              health check
+                              - unit tests                 - e2e nightly
+                              - build verify               - artifact storage
+                              - playwright smoke
+                              - block if red
+</pre>
+            <table>
+                <thead><tr><th>Repo</th><th>Pipeline</th><th>Quality gates</th></tr></thead>
+                <tbody>
+                    <tr><td>front</td><td>Vercel + GH Actions</td><td>npm run build, lint, playwright smoke (22 specs)</td></tr>
+                    <tr><td>back</td><td>Docker + Heroku</td><td>npm run build, lint, supertest, health check</td></tr>
+                    <tr><td>docs</td><td>GitHub Pages</td><td>HTML validation + link check</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>7. Gestao de ambientes</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <thead><tr><th>Ambiente</th><th>Branch</th><th>URL</th><th>Banco</th><th>Acesso</th></tr></thead>
+                <tbody>
+                    <tr><td>development</td><td>local</td><td>localhost:3000 / :3001</td><td>PostgreSQL local (docker-compose)</td><td>Time interno</td></tr>
+                    <tr><td>preview</td><td>feature/*</td><td>preview-*.vercel.app</td><td>PostgreSQL Neon branch</td><td>Time + revisores PR</td></tr>
+                    <tr><td>production</td><td>main</td><td>front-chi-flame.vercel.app</td><td>PostgreSQL Neon main</td><td>Publico (paciente) e logado (nutri/cozinha/admin)</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. Gerenciamento de segredos</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Seguranca</span>Gabriel Pahl</span></div>
+            <ul>
+                <li><strong>Vercel Environment Variables</strong> para front (NEXT_PUBLIC_API_URL).</li>
+                <li><strong>Heroku Config Vars</strong> para back (DATABASE_URL, JWT_SECRET, REFRESH_SECRET, HMAC_WEBHOOK_KEY).</li>
+                <li><strong>GitHub Secrets</strong> para Actions (deploy tokens, Playwright API key).</li>
+                <li>.env.example versionado em cada repo; .env real ignorado por .gitignore.</li>
+                <li>Rotacao prevista a cada release MINOR e obrigatoria em hotfix de credencial.</li>
+            </ul>
+            <div class="note">Nenhum segredo deve trafegar em commit. Pre-commit hook (gitleaks) escaneia push antes de subir.</div>
+        </section>
+
+        <section>
+            <h2>9. Itens de configuracao (CIs)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>CI</th><th>Tipo</th><th>Versionado em</th><th>Baseline atual</th></tr></thead>
+                <tbody>
+                    <tr><td>Codigo fonte front</td><td>Software</td><td>FastInBox-Repo/front</td><td>v0.3.0</td></tr>
+                    <tr><td>Codigo fonte back</td><td>Software</td><td>FastInBox-Repo/back</td><td>v0.3.0</td></tr>
+                    <tr><td>Schema PostgreSQL</td><td>Banco</td><td>back/src/migrations</td><td>20260514_init.sql</td></tr>
+                    <tr><td>Especificacao OpenAPI</td><td>Contrato</td><td>back (gerado runtime)</td><td>Sprint 3 baseline</td></tr>
+                    <tr><td>Suite Playwright</td><td>Teste</td><td>front/e2e/specs</td><td>22 specs</td></tr>
+                    <tr><td>Documentacao academica</td><td>Documento</td><td>FastInBox-Repo/docs</td><td>25 documentos HTML</td></tr>
+                    <tr><td>Pipeline CI/CD</td><td>Configuracao</td><td>.github/workflows</td><td>Multi-stage</td></tr>
+                    <tr><td>Variaveis de ambiente</td><td>Configuracao</td><td>Vercel/Heroku/.env.example</td><td>Documentadas</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>10. Controle de mudanca</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <ol>
+                <li>Issue criada no GitHub Project com area, prioridade, owner e sprint.</li>
+                <li>Branch derivada da main seguindo nomenclatura padrao.</li>
+                <li>PR aberto contra main com descricao, checklist e link da issue.</li>
+                <li>CI roda lint, typecheck, build e smoke E2E.</li>
+                <li>Review obrigatoria de outro membro do time. Bloqueio se houver red flag.</li>
+                <li>Squash merge na main com commit semantico.</li>
+                <li>Deploy automatico para preview/production conforme branch.</li>
+                <li>Status atualizado no GitHub Project para Done.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>11. Backup e recuperacao</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <ul>
+                <li><strong>Codigo:</strong> redundancia nativa do GitHub. Clones locais por desenvolvedor.</li>
+                <li><strong>Banco:</strong> backup automatico diario via Neon (retencao 7 dias). Point-in-time recovery 24h.</li>
+                <li><strong>Documentacao:</strong> versionada no Git + replicada em GitHub Pages.</li>
+                <li><strong>Releases:</strong> tags imutaveis garantem snapshot reproduzivel.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>12. Auditoria e rastreabilidade</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <p>Cada artefato tem trilha auditavel:</p>
+            <ul>
+                <li>Requisito (ERS) -> historia de usuario -> issue GitHub -> PR -> commit -> deploy -> evidencia.</li>
+                <li>Logs operacionais persistidos no modulo audit do back (production_events).</li>
+                <li>Sprint reviews documentadas em <a href="./sprint-review.html">sprint-review.html</a>.</li>
+                <li>Backlog vivo no <a href="https://github.com/orgs/FastInBox-Repo/projects/1" target="_blank" rel="noopener noreferrer">GitHub Project</a> com 78 itens.</li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            Plano de Gestao da Configuracao do FastInBox. Revisao recomendada a cada release MAJOR ou alteracao de topologia de repositorios.
+        </footer>
+    </main>
+</body>
+</html>

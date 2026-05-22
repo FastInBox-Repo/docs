@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Evidencias Sprint 5</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+    <style>
+        .evidence-block { border: 3px solid #000; margin-top: 1.1rem; box-shadow: 6px 6px 0 #000; background: #fff; overflow: hidden; }
+        .evidence-block header { border-bottom: 2px solid #000; padding: 0.9rem 1.1rem; background: #f4f4f4; display: flex; gap: 0.8rem; justify-content: space-between; flex-wrap: wrap; align-items: baseline; }
+        .evidence-block header h3 { margin: 0; font-size: 1.05rem; }
+        .evidence-block header .eyebrow { font-family: "Space Grotesk", "Segoe UI", sans-serif; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.78rem; font-weight: 700; padding: 0.2rem 0.55rem; border: 2px solid #000; background: #fff; }
+        .evidence-body { padding: 1.1rem 1.1rem 0.4rem; }
+        .badge-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.2rem 0 0.7rem; }
+        .badge-row span { border: 2px solid #000; padding: 0.2rem 0.55rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em; font-weight: 700; background: #fff; }
+        .how-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; margin-top: 0.7rem; }
+        .how-grid article { border: 2px solid #000; padding: 0.85rem; background: #fafafa; }
+        .how-grid article h4 { margin: 0 0 0.4rem; font-family: "Space Grotesk", "Segoe UI", sans-serif; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.02em; }
+        .how-grid article ol, .how-grid article ul { margin: 0 0 0 1.2rem; padding: 0; }
+        .how-grid article li { margin-bottom: 0.35rem; }
+        .code-block { background: #0a0a0a; color: #f4f4f4; padding: 0.9rem; font-family: "IBM Plex Mono","Consolas",monospace; font-size: 0.8rem; line-height: 1.45; overflow-x: auto; margin: 0.7rem 0 1rem; border: 2px solid #000; }
+        .code-inline { background: #f4f4f4; padding: 0.05rem 0.35rem; border: 1px solid #000; font-family: "IBM Plex Mono",monospace; font-size: 0.82rem; }
+        .status-pill { padding: 0.18rem 0.55rem; border: 2px solid #000; text-transform: uppercase; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.04em; }
+        .status-pill.done { background: #e9ffe6; }
+        .status-pill.in-progress { background: #fff7d6; }
+        @media (max-width: 720px) { .how-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./sprint-5-planning.html">Sprint 5 Planning</a>
+            <a href="./evidencias-sprint-3.html">Evidencias Sprint 3</a>
+            <a href="./evidencias-sprint-4.html">Evidencias Sprint 4</a>
+            <a href="./sprint-6-planning.html">Sprint 6 Planning</a>
+            <a href="./sprint-7-planning.html">Sprint 7 Planning</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Sprint governance</p>
+            <h1>Evidencias Sprint 5</h1>
+            <p>Periodo: Sprint 5 | Status: Entregue - 7/7 itens em Done. Sprint de governanca admin, observabilidade e hardening encerrada.</p>
+            <p>Sprint dedicada a consolidacao administrativa, observabilidade transacional e hardening operacional. Foco em RBAC granular, relatorios financeiros exportaveis, diagnostico em tempo real do sistema e endurecimento de seguranca (rate limiting leve, CORS estrito, validacao de input). Documento consolidado ao fechamento da sprint.</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Thiago Lucas | <strong>Ultima atualizacao:</strong> 22/05/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+        </header>
+
+        <section>
+            <h2>1. Status do board no fechamento da sprint</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <p>Snapshot do <a href="https://github.com/orgs/FastInBox-Repo/projects/1" target="_blank" rel="noopener noreferrer">GitHub Project FastInBox MVP Delivery</a> filtrado por <span class="code-inline">Sprint = Sprint 5</span>:</p>
+            <table>
+                <thead><tr><th>Item</th><th>Area</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>APIs admin completas (operations, commissions, exports)</td><td>Back</td><td><span class="status-pill done">Done</span></td></tr>
+                    <tr><td>RBAC granular com matriz de permissoes auditavel</td><td>Back</td><td><span class="status-pill done">Done</span></td></tr>
+                    <tr><td>Modulo de relatorios com exportacao CSV</td><td>Back</td><td><span class="status-pill done">Done</span></td></tr>
+                    <tr><td>Endpoint /admin/diagnostics com health profundo</td><td>Back</td><td><span class="status-pill done">Done</span></td></tr>
+                    <tr><td>Pagina /admin/relatorios com graficos e exportacao</td><td>Front</td><td><span class="status-pill done">Done</span></td></tr>
+                    <tr><td>Hardening: CORS restrito, rawBody, timing-safe HMAC</td><td>Infra</td><td><span class="status-pill done">Done</span></td></tr>
+                    <tr><td>QA - cobertura admin/RBAC/relatorios</td><td>QA</td><td><span class="status-pill done">Done</span></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>2. O que entrou em main</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <table>
+                <thead><tr><th>Entregavel</th><th>Implementacao</th><th>Arquivos principais</th></tr></thead>
+                <tbody>
+                    <tr><td>Modulo de relatorios admin</td><td>Novo <span class="code-inline">ReportsService</span> agregando pedidos por periodo, calculando faturamento, comissao FastInBox e payout por nutricionista. Filtro por <span class="code-inline">from</span>, <span class="code-inline">to</span>, <span class="code-inline">clinicId</span> e <span class="code-inline">status</span>.</td><td><span class="code-inline">back/src/modules/reports/reports.service.ts</span></td></tr>
+                    <tr><td>Endpoints admin de relatorios</td><td><span class="code-inline">GET /admin/reports/operations</span>, <span class="code-inline">GET /admin/reports/commissions</span> e <span class="code-inline">GET /admin/reports/commissions.csv</span> (export). Todos atras de <span class="code-inline">@Roles('admin')</span>.</td><td><span class="code-inline">back/src/modules/reports/reports.controller.ts</span></td></tr>
+                    <tr><td>Diagnostico profundo</td><td>Novo <span class="code-inline">GET /admin/diagnostics</span> com agregados de orders (total, in production, delivered), payments (intents aprovadas/falhas, webhooks processados), audit (total entries) e uptime do servico.</td><td><span class="code-inline">back/src/app.controller.ts</span></td></tr>
+                    <tr><td>RBAC consolidado</td><td>Guard global <span class="code-inline">AuthGuard</span> aplica <span class="code-inline">@Public()</span> e <span class="code-inline">@Roles(...)</span> em toda a arvore. Matriz de permissoes auditada em <span class="code-inline">audit_log</span> via service <span class="code-inline">AuditService</span>.</td><td><span class="code-inline">back/src/common/auth.guard.ts</span></td></tr>
+                    <tr><td>Pagina admin relatorios</td><td>Nova <span class="code-inline">AdminRelatoriosPage</span> com seletor de periodo (7d, 30d, 90d, all), KPIs (pedidos, faturamento bruto, conversao, ticket medio), grafico de faturamento diario, distribuicao por status e tabela de comissoes por nutricionista com exportacao CSV nativa.</td><td><span class="code-inline">front/src/figma-app/app/pages/admin/AdminRelatoriosPage.tsx</span></td></tr>
+                    <tr><td>Navegacao admin atualizada</td><td>Item <strong>Relatorios</strong> adicionado ao sidebar do <span class="code-inline">AdminLayout</span> entre Diagnostico e Configuracoes.</td><td><span class="code-inline">front/src/figma-app/app/components/layout/AdminLayout.tsx</span></td></tr>
+                    <tr><td>Hardening transacional</td><td>CORS restrito por <span class="code-inline">FRONTEND_URL</span>, <span class="code-inline">rawBody</span> habilitado no bootstrap para assinatura HMAC e <span class="code-inline">timingSafeEqual</span> em todas as validacoes de webhook.</td><td><span class="code-inline">back/src/main.ts</span> + <span class="code-inline">payments.service.ts</span></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Prova ponta a ponta</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+
+            <div class="evidence-block" id="ev-operations">
+                <header>
+                    <h3>3.1 Sumario de operacoes</h3>
+                    <span class="eyebrow">BACK | REPORTS</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Endpoint: GET /admin/reports/operations</span>
+                        <span>Auth: Bearer JWT (role=admin)</span>
+                        <span>Status: 200 OK</span>
+                    </div>
+                    <p>Resumo executivo da operacao no periodo selecionado: ordersByStatus, revenueCents, commissionCents, payoutCents, ticket medio e conversao para pago.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Spec Jest <span class="code-inline">reports.service.spec.ts</span> com 4 fixtures cobrindo todos os status.</li>
+                                <li>Validacao manual via <span class="code-inline">curl</span> em desenvolvimento e producao.</li>
+                                <li>Conferencia cruzada com <span class="code-inline">GET /orders</span> agregado no front.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Login como admin via <span class="code-inline">POST /auth/login</span>.</li>
+                                <li>Anote o <span class="code-inline">accessToken</span> retornado.</li>
+                                <li>Chame o endpoint com filtro de periodo.</li>
+                            </ol>
+                        </article>
+                    </div>
+<pre class="code-block">$ curl -sH "Authorization: Bearer $TOKEN" "http://localhost:4001/admin/reports/operations?from=2026-04-01&to=2026-05-22" | jq
+{
+  "ordersByStatus": { "DELIVERED": 12, "IN_PRODUCTION": 4, "PAID": 6, "CANCELLED": 1, "DRAFT": 0, "AWAITING_PATIENT_REVIEW": 2, "AWAITING_PAYMENT": 3, "PAYMENT_FAILED": 0, "READY_FOR_DELIVERY": 2 },
+  "revenueCents": 624800,
+  "commissionCents": 124960,
+  "payoutCents": 499840,
+  "totalOrders": 30,
+  "averageTicketCents": 22314,
+  "paidOrders": 24,
+  "deliveredOrders": 12,
+  "conversionPct": 80.0
+}
+</pre>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-commissions">
+                <header>
+                    <h3>3.2 Comissoes por nutricionista + exportacao CSV</h3>
+                    <span class="eyebrow">BACK | REPORTS | CSV</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Endpoint: GET /admin/reports/commissions</span>
+                        <span>Export: /admin/reports/commissions.csv</span>
+                        <span>Content-Type: text/csv</span>
+                    </div>
+                    <p>Agregacao por nutricionista: pedidos pagos, subtotal, comissao FastInBox e payout. Resposta JSON para tela, CSV para repasse contabil.</p>
+<pre class="code-block">$ curl -sH "Authorization: Bearer $TOKEN" http://localhost:4001/admin/reports/commissions | jq '.[0:2]'
+[
+  {
+    "clinicId": "clinic-nutrition-vida",
+    "nutritionistId": "nut-ana-carolina",
+    "ordersCount": 14,
+    "subtotalCents": 287000,
+    "commissionCents": 57400,
+    "payoutCents": 229600
+  },
+  {
+    "clinicId": "clinic-corpo-saudavel",
+    "nutritionistId": "nut-marina-souza",
+    "ordersCount": 9,
+    "subtotalCents": 168500,
+    "commissionCents": 33700,
+    "payoutCents": 134800
+  }
+]
+
+$ curl -sH "Authorization: Bearer $TOKEN" http://localhost:4001/admin/reports/commissions.csv
+clinicId,nutritionistId,ordersCount,subtotalCents,commissionCents,payoutCents
+clinic-nutrition-vida,nut-ana-carolina,14,287000,57400,229600
+clinic-corpo-saudavel,nut-marina-souza,9,168500,33700,134800
+</pre>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-diagnostics">
+                <header>
+                    <h3>3.3 Diagnostico profundo do sistema</h3>
+                    <span class="eyebrow">BACK | OBSERVABILITY</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Endpoint: GET /admin/diagnostics</span>
+                        <span>Auth: admin</span>
+                        <span>Status: 200 OK</span>
+                    </div>
+                    <p>Health profundo da plataforma. Agrega status de orders, payments e audit em uma chamada. Usado pelo painel <span class="code-inline">/admin/diagnostico</span> e por monitores externos.</p>
+<pre class="code-block">$ curl -sH "Authorization: Bearer $TOKEN" http://localhost:4001/admin/diagnostics | jq
+{
+  "status": "ok",
+  "bootAt": "2026-05-22T08:14:33.241Z",
+  "uptimeMs": 49382911,
+  "modules": {
+    "orders":   { "status": "ok", "total": 30, "inProduction": 4, "delivered": 12 },
+    "payments": { "status": "ok", "intents": 27, "approved": 24, "failed": 1, "webhooksProcessed": 25, "webhooksRejected": 0 },
+    "audit":    { "status": "ok", "totalEntries": 184 }
+  },
+  "timestamp": "2026-05-22T22:00:04.152Z"
+}
+</pre>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-admin-ui">
+                <header>
+                    <h3>3.4 Pagina /admin/relatorios em producao</h3>
+                    <span class="eyebrow">FRONT | UI</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Rota: /admin/relatorios</span>
+                        <span>Auth: admin</span>
+                        <span>Build: Next.js 15 + recharts</span>
+                    </div>
+                    <p>Pagina dedicada com KPIs, grafico de faturamento diario (ultimos 14 dias), distribuicao por status em pie chart, tabela de comissoes ordenada e botao de exportacao para CSV nativo via <span class="code-inline">Blob</span>. Seletor de periodo (7d/30d/90d/all) atualiza em tempo real.</p>
+                    <ul>
+                        <li>4 KPIs: pedidos no periodo, faturamento bruto, conversao, pacientes ativos.</li>
+                        <li>Grafico de barras com faturamento diario reagindo ao seletor.</li>
+                        <li>Tabela de comissoes com totais e exportacao 1-click.</li>
+                        <li>Footer escuro com nota de conformidade LGPD.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. RBAC consolidado</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <thead><tr><th>Recurso</th><th>nutritionist</th><th>patient</th><th>kitchen</th><th>admin</th></tr></thead>
+                <tbody>
+                    <tr><td>POST /orders</td><td>R/W (own clinic)</td><td>-</td><td>-</td><td>R/W (all)</td></tr>
+                    <tr><td>POST /public/orders/:code/confirm</td><td>-</td><td>publico (via codigo)</td><td>-</td><td>-</td></tr>
+                    <tr><td>POST /payments/webhook</td><td>-</td><td>-</td><td>-</td><td>publico (HMAC)</td></tr>
+                    <tr><td>GET /kitchens/:id/queue</td><td>-</td><td>-</td><td>R (own kitchen)</td><td>R (all)</td></tr>
+                    <tr><td>GET /admin/diagnostics</td><td>-</td><td>-</td><td>-</td><td>R</td></tr>
+                    <tr><td>GET /admin/reports/*</td><td>-</td><td>-</td><td>-</td><td>R</td></tr>
+                    <tr><td>GET /admin/audit</td><td>-</td><td>-</td><td>-</td><td>R</td></tr>
+                    <tr><td>GET /users</td><td>-</td><td>-</td><td>-</td><td>R</td></tr>
+                </tbody>
+            </table>
+            <p>Toda tentativa de acesso negada gera entrada em <span class="code-inline">audit_log</span> com <span class="code-inline">outcome=denied</span> para investigacao futura.</p>
+        </section>
+
+        <section>
+            <h2>5. Hardening aplicado</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Seguranca</span>Gabriel Pahl</span></div>
+            <ul>
+                <li><strong>CORS restrito:</strong> <span class="code-inline">origin: process.env.FRONTEND_URL</span> + credentials. Negativa explicita para qualquer outra origem.</li>
+                <li><strong>JWT short-lived:</strong> access token 15min, refresh token 7d com rotacao a cada uso.</li>
+                <li><strong>HMAC SHA-256 timing-safe:</strong> webhooks comparados com <span class="code-inline">crypto.timingSafeEqual</span> para evitar timing attacks.</li>
+                <li><strong>Janela anti-replay:</strong> webhook descarta payload com timestamp +/- 5 minutos fora do agora.</li>
+                <li><strong>RawBody capture:</strong> Nest com <span class="code-inline">{ rawBody: true }</span> para preservar bytes originais na assinatura.</li>
+                <li><strong>Domain errors estruturadas:</strong> <span class="code-inline">UnauthorizedDomainError</span>, <span class="code-inline">ForbiddenDomainError</span>, <span class="code-inline">ConflictDomainError</span>, <span class="code-inline">ValidationDomainError</span> com codigos auditaveis.</li>
+                <li><strong>Validacao em linha:</strong> DTOs com validators e <span class="code-inline">GlobalHttpExceptionFilter</span> centralizando resposta de erro.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>6. QA Sprint 5</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <thead><tr><th>ID</th><th>Caso de teste</th><th>RF</th><th>Tipo</th><th>Veredito</th></tr></thead>
+                <tbody>
+                    <tr><td>TC-016</td><td>GET /admin/diagnostics responde 200 OK com agregados consistentes</td><td>RNF-006</td><td>API smoke</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                    <tr><td>TC-017</td><td>GET /admin/reports/operations agrega corretamente por status e periodo</td><td>RF-012</td><td>Unit + API</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                    <tr><td>TC-018</td><td>GET /admin/reports/commissions agrupa por nutri com ordenacao decrescente de comissao</td><td>RF-017</td><td>Unit + API</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                    <tr><td>TC-019</td><td>Export CSV /admin/reports/commissions.csv produz header valido e linhas alinhadas</td><td>RF-017</td><td>Integracao</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                    <tr><td>TC-020</td><td>RBAC: nutritionist recebe 403 ao tentar /admin/reports/*</td><td>RF-001, RNF-003</td><td>API smoke</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                    <tr><td>TC-021</td><td>Audit log registra outcome=denied em tentativa de acesso indevido</td><td>RF-014</td><td>Integracao</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>7. Parecer de fechamento</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <p>Sprint 5 entregue com 7/7 itens em Done. Plataforma agora opera com governanca administrativa completa, RBAC matrizado, observabilidade transacional em tempo real e exportacao de relatorios para repasse contabil. Sprint 6 entra com base solida para autoatendimento do paciente, assinaturas recorrentes e previsao de demanda.</p>
+        </section>
+    </main>
+</body>
+</html>

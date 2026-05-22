@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | EAP do Projeto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./plano-projeto.html">Plano de Projeto</a>
+            <a href="./documentacao-5w2h.html">5W2H</a>
+            <a href="./canvas-visao-mvp.html">Canvas de Visao</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Engenharia de gestao</p>
+            <h1>EAP - Estrutura Analitica do Projeto</h1>
+            <p>Versao: 1.0 | Decomposicao hierarquica WBS do escopo PI III</p>
+            <p>EAP completa do FastInBox seguindo a regra dos 100% do PMBOK: o escopo total do MVP academico decomposto em pacotes de trabalho rastreaveis, com pacote de entrega, sprint associada, owner e status objetivo.</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Gabriel Pahl | <strong>Ultima atualizacao:</strong> 21/05/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+        </header>
+
+        <section>
+            <h2>1. Premissas da EAP</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <ul>
+                <li>Regra dos 100%: tudo que e escopo do FastInBox PI III esta representado em algum pacote de trabalho.</li>
+                <li>Cada pacote terminal e mensuravel, com criterio de aceite e evidencia publicada em sprint.</li>
+                <li>O quinto nivel (tarefa) vive no GitHub Project; a EAP para no nivel de pacote de trabalho.</li>
+                <li>Itens fora do escopo do PI III (app mobile nativo, IA preditiva, automacao fiscal) estao registrados como exclusoes.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Niveis da EAP</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Nivel</th><th>Nome</th><th>Granularidade</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td>Projeto</td><td>FastInBox - MVP white label de marmitas personalizadas</td></tr>
+                    <tr><td>2</td><td>Fase</td><td>Bloco macro: Gestao, Produto, Engenharia, Qualidade, Documentacao</td></tr>
+                    <tr><td>3</td><td>Entregavel</td><td>Artefato ou modulo com criterio de aceite proprio</td></tr>
+                    <tr><td>4</td><td>Pacote de trabalho</td><td>Unidade rastreavel no GitHub Project, com owner e sprint</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. EAP em arvore (nivel 1 a 3)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <pre style="border:3px solid #000;padding:14px;box-shadow:5px 5px 0 #000;background:#fff;font-family:'IBM Plex Mono','Consolas',monospace;font-size:0.82rem;line-height:1.5;overflow:auto;">
+1.0 FastInBox MVP
+  1.1 Gestao do Projeto
+      1.1.1 Plano de Projeto e cronograma
+      1.1.2 EAP e governanca de sprints
+      1.1.3 Matriz RACI e 5W2H
+      1.1.4 Backlog vivo no GitHub Project
+  1.2 Produto e Visao
+      1.2.1 Documento de Visao
+      1.2.2 Business Model Canvas
+      1.2.3 MVP Canvas (Paulo Caroli)
+      1.2.4 Personas e jornadas
+  1.3 Engenharia de Software
+      1.3.1 Aplicacao WEB - Frontend (Next.js 15 + React 19)
+      1.3.2 API - Backend (NestJS 11 + PostgreSQL)
+      1.3.3 Arquitetura UML e dominio
+      1.3.4 MER e schema relacional
+      1.3.5 Infra, CI/CD e ambientes
+  1.4 Qualidade e Testes
+      1.4.1 Plano de Testes (IEEE 829)
+      1.4.2 Casos de teste TC-001..TC-011
+      1.4.3 Suite E2E Playwright (22 cenarios)
+      1.4.4 Relatorio consolidado de Testes
+      1.4.5 Evidencias por sprint
+  1.5 Documentacao Tecnica
+      1.5.1 Hub GitHub Pages (index)
+      1.5.2 Requisitos de Software (ERS)
+      1.5.3 Historias de usuario e criterios de aceitacao
+      1.5.4 Fluxos operacionais (criacao de conta, criacao de pedido)
+      1.5.5 Prototipo visual e identidade
+      1.5.6 Repositorio de configuracao (Git, branches, releases)
+      1.5.7 Termos legais e LGPD
+</pre>
+        </section>
+
+        <section>
+            <h2>4. Pacotes de trabalho - 1.1 Gestao do Projeto</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Codigo</th><th>Pacote</th><th>Sprint</th><th>Owner</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>1.1.1</td><td>Plano de Projeto v2.0</td><td>S1</td><td>Arquitetura</td><td>Entregue</td></tr>
+                    <tr><td>1.1.2</td><td>EAP do Projeto (este documento)</td><td>PI III</td><td>Arquitetura</td><td>Entregue</td></tr>
+                    <tr><td>1.1.3</td><td>5W2H e Matriz RACI</td><td>S1</td><td>Arquitetura</td><td>Entregue</td></tr>
+                    <tr><td>1.1.4</td><td>Backlog GitHub Project (78 itens)</td><td>S1-S7</td><td>Arquitetura</td><td>Em uso</td></tr>
+                    <tr><td>1.1.5</td><td>Plannings e evidencias por sprint</td><td>S1-S7</td><td>Time</td><td>3/7 entregues</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Pacotes de trabalho - 1.2 Produto e Visao</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Documentacao</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Codigo</th><th>Pacote</th><th>Sprint</th><th>Owner</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>1.2.1</td><td>Documento de Visao</td><td>S1</td><td>Arquitetura</td><td>Entregue</td></tr>
+                    <tr><td>1.2.2</td><td>Business Model Canvas</td><td>S1</td><td>Arquitetura</td><td>Entregue</td></tr>
+                    <tr><td>1.2.3</td><td>MVP Canvas (Caroli)</td><td>S1</td><td>Arquitetura</td><td>Entregue</td></tr>
+                    <tr><td>1.2.4</td><td>Personas e jornadas</td><td>S1</td><td>Arquitetura</td><td>Entregue</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>6. Pacotes de trabalho - 1.3 Engenharia de Software</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <table>
+                <thead><tr><th>Codigo</th><th>Pacote</th><th>Sprint</th><th>Owner</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>1.3.1</td><td>App WEB Next.js (publico, nutri, paciente, cozinha, admin)</td><td>S1-S3</td><td>Front</td><td>Entregue</td></tr>
+                    <tr><td>1.3.2</td><td>API NestJS - modulos auth, users, patients, orders, kitchen, payments, audit, clinics, ingredients</td><td>S3</td><td>Back</td><td>Entregue</td></tr>
+                    <tr><td>1.3.3</td><td>Arquitetura UML (classe, sequencia, componentes)</td><td>S1</td><td>Arquitetura</td><td>Entregue</td></tr>
+                    <tr><td>1.3.4</td><td>MER e schema relacional PostgreSQL</td><td>S3</td><td>Back</td><td>Entregue</td></tr>
+                    <tr><td>1.3.5</td><td>CI/CD: Vercel (front), Docker/Heroku (back), GitHub Pages (docs)</td><td>S3</td><td>Infra</td><td>Entregue</td></tr>
+                    <tr><td>1.3.6</td><td>Gateway de pagamento e fila operacional</td><td>S4</td><td>Back</td><td>Em execucao</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>7. Pacotes de trabalho - 1.4 Qualidade e Testes</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <table>
+                <thead><tr><th>Codigo</th><th>Pacote</th><th>Sprint</th><th>Owner</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>1.4.1</td><td>Plano de Testes IEEE 829</td><td>S1-S3</td><td>QA</td><td>Entregue</td></tr>
+                    <tr><td>1.4.2</td><td>Casos de teste TC-001 a TC-011</td><td>S1-S3</td><td>QA</td><td>11/11 aprovados</td></tr>
+                    <tr><td>1.4.3</td><td>Suite E2E Playwright (22 specs)</td><td>S3</td><td>Front+Back</td><td>Entregue</td></tr>
+                    <tr><td>1.4.4</td><td>Relatorio consolidado de Testes</td><td>S3</td><td>QA</td><td>Entregue</td></tr>
+                    <tr><td>1.4.5</td><td>Evidencias por sprint (1, 2, 3, 4)</td><td>S1-S4</td><td>Time</td><td>4/7 entregues</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>8. Pacotes de trabalho - 1.5 Documentacao Tecnica</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Documentacao</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Codigo</th><th>Pacote</th><th>Sprint</th><th>Owner</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>1.5.1</td><td>Hub GitHub Pages (index, IDV neo-brutal)</td><td>S1</td><td>Arquitetura</td><td>Entregue</td></tr>
+                    <tr><td>1.5.2</td><td>Requisitos de Software (ERS v2.0)</td><td>S1</td><td>Arquitetura</td><td>Entregue</td></tr>
+                    <tr><td>1.5.3</td><td>Historias de usuario e criterios de aceitacao</td><td>S1-S3</td><td>Arquitetura</td><td>Entregue</td></tr>
+                    <tr><td>1.5.4</td><td>Fluxos: criacao de conta, criacao de pedido</td><td>S2-S3</td><td>Arquitetura</td><td>Entregue</td></tr>
+                    <tr><td>1.5.5</td><td>Prototipo visual</td><td>S1</td><td>Front</td><td>Entregue</td></tr>
+                    <tr><td>1.5.6</td><td>Repositorio de configuracao (Git workflow)</td><td>S1</td><td>Arquitetura</td><td>Entregue</td></tr>
+                    <tr><td>1.5.7</td><td>Termos legais e LGPD</td><td>S1</td><td>Arquitetura</td><td>Entregue</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>9. Dicionario da EAP</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Pacote</th><th>Descricao curta</th><th>Criterio de aceite</th><th>Evidencia</th></tr></thead>
+                <tbody>
+                    <tr><td>1.3.1 App WEB</td><td>Aplicacao Next.js responsiva cobrindo 5 perfis</td><td>Build sem erro, fluxos E2E verdes, deploy Vercel ativo</td><td>front-chi-flame.vercel.app + suite Playwright</td></tr>
+                    <tr><td>1.3.2 API</td><td>Backend NestJS modular com 9 dominios</td><td>Endpoints autenticados, persistencia PostgreSQL, contrato OpenAPI</td><td>Repo back + evidencias-sprint-3.html</td></tr>
+                    <tr><td>1.3.4 MER</td><td>Modelo entidade-relacionamento com 7 entidades core</td><td>Cardinalidade definida, indices recomendados, dicionario de campos</td><td>esquema-banco-dados.html</td></tr>
+                    <tr><td>1.4.4 Relatorio Testes</td><td>Documento consolidado IEEE 829 + ISO 25010</td><td>11/11 cenarios aprovados, 0 bloqueantes, 100% DRE</td><td>relatorio-testes.html + PDF</td></tr>
+                    <tr><td>1.5.5 Prototipo</td><td>Telas demonstraveis em producao</td><td>5 perfis navegaveis e responsivos</td><td>prototipo-visual.html + Vercel</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>10. Exclusoes formais do escopo (Out of WBS)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <ul>
+                <li>Aplicativo mobile nativo (iOS/Android) - substituido por web responsivo conforme priorizacao MoSCoW.</li>
+                <li>Automacao fiscal (NFe/NFSe) - fora do MVP academico.</li>
+                <li>IA preditiva de demanda - planejada para Sprint 6 (fora do PI III atual).</li>
+                <li>Onboarding multi-clinica em escala - planejado para Sprint 7.</li>
+            </ul>
+            <div class="note">Exclusoes registradas para evitar expansao de escopo nao planejada durante o PI III. Toda nova solicitacao deve passar pelo controle de mudanca do Plano de Projeto secao 10.</div>
+        </section>
+
+        <footer class="footer">
+            EAP do FastInBox - documento vivo. Atualizar a cada fechamento de sprint para refletir status dos pacotes de trabalho e novas decisoes de escopo.
+        </footer>
+    </main>
+</body>
+</html>

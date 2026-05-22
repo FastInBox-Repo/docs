@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Plano de Testes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+</head>
+<body>
+    <main class="wrapper">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./casos-de-teste.html">Casos de Teste</a>
+            <a href="./relatorio-testes.html">Relatorio de Testes</a>
+            <a href="./criterios-aceitacao.html">Criterios de Aceitacao</a>
+            <a href="./e2e-report/" target="_blank" rel="noopener noreferrer">Suite E2E</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | QA - Master Test Plan</p>
+            <h1>Plano de Testes</h1>
+            <p>Versao: 2.0 | Padrao IEEE 829 + ISTQB Foundation + ISO/IEC 25010</p>
+            <p>Master Test Plan oficial do FastInBox. Define escopo, estrategia, niveis, ambiente, criterios e cronograma de testes em todo o ciclo PI III. Documento base que rege os <a href="./casos-de-teste.html">Casos de Teste</a> e o <a href="./relatorio-testes.html">Relatorio de Testes</a>.</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Gabriel Pahl | <strong>Ultima atualizacao:</strong> 21/05/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+        </header>
+
+        <section>
+            <h2>1. Identificacao do plano</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <table>
+                <tbody>
+                    <tr><th>Documento</th><td>FastInBox - Master Test Plan v2.0</td></tr>
+                    <tr><th>Padroes adotados</th><td>IEEE 829-2008, ISTQB Foundation Level, ISO/IEC 25010</td></tr>
+                    <tr><th>Periodo de aplicacao</th><td>Sprint 1 (kickoff) a Sprint 7 (go-live)</td></tr>
+                    <tr><th>Status atual</th><td>5 de 7 sprints validadas - 21/21 cenarios aprovados</td></tr>
+                    <tr><th>Owner</th><td>QA (Gabriel Pahl), suporte Back (Thiago) e Front (Joao)</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>2. Objetivos de qualidade</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <ul>
+                <li>Garantir que todos os requisitos funcionais Must-have estejam cobertos por pelo menos 1 caso de teste.</li>
+                <li>Manter 0 defeitos bloqueantes ao final de cada sprint.</li>
+                <li>Atingir Defect Removal Efficiency &gt;= 95%.</li>
+                <li>Cobrir cada jornada (nutri, paciente, cozinha, admin) com smoke E2E automatizado.</li>
+                <li>Validar requisitos nao funcionais criticos (performance, seguranca, disponibilidade) por sprint.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Escopo dos testes</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <h3>3.1 Em escopo</h3>
+            <ul>
+                <li>Autenticacao multi-perfil (RF-001).</li>
+                <li>CRUD de pacientes (RF-002).</li>
+                <li>Criacao e ciclo de vida do pedido (RF-003 a RF-011).</li>
+                <li>Painel da cozinha (RF-010).</li>
+                <li>Painel administrativo e auditoria (RF-012 a RF-014).</li>
+                <li>Configuracao white label (RF-016).</li>
+                <li>Requisitos nao funcionais: performance, seguranca, manutenibilidade.</li>
+            </ul>
+            <h3>3.2 Fora de escopo (atual)</h3>
+            <ul>
+                <li>App mobile nativo (substituido por web responsivo).</li>
+                <li>Integracoes fiscais e NFe.</li>
+                <li>Carga de stress em volume real de producao (planejado Sprint 7).</li>
+                <li>Penetration test formal externo (planejado pos go-live).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. Estrategia de teste - piramide</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <pre style="border:3px solid #000;padding:14px;box-shadow:5px 5px 0 #000;background:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.8rem;line-height:1.5;overflow:auto;">
+                              /\
+                             /  \
+                            / E2E\          5%  - 22 specs Playwright
+                           /------\               (fluxo completo por persona)
+                          /        \
+                         /Integracao\        25% - supertest + curl
+                        /------------\            (contrato OpenAPI, auth, banco)
+                       /              \
+                      /    Unitario    \   70% - Jest (back) + Vitest (front)
+                     /------------------\        (regras de negocio, validacoes)
+</pre>
+            <table>
+                <thead><tr><th>Nivel</th><th>Ferramenta</th><th>Cobertura alvo</th><th>Quando executa</th></tr></thead>
+                <tbody>
+                    <tr><td>Unitario</td><td>Jest 29 (back) / Vitest (front)</td><td>70% das funcoes puras e regras</td><td>Pre-commit + CI</td></tr>
+                    <tr><td>Integracao</td><td>supertest + Testcontainers PostgreSQL</td><td>25% - contratos REST e persistencia</td><td>CI por PR</td></tr>
+                    <tr><td>E2E</td><td>Playwright 1.49 + Chromium</td><td>5% - 22 specs cobrindo 5 perfis</td><td>CI nightly + pre-release</td></tr>
+                    <tr><td>Smoke manual</td><td>Roteiro versionado</td><td>Por sprint review</td><td>Antes do fechamento</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Niveis de teste (ISTQB)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Nivel</th><th>Foco</th><th>Owner</th><th>Quando</th></tr></thead>
+                <tbody>
+                    <tr><td>Componente</td><td>Funcoes, classes, validadores isolados</td><td>Dev de feature</td><td>Pre-commit</td></tr>
+                    <tr><td>Integracao</td><td>Modulo + dependencias (banco, gateway mock)</td><td>Back</td><td>CI por PR</td></tr>
+                    <tr><td>Sistema</td><td>API completa + front + banco em ambiente preview</td><td>QA + Front</td><td>Nightly</td></tr>
+                    <tr><td>Aceitacao</td><td>Roteiro manual por persona + sessao usabilidade externa</td><td>QA</td><td>Sprint review</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>6. Tipos de teste (ISO 25010)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Caracteristica</th><th>Tipo aplicado</th><th>Cenarios</th></tr></thead>
+                <tbody>
+                    <tr><td>Adequacao funcional</td><td>Funcional E2E + casos TC</td><td>11 TCs cobrindo todos os RF Must-have</td></tr>
+                    <tr><td>Eficiencia de performance</td><td>Tempo de resposta + carga leve</td><td>/health &lt; 100ms, /orders &lt; 500ms p95</td></tr>
+                    <tr><td>Compatibilidade</td><td>Cross-browser e responsivo</td><td>Chrome, Safari, Firefox + viewport 360/768/1280</td></tr>
+                    <tr><td>Usabilidade</td><td>Teste com usuario externo</td><td>Sessao gravada com paciente real (Sprint 1)</td></tr>
+                    <tr><td>Confiabilidade</td><td>Recovery e idempotencia</td><td>Webhook HMAC reprocessavel, refresh JWT</td></tr>
+                    <tr><td>Seguranca</td><td>Authz por perfil + injection</td><td>Guards globais, sanitizacao SQL, CORS restrito</td></tr>
+                    <tr><td>Manutenibilidade</td><td>Lint + typecheck + cobertura</td><td>ESLint zero-error + tsc strict</td></tr>
+                    <tr><td>Portabilidade</td><td>Docker + .env.example</td><td>Subir local em 1 docker-compose up</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>7. Ambiente de teste</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <thead><tr><th>Ambiente</th><th>Stack</th><th>Banco</th><th>URL</th></tr></thead>
+                <tbody>
+                    <tr><td>Local dev</td><td>Node 20 + Docker Desktop</td><td>PostgreSQL 16 (docker-compose)</td><td>localhost:3000 / :3001</td></tr>
+                    <tr><td>Preview PR</td><td>Vercel + Heroku review apps</td><td>Neon branch isolado</td><td>preview-*.vercel.app</td></tr>
+                    <tr><td>Producao</td><td>Vercel + Heroku</td><td>Neon main</td><td>front-chi-flame.vercel.app</td></tr>
+                </tbody>
+            </table>
+            <p><strong>Dados de teste:</strong> seed automatico no inicio de cada sprint (4 usuarios base, 5 pacientes, 10 pedidos demonstrativos).</p>
+        </section>
+
+        <section>
+            <h2>8. Criterios de entrada e saida</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <h3>8.1 Criterios de entrada (para iniciar testes da sprint)</h3>
+            <ul>
+                <li>Backlog da sprint fechado com criterios de aceite em <a href="./criterios-aceitacao.html">Gherkin</a>.</li>
+                <li>Build do front e back verde na main.</li>
+                <li>Ambiente preview/staging disponivel.</li>
+                <li>Dados de teste (seed) carregados.</li>
+            </ul>
+            <h3>8.2 Criterios de saida (para fechar a sprint)</h3>
+            <ul>
+                <li>100% dos TCs planejados executados.</li>
+                <li>0 defeitos bloqueantes em aberto.</li>
+                <li>Defect Removal Efficiency &gt;= 95%.</li>
+                <li>Evidencias (prints + videos) anexadas no documento de evidencias da sprint.</li>
+                <li>Sprint review aprovada com parecer formal.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>9. Plano por sprint</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Sprint</th><th>Foco do teste</th><th>TCs alvo</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>S1</td><td>Base funcional (login, paciente, pedido)</td><td>TC-001, TC-002, TC-003</td><td>3/3 aprovados</td></tr>
+                    <tr><td>S2</td><td>Confiabilidade e integracao (persistencia, kanban, smoke)</td><td>TC-004, TC-005, TC-006</td><td>3/3 aprovados</td></tr>
+                    <tr><td>S3</td><td>API server-side (health, JWT, CRUD via API, auditoria)</td><td>TC-007 a TC-011</td><td>5/5 aprovados</td></tr>
+                    <tr><td>S4</td><td>Pagamento e fila operacional</td><td>TC-012 a TC-015</td><td>4/4 aprovados</td></tr>
+                    <tr><td>S5</td><td>Admin avancado, RBAC, relatorios, hardening</td><td>TC-016 a TC-021</td><td>6/6 aprovados</td></tr>
+                    <tr><td>S6</td><td>Autoatendimento e assinaturas</td><td>TC-020 a TC-022</td><td>Planejado</td></tr>
+                    <tr><td>S7</td><td>Hardening, carga, smoke de release</td><td>TC-023 a TC-026 + carga</td><td>Planejado</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>10. Matriz de responsabilidades (RACI)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Atividade</th><th>QA (Gabriel)</th><th>Back (Thiago)</th><th>Front (Joao)</th></tr></thead>
+                <tbody>
+                    <tr><td>Plano de testes</td><td>R/A</td><td>C</td><td>C</td></tr>
+                    <tr><td>Especificacao de casos</td><td>R/A</td><td>C</td><td>C</td></tr>
+                    <tr><td>Unit tests back</td><td>C</td><td>R/A</td><td>I</td></tr>
+                    <tr><td>Unit tests front</td><td>C</td><td>I</td><td>R/A</td></tr>
+                    <tr><td>Integracao supertest</td><td>C</td><td>R/A</td><td>I</td></tr>
+                    <tr><td>E2E Playwright</td><td>A</td><td>C</td><td>R</td></tr>
+                    <tr><td>Smoke manual sprint</td><td>R/A</td><td>C</td><td>C</td></tr>
+                    <tr><td>Relatorio consolidado</td><td>R/A</td><td>I</td><td>I</td></tr>
+                </tbody>
+            </table>
+            <p>R = Responsavel | A = Aprovador | C = Consultado | I = Informado</p>
+        </section>
+
+        <section>
+            <h2>11. Gestao de defeitos</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Severidade</th><th>Definicao</th><th>SLA correcao</th></tr></thead>
+                <tbody>
+                    <tr><td>Bloqueante</td><td>Impede uso de fluxo Must-have</td><td>Mesmo dia</td></tr>
+                    <tr><td>Alta</td><td>Funcionalidade critica degradada</td><td>2 dias uteis</td></tr>
+                    <tr><td>Media</td><td>Funcionalidade secundaria afetada</td><td>Mesma sprint</td></tr>
+                    <tr><td>Baixa</td><td>Cosmetico ou nao critico</td><td>Backlog priorizado</td></tr>
+                </tbody>
+            </table>
+            <p>Defeitos sao registrados como issue no GitHub Project com label <code>bug</code> e prioridade. Ciclo de vida: Aberto -> Em correcao -> Em validacao -> Fechado.</p>
+        </section>
+
+        <section>
+            <h2>12. Riscos do teste</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th>Risco</th><th>Probabilidade</th><th>Impacto</th><th>Mitigacao</th></tr></thead>
+                <tbody>
+                    <tr><td>Falha de seed bloqueia E2E</td><td>Media</td><td>Alto</td><td>Seed idempotente + script de reset rapido</td></tr>
+                    <tr><td>Gateway de pagamento instavel</td><td>Alta</td><td>Medio</td><td>MockPaymentProvider isolado em ambiente de teste</td></tr>
+                    <tr><td>Tempo curto de sprint para QA</td><td>Media</td><td>Medio</td><td>Casos especificados antes do kickoff</td></tr>
+                    <tr><td>Ambiente Vercel/Heroku indisponivel</td><td>Baixa</td><td>Alto</td><td>Fallback local docker-compose</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>13. Entregaveis do plano</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <ul>
+                <li><a href="./casos-de-teste.html">Casos de Teste (TC-001 a TC-011)</a> - especificacao IEEE 829.</li>
+                <li><a href="./relatorio-testes.html">Relatorio de Testes consolidado</a> - Sprints 1 a 3.</li>
+                <li><a href="./e2e-report/">Suite E2E Playwright</a> - 22 specs com video webm.</li>
+                <li>Evidencias por sprint: <a href="./evidencias-sprint-1.html">S1</a>, <a href="./evidencias-sprint-2.html">S2</a>, <a href="./evidencias-sprint-3.html">S3</a>, <a href="./evidencias-sprint-4.html">S4</a>.</li>
+                <li><a href="./relatorio-testes-sprint-1-3.pdf" target="_blank" rel="noopener noreferrer">PDF base assinado pelo time</a>.</li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            Master Test Plan do FastInBox - documento vivo, revisao no inicio de cada sprint. Baseline IEEE 829 + ISTQB + ISO 25010.
+        </footer>
+    </main>
+</body>
+</html>
