@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Retrospectiva Final do Ciclo MVP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+    <style>
+        .retro-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .retro-col { border: 3px solid #000; padding: 1rem; box-shadow: 5px 5px 0 #000; background: #fff; }
+        .retro-col h3 { margin: 0 0 0.6rem; font-family: "Space Grotesk","Segoe UI",sans-serif; text-transform: uppercase; font-size: 0.95rem; border-bottom: 2px solid #000; padding-bottom: 0.35rem; }
+        .retro-col.good { background: #e9ffe6; }
+        .retro-col.improve { background: #fff7d6; }
+        .retro-col.action { background: #e7eeff; }
+        .retro-col ul { margin: 0; padding-left: 1.2rem; }
+        .retro-col li { margin-bottom: 0.4rem; font-size: 0.88rem; }
+        @media (max-width: 720px) { .retro-grid { grid-template-columns: 1fr; } }
+        .status-pill { padding: 0.18rem 0.55rem; border: 2px solid #000; text-transform: uppercase; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.04em; }
+        .status-pill.done { background: #e9ffe6; }
+        .status-pill.in-progress { background: #fff7d6; }
+        .code-inline { background: #f4f4f4; padding: 0.05rem 0.35rem; border: 1px solid #000; font-family: "IBM Plex Mono",monospace; font-size: 0.82rem; }
+        .metric-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .metric-card { border: 3px solid #000; padding: 1rem; box-shadow: 5px 5px 0 #000; background: #fff; text-align: center; }
+        .metric-card .num { font-family: "Space Grotesk","Segoe UI",sans-serif; font-weight: 700; font-size: 1.8rem; line-height: 1.1; display: block; }
+        .metric-card .lbl { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 700; margin-top: 0.4rem; display: block; }
+        @media (max-width: 720px) { .metric-grid { grid-template-columns: 1fr 1fr; } }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Pular para o conteudo principal</a>
+    <main id="main-content" class="wrapper" tabindex="-1">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./retrospectiva-sprints-1-3.html">Retrospectiva S1-S3</a>
+            <a href="./sprint-6-planning.html">Sprint 6 Planning</a>
+            <a href="./sprint-7-planning.html">Sprint 7 Planning</a>
+            <a href="./evidencias-sprint-6.html">Evidencias S6</a>
+            <a href="./evidencias-sprint-7.html">Evidencias S7</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Sprint governance</p>
+            <h1>Retrospectiva Final do Ciclo MVP</h1>
+            <p>Formato: Mad/Sad/Glad + Start/Stop/Continue | Periodo: 27/03/2026 a 23/06/2026 | Ciclo: Sprint 1 a Sprint 7 | Participantes: 3/3 do time | Marco: Aula 20 - Apresentacao Final</p>
+            <p>Retrospectiva consolidada de todo o ciclo de 7 sprints do FastInBox, do MVP transacional navegavel ate o go-live em producao. Fecha o ciclo de entrega na Aula 20, encadeando-se com a retrospectiva dos primeiros 3 sprints e verificando o destino das 7 acoes entao acordadas. Documento produzido em sessao remota gravada e validada pelos 3 integrantes.</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Gabriel Pahl | <strong>Ultima atualizacao:</strong> 23/06/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+        </header>
+
+        <section>
+            <h2>1. Contexto: ciclo completo S1 -> S7</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <p>O FastInBox nasceu como MVP transacional para nutricionistas montarem planos de marmitas, pacientes confirmarem pedidos por link publico e cozinhas operarem um kanban de producao. Ao longo de 7 sprints o produto saiu de um front navegavel sem backend ate uma plataforma com gateway de pagamento, governanca administrativa, escala comercial e operacao endurecida para producao.</p>
+            <p>Este documento encerra o ciclo de entrega no marco da Aula 20 (Revisao da Sprint 7 + Retrospectiva + 3a Avaliacao Parcial + Apresentacao Final). Ele complementa a <a href="./retrospectiva-sprints-1-3.html">Retrospectiva dos Sprints 1-3</a>, cujas 7 acoes de melhoria sao reavaliadas na secao 5, e consolida o aprendizado do time inteiro do ciclo.</p>
+            <div class="note">
+                <p><strong>Estado ao fechamento (Aula 20):</strong></p>
+                <ul>
+                    <li>7 sprints entregues, todas as duas ultimas (S6 e S7) com 7/7 itens em Done.</li>
+                    <li>Backend NestJS modular com <span class="code-inline">GET /ready</span>, rate limiting, security headers e smoke de release verde.</li>
+                    <li>Jornadas cobertas ponta a ponta: nutricionista, paciente (incl. autoatendimento whitelabel), cozinha, admin.</li>
+                    <li>0 defeitos bloqueantes em aberto. Plataforma em estado de go-live.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Linha do tempo das 7 sprints</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <table>
+                <thead><tr><th scope="col">Sprint</th><th scope="col">Tema</th><th scope="col">Resultado</th></tr></thead>
+                <tbody>
+                    <tr><td>Sprint 1</td><td>Fundacao e MVP navegavel</td><td>Design system neo-brutal, auth, builder de pedido e kanban da cozinha. 26 itens em Done, 0 bloqueantes.</td></tr>
+                    <tr><td>Sprint 2</td><td>Catalogo e pedido + auditoria</td><td>Painel admin, eventos de auditoria, feedbacks visuais e smoke E2E inicial. 8 itens em Done, 0 bloqueantes.</td></tr>
+                    <tr><td>Sprint 3</td><td>Paciente e base de pagamento</td><td>Persistencia real e API NestJS modular, auth server-side e kanban server-side. 20 itens em Done; OC-001/OC-002 corrigidas no ciclo.</td></tr>
+                    <tr><td>Sprint 4</td><td>Gateway transacional</td><td>Fluxo de pagamento ponta a ponta com webhook HMAC e maquina de estados do pedido. <span class="status-pill done">7/7 Done</span></td></tr>
+                    <tr><td>Sprint 5</td><td>Admin, observabilidade e hardening</td><td>RBAC matrizado, relatorios com exportacao CSV, <span class="code-inline">GET /admin/diagnostics</span> e endurecimento (CORS estrito, HMAC timing-safe). <span class="status-pill done">7/7 Done</span></td></tr>
+                    <tr><td>Sprint 6</td><td>Escala comercial</td><td>Autoatendimento whitelabel do paciente, assinaturas recorrentes e previsao de demanda (<span class="code-inline">GET /admin/reports/forecast</span>). <span class="status-pill done">7/7 Done</span></td></tr>
+                    <tr><td>Sprint 7</td><td>Producao e go-live</td><td>Rate limiting, security headers, <span class="code-inline">GET /ready</span>, smoke de release (<span class="code-inline">npm run smoke</span>) e runbooks de incidente/rollback. <span class="status-pill done">7/7 Done</span></td></tr>
+                    <tr><th scope="row">Total</th><td>7 sprints</td><th>Ciclo MVP fechado em go-live, 0 bloqueantes em aberto</th></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Mad / Sad / Glad consolidado do ciclo</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <div class="retro-grid">
+                <article class="retro-col good">
+                    <h3>Glad - alegrias</h3>
+                    <ul>
+                        <li>Ciclo fechou em go-live com S4, S5, S6 e S7 todas em 7/7 Done.</li>
+                        <li>Hub de documentacao nunca dessincronizou do codigo em 7 sprints.</li>
+                        <li>Gateway transacional com webhook HMAC subiu sem regressao na S4.</li>
+                        <li>Assinaturas recorrentes geram pedidos automaticos via <span class="code-inline">runDue()</span> no boot.</li>
+                        <li>Previsao de demanda com banda de confianca bateu o invariante <span class="code-inline">expectedMeals = fromHistory + fromSubscriptions</span>.</li>
+                        <li>Autoatendimento whitelabel renderiza marca da clinica com contraste calculado por luminancia.</li>
+                        <li>Smoke de release <span class="code-inline">npm run smoke</span> fechou em 8 passed, 0 failed antes do go-live.</li>
+                    </ul>
+                </article>
+                <article class="retro-col improve">
+                    <h3>Sad - tristezas</h3>
+                    <ul>
+                        <li>Sprint 2 ficou curta (8 itens) por falta de planning detalhado.</li>
+                        <li>Estimativas iniciais de NestJS erraram em ate 30% nos itens novos.</li>
+                        <li>Cobertura de testes do backend estabilizou em 6 suites / 30 testes; faltou subir mais cedo.</li>
+                        <li>Stores em memoria no backend agilizaram o MVP mas adiam a persistencia definitiva pos-go-live.</li>
+                        <li>UX cross-device foi revisado tarde, ja na S7, e nao a cada sprint.</li>
+                    </ul>
+                </article>
+                <article class="retro-col action">
+                    <h3>Mad - frustracoes</h3>
+                    <ul>
+                        <li>Seed do banco quebrou em 2 PRs no inicio do ciclo por dependencia oculta.</li>
+                        <li>Webhook do gateway demorou 2 dias por documentacao confusa do provedor.</li>
+                        <li>Conflitos de merge em docs gerados sem politica clara no comeco do ciclo.</li>
+                        <li>Ajustar rate limiting sem ruido nos endpoints exemptos (<span class="code-inline">/health</span>, <span class="code-inline">/ready</span>) custou idas e vindas.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Start / Stop / Continue</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <div class="retro-grid">
+                <article class="retro-col good">
+                    <h3>Start - comecar</h3>
+                    <ul>
+                        <li>Migrar os stores em memoria para PostgreSQL persistente no pos-go-live.</li>
+                        <li>Revisao UX cross-device como ritual fixo de cada sprint, nao so no fechamento.</li>
+                        <li>Smoke de release agendado em CI a cada deploy em main, nao apenas manual.</li>
+                        <li>Monitoramento externo consumindo <span class="code-inline">/ready</span> e <span class="code-inline">/admin/diagnostics</span> com alerta.</li>
+                    </ul>
+                </article>
+                <article class="retro-col improve">
+                    <h3>Stop - parar</h3>
+                    <ul>
+                        <li>Adiar cobertura de testes para o final da sprint.</li>
+                        <li>Estimar itens novos por analogia sem spike de validacao.</li>
+                        <li>Misturar refactor com feature no mesmo PR.</li>
+                        <li>Tratar observabilidade como item de hardening pontual em vez de continuo.</li>
+                    </ul>
+                </article>
+                <article class="retro-col action">
+                    <h3>Continue - manter</h3>
+                    <ul>
+                        <li>Pair programming em rotas criticas (auth, payments, audit).</li>
+                        <li>Conventional Commits e trunk-based light com main protegida.</li>
+                        <li>Docs atualizadas no mesmo PR da feature como gate de release.</li>
+                        <li>Evidencias visuais (prints + curl real) por sprint review.</li>
+                        <li>GitHub Project como fonte unica de verdade do escopo.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2>5. Status das 7 acoes da retrospectiva S1-S3</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <p>Reavaliacao final das 7 acoes acordadas na <a href="./retrospectiva-sprints-1-3.html">Retrospectiva dos Sprints 1-3</a>, considerando o que de fato se sustentou ao longo das Sprints 4 a 7.</p>
+            <table>
+                <thead><tr><th scope="col">Acao</th><th scope="col">Owner</th><th scope="col">KPI de sucesso</th><th scope="col">Status</th></tr></thead>
+                <tbody>
+                    <tr><td>A1 - Pair programming em auth/payments/audit</td><td>Thiago + Gabriel</td><td>100% dos PRs criticos com 2 autores</td><td><span class="status-pill done">Resolvida</span></td></tr>
+                    <tr><td>A2 - Refinement obrigatorio na quarta anterior ao planning</td><td>Gabriel (facilitator)</td><td>0 itens com estimativa &gt; 30% de erro</td><td><span class="status-pill done">Resolvida</span></td></tr>
+                    <tr><td>A3 - Daily registrada em comentario na issue ALM</td><td>Rotativo (1 por sprint)</td><td>3 dailies/semana registradas</td><td><span class="status-pill done">Resolvida</span></td></tr>
+                    <tr><td>A4 - PRs limitados a 400 linhas</td><td>Todos</td><td>Mediana &lt;= 400 linhas</td><td><span class="status-pill in-progress">Em andamento</span></td></tr>
+                    <tr><td>A5 - Spike formal para tecnologia nova</td><td>Owner do item</td><td>0 surpresas tecnicas em PRs</td><td><span class="status-pill done">Resolvida</span></td></tr>
+                    <tr><td>A6 - Docs atualizadas no mesmo PR da feature</td><td>Owner do PR</td><td>0 PRs merged sem diff em /docs ao alterar contrato</td><td><span class="status-pill done">Resolvida</span></td></tr>
+                    <tr><td>A7 - Politica de merge para conflitos em /docs gerados</td><td>Gabriel</td><td>0 conflitos perdidos por auto-merge</td><td><span class="status-pill done">Resolvida</span></td></tr>
+                </tbody>
+            </table>
+            <p>Resultado: 6 das 7 acoes resolvidas e sustentadas ate o go-live. A4 (PR &lt;= 400 linhas) permaneceu parcial: mediana de 320 linhas, mas refactors planejados e os modulos novos de assinaturas/previsao estouraram o teto pontualmente. A4 segue como acao viva no pos-go-live (ver N4 abaixo).</p>
+        </section>
+
+        <section>
+            <h2>6. Novas acoes pos-go-live</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <table>
+                <thead><tr><th scope="col">#</th><th scope="col">Acao</th><th scope="col">Owner</th><th scope="col">Prazo</th><th scope="col">KPI de sucesso</th></tr></thead>
+                <tbody>
+                    <tr><td>N1</td><td>Migrar stores em memoria do backend para PostgreSQL persistente, mantendo contratos atuais</td><td>Thiago Lucas Alves</td><td>Ate 31/07/2026</td><td>0 perda de estado em restart; mesmas respostas de API</td></tr>
+                    <tr><td>N2</td><td>Adicionar <span class="code-inline">npm run smoke</span> como gate de CI a cada deploy em main</td><td>Gabriel Pahl</td><td>Ate 04/07/2026</td><td>100% dos deploys com smoke verde antes de promover</td></tr>
+                    <tr><td>N3</td><td>Conectar monitor externo a <span class="code-inline">/ready</span> e <span class="code-inline">/admin/diagnostics</span> com alerta</td><td>Gabriel Pahl</td><td>Ate 11/07/2026</td><td>Alerta em &lt; 5 min para queda de readiness</td></tr>
+                    <tr><td>N4</td><td>Reforcar disciplina de PR &lt;= 400 linhas com label de excecao justificada</td><td>Todos</td><td>Imediato</td><td>Mediana &lt;= 400 linhas; toda excecao rotulada</td></tr>
+                    <tr><td>N5</td><td>Revisao UX cross-device por sprint (mobile, tablet, desktop)</td><td>Joao Vitor Marra</td><td>A cada sprint pos-go-live</td><td>0 regressao de layout reportada em review</td></tr>
+                    <tr><td>N6</td><td>Subir cobertura de testes do backend acima das 6 suites / 30 testes atuais</td><td>Thiago + Gabriel</td><td>Ate 15/08/2026</td><td>Cobertura crescente em modulos de assinaturas e previsao</td></tr>
+                    <tr><td>N7</td><td>Calibrar parametros de rate limiting com dados reais de trafego</td><td>Gabriel Pahl</td><td>30 dias pos-go-live</td><td>0 falso-positivo 429 em usuario legitimo</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>7. Metricas do ciclo</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <div class="metric-grid">
+                <div class="metric-card"><span class="num">7</span><span class="lbl">Sprints entregues</span></div>
+                <div class="metric-card"><span class="num">30</span><span class="lbl">Testes backend (6 suites)</span></div>
+                <div class="metric-card"><span class="num">8/8</span><span class="lbl">Smoke de release</span></div>
+                <div class="metric-card"><span class="num">4/4</span><span class="lbl">Jornadas cobertas</span></div>
+            </div>
+            <table>
+                <thead><tr><th scope="col">Metrica</th><th scope="col">Valor no fechamento</th><th scope="col">Observacao</th></tr></thead>
+                <tbody>
+                    <tr><td>Sprints entregues</td><td>7 / 7</td><td>S4 a S7 todas em 7/7 itens em Done</td></tr>
+                    <tr><td>Testes automatizados (backend)</td><td>30 testes / 6 suites verdes</td><td>Inclui specs de self-service, subscriptions, forecast e rate-limit guard</td></tr>
+                    <tr><td>Build e lint</td><td>Back e Front limpos</td><td><span class="code-inline">npm run build</span> + lint exit 0; front <span class="code-inline">next build</span> + <span class="code-inline">tsc --noEmit</span> OK</td></tr>
+                    <tr><td>Smoke de release</td><td>8 passed, 0 failed, 0 skipped</td><td><span class="code-inline">npm run smoke</span>: health, ready, login, diagnostics, forecast, subscriptions, self-service</td></tr>
+                    <tr><td>Cobertura de jornadas</td><td>4 de 4</td><td>Nutricionista, paciente (incl. autoatendimento whitelabel), cozinha, admin</td></tr>
+                    <tr><td>Previsao de demanda</td><td>30 refeicoes / banda 24-36 em 7 dias</td><td>Invariante <span class="code-inline">expectedMeals = fromHistory + fromSubscriptions</span> validado</td></tr>
+                    <tr><td>Assinaturas ativas (seed)</td><td>3 ativas</td><td>weekly 10164c, biweekly 7623c, monthly 12705c; <span class="code-inline">runDue()</span> no boot</td></tr>
+                    <tr><td>Defeitos bloqueantes em aberto</td><td>0</td><td>OC-001/OC-002 da S3 corrigidas no proprio ciclo</td></tr>
+                    <tr><td>DORA - perfil elite mantido</td><td>Elite nos 4 indicadores</td><td>Deploy frequency alta (CI por push em main), lead time curto, change failure rate baixo, MTTR baixo apoiado por runbook + rollback</td></tr>
+                </tbody>
+            </table>
+            <p>Os 4 indicadores DORA (frequencia de deploy, lead time para mudancas, taxa de falha de mudanca e tempo de recuperacao) permaneceram em perfil elite ao longo do ciclo: deploy continuo por push em main com CI verde, PRs pequenos e revisados, smoke de release barrando regressoes e runbook de incidente + rollback reduzindo o MTTR.</p>
+        </section>
+
+        <section>
+            <h2>8. Parecer final</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <div class="note">
+                <p><strong>Decisao do time:</strong> ciclo MVP de 7 sprints encerrado com sucesso e plataforma em go-live.</p>
+                <ul>
+                    <li>O FastInBox saiu de MVP transacional navegavel a plataforma com gateway de pagamento, governanca admin, escala comercial (autoatendimento, assinaturas, previsao) e operacao endurecida para producao.</li>
+                    <li>6 das 7 acoes da retrospectiva S1-S3 foram resolvidas e sustentadas; A4 (PR &lt;= 400 linhas) segue viva como N4.</li>
+                    <li>Perfil DORA elite mantido nas 7 sprints; 0 defeitos bloqueantes em aberto no fechamento.</li>
+                    <li>As novas acoes N1-N7 organizam o pos-go-live, com prioridade para persistencia (N1) e smoke em CI (N2).</li>
+                </ul>
+                <p>Documento referenciado em <a href="./plano-projeto.html">Plano de Projeto secao 6 (Governanca)</a>, na <a href="./retrospectiva-sprints-1-3.html">Retrospectiva dos Sprints 1-3</a> e nas evidencias de fechamento <a href="./evidencias-sprint-6.html">Sprint 6</a> e <a href="./evidencias-sprint-7.html">Sprint 7</a>.</p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            Retrospectiva Final do Ciclo MVP do FastInBox. Ciclo de 7 sprints encerrado na Aula 20 (Apresentacao Final) com a plataforma em go-live. Continuidade tratada pelas acoes N1-N7 do pos-go-live.
+        </footer>
+    </main>
+</body>
+</html>

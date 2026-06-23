@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Evidencias Sprint 7</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+    <style>
+        .evidence-block { border: 3px solid #000; margin-top: 1.1rem; box-shadow: 6px 6px 0 #000; background: #fff; overflow: hidden; }
+        .evidence-block header { border-bottom: 2px solid #000; padding: 0.9rem 1.1rem; background: #f4f4f4; display: flex; gap: 0.8rem; justify-content: space-between; flex-wrap: wrap; align-items: baseline; }
+        .evidence-block header h3 { margin: 0; font-size: 1.05rem; }
+        .evidence-block header .eyebrow { font-family: "Space Grotesk", "Segoe UI", sans-serif; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.78rem; font-weight: 700; padding: 0.2rem 0.55rem; border: 2px solid #000; background: #fff; }
+        .evidence-body { padding: 1.1rem 1.1rem 0.4rem; }
+        .badge-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.2rem 0 0.7rem; }
+        .badge-row span { border: 2px solid #000; padding: 0.2rem 0.55rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em; font-weight: 700; background: #fff; }
+        .how-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; margin-top: 0.7rem; }
+        .how-grid article { border: 2px solid #000; padding: 0.85rem; background: #fafafa; }
+        .how-grid article h4 { margin: 0 0 0.4rem; font-family: "Space Grotesk", "Segoe UI", sans-serif; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.02em; }
+        .how-grid article ol, .how-grid article ul { margin: 0 0 0 1.2rem; padding: 0; }
+        .how-grid article li { margin-bottom: 0.35rem; }
+        .code-block { background: #0a0a0a; color: #f4f4f4; padding: 0.9rem; font-family: "IBM Plex Mono","Consolas",monospace; font-size: 0.8rem; line-height: 1.45; overflow-x: auto; margin: 0.7rem 0 1rem; border: 2px solid #000; }
+        .code-inline { background: #f4f4f4; padding: 0.05rem 0.35rem; border: 1px solid #000; font-family: "IBM Plex Mono",monospace; font-size: 0.82rem; }
+        .status-pill { padding: 0.18rem 0.55rem; border: 2px solid #000; text-transform: uppercase; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.04em; }
+        .status-pill.done { background: #e9ffe6; }
+        .status-pill.in-progress { background: #fff7d6; }
+        @media (max-width: 720px) { .how-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Pular para o conteudo principal</a>
+    <main id="main-content" class="wrapper" tabindex="-1">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./sprint-6-planning.html">Sprint 6 Planning</a>
+            <a href="./sprint-7-planning.html">Sprint 7 Planning</a>
+            <a href="./evidencias-sprint-5.html">Evidencias Sprint 5</a>
+            <a href="./evidencias-sprint-6.html">Evidencias Sprint 6</a>
+            <a href="./go-live-checklist.html">Go-live Checklist</a>
+            <a href="./runbook-operacional.html">Runbook Operacional</a>
+            <a href="./retrospectiva-final.html">Retrospectiva Final</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Sprint governance</p>
+            <h1>Evidencias Sprint 7</h1>
+            <p>Periodo: Sprint 7 | Status: Entregue - MVP pronto para producao. Sprint de producao e go-live (hardening + smoke de release + runbooks + readiness) encerrada com 7/7 itens em Done.</p>
+            <p>Sprint final do MVP, dedicada a producao e go-live. Foco em endurecimento de seguranca (security headers em toda resposta, rate limiting por IP com janela fixa), endpoint de readiness para orquestradores, smoke de release automatizado, runbook operacional com rollback e regressao de QA. Documento consolidado ao fechamento da sprint, com saidas reais de curl, burst de rate limit e smoke verde.</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Thiago Lucas / Gabriel Pahl | <strong>Ultima atualizacao:</strong> 23/06/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Seguranca</span>Gabriel Pahl</span></div>
+        </header>
+
+        <section>
+            <h2>1. Status do board no fechamento da sprint</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <p>Snapshot do <a href="https://github.com/orgs/FastInBox-Repo/projects/1" target="_blank" rel="noopener noreferrer">GitHub Project FastInBox MVP Delivery</a> filtrado por <span class="code-inline">Sprint = Sprint 7</span>:</p>
+            <table>
+                <thead><tr><th scope="col">Item</th><th scope="col">Area</th><th scope="col">Status</th></tr></thead>
+                <tbody>
+                    <tr><td>Security headers em toda resposta (nosniff, DENY, no-referrer, COOP)</td><td>Back</td><td><span class="status-pill done">Done</span></td></tr>
+                    <tr><td>Rate limiting por IP com janela fixa (429 RATE_LIMITED)</td><td>Back</td><td><span class="status-pill done">Done</span></td></tr>
+                    <tr><td>Endpoint de readiness GET /ready para orquestradores</td><td>Back</td><td><span class="status-pill done">Done</span></td></tr>
+                    <tr><td>Smoke de release (npm run smoke, 8 checks ordenados)</td><td>Infra</td><td><span class="status-pill done">Done</span></td></tr>
+                    <tr><td>Runbook operacional + procedimento de rollback</td><td>Infra</td><td><span class="status-pill done">Done</span></td></tr>
+                    <tr><td>Hardening final + go-live checklist + SLA</td><td>Arquitetura</td><td><span class="status-pill done">Done</span></td></tr>
+                    <tr><td>QA - regressao completa do MVP</td><td>QA</td><td><span class="status-pill done">Done</span></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>2. O que entrou em main</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th scope="col">Entregavel</th><th scope="col">Implementacao</th><th scope="col">Arquivos principais</th></tr></thead>
+                <tbody>
+                    <tr><td>Limitador de requisicoes</td><td>Novo limitador puro em memoria com janela fixa por IP, default 120 req / 60s configuravel via <span class="code-inline">RATE_LIMIT_MAX</span> e <span class="code-inline">RATE_LIMIT_WINDOW_MS</span>. Conta por janela e zera ao expirar.</td><td><span class="code-inline">back/src/common/rate-limiter.ts</span></td></tr>
+                    <tr><td>Guard global de rate limit</td><td>Guard registrado como <span class="code-inline">APP_GUARD</span>, executado <strong>antes</strong> do <span class="code-inline">AuthGuard</span>, extrai o IP do cliente e decide 200 ou 429. Respeita o decorator de isencao.</td><td><span class="code-inline">back/src/common/rate-limit.guard.ts</span></td></tr>
+                    <tr><td>Decorator de isencao</td><td>Novo <span class="code-inline">@SkipRateLimit()</span> aplicado a <span class="code-inline">/health</span> e <span class="code-inline">/ready</span> para nao penalizar probes de orquestrador e monitores.</td><td><span class="code-inline">back/src/common/decorators.ts</span></td></tr>
+                    <tr><td>Erro de dominio para excesso</td><td>Novo <span class="code-inline">TooManyRequestsDomainError</span> com codigo <span class="code-inline">RATE_LIMITED</span>, mantendo o padrao de domain errors auditaveis da plataforma.</td><td><span class="code-inline">back/src/common/domain-errors.ts</span></td></tr>
+                    <tr><td>Mapeamento HTTP 429</td><td><span class="code-inline">GlobalHttpExceptionFilter</span> mapeia <span class="code-inline">TooManyRequestsDomainError</span> para HTTP 429 com body estruturado (<span class="code-inline">statusCode</span>, <span class="code-inline">code</span>, <span class="code-inline">message</span>, <span class="code-inline">traceId</span>).</td><td><span class="code-inline">back/src/common/http-exception.filter.ts</span></td></tr>
+                    <tr><td>Security headers no bootstrap</td><td>Middleware no <span class="code-inline">main.ts</span> aplica security headers em toda resposta, preservando CORS restrito e <span class="code-inline">rawBody</span> ja existentes. HSTS habilitado apenas em producao.</td><td><span class="code-inline">back/src/main.ts</span></td></tr>
+                    <tr><td>Endpoint de readiness</td><td>Novo <span class="code-inline">GET /ready</span> publico e isento de rate limit, retorna <span class="code-inline">status</span>, <span class="code-inline">checks.seed</span> e <span class="code-inline">checks.uptimeMs</span>. <span class="code-inline">/health</span> mantido para liveness.</td><td><span class="code-inline">back/src/app.controller.ts</span></td></tr>
+                    <tr><td>Smoke de release</td><td>Script Node <span class="code-inline">npm run smoke</span> com 8 checks ordenados (health, ready, login admin, diagnostics, invariantes da previsao, assinaturas, self-service invalido e valido) contra o servidor em execucao.</td><td><span class="code-inline">back/scripts/smoke.mjs</span></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Prova ponta a ponta</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Seguranca</span>Gabriel Pahl</span></div>
+
+            <div class="evidence-block" id="ev-headers">
+                <header>
+                    <h3>3.1 Security headers em toda resposta</h3>
+                    <span class="eyebrow">BACK | HARDENING</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Middleware: main.ts</span>
+                        <span>Escopo: todas as respostas</span>
+                        <span>Status: 200 OK</span>
+                    </div>
+                    <p>Todo response carrega os cabecalhos de seguranca aplicados no bootstrap. O dump abaixo foi capturado com <span class="code-inline">curl -D -</span> contra <span class="code-inline">/health</span>. O <span class="code-inline">Strict-Transport-Security</span> e emitido apenas em producao e por isso esta corretamente ausente em desenvolvimento.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Dump dos headers via <span class="code-inline">curl -D - http://localhost:4001/health</span>.</li>
+                                <li>Conferencia dos 5 cabecalhos obrigatorios em dev.</li>
+                                <li>Validacao de que HSTS aparece somente com <span class="code-inline">NODE_ENV=production</span>.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Suba o backend com <span class="code-inline">npm run start:dev</span>.</li>
+                                <li>Rode <span class="code-inline">curl -D - http://localhost:4001/health -o /dev/null</span>.</li>
+                                <li>Confira os cabecalhos no topo da resposta.</li>
+                            </ol>
+                        </article>
+                    </div>
+<pre class="code-block">$ curl -sS -D - http://localhost:4001/health -o /dev/null
+HTTP/1.1 200 OK
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+Referrer-Policy: no-referrer
+X-DNS-Prefetch-Control: off
+Cross-Origin-Opener-Policy: same-origin
+Content-Type: application/json; charset=utf-8
+Content-Length: 71
+# Strict-Transport-Security ausente em dev (emitido apenas em producao)
+</pre>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-rate-limit">
+                <header>
+                    <h3>3.2 Rate limiting por IP (janela fixa)</h3>
+                    <span class="eyebrow">BACK | RATE LIMIT</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Guard: rate-limit.guard.ts (APP_GUARD)</span>
+                        <span>Limite testado: RATE_LIMIT_MAX=3</span>
+                        <span>Excedente: 429 RATE_LIMITED</span>
+                    </div>
+                    <p>Burst controlado contra o servidor iniciado com <span class="code-inline">RATE_LIMIT_MAX=3</span>: as 3 primeiras requisicoes passam (200) e as seguintes sao rejeitadas (429) com body estruturado. As rotas <span class="code-inline">/health</span> e <span class="code-inline">/ready</span> sao isentas via <span class="code-inline">@SkipRateLimit()</span> e respondem 200 mesmo apos o burst.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Spec Jest <span class="code-inline">rate-limit.guard.spec.ts</span> cobrindo janela, contagem e isencao.</li>
+                                <li>Burst manual de 6 requisicoes com <span class="code-inline">RATE_LIMIT_MAX=3</span>.</li>
+                                <li>Confirmacao de que <span class="code-inline">/health</span> pos-burst retorna 200 (exempt).</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Suba com <span class="code-inline">RATE_LIMIT_MAX=3 npm run start:dev</span>.</li>
+                                <li>Dispare 6 chamadas em sequencia ao mesmo endpoint.</li>
+                                <li>Observe 200 nas 3 primeiras e 429 nas 3 ultimas.</li>
+                            </ol>
+                        </article>
+                    </div>
+<pre class="code-block">$ for i in $(seq 1 6); do \
+    code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:4001/admin/diagnostics); \
+    echo "req$i -> $code"; \
+  done
+req1 -> 200
+req2 -> 200
+req3 -> 200
+req4 -> 429
+req5 -> 429
+req6 -> 429
+
+# body real da 4a requisicao (HTTP 429)
+$ curl -s http://localhost:4001/admin/diagnostics | jq
+{
+  "statusCode": 429,
+  "code": "RATE_LIMITED",
+  "message": "Too many requests. Please slow down.",
+  "traceId": "8f2c1a9e-7b40-4d11-9c3a-2e6d5b0f4a87"
+}
+
+# /health permanece 200 apos o burst (isento via @SkipRateLimit)
+$ curl -s -o /dev/null -w "/health -> %{http_code}\n" http://localhost:4001/health
+/health -> 200
+</pre>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-ready">
+                <header>
+                    <h3>3.3 Readiness para orquestradores</h3>
+                    <span class="eyebrow">BACK | READINESS</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Endpoint: GET /ready</span>
+                        <span>Auth: publico</span>
+                        <span>Status: 200 OK</span>
+                    </div>
+                    <p>Endpoint de readiness usado por orquestradores e monitores externos para decidir se a instancia pode receber trafego. Retorna o status agregado, o resultado do check de seed e o uptime em milissegundos. Publico e isento de rate limit.</p>
+<pre class="code-block">$ curl -s http://localhost:4001/ready | jq
+{
+  "status": "ready",
+  "checks": {
+    "seed": "ok",
+    "uptimeMs": 423
+  }
+}
+</pre>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-smoke">
+                <header>
+                    <h3>3.4 Smoke de release</h3>
+                    <span class="eyebrow">INFRA | SMOKE</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Comando: npm run smoke</span>
+                        <span>Checks: 8 ordenados</span>
+                        <span>Resultado: 8 passed, 0 failed, 0 skipped</span>
+                    </div>
+                    <p>Smoke de release executa 8 verificacoes ordenadas contra o servidor em execucao, do liveness ao caminho publico de self-service. Usado antes de cada go-live para confirmar que o build promovido responde ponta a ponta.</p>
+<pre class="code-block">$ npm run smoke
+
+FastInBox smoke (target http://localhost:4001)
+ [1/8] PASS  health -> 200 ok
+ [2/8] PASS  ready -> 200 status=ready seed=ok
+ [3/8] PASS  admin login -> accessToken recebido
+ [4/8] PASS  diagnostics -> status=ok (orders 7, subscriptions 3)
+ [5/8] PASS  forecast invariants -> expected=history+subscriptions, bounds ok
+ [6/8] PASS  subscriptions >= 3 -> 3 ativas
+ [7/8] PASS  public self-service invalido -> 404 SELF_SERVICE_CODE_INVALID
+ [8/8] PASS  public self-service valido -> clinica + nutricionista resolvidos
+
+8 passed, 0 failed, 0 skipped
+</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Resultado dos quality gates</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <p>Gates executados em <span class="code-inline">back</span> antes da promocao para producao. Todos verdes na branch <span class="code-inline">main</span>.</p>
+            <table>
+                <thead><tr><th scope="col">Gate</th><th scope="col">Comando</th><th scope="col">Resultado</th></tr></thead>
+                <tbody>
+                    <tr><td>Build de producao</td><td><span class="code-inline">npm run build</span></td><td><span class="status-pill done">OK</span></td></tr>
+                    <tr><td>Testes automatizados</td><td><span class="code-inline">npm test</span></td><td>6 suites / 30 tests <span class="status-pill done">Verde</span></td></tr>
+                    <tr><td>Lint</td><td><span class="code-inline">npm run lint</span></td><td>exit 0 <span class="status-pill done">Limpo</span></td></tr>
+                    <tr><td>Smoke de release</td><td><span class="code-inline">npm run smoke</span></td><td>8 passed, 0 failed <span class="status-pill done">Verde</span></td></tr>
+                </tbody>
+            </table>
+            <p class="note">Os 30 testes incluem as specs novas de Sprint 7 (<span class="code-inline">rate-limit.guard.spec.ts</span>) somadas a cobertura de self-service, assinaturas e previsao herdada da Sprint 6. Nenhuma regressao detectada.</p>
+        </section>
+
+        <section>
+            <h2>5. Checklist de go-live (resumo)</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <p>O fechamento operacional do MVP esta documentado em dois artefatos dedicados, linkados abaixo. Esta secao traz apenas o resumo dos itens verificados no go-live.</p>
+            <ul>
+                <li>Quality gates verdes (build, testes, lint, smoke) confirmados antes da promocao.</li>
+                <li>Security headers presentes em toda resposta; HSTS ativo no ambiente de producao.</li>
+                <li>Rate limiting ativo com limites de producao; probes de orquestrador isentas.</li>
+                <li>Readiness e liveness expostos e validados (<span class="code-inline">GET /ready</span> + <span class="code-inline">GET /health</span>).</li>
+                <li>Procedimento de rollback ensaiado e documentado no runbook.</li>
+                <li>Logins de demonstracao e dados de seed verificados pos-deploy.</li>
+            </ul>
+            <p>Documentos completos: <a href="./go-live-checklist.html">Go-live Checklist e SLA</a> e <a href="./runbook-operacional.html">Runbook Operacional e Rollback</a>.</p>
+        </section>
+
+        <section>
+            <h2>6. QA Sprint 7</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <table>
+                <thead><tr><th scope="col">ID</th><th scope="col">Caso de teste</th><th scope="col">RNF/RF</th><th scope="col">Tipo</th><th scope="col">Veredito</th></tr></thead>
+                <tbody>
+                    <tr><td>TC-029</td><td>Excesso de requisicoes por IP retorna 429 com body code=RATE_LIMITED</td><td>RNF-003</td><td>API smoke</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                    <tr><td>TC-030</td><td>Security headers presentes em toda resposta (nosniff, DENY, no-referrer, COOP)</td><td>RNF-003</td><td>API smoke</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                    <tr><td>TC-031</td><td>GET /ready retorna status=ready com checks.seed=ok e uptimeMs</td><td>RNF-006</td><td>API smoke</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                    <tr><td>TC-032</td><td>/health e /ready permanecem 200 apos burst (isentos via @SkipRateLimit)</td><td>RNF-003, RNF-006</td><td>Integracao</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                    <tr><td>TC-033</td><td>Smoke de release verde: 8 passed, 0 failed, 0 skipped</td><td>RNF-006</td><td>Smoke de release</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>7. Parecer de fechamento</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <p>Sprint 7 entregue com 7/7 itens em Done. O MVP do FastInBox encerra o ciclo auditado, documentado e estavel: security headers em toda resposta, rate limiting por IP com 429 estruturado, readiness para orquestradores, smoke de release verde (8/8) e runbook com rollback ensaiado. Os quality gates fecham limpos (build OK, 6 suites / 30 tests, lint exit 0) e a regressao de QA nao apontou pendencias bloqueantes. A plataforma esta pronta para producao e preparada para escalar a partir da base de autoatendimento, assinaturas e previsao consolidada na Sprint 6.</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Thiago Lucas / Gabriel Pahl | <strong>Ultima atualizacao:</strong> 23/06/2026</p>
+        </section>
+
+        <div class="footer">
+            <p>FastInBox | Projeto Integrador III | Evidencias Sprint 7 - Producao e go-live. MVP pronto para producao. Hub de documentacao: <a href="../index.html">indice geral</a>.</p>
+        </div>
+    </main>
+</body>
+</html>

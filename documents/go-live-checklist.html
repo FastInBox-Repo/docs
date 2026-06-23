@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Checklist de Go-Live e SLA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+    <style>
+        .status-pill { padding: 0.18rem 0.55rem; border: 2px solid #000; text-transform: uppercase; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.04em; display: inline-block; }
+        .status-pill.done { background: #e9ffe6; }
+        .code-inline { background: #f4f4f4; padding: 0.05rem 0.35rem; border: 1px solid #000; font-family: "IBM Plex Mono",monospace; font-size: 0.82rem; }
+        .code-block { background: #0a0a0a; color: #f4f4f4; padding: 0.9rem; font-family: "IBM Plex Mono","Consolas",monospace; font-size: 0.8rem; line-height: 1.45; overflow-x: auto; margin: 0.7rem 0 1rem; border: 2px solid #000; }
+        .signoff-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; margin-top: 0.7rem; }
+        .signoff-card { border: 2px solid #000; padding: 0.9rem; background: #fafafa; }
+        .signoff-card h3 { margin: 0 0 0.5rem; font-size: 0.95rem; }
+        .signoff-card p { margin: 0.25rem 0; font-size: 0.86rem; }
+        @media (max-width: 720px) { .signoff-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Pular para o conteudo principal</a>
+    <main id="main-content" class="wrapper" tabindex="-1">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./sprint-7-planning.html">Sprint 7 Planning</a>
+            <a href="./evidencias-sprint-7.html">Evidencias Sprint 7</a>
+            <a href="./runbook-operacional.html">Runbook Operacional</a>
+            <a href="./registro-dailies-impedimentos.html">Dailies e Impedimentos</a>
+            <a href="./retrospectiva-final.html">Retrospectiva Final</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Sprint 7 - Producao e go-live</p>
+            <h1>Checklist de Go-Live e SLA</h1>
+            <p>Periodo: Sprint 7 | Status: Aprovado - todos os itens assinados. Documento de prontidao para producao do MVP FastInBox.</p>
+            <p>Checklist consolidado de go-live com tres frentes de verificacao (tecnica, operacional e produto/UX), SLA inicial de operacao e modelo de operacao assistida para as duas primeiras semanas. Cada item foi conferido contra build, testes, smoke de release e evidencias reais antes da assinatura por area.</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Gabriel Goncalves / Gabriel Pahl | <strong>Ultima atualizacao:</strong> 23/06/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+        </header>
+
+        <section>
+            <h2>1. Resumo executivo</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <p>O MVP do FastInBox esta <strong>pronto para go-live</strong> com <strong>zero pendencia critica</strong>. As sete frentes de verificacao foram fechadas: build verde nos tres repositorios, suite de testes integral, lint limpo, smoke de release com 8/8 checks, hardening de seguranca em producao (security headers, rate limiting, CORS restrito, HMAC timing-safe, RBAC matrizado), runbook operacional publicado e rollback testado.</p>
+            <p>A plataforma cobre as jornadas centrais ponta a ponta: nutricionista, paciente, cozinha, administrador e o novo fluxo de autoatendimento (whitelabel publico) entregue na Sprint 6. As capacidades de escala comercial da Sprint 6 (assinaturas recorrentes e previsao de demanda) entram em producao com observabilidade dedicada via <span class="code-inline">GET /admin/diagnostics</span>.</p>
+            <table>
+                <thead><tr><th scope="col">Frente</th><th scope="col">Itens</th><th scope="col">Pendencias criticas</th><th scope="col">Status</th></tr></thead>
+                <tbody>
+                    <tr><td>Checklist tecnico</td><td>10</td><td>0</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                    <tr><td>Checklist operacional</td><td>5</td><td>0</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                    <tr><td>Checklist produto / UX</td><td>3</td><td>0</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                    <tr><td>SLA inicial</td><td>Definido</td><td>0</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                </tbody>
+            </table>
+            <p class="note"><strong>Decisao:</strong> liberado para producao em modo de operacao assistida nas duas primeiras semanas (ver secao 6). Sem bloqueios. Sem itens em aberto que impecam o lancamento.</p>
+        </section>
+
+        <section>
+            <h2>2. Checklist tecnico</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <p>Verificacao de engenharia conferida contra os comandos reais de build, teste, lint e smoke nos repositorios <span class="code-inline">back</span>, <span class="code-inline">front</span> e <span class="code-inline">docs</span>.</p>
+            <table>
+                <thead><tr><th scope="col">Item</th><th scope="col">Evidencia</th><th scope="col">Owner</th><th scope="col">Status</th></tr></thead>
+                <tbody>
+                    <tr><td>Build verde nos 3 repositorios</td><td><span class="code-inline">npm run build</span> (back) + <span class="code-inline">next build</span> (front) + GitHub Pages (docs), CI verde no push para main</td><td>Back / Front</td><td><span class="status-pill done">OK</span></td></tr>
+                    <tr><td>Suite de testes integral verde</td><td><span class="code-inline">npm test</span> -> 6 suites / 30 testes verdes</td><td>QA / Back</td><td><span class="status-pill done">OK</span></td></tr>
+                    <tr><td>Lint limpo</td><td><span class="code-inline">npm run lint</span> exit 0 (back) e <span class="code-inline">eslint .</span> exit 0 + <span class="code-inline">tsc --noEmit</span> (front)</td><td>Back / Front</td><td><span class="status-pill done">OK</span></td></tr>
+                    <tr><td>Smoke de release 8/8</td><td><span class="code-inline">npm run smoke</span> -> "8 passed, 0 failed, 0 skipped"</td><td>QA / Back</td><td><span class="status-pill done">OK</span></td></tr>
+                    <tr><td>Security headers em toda resposta</td><td><span class="code-inline">X-Content-Type-Options</span>, <span class="code-inline">X-Frame-Options: DENY</span>, <span class="code-inline">Referrer-Policy</span>, <span class="code-inline">COOP</span> e <span class="code-inline">HSTS</span> (producao) confirmados no <span class="code-inline">/health</span></td><td>Back / Seguranca</td><td><span class="status-pill done">OK</span></td></tr>
+                    <tr><td>Rate limiting ativo</td><td>Janela fixa por IP, default 120 req / 60s; excedente -> 429 <span class="code-inline">RATE_LIMITED</span>; burst testado com <span class="code-inline">RATE_LIMIT_MAX=3</span></td><td>Back / Seguranca</td><td><span class="status-pill done">OK</span></td></tr>
+                    <tr><td>Readiness probe</td><td><span class="code-inline">GET /ready</span> (publico, isento de rate limit) -> <span class="code-inline">{status:"ready",checks:{seed:"ok",uptimeMs}}</span></td><td>Back / Arquitetura</td><td><span class="status-pill done">OK</span></td></tr>
+                    <tr><td>CORS restrito</td><td><span class="code-inline">origin: process.env.FRONTEND_URL</span> + credentials; negativa explicita para outras origens (heranca S5)</td><td>Back / Seguranca</td><td><span class="status-pill done">OK</span></td></tr>
+                    <tr><td>HMAC timing-safe</td><td>Webhooks validados com <span class="code-inline">crypto.timingSafeEqual</span> e janela anti-replay +/- 5 min (heranca S5)</td><td>Back / Seguranca</td><td><span class="status-pill done">OK</span></td></tr>
+                    <tr><td>RBAC matrizado</td><td>Guard global <span class="code-inline">AuthGuard</span> com <span class="code-inline">@Public()</span> / <span class="code-inline">@Roles(...)</span>; matriz auditada em <span class="code-inline">audit_log</span> (heranca S5)</td><td>Back / Seguranca</td><td><span class="status-pill done">OK</span></td></tr>
+                </tbody>
+            </table>
+            <p>Burst de rate limiting reproduzido em ambiente controlado para confirmar o comportamento de protecao:</p>
+<pre class="code-block">$ RATE_LIMIT_MAX=3 npm run start  # janela curta para teste
+$ for i in 1 2 3 4 5 6; do curl -s -o /dev/null -w "req$i -> %{http_code}\n" http://localhost:4001/subscriptions; done
+req1 -> 200
+req2 -> 200
+req3 -> 200
+req4 -> 429
+req5 -> 429
+req6 -> 429
+$ curl -s http://localhost:4001/health -o /dev/null -w "health -> %{http_code}\n"   # isento
+health -> 200</pre>
+        </section>
+
+        <section>
+            <h2>3. Checklist operacional</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <p>Prontidao de operacao: documentacao, rollback, observabilidade, persistencia e ritos de acompanhamento.</p>
+            <table>
+                <thead><tr><th scope="col">Item</th><th scope="col">Evidencia</th><th scope="col">Owner</th><th scope="col">Status</th></tr></thead>
+                <tbody>
+                    <tr><td>Runbook operacional publicado</td><td>Procedimentos de incidente, escalonamento e diagnostico em <a href="./runbook-operacional.html">runbook-operacional.html</a></td><td>Arquitetura</td><td><span class="status-pill done">OK</span></td></tr>
+                    <tr><td>Procedimento de rollback testado</td><td>Rollback por revert do ultimo deploy verde em main; ensaio executado e tempo de retorno medido (ver SLA, RTO/RPO)</td><td>Arquitetura / Back</td><td><span class="status-pill done">OK</span></td></tr>
+                    <tr><td>Observabilidade ativa</td><td><span class="code-inline">GET /admin/diagnostics</span> agrega orders, payments, audit, subscriptions e selfService; painel <span class="code-inline">/admin/diagnostico</span> consome em tempo real</td><td>Back / Arquitetura</td><td><span class="status-pill done">OK</span></td></tr>
+                    <tr><td>Plano de backup / persistencia</td><td>Stores in-memory documentados; seed deterministico por boot; estrategia de persistencia e backup descrita no runbook para evolucao pos-MVP</td><td>Arquitetura</td><td><span class="status-pill done">OK</span></td></tr>
+                    <tr><td>Dailies registradas</td><td>Ritos diarios, impedimentos e plano de contingencia em <a href="./registro-dailies-impedimentos.html">registro-dailies-impedimentos.html</a></td><td>Arquitetura / Front</td><td><span class="status-pill done">OK</span></td></tr>
+                </tbody>
+            </table>
+            <p>Snapshot do diagnostico usado para conferir saude antes do go-live:</p>
+<pre class="code-block">$ curl -sH "Authorization: Bearer $TOKEN" http://localhost:4001/admin/diagnostics | jq '{status, orders, subscriptions, selfService}'
+{
+  "status": "ok",
+  "orders":       { "status": "ok", "total": 7, "delivered": 3 },
+  "subscriptions":{ "status": "ok", "total": 3, "active": 3, "paused": 0, "cancelled": 0 },
+  "selfService":  { "status": "ok", "codes": 1 }
+}</pre>
+        </section>
+
+        <section>
+            <h2>4. Checklist de produto / UX</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <p>Revisao final de produto e experiencia cross-device antes da liberacao ao publico.</p>
+            <table>
+                <thead><tr><th scope="col">Item</th><th scope="col">Detalhe</th><th scope="col">Owner</th><th scope="col">Status</th></tr></thead>
+                <tbody>
+                    <tr><td>Revisao UX cross-device</td><td>Layouts validados em mobile (360-414px), tablet (768-834px) e desktop (>=1280px); navegacao, formularios e tabelas reflow sem quebra</td><td>Front</td><td><span class="status-pill done">OK</span></td></tr>
+                    <tr><td>Jornadas cobertas</td><td>Nutricionista (assinaturas, codigo de autoatendimento), paciente (revisao e confirmacao), cozinha (fila), admin (previsao, relatorios, diagnostico) e autoatendimento publico (onboarding whitelabel)</td><td>Front / QA</td><td><span class="status-pill done">OK</span></td></tr>
+                    <tr><td>Acessibilidade WCAG</td><td>Skip-link, foco visivel, contraste seguro, contraste dinamico no whitelabel via helper <span class="code-inline">readableText</span> (luminancia) e hierarquia semantica</td><td>Front / QA</td><td><span class="status-pill done">OK</span></td></tr>
+                </tbody>
+            </table>
+            <h3>Breakpoints validados</h3>
+            <ul>
+                <li><strong>Mobile (360-414px):</strong> menu compacto, cards empilhados, tabelas com scroll horizontal controlado e botoes de acao em largura total. Pagina publica de autoatendimento <span class="code-inline">/cadastro/:code</span> renderiza o formulario de 8 campos sem corte.</li>
+                <li><strong>Tablet (768-834px):</strong> grids passam de coluna unica para duas colunas; KPIs da previsao e os cards de assinatura ganham respiro sem perder densidade.</li>
+                <li><strong>Desktop (&gt;=1280px):</strong> layout pleno com sidebar fixa, graficos recharts (banda de confianca + linha esperada) e tabelas largas de janelas de demanda e comissoes.</li>
+            </ul>
+            <h3>Jornadas cobertas na revisao</h3>
+            <ul>
+                <li><strong>Nutricionista:</strong> criar e gerenciar assinaturas (pausar / retomar / cancelar), gerar e copiar o link publico do codigo de autoatendimento.</li>
+                <li><strong>Paciente:</strong> revisao do pedido gerado pela assinatura (estado <span class="code-inline">AWAITING_PATIENT_REVIEW</span>) e confirmacao.</li>
+                <li><strong>Cozinha:</strong> visualizacao e avanco da fila de producao por cozinha.</li>
+                <li><strong>Admin:</strong> previsao de demanda (7/14/30 dias), relatorios, diagnostico e disparo de cobrancas vencidas das assinaturas.</li>
+                <li><strong>Autoatendimento publico:</strong> onboarding whitelabel do paciente a partir do codigo, com identidade visual da clinica e contraste de texto calculado automaticamente.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5. SLA inicial</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <p>Metas de servico adotadas para o lancamento do MVP. Valores conservadores compativeis com a fase inicial de operacao assistida, revisados ao final das duas primeiras semanas.</p>
+            <table>
+                <thead><tr><th scope="col">Metrica</th><th scope="col">Alvo</th></tr></thead>
+                <tbody>
+                    <tr><td>Disponibilidade mensal</td><td>99,5% (medida sobre <span class="code-inline">GET /ready</span> e <span class="code-inline">/health</span>)</td></tr>
+                    <tr><td>Tempo de resposta p95 (APIs de leitura)</td><td>&lt;= 400 ms</td></tr>
+                    <tr><td>MTTR (tempo medio de recuperacao)</td><td>&lt;= 30 min para incidentes criticos</td></tr>
+                    <tr><td>Janela de resposta a incidente critico</td><td>Primeiro contato em &lt;= 15 min em horario de operacao assistida</td></tr>
+                    <tr><td>RTO do rollback (Recovery Time Objective)</td><td>&lt;= 15 min (revert do ultimo deploy verde em main)</td></tr>
+                    <tr><td>RPO do rollback (Recovery Point Objective)</td><td>0 (estado reconstruido por seed deterministico; sem perda de dado transacional persistido)</td></tr>
+                </tbody>
+            </table>
+            <p class="note">A disponibilidade e o p95 sao monitorados via <span class="code-inline">/admin/diagnostics</span> e probes externas. Incidente critico = indisponibilidade total, falha de pagamento em lote ou violacao de seguranca. O detalhamento de severidades e escalonamento esta no <a href="./runbook-operacional.html">runbook operacional</a>.</p>
+        </section>
+
+        <section>
+            <h2>6. Modelo de operacao assistida pos-lancamento</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <p>Nas <strong>duas primeiras semanas</strong> apos o go-live a equipe opera em modo assistido (hypercare), com acompanhamento ativo e ciclo curto de correcao.</p>
+            <ul>
+                <li><strong>Plantao diario:</strong> revisao matinal de <span class="code-inline">/admin/diagnostics</span> e do smoke de release; conferencia de orders, subscriptions e selfService.</li>
+                <li><strong>Janela de resposta:</strong> resposta a incidentes conforme SLA, com escalonamento por area (Back -> Arquitetura -> Front) seguindo o runbook.</li>
+                <li><strong>Acompanhamento de assinaturas:</strong> conferencia do resultado de <span class="code-inline">POST /subscriptions/run</span> e da previsao de demanda para validar volume real x projetado.</li>
+                <li><strong>Registro de impedimentos:</strong> impedimentos e contingencias logados em <a href="./registro-dailies-impedimentos.html">registro de dailies</a> para rastreabilidade.</li>
+                <li><strong>Criterio de saida do hypercare:</strong> ao fim da semana 2, sem incidente critico aberto e com SLA cumprido, a operacao migra para o modo padrao e o SLA e revisado.</li>
+            </ul>
+            <table>
+                <thead><tr><th scope="col">Fase</th><th scope="col">Periodo</th><th scope="col">Foco</th></tr></thead>
+                <tbody>
+                    <tr><td>Hypercare intensivo</td><td>Semana 1</td><td>Plantao diario, validacao ponta a ponta das jornadas, ajuste fino de rate limit / SLA</td></tr>
+                    <tr><td>Hypercare de estabilizacao</td><td>Semana 2</td><td>Monitoramento de tendencia, validacao de previsao x demanda real, preparacao da saida</td></tr>
+                    <tr><td>Operacao padrao</td><td>A partir da semana 3</td><td>Acompanhamento por excecao via diagnostics e probes; SLA revisado</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>7. Assinaturas de prontidao por area</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <p>Cada area declara a prontidao para producao do seu escopo. Todas as assinaturas foram concedidas, sem ressalva critica.</p>
+            <div class="signoff-grid">
+                <article class="signoff-card">
+                    <h3>Backend</h3>
+                    <div class="owners owners-inline"><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+                    <p>APIs, hardening, rate limiting, readiness e smoke de release verificados. 6 suites / 30 testes verdes, lint e build limpos.</p>
+                    <p><strong>Veredito:</strong> <span class="status-pill done">Aprovado</span></p>
+                </article>
+                <article class="signoff-card">
+                    <h3>Frontend</h3>
+                    <div class="owners owners-inline"><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+                    <p>Jornadas cross-device validadas (mobile / tablet / desktop), autoatendimento whitelabel e acessibilidade WCAG conferidos. Build e lint limpos.</p>
+                    <p><strong>Veredito:</strong> <span class="status-pill done">Aprovado</span></p>
+                </article>
+                <article class="signoff-card">
+                    <h3>Arquitetura</h3>
+                    <div class="owners owners-inline"><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+                    <p>Observabilidade, runbook, rollback testado, CORS, HMAC timing-safe, RBAC e SLA inicial definidos e aprovados.</p>
+                    <p><strong>Veredito:</strong> <span class="status-pill done">Aprovado</span></p>
+                </article>
+                <article class="signoff-card">
+                    <h3>QA</h3>
+                    <div class="owners owners-inline"><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+                    <p>Smoke 8/8, suite de testes integral verde e revisao de UX / acessibilidade concluidas. Zero pendencia critica.</p>
+                    <p><strong>Veredito:</strong> <span class="status-pill done">Aprovado</span></p>
+                </article>
+            </div>
+            <p class="note"><strong>Conclusao:</strong> com as quatro areas aprovadas e zero pendencia critica, o MVP FastInBox esta liberado para go-live em modo de operacao assistida.</p>
+        </section>
+
+        <footer class="footer">
+            Checklist de go-live e SLA da Sprint 7 - prontidao de producao do MVP FastInBox. Todos os itens conferidos contra build, testes, smoke de release e evidencias reais, e assinados por area.
+        </footer>
+    </main>
+</body>
+</html>

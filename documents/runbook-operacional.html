@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Runbook Operacional e Rollback</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+    <style>
+        .code-block { background: #0a0a0a; color: #f4f4f4; padding: 0.9rem; font-family: "IBM Plex Mono","Consolas",monospace; font-size: 0.8rem; line-height: 1.45; overflow-x: auto; margin: 0.7rem 0 1rem; border: 2px solid #000; }
+        .code-inline { background: #f4f4f4; padding: 0.05rem 0.35rem; border: 1px solid #000; font-family: "IBM Plex Mono",monospace; font-size: 0.82rem; }
+        .status-pill { padding: 0.18rem 0.55rem; border: 2px solid #000; text-transform: uppercase; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.04em; }
+        .status-pill.done { background: #e9ffe6; }
+        .status-pill.in-progress { background: #fff7d6; }
+        .step-list { margin: 0.6rem 0 1rem 1.2rem; }
+        .step-list li { margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Pular para o conteudo principal</a>
+    <main id="main-content" class="wrapper" tabindex="-1">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./sprint-7-planning.html">Sprint 7 Planning</a>
+            <a href="./sprint-6-planning.html">Sprint 6 Planning</a>
+            <a href="./evidencias-sprint-6.html">Evidencias Sprint 6</a>
+            <a href="./evidencias-sprint-7.html">Evidencias Sprint 7</a>
+            <a href="./retrospectiva-final.html">Retrospectiva Final</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Operacao e SRE</p>
+            <h1>Runbook Operacional e Rollback</h1>
+            <p>Entregavel da Sprint 7 (Producao e go-live). Procedimentos operacionais para manter o FastInBox no ar, diagnosticar incidentes por sintoma e executar rollback sem dependencias externas.</p>
+            <p>Documento dependency-free: todos os passos usam apenas <span class="code-inline">git</span>, o CI de cada repo e os scripts <span class="code-inline">npm</span> ja versionados (<span class="code-inline">npm run smoke</span>). Health e readiness expostos pela API permitem checagem por qualquer monitor externo.</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Gabriel Pahl / Thiago Lucas | <strong>Ultima atualizacao:</strong> 23/06/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag arch"><span class="owner-role">SRE</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+        </header>
+
+        <section>
+            <h2>1. Visao geral e escopo</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <p>O FastInBox e composto por tres repositorios sob a organizacao <span class="code-inline">github.com/FastInBox-Repo</span>, cada um com seu proprio alvo de deploy. Este runbook cobre os tres.</p>
+            <table>
+                <thead><tr><th scope="col">Repositorio</th><th scope="col">Conteudo</th><th scope="col">Deploy target</th><th scope="col">Gatilho</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="code-inline">FastInBox-Repo/back</span></td><td>API NestJS (stores in-memory, seed por boot)</td><td>CI build</td><td>Push em <span class="code-inline">main</span></td></tr>
+                    <tr><td><span class="code-inline">FastInBox-Repo/front</span></td><td>App Next.js 15 (figma-app)</td><td>CI build</td><td>Push em <span class="code-inline">main</span></td></tr>
+                    <tr><td><span class="code-inline">FastInBox-Repo/docs</span></td><td>Hub de documentacao academica</td><td>GitHub Pages</td><td>Push em <span class="code-inline">main</span> (<a href="https://fastinbox-repo.github.io/docs/" target="_blank" rel="noopener noreferrer">fastinbox-repo.github.io/docs</a>)</td></tr>
+                </tbody>
+            </table>
+            <p>Premissa operacional importante: o backend usa stores em memoria e roda <span class="code-inline">seed</span> a cada boot. Um restart ou novo deploy reinicializa o dataset de demonstracao. Nao ha banco persistente a migrar em rollback, o que torna o procedimento puramente baseado em <span class="code-inline">git</span> + CI.</p>
+            <div class="note">Logins de demonstracao (senha <span class="code-inline">fastinbox123</span>): <span class="code-inline">admin@fastinbox.test</span>, <span class="code-inline">nutri@fastinbox.test</span>, <span class="code-inline">cozinha@fastinbox.test</span>, <span class="code-inline">paciente@fastinbox.test</span>.</div>
+        </section>
+
+        <section>
+            <h2>2. Health e readiness</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">SRE</span>Gabriel Pahl</span></div>
+            <p>A API expoe dois probes publicos e isentos de rate limit (decorador <span class="code-inline">@SkipRateLimit()</span>), pensados para load balancers e orquestradores.</p>
+            <table>
+                <thead><tr><th scope="col">Endpoint</th><th scope="col">Uso</th><th scope="col">Auth</th><th scope="col">Rate limit</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="code-inline">GET /health</span></td><td>Liveness probe. O processo esta vivo e respondendo.</td><td>Publico</td><td>Isento</td></tr>
+                    <tr><td><span class="code-inline">GET /ready</span></td><td>Readiness probe. O servico bootou e o seed concluiu antes de receber trafego.</td><td>Publico</td><td>Isento</td></tr>
+                </tbody>
+            </table>
+            <p>O <span class="code-inline">/ready</span> reporta o status do seed e o uptime em milissegundos. Enquanto <span class="code-inline">checks.seed</span> for <span class="code-inline">pending</span>, o readiness deve ser tratado como nao pronto e o trafego retido.</p>
+<pre class="code-block">$ curl -s http://localhost:4001/ready | jq
+{
+  "status": "ready",
+  "checks": {
+    "seed": "ok",
+    "uptimeMs": 423
+  },
+  "timestamp": "2026-06-23T11:02:18.704Z"
+}
+</pre>
+            <p>Regra de uso: o load balancer roteia para o backend apenas quando <span class="code-inline">/ready</span> retorna <span class="code-inline">200</span> com <span class="code-inline">status:"ready"</span> e <span class="code-inline">checks.seed:"ok"</span>. O <span class="code-inline">/health</span> deve responder <span class="code-inline">200</span> mesmo durante um burst de rate limit, justamente por ser isento, confirmando que o processo continua vivo.</p>
+        </section>
+
+        <section>
+            <h2>3. Observabilidade</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <p>O painel de saude operacional e o <span class="code-inline">GET /admin/diagnostics</span> (role <span class="code-inline">admin</span>). Em uma unica chamada ele agrega o estado dos modulos de negocio: orders, payments, audit e, desde a Sprint 6, subscriptions e selfService.</p>
+<pre class="code-block">$ curl -sH "Authorization: Bearer $TOKEN" http://localhost:4001/admin/diagnostics | jq
+{
+  "status": "ok",
+  "modules": {
+    "orders":        { "status": "ok", "total": 7, "delivered": 3 },
+    "payments":      { "status": "ok", "intents": ..., "approved": ..., "failed": ... },
+    "audit":         { "status": "ok", "totalEntries": ... },
+    "subscriptions": { "status": "ok", "total": 3, "active": 3, "paused": 0, "cancelled": 0 },
+    "selfService":   { "status": "ok", "codes": 1 }
+  },
+  "timestamp": "2026-06-23T11:05:41.000Z"
+}
+</pre>
+            <p>Leitura recomendada por bloco durante um incidente:</p>
+            <ul>
+                <li><strong>orders</strong> - volume total e entregues. Queda abrupta de <span class="code-inline">total</span> indica falha de criacao de pedidos.</li>
+                <li><strong>payments</strong> - intents aprovadas vs falhas e webhooks processados/rejeitados. <span class="code-inline">failed</span> ou <span class="code-inline">webhooksRejected</span> subindo sinaliza problema de pagamento.</li>
+                <li><strong>subscriptions</strong> - contagem por status. Util apos rodar a cobranca recorrente para confirmar que nenhuma assinatura entrou em estado inesperado.</li>
+                <li><strong>selfService</strong> - quantidade de codigos ativos de autoatendimento.</li>
+            </ul>
+            <p>Para trilha detalhada de eventos use <span class="code-inline">GET /admin/auditoria</span> (role <span class="code-inline">admin</span>), que lista o audit log com <span class="code-inline">outcome</span> por evento, incluindo tentativas negadas (<span class="code-inline">outcome=denied</span>). E a fonte primaria para reconstruir a linha do tempo de um incidente.</p>
+        </section>
+
+        <section>
+            <h2>4. Resposta a incidentes</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">SRE</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <p>Runbook por sintoma. Identifique a linha que corresponde ao alerta, siga o diagnostico, execute a acao e acione o owner se a acao nao resolver.</p>
+            <table>
+                <thead><tr><th scope="col">Sintoma</th><th scope="col">Diagnostico</th><th scope="col">Acao</th><th scope="col">Owner</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td>API retornando 5xx</td>
+                        <td>Checar <span class="code-inline">GET /health</span> e <span class="code-inline">GET /ready</span>. Se <span class="code-inline">/health</span> nao responde, processo caiu; se <span class="code-inline">/ready</span> mostra <span class="code-inline">seed:"pending"</span>, boot incompleto. Conferir <span class="code-inline">/admin/diagnostics</span> e logs do CI/runtime.</td>
+                        <td>Reiniciar o processo do backend (reinicia stores + seed). Se reincidir apos o ultimo deploy, executar ROLLBACK do <span class="code-inline">back</span> (secao 5).</td>
+                        <td>Thiago Lucas (Back)</td>
+                    </tr>
+                    <tr>
+                        <td>Pico de 429 (rate limit)</td>
+                        <td>Respostas com <span class="code-inline">code:"RATE_LIMITED"</span>. Confirmar que e trafego legitimo vs abuso. <span class="code-inline">/health</span> e <span class="code-inline">/ready</span> continuam 200 por serem isentos.</td>
+                        <td>Se legitimo, elevar <span class="code-inline">RATE_LIMIT_MAX</span> e/ou <span class="code-inline">RATE_LIMIT_WINDOW_MS</span> e reiniciar. Se abuso, manter o limite e bloquear o IP na borda.</td>
+                        <td>Gabriel Pahl (Seguranca)</td>
+                    </tr>
+                    <tr>
+                        <td>Webhook de pagamento falhando</td>
+                        <td>No <span class="code-inline">/admin/diagnostics</span>, bloco <span class="code-inline">payments</span> com <span class="code-inline">webhooksRejected</span> ou <span class="code-inline">failed</span> subindo. Cruzar com <span class="code-inline">/admin/auditoria</span>. Causas tipicas: assinatura HMAC invalida ou janela anti-replay (+/- 5 min).</td>
+                        <td>Validar segredo HMAC e o relogio do provedor. Confirmar que <span class="code-inline">rawBody</span> esta intacto (sem proxy reescrevendo o corpo). Reenviar o webhook apos correcao.</td>
+                        <td>Thiago Lucas (Back)</td>
+                    </tr>
+                    <tr>
+                        <td>Build de CI vermelho</td>
+                        <td>Pipeline falhando no push em <span class="code-inline">main</span>. Identificar o stage: <span class="code-inline">build</span>, <span class="code-inline">lint</span> ou <span class="code-inline">test</span>. Baseline saudavel: 6 suites / 30 testes, lint exit 0, build limpo.</td>
+                        <td>Corrigir e re-push, ou executar ROLLBACK do repo afetado para destravar o deploy enquanto o fix e preparado.</td>
+                        <td>Gabriel Pahl (QA)</td>
+                    </tr>
+                    <tr>
+                        <td>Pages fora do ar</td>
+                        <td>Hub <span class="code-inline">fastinbox-repo.github.io/docs</span> retornando 404 ou versao antiga. Conferir o ultimo workflow de Pages no repo <span class="code-inline">docs</span>.</td>
+                        <td>Re-disparar o deploy de Pages (re-run do workflow). Se o conteudo estiver quebrado, ROLLBACK do <span class="code-inline">docs</span> e aguardar o rebuild de Pages.</td>
+                        <td>Joao Vitor (Front)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Procedimento de ROLLBACK</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">SRE</span>Gabriel Pahl</span></div>
+            <p>O rollback e dependency-free e identico nos tres repos: reverter o merge em <span class="code-inline">main</span>, deixar o CI reconstruir e validar. Como nao ha banco persistente, nao existem migracoes a desfazer.</p>
+
+            <h3>Criterios de decisao</h3>
+            <p>Inicie rollback quando, apos o ultimo deploy, qualquer condicao abaixo for verdadeira:</p>
+            <ul>
+                <li>API em 5xx sustentado e reiniciar o processo nao resolve.</li>
+                <li><span class="code-inline">npm run smoke</span> falha em qualquer um dos 8 checks (secao 6).</li>
+                <li>Build de CI vermelho bloqueando deploys e o fix nao sai em ate 15 minutos.</li>
+                <li>Regressao funcional confirmada por um owner que afeta um fluxo critico (login, criacao de pedido, pagamento).</li>
+            </ul>
+
+            <h3>Passo a passo (por repo)</h3>
+            <ol class="step-list">
+                <li>Identificar o commit de merge problematico em <span class="code-inline">main</span>: <span class="code-inline">git log --oneline --merges -n 5</span>.</li>
+                <li>Reverter o merge preservando o historico (sem reescrita): <span class="code-inline">git revert -m 1 &lt;merge_sha&gt;</span>.</li>
+                <li>Empurrar para <span class="code-inline">main</span>: <span class="code-inline">git push origin main</span>. Isso dispara o CI rebuild (back/front) ou o deploy de Pages (docs).</li>
+                <li>Aguardar o pipeline ficar verde (build + lint + test no back/front; publicacao de Pages no docs).</li>
+                <li>Validar a release com <span class="code-inline">npm run smoke</span> contra o servidor (secao 6). Os 8 checks precisam passar.</li>
+            </ol>
+<pre class="code-block"># Exemplo - rollback do backend
+$ git log --oneline --merges -n 5
+$ git revert -m 1 &lt;merge_sha&gt;
+$ git push origin main          # dispara CI rebuild
+# apos pipeline verde:
+$ npm run smoke                 # 8 checks contra o servidor
+8 passed, 0 failed, 0 skipped
+</pre>
+            <p>Repita o procedimento isoladamente em cada repo afetado. Front e back rebuildeam pelo CI no push; o docs republica via GitHub Pages.</p>
+
+            <h3>Janela e responsavel on-call</h3>
+            <p>Rollback pode ser executado a qualquer momento pelo on-call de plantao. A decisao de rollback nao precisa de quorum: o on-call decide e executa, depois comunica os owners. Owner por repo: <strong>back</strong> Thiago Lucas, <strong>front</strong> Joao Vitor, <strong>docs</strong> Gabriel Pahl. O criterio verde do <span class="code-inline">npm run smoke</span> e a confirmacao final antes de declarar o incidente encerrado.</p>
+        </section>
+
+        <section>
+            <h2>6. Smoke de release</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <p>O smoke de release roda contra um servidor ja no ar (precisa do backend up) e e o gate verde antes de promover/switchar trafego para a nova versao. Script versionado em <span class="code-inline">back/scripts/smoke.mjs</span>.</p>
+<pre class="code-block"># com o backend rodando (ex.: http://localhost:4001):
+$ npm run smoke
+8 passed, 0 failed, 0 skipped
+</pre>
+            <p>Sao 8 checks ordenados. A falha de qualquer um e criterio de rollback:</p>
+            <ol class="step-list">
+                <li><span class="code-inline">GET /health</span> responde 200.</li>
+                <li><span class="code-inline">GET /ready</span> responde 200 com <span class="code-inline">status:"ready"</span> e <span class="code-inline">seed:"ok"</span>.</li>
+                <li>Login admin via <span class="code-inline">POST /auth/login</span> retorna <span class="code-inline">accessToken</span>.</li>
+                <li><span class="code-inline">GET /admin/diagnostics</span> responde 200 com os blocos esperados.</li>
+                <li>Invariantes do forecast (<span class="code-inline">GET /admin/reports/forecast</span>): <span class="code-inline">expectedMeals === fromHistory + fromSubscriptions</span> e <span class="code-inline">lowerBound &lt;= expectedMeals &lt;= upperBound</span>.</li>
+                <li><span class="code-inline">GET /subscriptions</span> retorna ao menos 3 assinaturas.</li>
+                <li>Codigo de autoatendimento invalido em <span class="code-inline">GET /public/self-service/:code</span> retorna 404 <span class="code-inline">SELF_SERVICE_CODE_INVALID</span>.</li>
+                <li>Codigo de autoatendimento valido retorna o whitelabel da clinica (<span class="code-inline">clinic</span> + <span class="code-inline">nutritionist</span>).</li>
+            </ol>
+            <p>Resultado de referencia da Sprint 7: <span class="status-pill done">8 passed</span> 0 failed, 0 skipped. Criterio verde = os 8 checks passam antes do switch.</p>
+        </section>
+
+        <section>
+            <h2>7. Variaveis de ambiente operacionais</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Seguranca</span>Gabriel Pahl</span></div>
+            <table>
+                <thead><tr><th scope="col">Variavel</th><th scope="col">Repo</th><th scope="col">Funcao</th><th scope="col">Default / observacao</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="code-inline">FRONTEND_URL</span></td><td>back</td><td>Origem permitida no CORS (restrito por esta URL + credentials).</td><td>Sem default seguro; definir por ambiente.</td></tr>
+                    <tr><td><span class="code-inline">PORT</span></td><td>back</td><td>Porta de escuta da API.</td><td><span class="code-inline">4001</span> em desenvolvimento.</td></tr>
+                    <tr><td><span class="code-inline">SEED_DATA</span></td><td>back</td><td>Controla a execucao do seed de demonstracao no boot.</td><td>Stores in-memory; seed roda por boot.</td></tr>
+                    <tr><td><span class="code-inline">RATE_LIMIT_MAX</span></td><td>back</td><td>Maximo de requisicoes por IP dentro da janela.</td><td><span class="code-inline">120</span> requisicoes.</td></tr>
+                    <tr><td><span class="code-inline">RATE_LIMIT_WINDOW_MS</span></td><td>back</td><td>Tamanho da janela fixa do rate limiter.</td><td><span class="code-inline">60000</span> (60s).</td></tr>
+                    <tr><td><span class="code-inline">NODE_ENV</span></td><td>back</td><td>Ambiente. Em <span class="code-inline">production</span> habilita o header <span class="code-inline">Strict-Transport-Security</span> (HSTS).</td><td>HSTS ausente fora de producao.</td></tr>
+                    <tr><td><span class="code-inline">NEXT_PUBLIC_API_URL</span></td><td>front</td><td>Base URL da API consumida pelo app Next.js.</td><td>Deve apontar para o backend do mesmo ambiente.</td></tr>
+                </tbody>
+            </table>
+            <p>Headers de seguranca aplicados em toda resposta (independente de env): <span class="code-inline">X-Content-Type-Options: nosniff</span>, <span class="code-inline">X-Frame-Options: DENY</span>, <span class="code-inline">Referrer-Policy: no-referrer</span>, <span class="code-inline">X-DNS-Prefetch-Control: off</span>, <span class="code-inline">Cross-Origin-Opener-Policy: same-origin</span>. O <span class="code-inline">Strict-Transport-Security</span> e adicionado apenas quando <span class="code-inline">NODE_ENV=production</span>.</p>
+        </section>
+
+        <section>
+            <h2>8. Contatos / on-call</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">SRE</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <table>
+                <thead><tr><th scope="col">Area</th><th scope="col">Owner</th><th scope="col">Escopo de plantao</th></tr></thead>
+                <tbody>
+                    <tr><td>Backend / API</td><td>Thiago Lucas Alves</td><td>5xx, seed/boot, rate limit, webhooks, rollback do <span class="code-inline">back</span>.</td></tr>
+                    <tr><td>Frontend / App</td><td>Joao Vitor Marra</td><td>App Next.js, Pages do hub, rollback do <span class="code-inline">front</span> e do <span class="code-inline">docs</span>.</td></tr>
+                    <tr><td>Arquitetura / QA / Seguranca</td><td>Gabriel Pahl</td><td>Smoke de release, CI vermelho, decisao e coordenacao de rollback, headers/HMAC.</td></tr>
+                </tbody>
+            </table>
+            <div class="note">Fluxo de acionamento: o on-call de plantao executa o procedimento desta runbook e, em paralelo, notifica o owner da area afetada. Toda acao de rollback termina com <span class="code-inline">npm run smoke</span> verde antes de declarar o incidente encerrado.</div>
+        </section>
+
+        <footer class="footer">
+            Runbook operacional e procedimento de rollback do FastInBox, entregavel da Sprint 7 (Producao e go-live). Deve ser lido em conjunto com as evidencias da Sprint 7 e com o go-live checklist + SLA.
+        </footer>
+    </main>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Registro de Dailies, Impedimentos e Contingencia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+    <style>
+        .code-block { background: #0a0a0a; color: #f4f4f4; padding: 0.9rem; font-family: "IBM Plex Mono","Consolas",monospace; font-size: 0.8rem; line-height: 1.45; overflow-x: auto; margin: 0.7rem 0 1rem; border: 2px solid #000; }
+        .code-inline { background: #f4f4f4; padding: 0.05rem 0.35rem; border: 1px solid #000; font-family: "IBM Plex Mono",monospace; font-size: 0.82rem; }
+        .status-pill { padding: 0.18rem 0.55rem; border: 2px solid #000; text-transform: uppercase; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.04em; white-space: nowrap; }
+        .status-pill.done { background: #e9ffe6; }
+        .status-pill.in-progress { background: #fff7d6; }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Pular para o conteudo principal</a>
+    <main id="main-content" class="wrapper" tabindex="-1">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./sprint-6-planning.html">Sprint 6 Planning</a>
+            <a href="./sprint-7-planning.html">Sprint 7 Planning</a>
+            <a href="./evidencias-sprint-6.html">Evidencias Sprint 6</a>
+            <a href="./evidencias-sprint-7.html">Evidencias Sprint 7</a>
+            <a href="./retrospectiva-final.html">Retrospectiva Final</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Sprint governance</p>
+            <h1>Registro de Dailies, Impedimentos e Contingencia</h1>
+            <p>Periodo: Sprints 6 e 7 | Status: Consolidado para a Aula 20 (Revisao da Sprint #07 + Retrospectiva + 3a Avaliacao Parcial).</p>
+            <p>Documento de cerimonia agil que reune o registro das reunioes diarias (dailies) das Sprints 6 e 7, a lista de impedimentos enfrentados com suas resolucoes e o plano de contingencia consolidado a partir dos riscos mapeados nos plannings de cada sprint. O objetivo e evidenciar a disciplina de acompanhamento diario do time e a gestao ativa de riscos durante a fase de escala comercial (Sprint 6) e producao/go-live (Sprint 7).</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Gabriel Goncalves | <strong>Ultima atualizacao:</strong> 23/06/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag arch"><span class="owner-role">Product</span>Gabriel Goncalves</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+        </header>
+
+        <section>
+            <h2>1. Ritual de daily</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Product</span>Gabriel Goncalves</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <p>O time roda a daily no formato Scrum classico: reuniao curta (time-box de 15 minutos), de pe, no inicio do dia util, com as tres perguntas de praxe respondidas por cada integrante.</p>
+            <ul>
+                <li><strong>O que foi feito</strong> desde a ultima daily.</li>
+                <li><strong>O que sera feito</strong> ate a proxima daily.</li>
+                <li><strong>Impedimentos</strong> que bloqueiam ou retardam o avanco.</li>
+            </ul>
+            <p>O acompanhamento e feito na ferramenta de ALM do projeto, o <a href="https://github.com/orgs/FastInBox-Repo/projects/1" target="_blank" rel="noopener noreferrer">GitHub Project FastInBox MVP Delivery</a>, onde cada item da sprint tem status (<span class="code-inline">Todo</span> / <span class="code-inline">In Progress</span> / <span class="code-inline">Done</span>), area responsavel e campo de sprint. Os impedimentos sao registrados como comentarios nos cartoes e promovidos para a lista consolidada deste documento quando impactam o cronograma. As anotacoes abaixo sao a sintese executiva das dailies, nao a transcricao literal.</p>
+            <div class="note"><strong>Convencao:</strong> as dailies ocorreram em dias uteis. As datas registradas seguem o calendario das Sprints 6 e 7, anteriores ao fechamento deste documento em 23/06/2026.</div>
+        </section>
+
+        <section>
+            <h2>2. Registro de dailies da Sprint 6</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Product</span>Gabriel Goncalves</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <p>Sprint 6 - Escala comercial: autoatendimento do paciente (onboarding whitelabel via codigo), assinaturas recorrentes e previsao de demanda. Fluxo de execucao design &rarr; back &rarr; front.</p>
+            <table>
+                <caption class="sr-only">Registro das dailies da Sprint 6</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Data</th>
+                        <th scope="col">Feito</th>
+                        <th scope="col">Proximo</th>
+                        <th scope="col">Impedimento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>26/05/2026</td>
+                        <td>Refinamento do escopo da sprint e wireframes da pagina de autoatendimento (onboarding whitelabel por codigo). Definicao do contrato dos endpoints publicos.</td>
+                        <td>Modelar entidade <span class="code-inline">SelfServiceCode</span> e o contrato <span class="code-inline">GET /public/self-service/:code</span>.</td>
+                        <td>Nenhum.</td>
+                    </tr>
+                    <tr>
+                        <td>28/05/2026</td>
+                        <td>Back criou o modulo de autoatendimento (<span class="code-inline">self-service.service.ts</span> + controller) com geracao de codigo <span class="code-inline">NUT-XXXXXX</span> e TTL de 60 dias.</td>
+                        <td>Implementar o registro publico do paciente (<span class="code-inline">POST /public/self-service/:code/register</span>) com validacao de CPF.</td>
+                        <td>Nenhum.</td>
+                    </tr>
+                    <tr>
+                        <td>01/06/2026</td>
+                        <td>Endpoint de registro publico concluido com erros de dominio <span class="code-inline">PATIENT_CPF_INVALID</span> (422) e <span class="code-inline">PATIENT_CPF_TAKEN</span> (409). Specs verdes.</td>
+                        <td>Front inicia a <span class="code-inline">AutoatendimentoPage</span> na rota publica <span class="code-inline">/cadastro/:code</span> consumindo o whitelabel da clinica.</td>
+                        <td>Definir helper de contraste para o texto sobre a cor primaria da clinica.</td>
+                    </tr>
+                    <tr>
+                        <td>03/06/2026</td>
+                        <td>Front entregou o onboarding publico com formulario de 8 campos e helper <span class="code-inline">readableText</span> baseado em luminancia para garantir contraste sobre a cor da clinica.</td>
+                        <td>Back modela a entidade <span class="code-inline">Subscription</span> e o servico de assinaturas (cadencia weekly/biweekly/monthly).</td>
+                        <td>Impedimento resolvido (contraste). Nenhum aberto.</td>
+                    </tr>
+                    <tr>
+                        <td>05/06/2026</td>
+                        <td>Modulo de assinaturas no ar: CRUD + <span class="code-inline">pause/resume/cancel</span> e <span class="code-inline">POST /subscriptions/run</span> gerando pedidos das assinaturas vencidas (cada uma em try/catch).</td>
+                        <td>Construir a <span class="code-inline">AssinaturasPage</span> da nutricionista com tabela, acoes e card do codigo de autoatendimento.</td>
+                        <td>Lista de assinaturas voltava vazia para o admin (ver IMP-02).</td>
+                    </tr>
+                    <tr>
+                        <td>09/06/2026</td>
+                        <td>Corrigido o scoping de <span class="code-inline">GET /subscriptions</span>: admin agora ve todas as clinicas, nutricionista segue auto-scoped. Front com tabela de assinaturas + link publico copiavel.</td>
+                        <td>Back implementa a previsao de demanda (<span class="code-inline">forecast.service.ts</span>) com baseline historico + contribuicao das assinaturas.</td>
+                        <td>Nenhum.</td>
+                    </tr>
+                    <tr>
+                        <td>12/06/2026</td>
+                        <td>Forecast entregue: <span class="code-inline">GET /admin/reports/forecast?days=</span> retorna janelas com faixa de confianca (<span class="code-inline">lowerBound</span>/<span class="code-inline">upperBound</span>) e separacao <span class="code-inline">fromHistory</span> + <span class="code-inline">fromSubscriptions</span>.</td>
+                        <td>Front monta a <span class="code-inline">PrevisaoPage</span> do admin com KPIs e grafico de banda (recharts).</td>
+                        <td>Horizonte da previsao excluia a ultima ocorrencia de assinaturas recorrentes (ver IMP-01).</td>
+                    </tr>
+                    <tr>
+                        <td>16/06/2026</td>
+                        <td>Horizonte da previsao corrigido para faixa inclusiva <span class="code-inline">today..today+days</span>. Pagina de previsao renderizando KPIs (30 / 24-36) e tabela de janelas. Sprint 6 fechada em Done.</td>
+                        <td>Abrir a Sprint 7 (hardening, runbooks, smoke, go-live).</td>
+                        <td>Nenhum.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Registro de dailies da Sprint 7</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Product</span>Gabriel Goncalves</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Seguranca</span>Gabriel Pahl</span></div>
+            <p>Sprint 7 - Producao e go-live: hardening (security headers, rate limiting, readiness), runbooks de incidente e rollback, smoke de release, revisao de UX cross-device e a preparacao final do lancamento.</p>
+            <table>
+                <caption class="sr-only">Registro das dailies da Sprint 7</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Data</th>
+                        <th scope="col">Feito</th>
+                        <th scope="col">Proximo</th>
+                        <th scope="col">Impedimento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>17/06/2026</td>
+                        <td>Back implementou os security headers em toda resposta (<span class="code-inline">X-Content-Type-Options</span>, <span class="code-inline">X-Frame-Options</span>, <span class="code-inline">Referrer-Policy</span>, HSTS em producao) e o endpoint publico <span class="code-inline">GET /ready</span>.</td>
+                        <td>Construir o rate limiter in-memory (janela fixa) como <span class="code-inline">APP_GUARD</span> executando antes do AuthGuard.</td>
+                        <td>Nenhum.</td>
+                    </tr>
+                    <tr>
+                        <td>18/06/2026</td>
+                        <td>Rate limiter no ar: 120 req/60s por IP, erro <span class="code-inline">RATE_LIMITED</span> mapeado para 429. Decorator <span class="code-inline">@SkipRateLimit()</span> isentando <span class="code-inline">/health</span> e <span class="code-inline">/ready</span>.</td>
+                        <td>Escrever o script de smoke de release (<span class="code-inline">scripts/smoke.mjs</span>) com checagens ordenadas.</td>
+                        <td>Rate limit afetava o smoke ao bater varios endpoints em sequencia (ver IMP-04).</td>
+                    </tr>
+                    <tr>
+                        <td>19/06/2026</td>
+                        <td>Smoke estabilizado com 8 checagens (health, ready, login admin, diagnostics, invariantes de forecast, assinaturas &ge; 3, self-service invalido &rarr; 404 e valido). Resultado: "8 passed, 0 failed".</td>
+                        <td>Documentar o runbook de incidentes + rollback e a checklist de go-live + SLA.</td>
+                        <td>Nenhum.</td>
+                    </tr>
+                    <tr>
+                        <td>20/06/2026</td>
+                        <td>Runbook de incidentes e rollback escrito com dono por etapa. Checklist de go-live e SLA consolidados. Drill mental do rollback executado pela dupla infra + back.</td>
+                        <td>Revisao de UX cross-device (mobile, tablet, desktop) das paginas novas das Sprints 5 e 6.</td>
+                        <td>Ator de cozinha em transicao kitchen-only no seed afetava o login de smoke em ambiente limpo (ver IMP-03).</td>
+                    </tr>
+                    <tr>
+                        <td>22/06/2026</td>
+                        <td>Seed do ator de cozinha corrigido. Revisao de UX cross-device concluida em dispositivos reais; top 3 quebras de breakpoint priorizadas e corrigidas no front.</td>
+                        <td>Rodar a bateria final: build, lint, testes, smoke; preparar evidencias da Sprint 7.</td>
+                        <td>Nenhum.</td>
+                    </tr>
+                    <tr>
+                        <td>23/06/2026</td>
+                        <td>Bateria de release verde nos dois repos: back 6 suites / 30 testes, lint exit 0, build ok; front <span class="code-inline">next build</span> ok, eslint exit 0, <span class="code-inline">tsc --noEmit</span> ok. Plataforma pronta para go-live.</td>
+                        <td>Revisao da Sprint #07 + Retrospectiva + apresentacao final na Aula 20.</td>
+                        <td>Nenhum aberto. Todos os impedimentos resolvidos ou mitigados.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Lista de impedimentos</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <p>Impedimentos materiais levantados nas dailies das Sprints 6 e 7, com impacto, status atual e a resolucao aplicada. Todos foram fechados antes do go-live.</p>
+            <table>
+                <caption class="sr-only">Lista de impedimentos das Sprints 6 e 7</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Impedimento</th>
+                        <th scope="col">Impacto</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Resolucao</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>IMP-01</td>
+                        <td>Previsao com horizonte excluindo a ultima ocorrencia das assinaturas recorrentes (janela exclusiva no fim).</td>
+                        <td>Subestimava a demanda projetada das assinaturas, distorcendo o planejamento de producao.</td>
+                        <td><span class="status-pill done">Resolvido</span></td>
+                        <td>Horizonte ajustado para faixa inclusiva <span class="code-inline">today..today+days</span> com passo por <span class="code-inline">CADENCE_DAYS</span>. Invariante <span class="code-inline">expectedMeals === fromHistory + fromSubscriptions</span> coberta por spec.</td>
+                    </tr>
+                    <tr>
+                        <td>IMP-02</td>
+                        <td>Lista de assinaturas voltava vazia para o admin (<span class="code-inline">GET /subscriptions</span> aplicava scoping de nutricionista a todos os papeis).</td>
+                        <td>Admin nao conseguia auditar assinaturas entre clinicas, bloqueando a visao consolidada.</td>
+                        <td><span class="status-pill done">Resolvido</span></td>
+                        <td>Scoping condicional por papel: admin recebe todas as assinaturas (filtravel por <span class="code-inline">clinicId</span>), nutricionista permanece auto-scoped a sua clinica.</td>
+                    </tr>
+                    <tr>
+                        <td>IMP-03</td>
+                        <td>Ator de cozinha em transicao para o modelo kitchen-only no seed, causando inconsistencia de papel em ambiente limpo.</td>
+                        <td>Login de smoke e fluxos da fila de cozinha intermitentes apos boot do zero.</td>
+                        <td><span class="status-pill done">Resolvido</span></td>
+                        <td>Seed do ator de cozinha normalizado para o papel kitchen-only; smoke voltou a passar de forma deterministica em boot limpo.</td>
+                    </tr>
+                    <tr>
+                        <td>IMP-04</td>
+                        <td>Rate limit (120 req/60s por IP) atingia o limite durante o smoke, que dispara varias chamadas em sequencia.</td>
+                        <td>Falsos negativos no smoke de release, com 429 inesperado nos ultimos checks.</td>
+                        <td><span class="status-pill in-progress">Mitigado</span></td>
+                        <td>Endpoints de saude (<span class="code-inline">/health</span>, <span class="code-inline">/ready</span>) isentos via <span class="code-inline">@SkipRateLimit()</span>; smoke configura janela/limite via env (<span class="code-inline">RATE_LIMIT_MAX</span>, <span class="code-inline">RATE_LIMIT_WINDOW_MS</span>) quando executado em lote.</td>
+                    </tr>
+                </tbody>
+            </table>
+<pre class="code-block"># IMP-04 - prova do rate limit isolado do smoke (RATE_LIMIT_MAX=3)
+req1-3  -> 200 OK
+req4-6  -> 429 { "statusCode": 429, "code": "RATE_LIMITED",
+                 "message": "Too many requests. Please slow down." }
+GET /health (apos burst) -> 200 OK   # isento via @SkipRateLimit()</pre>
+        </section>
+
+        <section>
+            <h2>5. Plano de contingencia</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <p>Plano consolidado a partir dos riscos mapeados nos plannings das Sprints 6 e 7. Para cada risco, o gatilho observavel que aciona o plano e a acao de contingencia correspondente.</p>
+            <table>
+                <caption class="sr-only">Plano de contingencia das Sprints 6 e 7</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Risco</th>
+                        <th scope="col">Gatilho</th>
+                        <th scope="col">Plano</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cobranca recorrente com falha em gateway (Sprint 6)</td>
+                        <td>Falhas registradas em <span class="code-inline">POST /subscriptions/run</span> (<span class="code-inline">failures[]</span>) ou webhook de pagamento negado.</td>
+                        <td>Reaproveitar os webhooks da Sprint 4 com alerta especifico de falha recorrente; cada assinatura roda em try/catch isolado, preservando as demais cobrancas.</td>
+                    </tr>
+                    <tr>
+                        <td>Previsao imprecisa (Sprint 6)</td>
+                        <td>Desvio relevante entre previsto e realizado nas janelas de entrega.</td>
+                        <td>Apresentar a previsao como faixa (<span class="code-inline">lowerBound</span>/<span class="code-inline">upperBound</span>) e nao valor unico, com a banda de confianca destacada na PrevisaoPage.</td>
+                    </tr>
+                    <tr>
+                        <td>Paciente vinculando ao nutricionista errado (Sprint 6)</td>
+                        <td>Codigo de autoatendimento compartilhado fora do canal correto ou expirado.</td>
+                        <td>Codigo com validade (TTL 60d) e desativacao manual (<span class="code-inline">/self-service/codes/:code/deactivate</span>); confirmacao dupla do vinculo na primeira sessao.</td>
+                    </tr>
+                    <tr>
+                        <td>Copy inconsistente no autoatendimento (Sprint 6)</td>
+                        <td>Texto publicado sem revisao na pagina publica de onboarding.</td>
+                        <td>Passar todos os textos por revisao antes de publicar; whitelabel mantem identidade da clinica com contraste validado por <span class="code-inline">readableText</span>.</td>
+                    </tr>
+                    <tr>
+                        <td>Rollback falhando em teste (Sprint 7)</td>
+                        <td>Drill de rollback nao restaura o estado esperado ou estoura o tempo-alvo.</td>
+                        <td>Congelar o deploy e revisar o rollback em pairing infra + back; go-live so prossegue com o runbook de rollback testado.</td>
+                    </tr>
+                    <tr>
+                        <td>Regressao descoberta perto do lancamento (Sprint 7)</td>
+                        <td>Smoke de release falha ou bug critico reportado na janela pre go-live.</td>
+                        <td>Bloquear merges nao-criticos, priorizar hotfix e revalidar com o smoke de release (<span class="code-inline">npm run smoke</span>) antes de liberar.</td>
+                    </tr>
+                    <tr>
+                        <td>UX com quebra em mobile (Sprint 7)</td>
+                        <td>Quebra de layout em breakpoints chave observada em dispositivo real.</td>
+                        <td>Testar em dispositivos reais (nao so DevTools) e corrigir as top 3 quebras primeiro; revisao cross-device como gate de go-live.</td>
+                    </tr>
+                    <tr>
+                        <td>Equipe sem runbook claro (Sprint 7)</td>
+                        <td>Incidente sem procedimento documentado ou sem dono definido.</td>
+                        <td>Runbook escrito com dono por etapa e testado em drill antes do go-live; readiness exposta em <span class="code-inline">GET /ready</span> para diagnostico rapido.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>6. Conclusao</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">Product</span>Gabriel Goncalves</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <p>As dailies das Sprints 6 e 7 mantiveram o time alinhado em torno do fluxo design &rarr; back &rarr; front, com impedimentos detectados cedo e resolvidos dentro da propria sprint. Os quatro impedimentos materiais (horizonte da previsao, scoping de assinaturas para admin, ator de cozinha no seed e rate limit no smoke) foram fechados &mdash; tres resolvidos e um mitigado &mdash; sem impacto no cronograma de go-live.</p>
+            <p>O plano de contingencia consolidado a partir dos riscos dos plannings deixou explicitos os gatilhos e as acoes para cada cenario, e os principais controles (faixa de confianca na previsao, isolamento de falhas nas cobrancas, runbook com dono, smoke de release e readiness) ja estao implementados e verificados. A plataforma chega a Aula 20 com governanca agil documentada e riscos sob gestao ativa.</p>
+        </section>
+
+        <div class="footer">
+            <p>FastInBox - Projeto Integrador III | Registro de Dailies, Impedimentos e Contingencia (Sprints 6 e 7). Acompanhamento no <a href="https://github.com/orgs/FastInBox-Repo/projects/1" target="_blank" rel="noopener noreferrer">GitHub Project FastInBox MVP Delivery</a>. Documento consolidado em 23/06/2026.</p>
+        </div>
+    </main>
+</body>
+</html>

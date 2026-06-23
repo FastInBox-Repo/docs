@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastInBox | Evidencias Sprint 6</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./document.css">
+    <style>
+        .evidence-block { border: 3px solid #000; margin-top: 1.1rem; box-shadow: 6px 6px 0 #000; background: #fff; overflow: hidden; }
+        .evidence-block header { border-bottom: 2px solid #000; padding: 0.9rem 1.1rem; background: #f4f4f4; display: flex; gap: 0.8rem; justify-content: space-between; flex-wrap: wrap; align-items: baseline; }
+        .evidence-block header h3 { margin: 0; font-size: 1.05rem; }
+        .evidence-block header .eyebrow { font-family: "Space Grotesk", "Segoe UI", sans-serif; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.78rem; font-weight: 700; padding: 0.2rem 0.55rem; border: 2px solid #000; background: #fff; }
+        .evidence-body { padding: 1.1rem 1.1rem 0.4rem; }
+        .badge-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.2rem 0 0.7rem; }
+        .badge-row span { border: 2px solid #000; padding: 0.2rem 0.55rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em; font-weight: 700; background: #fff; }
+        .how-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; margin-top: 0.7rem; }
+        .how-grid article { border: 2px solid #000; padding: 0.85rem; background: #fafafa; }
+        .how-grid article h4 { margin: 0 0 0.4rem; font-family: "Space Grotesk", "Segoe UI", sans-serif; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.02em; }
+        .how-grid article ol, .how-grid article ul { margin: 0 0 0 1.2rem; padding: 0; }
+        .how-grid article li { margin-bottom: 0.35rem; }
+        .code-block { background: #0a0a0a; color: #f4f4f4; padding: 0.9rem; font-family: "IBM Plex Mono","Consolas",monospace; font-size: 0.8rem; line-height: 1.45; overflow-x: auto; margin: 0.7rem 0 1rem; border: 2px solid #000; }
+        .code-inline { background: #f4f4f4; padding: 0.05rem 0.35rem; border: 1px solid #000; font-family: "IBM Plex Mono",monospace; font-size: 0.82rem; }
+        .status-pill { padding: 0.18rem 0.55rem; border: 2px solid #000; text-transform: uppercase; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.04em; }
+        .status-pill.done { background: #e9ffe6; }
+        .status-pill.in-progress { background: #fff7d6; }
+        @media (max-width: 720px) { .how-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Pular para o conteudo principal</a>
+    <main id="main-content" class="wrapper" tabindex="-1">
+        <nav class="topbar">
+            <a href="../index.html">Voltar para hub</a>
+            <a href="./sprint-6-planning.html">Sprint 6 Planning</a>
+            <a href="./sprint-7-planning.html">Sprint 7 Planning</a>
+            <a href="./evidencias-sprint-5.html">Evidencias Sprint 5</a>
+            <a href="./evidencias-sprint-7.html">Evidencias Sprint 7</a>
+            <a href="./retrospectiva-final.html">Retrospectiva Final</a>
+        </nav>
+
+        <header class="doc-header">
+            <p>FastInBox | Sprint governance</p>
+            <h1>Evidencias Sprint 6</h1>
+            <p>Periodo: Sprint 6 | Status: Entregue - itens em Done. Sprint de escala comercial encerrada.</p>
+            <p>Sprint dedicada a escala comercial da plataforma: autoatendimento do paciente via codigo whitelabel, assinaturas recorrentes com geracao automatica de pedidos e previsao de demanda com banda de confianca. Foco em reduzir atrito de aquisicao, fidelizar receita recorrente e antecipar o volume de marmitas para a cozinha. Documento consolidado ao fechamento da sprint.</p>
+            <p class="doc-authorship"><strong>Autor:</strong> Thiago Lucas | <strong>Ultima atualizacao:</strong> 23/06/2026</p>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis Documento</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+        </header>
+
+        <section>
+            <h2>1. Status do board no fechamento da sprint</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span></div>
+            <p>Snapshot do <a href="https://github.com/orgs/FastInBox-Repo/projects/1" target="_blank" rel="noopener noreferrer">GitHub Project FastInBox MVP Delivery</a> filtrado por <span class="code-inline">Sprint = Sprint 6</span>:</p>
+            <table>
+                <thead><tr><th scope="col">Item</th><th scope="col">Area</th><th scope="col">Status</th></tr></thead>
+                <tbody>
+                    <tr><td>Backend de autoatendimento (codigos publicos + cadastro)</td><td>Back</td><td><span class="status-pill done">Done</span></td></tr>
+                    <tr><td>Modulo de assinaturas recorrentes</td><td>Back</td><td><span class="status-pill done">Done</span></td></tr>
+                    <tr><td>Servico de previsao de demanda</td><td>Back</td><td><span class="status-pill done">Done</span></td></tr>
+                    <tr><td>UI de autoatendimento (onboarding whitelabel)</td><td>Front</td><td><span class="status-pill done">Done</span></td></tr>
+                    <tr><td>UI de assinaturas (nutricionista)</td><td>Front</td><td><span class="status-pill done">Done</span></td></tr>
+                    <tr><td>Dashboard de previsao de demanda (admin)</td><td>Front</td><td><span class="status-pill done">Done</span></td></tr>
+                    <tr><td>QA - cobertura autoatendimento / assinaturas / previsao</td><td>QA</td><td><span class="status-pill done">Done</span></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>2. O que entrou em main</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <table>
+                <thead><tr><th scope="col">Entregavel</th><th scope="col">Implementacao</th><th scope="col">Arquivos principais</th></tr></thead>
+                <tbody>
+                    <tr><td>Backend de autoatendimento</td><td>Novo <span class="code-inline">SelfServiceService</span> com codigos <span class="code-inline">NUT-XXXXXX</span> (TTL 60d) emitidos por nutricionista. Endpoints publicos resolvem a clinica em modo whitelabel e cadastram o paciente ja vinculado a clinica e ao nutricionista do codigo.</td><td><span class="code-inline">back/src/modules/self-service/self-service.service.ts</span></td></tr>
+                    <tr><td>Modulo de assinaturas recorrentes</td><td>Novo <span class="code-inline">SubscriptionsService</span> com cadencias <span class="code-inline">weekly</span>/<span class="code-inline">biweekly</span>/<span class="code-inline">monthly</span>, <span class="code-inline">estimatedTotalCents</span>, ciclo de vida (pause/resume/cancel) e <span class="code-inline">runDue()</span> que gera pedidos por assinatura vencida via <span class="code-inline">orders.create</span> + <span class="code-inline">orders.submit</span>, avancando <span class="code-inline">nextRunDate</span> por cadencia.</td><td><span class="code-inline">back/src/modules/subscriptions/subscriptions.service.ts</span></td></tr>
+                    <tr><td>Servico de previsao de demanda</td><td>Novo <span class="code-inline">ForecastService</span> combinando baseline historico (media de marmitas por dia da semana + slot nos ultimos 28 dias, banda de +/- 1 desvio padrao) com a contribuicao projetada das assinaturas ativas no horizonte.</td><td><span class="code-inline">back/src/modules/reports/forecast.service.ts</span></td></tr>
+                    <tr><td>UI de autoatendimento</td><td>Nova <span class="code-inline">AutoatendimentoPage</span> na rota publica <span class="code-inline">/cadastro/:code</span>: onboarding whitelabel com cores da clinica, helper <span class="code-inline">readableText</span> baseado em luminancia para contraste e formulario de 8 campos.</td><td><span class="code-inline">front/src/figma-app/app/pages/paciente/AutoatendimentoPage.tsx</span></td></tr>
+                    <tr><td>UI de assinaturas</td><td>Nova <span class="code-inline">AssinaturasPage</span> em <span class="code-inline">/nutricionista/assinaturas</span>: tabela de assinaturas com Pausar/Retomar/Cancelar, formulario "Nova assinatura" e card "Codigo de autoatendimento" com link publico copiavel.</td><td><span class="code-inline">front/src/figma-app/app/pages/nutricionista/AssinaturasPage.tsx</span></td></tr>
+                    <tr><td>Dashboard de previsao</td><td>Nova <span class="code-inline">PrevisaoPage</span> em <span class="code-inline">/admin/previsao</span>: seletor 7/14/30 dias, KPIs, grafico <span class="code-inline">recharts ComposedChart</span> (banda de confianca em Area + esperado em Line), tabela de janelas e botao "Rodar cobrancas vencidas".</td><td><span class="code-inline">front/src/figma-app/app/pages/admin/PrevisaoPage.tsx</span></td></tr>
+                    <tr><td>Camada de dados do front</td><td><span class="code-inline">sprintStore.ts</span> ganhou 12 acoes integradas a API com Bearer token e fallback local, alem de <span class="code-inline">state.subscriptions</span> e <span class="code-inline">selfServiceCodes</span>. Navegacao atualizada com "Previsao" (admin) e "Assinaturas" (nutricionista).</td><td><span class="code-inline">front/src/figma-app/app/data/sprintStore.ts</span></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Prova ponta a ponta</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+
+            <div class="evidence-block" id="ev-self-service">
+                <header>
+                    <h3>3.1 Autoatendimento por codigo</h3>
+                    <span class="eyebrow">BACK | SELF-SERVICE</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Endpoint: GET /public/self-service/:code</span>
+                        <span>Endpoint: POST /public/self-service/:code/register</span>
+                        <span>Auth: PUBLICO</span>
+                    </div>
+                    <p>Resolucao publica do codigo retorna a clinica em modo whitelabel (nome, cores, nutricionista) para montar o onboarding. O cadastro cria o paciente ja vinculado a clinica e ao nutricionista do codigo. Codigo invalido responde <span class="code-inline">404 SELF_SERVICE_CODE_INVALID</span>.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Spec Jest <span class="code-inline">self-service.service.spec.ts</span> cobrindo resolucao, codigo invalido e cadastro vinculado.</li>
+                                <li>Validacao manual via <span class="code-inline">curl</span> com codigo do seed.</li>
+                                <li>Conferencia do paciente criado em <span class="code-inline">GET /admin/diagnostics</span>.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Pegue o codigo em <span class="code-inline">GET /self-service/codes</span> (nutricionista).</li>
+                                <li>Resolva via <span class="code-inline">GET /public/self-service/:code</span> sem token.</li>
+                                <li>Cadastre um paciente via <span class="code-inline">POST .../register</span>.</li>
+                            </ol>
+                        </article>
+                    </div>
+<pre class="code-block">$ curl -s http://localhost:4001/public/self-service/NUT-7K3M2A | jq
+{
+  "code": "NUT-7K3M2A",
+  "clinic": {
+    "id": "clinic-demo",
+    "name": "FastInBox Clinica Demo",
+    "primaryColor": "#1f6f54",
+    "secondaryColor": "#e9ffe6"
+  },
+  "nutritionist": { "fullName": "Dra. Nutricionista Demo" }
+}
+
+$ curl -s http://localhost:4001/public/self-service/NUT-INVALIDO | jq
+{
+  "statusCode": 404,
+  "code": "SELF_SERVICE_CODE_INVALID",
+  "message": "Codigo de autoatendimento invalido ou expirado.",
+  "traceId": "..."
+}
+
+$ curl -s -X POST http://localhost:4001/public/self-service/NUT-7K3M2A/register \
+    -H "Content-Type: application/json" \
+    -d '{"fullName":"Novo Paciente","cpf":"529.982.247-25","email":"novo@paciente.test"}' | jq
+{
+  "patient": {
+    "id": "pat-9f1c20",
+    "fullName": "Novo Paciente",
+    "clinicId": "clinic-demo",
+    "nutritionistId": "nut-demo"
+  },
+  "clinic": { "id": "clinic-demo", "name": "FastInBox Clinica Demo" }
+}
+</pre>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-subscriptions">
+                <header>
+                    <h3>3.2 Assinaturas recorrentes</h3>
+                    <span class="eyebrow">BACK | SUBSCRIPTIONS</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Endpoint: GET /subscriptions</span>
+                        <span>Endpoint: POST /subscriptions/run</span>
+                        <span>Ciclo: pause / resume / cancel</span>
+                    </div>
+                    <p>Listagem de assinaturas (nutricionista auto-escopado, admin ve todas) traz o <span class="code-inline">estimatedTotalCents</span> por cadencia. O <span class="code-inline">POST /subscriptions/run</span> processa as assinaturas vencidas gerando pedidos em <span class="code-inline">AWAITING_PATIENT_REVIEW</span>, cada uma isolada em try/catch.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Spec Jest <span class="code-inline">subscriptions.service.spec.ts</span> cobrindo cadencias, estimativa e <span class="code-inline">runDue()</span>.</li>
+                                <li>Seed inicia 3 assinaturas ativas e roda <span class="code-inline">runDue()</span> uma vez no boot.</li>
+                                <li>Validacao via <span class="code-inline">curl</span> de listagem e disparo manual.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Login como admin e liste em <span class="code-inline">GET /subscriptions</span>.</li>
+                                <li>Dispare <span class="code-inline">POST /subscriptions/run</span>.</li>
+                                <li>Use pause/resume/cancel em <span class="code-inline">/subscriptions/:id/...</span>.</li>
+                            </ol>
+                        </article>
+                    </div>
+<pre class="code-block">$ curl -sH "Authorization: Bearer $TOKEN" http://localhost:4001/subscriptions | jq '.[] | {patientId, cadence, status, estimatedTotalCents}'
+{ "patientId": "pat-ana",   "cadence": "weekly",   "status": "active", "estimatedTotalCents": 10164 }
+{ "patientId": "pat-beto",  "cadence": "biweekly", "status": "active", "estimatedTotalCents": 7623 }
+{ "patientId": "pat-carla", "cadence": "monthly",  "status": "active", "estimatedTotalCents": 12705 }
+
+$ curl -sH "Authorization: Bearer $TOKEN" -X POST http://localhost:4001/subscriptions/run | jq
+{
+  "processedAt": "2026-06-23T09:12:44.018Z",
+  "dueCount": 1,
+  "ordersCreated": 1,
+  "failures": []
+}
+
+$ curl -sH "Authorization: Bearer $TOKEN" -X POST http://localhost:4001/subscriptions/sub-ana/pause | jq '.status'
+"paused"
+$ curl -sH "Authorization: Bearer $TOKEN" -X POST http://localhost:4001/subscriptions/sub-ana/resume | jq '.status'
+"active"
+$ curl -sH "Authorization: Bearer $TOKEN" -X POST http://localhost:4001/subscriptions/sub-ana/cancel | jq '.status'
+"cancelled"
+</pre>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-forecast">
+                <header>
+                    <h3>3.3 Previsao de demanda</h3>
+                    <span class="eyebrow">BACK | FORECAST</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Endpoint: GET /admin/reports/forecast?days=7</span>
+                        <span>Auth: admin</span>
+                        <span>Status: 200 OK</span>
+                    </div>
+                    <p>Projeta o volume de marmitas por janela (dia + slot + regiao) no horizonte solicitado. Cada janela traz <span class="code-inline">expectedMeals</span>, a banda <span class="code-inline">lowerBound..upperBound</span> e a decomposicao <span class="code-inline">fromHistory</span> + <span class="code-inline">fromSubscriptions</span>. Invariantes garantidas: <span class="code-inline">expectedMeals === fromHistory + fromSubscriptions</span> e <span class="code-inline">lowerBound &lt;= expectedMeals &lt;= upperBound</span>.</p>
+                    <div class="how-grid">
+                        <article>
+                            <h4>Como foi testado</h4>
+                            <ol>
+                                <li>Spec Jest <span class="code-inline">forecast.service.spec.ts</span> validando baseline, banda e invariantes.</li>
+                                <li>Seed com 5 pedidos historicos (3 DELIVERED + 2 PAID) + 3 assinaturas ativas.</li>
+                                <li>Soma das 6 janelas conferida contra <span class="code-inline">totals</span>.</li>
+                            </ol>
+                        </article>
+                        <article>
+                            <h4>Como voce testa</h4>
+                            <ol>
+                                <li>Login como admin via <span class="code-inline">POST /auth/login</span>.</li>
+                                <li>Chame <span class="code-inline">/admin/reports/forecast?days=7</span>.</li>
+                                <li>Confira que cada janela respeita as invariantes.</li>
+                            </ol>
+                        </article>
+                    </div>
+<pre class="code-block">$ curl -sH "Authorization: Bearer $TOKEN" "http://localhost:4001/admin/reports/forecast?days=7" | jq
+{
+  "generatedAt": "2026-06-23T09:14:02.551Z",
+  "horizonDays": 7,
+  "windows": [
+    {
+      "date": "2026-06-23", "weekday": "tuesday", "slot": "12:00-12:30",
+      "expectedMeals": 4, "lowerBound": 3, "upperBound": 5,
+      "fromHistory": 4, "fromSubscriptions": 0
+    },
+    {
+      "date": "2026-06-25", "weekday": "thursday", "slot": "19:00-19:30", "regionCode": "0451",
+      "expectedMeals": 6, "lowerBound": 5, "upperBound": 7,
+      "fromHistory": 3, "fromSubscriptions": 3
+    }
+  ],
+  "totals": { "expectedMeals": 30, "lowerBound": 24, "upperBound": 36 }
+}
+</pre>
+                    <p class="note">A resposta completa traz 6 janelas no horizonte de 7 dias; acima estao duas amostras representativas (uma puramente historica, outra com contribuicao de assinaturas). A banda <span class="code-inline">24..36</span> em torno de <span class="code-inline">30</span> reflete +/- 1 desvio padrao do baseline historico, dando margem operacional para a cozinha.</p>
+                </div>
+            </div>
+
+            <div class="evidence-block" id="ev-ui">
+                <header>
+                    <h3>3.4 Telas em producao</h3>
+                    <span class="eyebrow">FRONT | UI</span>
+                </header>
+                <div class="evidence-body">
+                    <div class="badge-row">
+                        <span>Rotas: /cadastro/:code, /nutricionista/assinaturas, /admin/previsao</span>
+                        <span>Build: Next.js 15 + recharts</span>
+                        <span>Verificado em navegador</span>
+                    </div>
+                    <p>As tres telas foram renderizadas e verificadas em navegador contra o backend ao vivo.</p>
+                    <ul>
+                        <li><strong>/cadastro/:code</strong> - onboarding publico whitelabel que aplica as cores da clinica resolvidas pelo codigo, ajusta o contraste do texto via <span class="code-inline">readableText</span> e expoe um formulario de 8 campos para cadastro do paciente.</li>
+                        <li><strong>/nutricionista/assinaturas</strong> - tabela com as 3 assinaturas ativas (cadencia, status, estimativa), acoes Pausar/Retomar/Cancelar, formulario "Nova assinatura" e card "Codigo de autoatendimento" com link publico copiavel.</li>
+                        <li><strong>/admin/previsao</strong> - KPIs (30 esperadas / banda 24-36 / 6 janelas), grafico recharts com banda de confianca (Area) sobre a linha de esperado e tabela de janelas, alem do botao "Rodar cobrancas vencidas".</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Diagnostics atualizado</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span></div>
+            <p>O <span class="code-inline">GET /admin/diagnostics</span> ganhou os blocos <span class="code-inline">subscriptions</span> e <span class="code-inline">selfService</span>, refletindo o estado dos novos modulos em uma unica chamada de health profundo.</p>
+<pre class="code-block">$ curl -sH "Authorization: Bearer $TOKEN" http://localhost:4001/admin/diagnostics | jq '.modules | {orders, subscriptions, selfService}'
+{
+  "orders":        { "status": "ok", "total": 7, "delivered": 3 },
+  "subscriptions": { "status": "ok", "total": 3, "active": 3, "paused": 0, "cancelled": 0 },
+  "selfService":   { "status": "ok", "codes": 1 }
+}
+</pre>
+        </section>
+
+        <section>
+            <h2>5. QA Sprint 6</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag arch"><span class="owner-role">QA</span>Gabriel Pahl</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span></div>
+            <p>Suite backend verde no fechamento: <strong>6 suites / 30 testes</strong> passando (inclui <span class="code-inline">subscriptions.service.spec</span>, <span class="code-inline">self-service.service.spec</span> e <span class="code-inline">forecast.service.spec</span>), com <span class="code-inline">lint</span> e <span class="code-inline">build</span> limpos no back e no front.</p>
+            <table>
+                <thead><tr><th scope="col">ID</th><th scope="col">Caso de teste</th><th scope="col">Endpoint</th><th scope="col">Tipo</th><th scope="col">Veredito</th></tr></thead>
+                <tbody>
+                    <tr><td>TC-022</td><td>GET /public/self-service/:code resolve clinica whitelabel + nutricionista</td><td>GET /public/self-service/:code</td><td>Unit + API</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                    <tr><td>TC-023</td><td>Codigo invalido responde 404 SELF_SERVICE_CODE_INVALID</td><td>GET /public/self-service/:code</td><td>API smoke</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                    <tr><td>TC-024</td><td>POST .../register cria paciente vinculado a clinica e nutricionista</td><td>POST /public/self-service/:code/register</td><td>Integracao</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                    <tr><td>TC-025</td><td>GET /subscriptions retorna 3 assinaturas com estimatedTotalCents por cadencia</td><td>GET /subscriptions</td><td>Unit + API</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                    <tr><td>TC-026</td><td>POST /subscriptions/run gera pedidos para vencidas e reporta summary</td><td>POST /subscriptions/run</td><td>Integracao</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                    <tr><td>TC-027</td><td>Ciclo pause/resume/cancel transiciona status corretamente</td><td>POST /subscriptions/:id/*</td><td>Unit</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                    <tr><td>TC-028</td><td>Forecast respeita invariantes (soma history+subscriptions e banda)</td><td>GET /admin/reports/forecast</td><td>Unit + API</td><td><span class="status-pill done">Aprovado</span></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>6. Parecer de fechamento</h2>
+            <div class="owners owners-inline"><span class="owners-label">Responsaveis</span><span class="owner-tag back"><span class="owner-role">Back</span>Thiago Lucas Alves</span><span class="owner-tag arch"><span class="owner-role">Arquitetura</span>Gabriel Pahl</span><span class="owner-tag front"><span class="owner-role">Front</span>Joao Vitor Marra</span></div>
+            <p>Sprint 6 entregue com todos os itens em Done. A plataforma agora escala comercialmente em tres frentes: autoatendimento whitelabel reduz o atrito de aquisicao do paciente, assinaturas recorrentes garantem receita previsivel com geracao automatica de pedidos, e a previsao de demanda com banda de confianca da a cozinha visibilidade antecipada do volume. Os tres modulos estao cobertos por specs (6 suites / 30 testes verdes), expostos no diagnostics e validados ponta a ponta via curl e navegador. Sprint 7 entra focada em producao e go-live: hardening, smoke tests e runbooks operacionais.</p>
+        </section>
+    </main>
+</body>
+</html>

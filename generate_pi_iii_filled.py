@@ -33,6 +33,10 @@ OUTPUT_PDF = ROOT / "output" / "pdf" / "projeto-integrador-iii-fastinbox.pdf"
 PAGE_W, PAGE_H = A4
 LAND_W, LAND_H = landscape(A4)
 
+# ABNT NBR 14724 margins: left/top 3 cm, right/bottom 2 cm -> usable content width.
+CONTENT_W = PAGE_W - 5 * cm
+CONTENT_W_L = LAND_W - 5 * cm
+
 BLACK = colors.black
 WHITE = colors.white
 RED = colors.HexColor("#D40000")
@@ -144,21 +148,22 @@ def build_styles():
     add(ParagraphStyle(
         name="H2Section",
         fontName="Helvetica-Bold",
-        fontSize=11,
-        leading=15,
+        fontSize=12,
+        leading=18,
         alignment=TA_LEFT,
         textColor=BLACK,
-        spaceBefore=8,
+        spaceBefore=10,
         spaceAfter=4,
     ))
     add(ParagraphStyle(
         name="Body",
         fontName="Helvetica",
-        fontSize=11,
-        leading=15.5,
+        fontSize=12,
+        leading=18,
+        firstLineIndent=1.25 * cm,
         alignment=TA_JUSTIFY,
         textColor=BLACK,
-        spaceAfter=8,
+        spaceAfter=6,
     ))
     add(ParagraphStyle(
         name="BodyItalic",
@@ -168,8 +173,8 @@ def build_styles():
     add(ParagraphStyle(
         name="Bullet",
         fontName="Helvetica",
-        fontSize=11,
-        leading=15,
+        fontSize=12,
+        leading=18,
         leftIndent=18,
         bulletIndent=6,
         alignment=TA_LEFT,
@@ -230,25 +235,19 @@ def build_styles():
 
 
 def footer_canvas(canvas: canvas_mod.Canvas, doc):
-    """Footer with horizontal line + 'CEUB - Ciência da Computação -
-    Projeto Integrador IIII'  + 'Página N' (right)."""
+    """ABNT NBR 14724 pagination: arabic numeral in the upper-right corner,
+    2 cm from the top and right edges. All pages from the title page are
+    counted, but the number is shown only from the first textual page
+    (Introdução / Seção 1). The cover is not counted."""
     canvas.saveState()
-    if getattr(doc, "page_offset", None) is None:
-        doc.page_offset = 1
-    page_num = canvas.getPageNumber() - doc.page_offset + 1
-    if page_num < 1:
-        canvas.restoreState()
-        return
-    width = canvas._pagesize[0]
-    canvas.setStrokeColor(colors.HexColor("#888888"))
-    canvas.setLineWidth(0.4)
-    canvas.line(2 * cm, 1.45 * cm, width - 2 * cm, 1.45 * cm)
-    canvas.setFont("Helvetica", 9.5)
-    canvas.setFillColor(BLACK)
-    canvas.drawString(
-        2 * cm, 1.1 * cm, "CEUB - Ciência da Computação - Projeto Integrador IIII"
-    )
-    canvas.drawRightString(width - 2 * cm, 1.1 * cm, f"Página {page_num}")
+    phys = canvas.getPageNumber()
+    page_num = phys - 1  # cover = physical page 1, not counted
+    first = getattr(doc, "first_textual_page", 999)
+    if phys >= first and page_num >= 1:
+        width, height = canvas._pagesize
+        canvas.setFont("Helvetica", 10)
+        canvas.setFillColor(BLACK)
+        canvas.drawRightString(width - 2 * cm, height - 2 * cm + 0.05 * cm, str(page_num))
     canvas.restoreState()
 
 
@@ -287,7 +286,7 @@ class EAPDiagram(Flowable):
 
     def __init__(self, available_width=None, available_height=None):
         super().__init__()
-        self.width = available_width or (LAND_W - 4 * cm)
+        self.width = available_width or (CONTENT_W_L)
         self.height = available_height or 13 * cm
 
     def wrap(self, availWidth, availHeight):
@@ -499,7 +498,7 @@ class DBSchemaDiagram(Flowable):
 
     def __init__(self, available_width=None, height=15 * cm):
         super().__init__()
-        self.width = available_width or (PAGE_W - 4 * cm)
+        self.width = available_width or (CONTENT_W)
         self.height = height
 
     def wrap(self, availWidth, availHeight):
@@ -679,8 +678,17 @@ class DBSchemaDiagram(Flowable):
 # ----------------------------------------------------------------------------
 
 
-def styled_table(rows, col_widths, styles, header=True, body_align="LEFT"):
-    """Build a Table with grid + bold header, mirroring the template look."""
+def styled_table(rows, col_widths, styles, header=True, body_align="LEFT", max_w=None):
+    """Build a Table with grid + bold header, mirroring the template look.
+
+    Column widths are proportionally scaled to fit the ABNT content width
+    when their sum exceeds it.
+    """
+    max_w = max_w or CONTENT_W
+    total = sum(col_widths)
+    if total > max_w:
+        factor = max_w / total
+        col_widths = [w * factor for w in col_widths]
     paragraph_rows = []
     for r_idx, row in enumerate(rows):
         if header and r_idx == 0:
@@ -743,7 +751,7 @@ def bmc_table(data, styles):
                Paragraph(data["receita"], styles["TableCell"])]
 
     rows = [cell_h, cell_b, cell_h2, cell_b2, cell_h3, cell_b3]
-    col_w = (PAGE_W - 4 * cm) / 3
+    col_w = (CONTENT_W) / 3
     t = Table(rows, colWidths=[col_w] * 3, rowHeights=[0.6 * cm, 4.7 * cm, 0.6 * cm, 4.7 * cm, 0.6 * cm, 4.7 * cm])
     t.setStyle(TableStyle([
         ("GRID", (0, 0), (-1, -1), 0.6, BLACK),
@@ -764,6 +772,222 @@ def bullet_list(items, styles):
     for item in items:
         flow.append(Paragraph(f"&bull;&nbsp;&nbsp;{item}", styles["Bullet"]))
     return flow
+
+
+# ----------------------------------------------------------------------------
+# ABNT captions (legenda above + fonte below) for illustrations and tables
+# ----------------------------------------------------------------------------
+
+
+def caption(text, styles):
+    st = ParagraphStyle(
+        name="LegendaCap", parent=styles["Body"], fontName="Helvetica-Bold",
+        fontSize=10, leading=13, alignment=TA_LEFT, firstLineIndent=0,
+        spaceBefore=6, spaceAfter=2,
+    )
+    return Paragraph(text, st)
+
+
+def fonte(text, styles):
+    st = ParagraphStyle(
+        name="LegendaFonte", parent=styles["Body"], fontName="Helvetica",
+        fontSize=10, leading=12, alignment=TA_LEFT, firstLineIndent=0,
+        spaceBefore=1, spaceAfter=10,
+    )
+    return Paragraph(f"Fonte: {text}", st)
+
+
+# ----------------------------------------------------------------------------
+# Pre-textual elements (ABNT NBR 14724): folha de rosto, resumo, abstract,
+# listas de ilustrações e tabelas
+# ----------------------------------------------------------------------------
+
+
+def _center_title(text, styles, space_before=0.0):
+    st = ParagraphStyle(
+        name="PreTitle", parent=styles["Body"], fontName="Helvetica-Bold",
+        fontSize=12, leading=18, alignment=TA_CENTER, firstLineIndent=0,
+        spaceBefore=space_before, spaceAfter=10,
+    )
+    return Paragraph(text, st)
+
+
+def folha_rosto_story(styles):
+    story = []
+    author_style = ParagraphStyle(
+        name="FrAutor", parent=styles["Body"], alignment=TA_CENTER,
+        firstLineIndent=0, fontSize=12, leading=18, spaceAfter=2,
+    )
+    title_style = ParagraphStyle(
+        name="FrTitulo", parent=styles["Body"], alignment=TA_CENTER,
+        firstLineIndent=0, fontName="Helvetica-Bold", fontSize=14, leading=20,
+    )
+    subtitle_style = ParagraphStyle(
+        name="FrSub", parent=styles["Body"], alignment=TA_CENTER,
+        firstLineIndent=0, fontSize=12, leading=16,
+    )
+    nature_style = ParagraphStyle(
+        name="FrNatureza", parent=styles["Body"], alignment=TA_JUSTIFY,
+        firstLineIndent=0, leftIndent=7.5 * cm, fontSize=11, leading=15,
+    )
+    city_style = ParagraphStyle(
+        name="FrCidade", parent=styles["Body"], alignment=TA_CENTER,
+        firstLineIndent=0, fontSize=12, leading=16,
+    )
+
+    story.append(Spacer(1, 0.4 * cm))
+    for name in ["Thiago Lucas Alves", "João Vitor Thomas Marra", "Gabriel Pahl"]:
+        story.append(Paragraph(name, author_style))
+
+    story.append(Spacer(1, 5.5 * cm))
+    story.append(Paragraph("FASTINBOX", title_style))
+    story.append(Paragraph(
+        "Plataforma white label para pedidos personalizados de marmitas",
+        subtitle_style,
+    ))
+
+    story.append(Spacer(1, 2.2 * cm))
+    story.append(Paragraph(
+        "Trabalho apresentado ao curso de Ciência da Computação do Centro "
+        "Universitário de Brasília (CEUB), como requisito parcial da "
+        "disciplina Projeto Integrador III, sob orientação da Profa. Kadidja "
+        "Valéria Reginaldo de Oliveira.",
+        nature_style,
+    ))
+
+    story.append(Spacer(1, 5.5 * cm))
+    story.append(Paragraph("BRASÍLIA", city_style))
+    story.append(Paragraph("2026", city_style))
+    story.append(PageBreak())
+    return story
+
+
+def resumo_story(styles):
+    body = ParagraphStyle(
+        name="ResumoBody", parent=styles["Body"], firstLineIndent=0,
+        alignment=TA_JUSTIFY, fontSize=12, leading=18, spaceAfter=12,
+    )
+    kw = ParagraphStyle(
+        name="Palavras", parent=body, fontName="Helvetica", spaceAfter=0,
+    )
+    story = [_center_title("RESUMO", styles)]
+    story.append(Paragraph(
+        "Este trabalho apresenta o FastInBox, plataforma SaaS <i>white label</i> "
+        "desenvolvida no Projeto Integrador III do curso de Ciência da "
+        "Computação do Centro Universitário de Brasília para digitalizar a "
+        "venda de marmitas personalizadas em clínicas de nutrição. O objetivo "
+        "foi conduzir o desenvolvimento integrado de um produto demonstrável e "
+        "<i>production-ready</i> que conecta nutricionistas, pacientes, cozinhas "
+        "e administração em um fluxo único de pedido, pagamento, produção e "
+        "governança. A solução foi construída com Next.js e NestJS sobre "
+        "PostgreSQL, aplicando engenharia de requisitos, arquitetura modular e "
+        "testes em três camadas, e conduzida por processo ágil <i>Scrum-like</i> "
+        "ao longo de cinco sprints. Os resultados consolidam o MVP web "
+        "publicado, com 100% de aprovação nos cenários de teste, velocidade "
+        "média de 43,4 pontos por sprint, NPS de 66,7 e nenhum defeito "
+        "bloqueante em aberto. Conclui-se que o produto valida as hipóteses de "
+        "negócio e está apto à continuidade no Projeto Integrador IV.",
+        body,
+    ))
+    story.append(Paragraph(
+        "<b>Palavras-chave:</b> plataforma white label; SaaS; nutrição; gestão "
+        "ágil; engenharia de software.",
+        kw,
+    ))
+    story.append(PageBreak())
+
+    story.append(_center_title("ABSTRACT", styles))
+    story.append(Paragraph(
+        "This work presents FastInBox, a white label SaaS platform developed "
+        "in the Integrative Project III of the Computer Science program at "
+        "Centro Universitário de Brasília to digitize the sale of customized "
+        "meal boxes in nutrition clinics. The goal was to conduct the "
+        "integrated development of a demonstrable, production-ready product "
+        "that connects nutritionists, patients, kitchens and administration in "
+        "a single flow of ordering, payment, production and governance. The "
+        "solution was built with Next.js and NestJS over PostgreSQL, applying "
+        "requirements engineering, modular architecture and three-layer "
+        "testing, and was managed through a Scrum-like agile process across "
+        "five sprints. The results consolidate the published web MVP, with a "
+        "100% pass rate on test scenarios, an average velocity of 43.4 points "
+        "per sprint, an NPS of 66.7 and no open blocking defects. We conclude "
+        "that the product validates the business hypotheses and is ready to "
+        "proceed to Integrative Project IV.",
+        body,
+    ))
+    story.append(Paragraph(
+        "<b>Keywords:</b> white label platform; SaaS; nutrition; agile "
+        "management; software engineering.",
+        kw,
+    ))
+    story.append(PageBreak())
+    return story
+
+
+def _ref_list(title, entries, styles):
+    story = [_center_title(title, styles)]
+    item = ParagraphStyle(
+        name="ListItem", parent=styles["Body"], firstLineIndent=0,
+        fontSize=12, leading=17, alignment=TA_LEFT,
+    )
+    page = ParagraphStyle(name="ListPage", parent=item, alignment=2)
+    rows = [[Paragraph(t, item), Paragraph(p, page)] for t, p in entries]
+    t = Table(rows, colWidths=[CONTENT_W - 1.5 * cm, 1.5 * cm])
+    t.setStyle(TableStyle([
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 0),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+        ("TOPPADDING", (0, 0), (-1, -1), 2),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
+    ]))
+    story.append(t)
+    story.append(PageBreak())
+    return story
+
+
+def lista_figuras_story(styles):
+    entries = [
+        ("Figura 1 - Estrutura Analítica do Projeto (EAP)", "12"),
+        ("Figura 2 - Telas do protótipo de alta fidelidade (Figma)", "24"),
+        ("Figura 3 - Diagrama entidade-relacionamento do banco de dados", "27"),
+        ("Figura 4 - Capturas do sistema funcional em execução", "30"),
+        ("Figura 5 - Cadência das cerimônias Scrum", "38"),
+        ("Figura 6 - Painéis administrativos (Sprint #05)", "41"),
+        ("Figura 7 - Velocidade da equipe por sprint", "43"),
+        ("Figura 8 - Burndown da Sprint 5", "45"),
+        ("Figura 9 - WIP médio versus limite por coluna", "47"),
+    ]
+    return _ref_list("LISTA DE FIGURAS", entries, styles)
+
+
+def lista_quadros_story(styles):
+    entries = [
+        ("Quadro 1 - Business Model Canvas do FastInBox", "16"),
+        ("Quadro 2 - Análise de cenários por dimensão PEST", "17"),
+        ("Quadro 3 - Cronograma de marcos", "20"),
+        ("Quadro 4 - Requisitos funcionais", "21"),
+        ("Quadro 5 - Requisitos não funcionais", "22"),
+        ("Quadro 6 - Matriz de teste e devolutiva", "32"),
+        ("Quadro 7 - Histórias de usuário", "33"),
+        ("Quadro 8 - Regras de negócio", "37"),
+        ("Quadro 9 - Sprint Backlog #05", "38"),
+        ("Quadro 10 - Registros das reuniões diárias (Daily Scrum)", "39"),
+        ("Quadro 11 - Impedimentos e plano de contingência", "39"),
+        ("Quadro 12 - Comparativo de evidências de entrega por sprint", "42"),
+        ("Quadro 13 - Quadro-resumo dos indicadores ágeis", "47"),
+        ("Quadro 14 - Matriz de rastreabilidade dos requisitos", "48"),
+    ]
+    return _ref_list("LISTA DE QUADROS", entries, styles)
+
+
+def lista_tabelas_story(styles):
+    entries = [
+        ("Tabela 1 - Resultados consolidados dos testes internos", "31"),
+        ("Tabela 2 - Velocidade planejada e entregue por sprint", "43"),
+        ("Tabela 3 - Tempo de ciclo por sprint", "45"),
+        ("Tabela 4 - Taxa de defeitos por camada de teste", "46"),
+    ]
+    return _ref_list("LISTA DE TABELAS", entries, styles)
 
 
 # ----------------------------------------------------------------------------
@@ -788,7 +1012,7 @@ def cover_story(styles):
     ))
     story.append(Paragraph("CURSO DE CIÊNCIA DA COMPUTAÇÃO", styles["CoverHeader"]))
     story.append(Paragraph(
-        'PROJETO INTEGRADOR III - TURMA (<font color="#D40000">TURMA A</font>)',
+        'PROJETO INTEGRADOR III - TURMA A',
         styles["CoverHeaderTurma"],
     ))
     story.append(Paragraph(
@@ -813,7 +1037,7 @@ def cover_story(styles):
         story.append(Paragraph(s, styles["StudentName"]))
 
     story.append(Spacer(1, 4.5 * cm))
-    story.append(Paragraph("BRASÍLIA, abril de 2026", styles["CityDate"]))
+    story.append(Paragraph("BRASÍLIA, 2026", styles["CityDate"]))
     story.append(NextPageTemplate("body"))
     story.append(PageBreak())
     return story
@@ -823,31 +1047,37 @@ def toc_story(styles):
     story = [Paragraph("SUMÁRIO", styles["TocTitle"])]
 
     entries = [
-        ("GLOSSÁRIO", "1", True),
-        ("1. Descrição do Projeto", "3", True),
-        ("Objetivo:", "3", False),
-        ("Descrição:", "3", False),
-        ("2. Escopo do Projeto (EAP)", "5", True),
-        ("3. Problema/Oportunidade", "7", True),
-        ("4. Modelo de Negócio (BMC ou SMC)", "8", True),
-        ("5. Cenários de Negócio", "9", True),
-        ("6. Benefícios da Solução", "9", True),
-        ("7. Público Alvo", "10", True),
-        ("8. Cronograma de Marcos", "12", True),
-        ("9. Requisitos Funcionais", "13", True),
-        ("10. Requisitos Não Funcionais", "14", True),
-        ("11. Protótipo Visual", "15", True),
-        ("12. Requisito dos MVPs", "16", True),
-        ("12.1. Aplicativo Móvel", "16", False),
-        ("12.2. Web Application", "16", False),
-        ("13. Modelo de Dados (Web Application)", "18", True),
-        ("14. Resultados de Teste", "20", True),
-        ("14.1. Testes Internos", "20", False),
-        ("14.2. Testes Alfa", "20", False),
-        ("14.3. Testes Beta", "20", False),
-        ("15. Marketing Digital", "21", True),
-        ("16. Bibliografia", "22", True),
-        ("APÊNDICE I - TECNOLOGIAS UTILIZADAS", "23", True),
+        ("1 Descrição do Projeto", "9", True),
+        ("1.1 Objetivo", "9", False),
+        ("1.2 Descrição", "9", False),
+        ("2 Escopo do Projeto (EAP)", "11", True),
+        ("3 Problema/Oportunidade", "14", True),
+        ("4 Modelo de Negócio (BMC ou SMC)", "16", True),
+        ("5 Cenários de Negócio", "17", True),
+        ("6 Benefícios da Solução", "18", True),
+        ("7 Público Alvo", "18", True),
+        ("8 Cronograma de Marcos", "20", True),
+        ("9 Requisitos Funcionais", "21", True),
+        ("10 Requisitos Não Funcionais", "22", True),
+        ("11 Protótipo Visual", "23", True),
+        ("12 Requisito dos MVPs", "25", True),
+        ("12.1 Aplicativo Móvel", "25", False),
+        ("12.2 Web Application", "25", False),
+        ("13 Modelo de Dados (Web Application)", "27", True),
+        ("14 Resultados de Teste", "29", True),
+        ("14.1 Testes Internos", "30", False),
+        ("14.2 Testes Fechados", "31", False),
+        ("14.3 Testes Beta", "31", False),
+        ("14.4 Matriz de Teste e Devolutiva", "31", False),
+        ("15 Histórias de Usuário e Critérios de Aceitação", "33", True),
+        ("16 Regras de Negócio", "37", True),
+        ("17 Governança Ágil e Sprint #05", "38", True),
+        ("18 Métricas Ágeis", "43", True),
+        ("19 Rastreabilidade dos Requisitos", "48", True),
+        ("20 Marketing Digital", "49", True),
+        ("21 Conclusão e Próximos Passos", "51", True),
+        ("22 Referências", "52", True),
+        ("APÊNDICE A - TECNOLOGIAS UTILIZADAS", "54", True),
     ]
     rows = []
     for title, page, is_main in entries:
@@ -872,7 +1102,7 @@ def toc_story(styles):
 
 
 def glossary_story(styles):
-    story = [Paragraph("GLOSSÁRIO", styles["H1Section"])]
+    story = [_center_title("GLOSSÁRIO E LISTA DE SIGLAS", styles)]
     story.append(Paragraph(
         "<i>Lista, em ordem alfabética, de termos, siglas e acrônimos importantes para a "
         "compreensão do domínio do projeto/produto FastInBox.</i>",
@@ -905,7 +1135,7 @@ def glossary_story(styles):
 
 
 def descricao_story(styles):
-    story = [Paragraph("1.&nbsp;&nbsp;&nbsp;Descrição do Projeto", styles["H1Section"])]
+    story = [Paragraph("1&nbsp;&nbsp;&nbsp;Descrição do Projeto", styles["H1Section"])]
 
     story.append(Paragraph(
         "O FastInBox é uma plataforma SaaS (<i>Software as a Service</i>) white label "
@@ -930,7 +1160,7 @@ def descricao_story(styles):
         styles["Body"],
     ))
 
-    story.append(Paragraph("Objetivo:", styles["H2Section"]))
+    story.append(Paragraph("1.1&nbsp;&nbsp;Objetivo", styles["H2Section"]))
     story.append(Paragraph(
         "Conduzir o desenvolvimento integrado da plataforma FastInBox, aplicando, de "
         "forma acadêmica e profissional, as disciplinas de gestão de projetos e de "
@@ -944,7 +1174,7 @@ def descricao_story(styles):
         styles["Body"],
     ))
 
-    story.append(Paragraph("Descrição:", styles["H2Section"]))
+    story.append(Paragraph("1.2&nbsp;&nbsp;Descrição", styles["H2Section"]))
     story.append(Paragraph(
         "O projeto FastInBox compreende a elaboração e a publicação do conjunto "
         "completo de artefatos técnicos e de negócio necessários para construir e "
@@ -1005,7 +1235,7 @@ def descricao_story(styles):
 
 
 def eap_story(styles):
-    story = [Paragraph("2.&nbsp;&nbsp;&nbsp;Escopo do Projeto (EAP)", styles["H1Section"])]
+    story = [Paragraph("2&nbsp;&nbsp;&nbsp;Escopo do Projeto (EAP)", styles["H1Section"])]
     story.append(Paragraph(
         "<i>Estrutura Analítica do Projeto FastInBox, decompondo o trabalho em "
         "documentação, produto e marketing. Cada nó pai é dividido em pelo menos "
@@ -1016,8 +1246,9 @@ def eap_story(styles):
     story.append(NextPageTemplate("eap_landscape"))
     story.append(PageBreak())
     story.append(Spacer(1, 0.2 * cm))
-    story.append(Paragraph("2. Escopo do Projeto (EAP)", styles["H1Section"]))
+    story.append(caption("Figura 1 - Estrutura Analítica do Projeto (EAP)", styles))
     story.append(EAPDiagram(available_width=LAND_W - 4 * cm, available_height=13.0 * cm))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
     story.append(Spacer(1, 0.4 * cm))
     story.append(Paragraph(
         "Estrutura Analítica do Projeto FastInBox decomposta em três pacotes de "
@@ -1038,7 +1269,7 @@ def eap_story(styles):
 
 
 def problema_story(styles):
-    story = [Paragraph("3.&nbsp;&nbsp;&nbsp;Problema/Oportunidade", styles["H1Section"])]
+    story = [Paragraph("3&nbsp;&nbsp;&nbsp;Problema/Oportunidade", styles["H1Section"])]
     story.append(Paragraph(
         "A operação de venda de marmitas personalizadas em clínicas de nutrição e "
         "academias parceiras ainda é majoritariamente manual. Pedidos são coletados "
@@ -1107,7 +1338,7 @@ def problema_story(styles):
 
 
 def bmc_story(styles):
-    story = [Paragraph("4.&nbsp;&nbsp;&nbsp;Modelo de Negócio (BMC ou SMC)", styles["H1Section"])]
+    story = [Paragraph("4&nbsp;&nbsp;&nbsp;Modelo de Negócio (BMC ou SMC)", styles["H1Section"])]
     story.append(Paragraph(
         "O modelo de negócio do FastInBox foi estruturado segundo o Business Model "
         "Canvas (BMC) de Osterwalder e Pigneur (2010), instrumento amplamente "
@@ -1179,13 +1410,15 @@ def bmc_story(styles):
             "Onboarding pago para clínicas de maior porte."
         ),
     }
+    story.append(caption("Quadro 1 - Business Model Canvas do FastInBox", styles))
     story.append(bmc_table(data, styles))
+    story.append(fonte("elaborado pela equipe FastInBox (2026), adaptado de Osterwalder e Pigneur (2010).", styles))
     story.append(PageBreak())
     return story
 
 
 def cenarios_beneficios_publico_story(styles):
-    story = [Paragraph("5.&nbsp;&nbsp;&nbsp;Cenários de Negócio", styles["H1Section"])]
+    story = [Paragraph("5&nbsp;&nbsp;&nbsp;Cenários de Negócio", styles["H1Section"])]
     story.append(Paragraph(
         "A análise de cenários combina os métodos PEST (Política, Econômica, "
         "Social, Tecnológica) e a leitura prospectiva pessimista/realista/otimista "
@@ -1243,10 +1476,12 @@ def cenarios_beneficios_publico_story(styles):
         ],
     ]
     col_w = [3 * cm, 4.4 * cm, 4.4 * cm, 4.2 * cm]
+    story.append(caption("Quadro 2 - Análise de cenários por dimensão PEST", styles))
     story.append(styled_table(rows, col_w, styles))
+    story.append(fonte("elaborado pela equipe FastInBox (2026), com base em ABIA, IBGE, SEBRAE, CFN, Datafolha e Gartner.", styles))
     story.append(Spacer(1, 0.4 * cm))
 
-    story.append(Paragraph("6.&nbsp;&nbsp;&nbsp;Benefícios da Solução", styles["H1Section"]))
+    story.append(Paragraph("6&nbsp;&nbsp;&nbsp;Benefícios da Solução", styles["H1Section"]))
     story.append(Paragraph(
         "Os benefícios da plataforma são organizados por perfil de usuário e "
         "alinhados ao princípio de que cada persona deve perceber valor próprio "
@@ -1287,7 +1522,7 @@ def cenarios_beneficios_publico_story(styles):
     ]
     story.extend(bullet_list(benefits, styles))
 
-    story.append(Paragraph("7.&nbsp;&nbsp;&nbsp;Público Alvo", styles["H1Section"]))
+    story.append(Paragraph("7&nbsp;&nbsp;&nbsp;Público Alvo", styles["H1Section"]))
     story.append(Paragraph(
         "O público-alvo do FastInBox foi modelado em quatro personas, derivadas "
         "de entrevistas semiestruturadas com nutricionistas e pacientes reais "
@@ -1341,7 +1576,7 @@ def cenarios_beneficios_publico_story(styles):
 
 
 def cronograma_story(styles):
-    story = [Paragraph("8.&nbsp;&nbsp;&nbsp;Cronograma de Marcos", styles["H1Section"])]
+    story = [Paragraph("8&nbsp;&nbsp;&nbsp;Cronograma de Marcos", styles["H1Section"])]
     story.append(Paragraph(
         "O cronograma macro do FastInBox segue um modelo incremental orientado a "
         "risco, distribuído em sprints de duas a três semanas dentro do semestre "
@@ -1365,13 +1600,15 @@ def cronograma_story(styles):
         ("M7 - Apresentação acadêmica do Projeto Integrador III", "24/07/2026"),
         ("M8 - Hardening e backlog de evolução para PI IV", "31/07/2026"),
     ]
+    story.append(caption("Quadro 3 - Cronograma de marcos", styles))
     story.append(cronograma_table(rows, styles))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
     story.append(PageBreak())
     return story
 
 
 def requisitos_funcionais_story(styles):
-    story = [Paragraph("9.&nbsp;&nbsp;&nbsp;Requisitos Funcionais", styles["H1Section"])]
+    story = [Paragraph("9&nbsp;&nbsp;&nbsp;Requisitos Funcionais", styles["H1Section"])]
     story.append(Paragraph(
         "Os requisitos funcionais (RF) descrevem o que o sistema FastInBox deve "
         "fazer, segundo a definição clássica de Sommerville (2019). A elicitação "
@@ -1405,13 +1642,15 @@ def requisitos_funcionais_story(styles):
     ]
     rows = [["Código", "Descrição"]]
     rows.extend([[c, d] for c, d in rfs])
+    story.append(caption("Quadro 4 - Requisitos funcionais", styles))
     story.append(styled_table(rows, [2.4 * cm, 13.6 * cm], styles))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
     story.append(PageBreak())
     return story
 
 
 def requisitos_nao_funcionais_story(styles):
-    story = [Paragraph("10.&nbsp;&nbsp;Requisitos Não Funcionais", styles["H1Section"])]
+    story = [Paragraph("10&nbsp;&nbsp;Requisitos Não Funcionais", styles["H1Section"])]
     story.append(Paragraph(
         "Os requisitos não funcionais (RNF) definem características de qualidade "
         "que o FastInBox deve apresentar, classificados conforme a norma "
@@ -1445,13 +1684,15 @@ def requisitos_nao_funcionais_story(styles):
     ]
     rows = [["Código", "Tipo", "Descrição"]]
     rows.extend([[c, t, d] for c, t, d in rnfs])
+    story.append(caption("Quadro 5 - Requisitos não funcionais", styles))
     story.append(styled_table(rows, [2 * cm, 3.2 * cm, 10.8 * cm], styles))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
     story.append(PageBreak())
     return story
 
 
 def prototipo_story(styles):
-    story = [Paragraph("11.&nbsp;&nbsp;Protótipo Visual", styles["H1Section"])]
+    story = [Paragraph("11&nbsp;&nbsp;Protótipo Visual", styles["H1Section"])]
     story.append(Paragraph(
         "O protótipo visual do FastInBox foi produzido em <b>Figma</b>, ferramenta "
         "padrão de mercado para design de interfaces colaborativas. A construção "
@@ -1512,12 +1753,17 @@ def prototipo_story(styles):
         "do repositório do projeto e nas evidências de cada sprint.</i>",
         styles["Body"],
     ))
+    story.extend(figure_block(
+        ROOT / "tmp" / "pi_iii_assets" / "proto-montage.png",
+        "Figura 2 - Telas do protótipo de alta fidelidade (Figma)",
+        styles, max_w=16 * cm, max_h=20 * cm,
+    ))
     story.append(PageBreak())
     return story
 
 
 def mvp_story(styles):
-    story = [Paragraph("12.&nbsp;&nbsp;Requisito dos MVPs", styles["H1Section"])]
+    story = [Paragraph("12&nbsp;&nbsp;Requisito dos MVPs", styles["H1Section"])]
     story.append(Paragraph(
         "O conceito de Produto Mínimo Viável (MVP), originário de Ries (2011), é "
         "operacionalizado no FastInBox via MVP Canvas de Caroli (2018), permitindo "
@@ -1528,7 +1774,7 @@ def mvp_story(styles):
         styles["Body"],
     ))
 
-    story.append(Paragraph("12.1.&nbsp;&nbsp;Aplicativo Móvel", styles["H2Section"]))
+    story.append(Paragraph("12.1&nbsp;&nbsp;Aplicativo Móvel", styles["H2Section"]))
     story.append(Paragraph(
         "Para o MVP do Projeto Integrador III, o aplicativo móvel nativo não está "
         "no escopo. A experiência mobile é integralmente atendida pelo Web "
@@ -1559,7 +1805,7 @@ def mvp_story(styles):
     ]
     story.extend(bullet_list(mobile_reqs, styles))
 
-    story.append(Paragraph("12.2.&nbsp;&nbsp;Web Application", styles["H2Section"]))
+    story.append(Paragraph("12.2&nbsp;&nbsp;Web Application", styles["H2Section"]))
     story.append(Paragraph(
         "O Web Application FastInBox é o entregável principal do MVP do Projeto "
         "Integrador III e foi construído sobre uma stack moderna e production-"
@@ -1599,7 +1845,7 @@ def mvp_story(styles):
 
 
 def modelo_dados_story(styles):
-    story = [Paragraph("13.&nbsp;&nbsp;Modelo de Dados (Web Application)", styles["H1Section"])]
+    story = [Paragraph("13&nbsp;&nbsp;Modelo de Dados (Web Application)", styles["H1Section"])]
     story.append(Paragraph(
         "A modelagem de dados do FastInBox segue o paradigma relacional sobre "
         "PostgreSQL 17, escolhido pela maturidade, suporte robusto a integridade "
@@ -1613,7 +1859,9 @@ def modelo_dados_story(styles):
         "tabelas e os principais relacionamentos.",
         styles["Body"],
     ))
-    story.append(DBSchemaDiagram(available_width=PAGE_W - 4 * cm, height=14.4 * cm))
+    story.append(caption("Figura 3 - Diagrama entidade-relacionamento do banco de dados", styles))
+    story.append(DBSchemaDiagram(available_width=CONTENT_W, height=14.4 * cm))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
     story.append(Spacer(1, 0.3 * cm))
     story.append(Paragraph(
         "<b>Relacionamentos principais:</b> users 1:N clinics (um usuário "
@@ -1644,7 +1892,7 @@ def modelo_dados_story(styles):
 
 
 def testes_story(styles):
-    story = [Paragraph("14.&nbsp;&nbsp;Resultados de Teste", styles["H1Section"])]
+    story = [Paragraph("14&nbsp;&nbsp;Resultados de Teste", styles["H1Section"])]
     story.append(Paragraph(
         "A estratégia de testes do FastInBox é estruturada em três camadas, "
         "seguindo a pirâmide de testes de Cohn (2009). Na base, <b>testes "
@@ -1660,8 +1908,13 @@ def testes_story(styles):
         "<i>app.qase.io/project/FASTINBOX</i>.",
         styles["Body"],
     ))
+    story.extend(figure_block(
+        ROOT / "tmp" / "pi_iii_assets" / "fluxo-montage.png",
+        "Figura 4 - Capturas do sistema funcional em execução (evidências das sprints)",
+        styles, max_w=16 * cm, max_h=20.5 * cm,
+    ))
 
-    story.append(Paragraph("14.1.&nbsp;&nbsp;Testes Internos (equipe de desenvolvimento)", styles["H2Section"]))
+    story.append(Paragraph("14.1&nbsp;&nbsp;Testes Internos (equipe de desenvolvimento)", styles["H2Section"]))
     story.append(Paragraph(
         "Os testes internos foram conduzidos pela equipe de desenvolvimento "
         "sobre o MVP web durante a Sprint 1 e a Sprint 2, totalizando 75 casos "
@@ -1682,7 +1935,9 @@ def testes_story(styles):
         ["Dashboard Admin", "7", "7", "7", "0", "100%"],
         ["<b>Total</b>", "<b>75</b>", "<b>75</b>", "<b>71</b>", "<b>4</b>", "<b>100%</b>"],
     ]
+    story.append(caption("Tabela 1 - Resultados consolidados dos testes internos", styles))
     story.append(styled_table(rows, [3.2 * cm, 2.4 * cm, 2.2 * cm, 2.2 * cm, 2.4 * cm, 2.0 * cm], styles))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
     story.append(Spacer(1, 0.3 * cm))
     story.append(Paragraph(
         "<b>Defeitos encontrados:</b> 4 reprovações corrigidas no próprio ciclo "
@@ -1692,8 +1947,8 @@ def testes_story(styles):
     ))
 
     story.append(Paragraph(
-        '14.2.&nbsp;&nbsp;Testes Fechados (Equipe de Teste, Convidados Acadêmicos e Orientador) '
-        '<font backcolor="#FFF59D">(PI IV)</font>',
+        '14.2&nbsp;&nbsp;Testes Fechados (Equipe de Teste, Convidados Acadêmicos e Orientador) '
+        '(PI IV)',
         styles["H2Section"],
     ))
     story.append(Paragraph(
@@ -1706,8 +1961,8 @@ def testes_story(styles):
     ))
 
     story.append(Paragraph(
-        '14.3.&nbsp;&nbsp;Testes Beta (Stakeholders) '
-        '<font backcolor="#FFF59D">(PI IV)</font>',
+        '14.3&nbsp;&nbsp;Testes Beta (Stakeholders) '
+        '(PI IV)',
         styles["H2Section"],
     ))
     story.append(Paragraph(
@@ -1717,14 +1972,938 @@ def testes_story(styles):
         "relatório será anexado a esta seção no PI IV.",
         styles["Body"],
     ))
+
+    story.append(Paragraph("14.4&nbsp;&nbsp;Matriz de Teste e Devolutiva", styles["H2Section"]))
+    story.append(Paragraph(
+        "Em aderência à competência C19 (Garantia de Qualidade) e ao framework "
+        "Fases_ACE, a fase de <b>Intervenção</b> (execução técnica) culmina "
+        "obrigatoriamente em uma <b>Devolutiva</b> (resultados validados). Mais "
+        "do que reportar defeitos, a equipe aplica o conceito <i>\"So What?\"</i>: "
+        "para cada achado pergunta-se qual o impacto real sobre a integridade do "
+        "produto e sobre o parceiro atendido. Os defeitos são corrigidos "
+        "imediatamente após o feedback, evitando o acúmulo de dívida técnica. O "
+        "quadro a seguir exemplifica a auditoria de funcionalidades críticas.",
+        styles["Body"],
+    ))
+    rows = [["Funcionalidade auditada", "Tipo de teste", "Resultado esperado", "Devolutiva (feedback) / impacto"]]
+    matriz = [
+        ("Validação de CPF do paciente", "Regra de negócio", "Impedir cadastro com CPF inválido", "<b>Falha inicial:</b> aceitava sequências genéricas como válidas. <b>Impacto (So What?):</b> risco de inconsistência dos dados do parceiro; corrigido no mesmo ciclo, com reteste aprovado."),
+        ("Autenticação multi-perfil", "Critério de aceitação", "Login seguro segregado por perfil", "<b>Sucesso:</b> validado conforme a HU-005 / CA-005, sem ocorrência de falhas."),
+        ("Segregação de acesso (RBAC admin)", "Critério de aceitação", "Nutricionista recebe 403 em /admin/*", "<b>Sucesso:</b> TC-020 aprovado; o audit_log registra a tentativa negada (TC-021)."),
+        ("Webhook de pagamento (HMAC)", "Regra de negócio", "Processar o webhook de forma idempotente", "<b>Sucesso:</b> validação <i>timing-safe</i> e janela anti-replay de +/- 5 min impedem o reprocessamento."),
+        ("Cálculo de comissão progressiva", "Regra de negócio", "Calcular comissão e repasse corretos", "<b>Falha inicial:</b> divergência no ajuste com desconto. <b>Impacto (So What?):</b> repasse incorreto ao nutricionista; corrigido e reteste aprovado."),
+    ]
+    for m in matriz:
+        rows.append(list(m))
+    story.append(caption("Quadro 6 - Matriz de teste e devolutiva", styles))
+    story.append(styled_table(rows, [3.6 * cm, 2.6 * cm, 3.4 * cm, 6.4 * cm], styles))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
+
+    story.append(PageBreak())
+    return story
+
+
+# ----------------------------------------------------------------------------
+# Agile charts (custom flowables) - Velocity, Burndown, WIP, Scrum cadence
+# ----------------------------------------------------------------------------
+
+
+class VelocityChart(Flowable):
+    """Grouped bar chart: planned vs delivered story points per sprint."""
+
+    def __init__(self, planned, delivered, labels, width=None, height=7.4 * cm, ymax=60):
+        super().__init__()
+        self.planned = planned
+        self.delivered = delivered
+        self.labels = labels
+        self.width = width or (CONTENT_W)
+        self.height = height
+        self.ymax = ymax
+
+    def wrap(self, aw, ah):
+        self.width = aw
+        return self.width, self.height
+
+    def draw(self):
+        c = self.canv
+        W, H = self.width, self.height
+        left, right, top, bottom = 1.25 * cm, 0.4 * cm, 1.35 * cm, 1.0 * cm
+        plot_w = W - left - right
+        plot_h = H - top - bottom
+        x0, y0 = left, bottom
+        ymax = self.ymax
+        steps = 4
+        c.setFont("Helvetica", 7.5)
+        for i in range(steps + 1):
+            val = ymax * i / steps
+            yy = y0 + plot_h * i / steps
+            c.setStrokeColor(colors.HexColor("#DDDDDD"))
+            c.setLineWidth(0.4)
+            c.line(x0, yy, x0 + plot_w, yy)
+            c.setFillColor(colors.HexColor("#666666"))
+            c.drawRightString(x0 - 0.12 * cm, yy - 2.4, f"{int(val)}")
+        c.setStrokeColor(BLACK)
+        c.setLineWidth(0.8)
+        c.line(x0, y0, x0, y0 + plot_h)
+        c.line(x0, y0, x0 + plot_w, y0)
+        n = len(self.labels)
+        group_w = plot_w / n
+        bar_w = group_w * 0.26
+        for i in range(n):
+            cx = x0 + group_w * i + group_w / 2
+            ph = plot_h * self.planned[i] / ymax
+            c.setFillColor(colors.HexColor("#B5B5B5"))
+            c.rect(cx - bar_w - 0.07 * cm, y0, bar_w, ph, fill=1, stroke=0)
+            dh = plot_h * self.delivered[i] / ymax
+            c.setFillColor(BLACK)
+            c.rect(cx + 0.07 * cm, y0, bar_w, dh, fill=1, stroke=0)
+            c.setFont("Helvetica", 7)
+            c.setFillColor(colors.HexColor("#555555"))
+            c.drawCentredString(cx - bar_w / 2 - 0.07 * cm, y0 + ph + 2.5, str(self.planned[i]))
+            c.setFillColor(BLACK)
+            c.drawCentredString(cx + bar_w / 2 + 0.07 * cm, y0 + dh + 2.5, str(self.delivered[i]))
+            c.setFont("Helvetica-Bold", 8)
+            c.drawCentredString(cx, y0 - 0.42 * cm, self.labels[i])
+        # legend (top, centered)
+        ly = y0 + plot_h + 0.55 * cm
+        sw = 0.34 * cm
+        lx = x0 + plot_w / 2 - 3.4 * cm
+        c.setFillColor(colors.HexColor("#B5B5B5"))
+        c.rect(lx, ly, sw, 0.22 * cm, fill=1, stroke=0)
+        c.setFillColor(BLACK)
+        c.setFont("Helvetica", 8)
+        c.drawString(lx + 0.44 * cm, ly, "Pontos planejados")
+        c.setFillColor(BLACK)
+        c.rect(lx + 3.7 * cm, ly, sw, 0.22 * cm, fill=1, stroke=0)
+        c.drawString(lx + 3.7 * cm + 0.44 * cm, ly, "Pontos entregues")
+
+
+class BurndownChart(Flowable):
+    """Sprint burndown: ideal line vs actual remaining story points."""
+
+    def __init__(self, total, actual, day_labels, width=None, height=7.0 * cm):
+        super().__init__()
+        self.total = total
+        self.actual = actual
+        self.day_labels = day_labels
+        self.width = width or (CONTENT_W)
+        self.height = height
+
+    def wrap(self, aw, ah):
+        self.width = aw
+        return self.width, self.height
+
+    def draw(self):
+        c = self.canv
+        W, H = self.width, self.height
+        left, right, top, bottom = 1.25 * cm, 0.5 * cm, 1.25 * cm, 1.0 * cm
+        plot_w = W - left - right
+        plot_h = H - top - bottom
+        x0, y0 = left, bottom
+        ymax = self.total
+        steps = 4
+        c.setFont("Helvetica", 7.5)
+        for i in range(steps + 1):
+            val = ymax * i / steps
+            yy = y0 + plot_h * i / steps
+            c.setStrokeColor(colors.HexColor("#DDDDDD"))
+            c.setLineWidth(0.4)
+            c.line(x0, yy, x0 + plot_w, yy)
+            c.setFillColor(colors.HexColor("#666666"))
+            c.drawRightString(x0 - 0.12 * cm, yy - 2.4, f"{int(val)}")
+        c.setStrokeColor(BLACK)
+        c.setLineWidth(0.8)
+        c.line(x0, y0, x0, y0 + plot_h)
+        c.line(x0, y0, x0 + plot_w, y0)
+        n = len(self.actual)
+        def px(i):
+            return x0 + plot_w * i / (n - 1)
+        def py(v):
+            return y0 + plot_h * v / ymax
+        # ideal line (dashed grey)
+        c.setStrokeColor(colors.HexColor("#9A9A9A"))
+        c.setLineWidth(1.0)
+        c.setDash(3, 2)
+        c.line(px(0), py(self.total), px(n - 1), py(0))
+        c.setDash()
+        # actual polyline (black)
+        c.setStrokeColor(BLACK)
+        c.setLineWidth(1.6)
+        for i in range(n - 1):
+            c.line(px(i), py(self.actual[i]), px(i + 1), py(self.actual[i + 1]))
+        for i in range(n):
+            c.setFillColor(BLACK)
+            c.circle(px(i), py(self.actual[i]), 0.055 * cm, fill=1, stroke=0)
+        # x labels
+        c.setFont("Helvetica", 7.5)
+        c.setFillColor(BLACK)
+        for i, lb in enumerate(self.day_labels):
+            c.drawCentredString(px(i), y0 - 0.4 * cm, lb)
+        # legend
+        ly = y0 + plot_h + 0.5 * cm
+        lx = x0 + plot_w / 2 - 3.3 * cm
+        c.setStrokeColor(colors.HexColor("#9A9A9A"))
+        c.setLineWidth(1.0)
+        c.setDash(3, 2)
+        c.line(lx, ly + 0.08 * cm, lx + 0.7 * cm, ly + 0.08 * cm)
+        c.setDash()
+        c.setFillColor(BLACK)
+        c.setFont("Helvetica", 8)
+        c.drawString(lx + 0.85 * cm, ly, "Linha ideal")
+        c.setStrokeColor(BLACK)
+        c.setLineWidth(1.6)
+        c.line(lx + 3.3 * cm, ly + 0.08 * cm, lx + 4.0 * cm, ly + 0.08 * cm)
+        c.drawString(lx + 4.15 * cm, ly, "Pontos restantes (real)")
+
+
+class WipChart(Flowable):
+    """Horizontal bars: WIP limit vs observed average per Kanban column."""
+
+    def __init__(self, rows, xmax=15, width=None, height=None):
+        super().__init__()
+        self.rows = rows  # list of (label, limit, observed)
+        self.xmax = xmax
+        self.width = width or (CONTENT_W)
+        self.height = height or (1.0 * cm + 1.25 * cm * len(rows))
+
+    def wrap(self, aw, ah):
+        self.width = aw
+        return self.width, self.height
+
+    def draw(self):
+        c = self.canv
+        W, H = self.width, self.height
+        left, right, top, bottom = 3.0 * cm, 1.6 * cm, 0.7 * cm, 0.5 * cm
+        plot_w = W - left - right
+        x0 = left
+        n = len(self.rows)
+        row_h = (H - top - bottom) / n
+        bar_h = row_h * 0.34
+        for idx, (label, limit, observed) in enumerate(self.rows):
+            cy = bottom + row_h * (n - 1 - idx) + row_h / 2
+            # limit bar (light)
+            lw = plot_w * min(limit, self.xmax) / self.xmax
+            c.setFillColor(colors.HexColor("#D9D9D9"))
+            c.rect(x0, cy, lw, bar_h, fill=1, stroke=0)
+            # observed bar (black) just below
+            ow = plot_w * observed / self.xmax
+            c.setFillColor(BLACK)
+            c.rect(x0, cy - bar_h - 0.06 * cm, ow, bar_h, fill=1, stroke=0)
+            # column label
+            c.setFillColor(BLACK)
+            c.setFont("Helvetica-Bold", 8.5)
+            c.drawRightString(x0 - 0.2 * cm, cy - bar_h / 2 - 0.05 * cm, label)
+            # value labels
+            c.setFont("Helvetica", 7.5)
+            c.setFillColor(colors.HexColor("#555555"))
+            c.drawString(x0 + lw + 0.1 * cm, cy + 0.02 * cm, f"limite {limit}")
+            c.setFillColor(BLACK)
+            obs_txt = str(observed).replace(".", ",")
+            c.drawString(x0 + ow + 0.1 * cm, cy - bar_h - 0.04 * cm, f"WIP {obs_txt}")
+
+
+class ScrumCadenceDiagram(Flowable):
+    """Horizontal cadence: Planning -> Daily (loop) -> Review -> Retrospectiva."""
+
+    def __init__(self, width=None, height=2.6 * cm):
+        super().__init__()
+        self.width = width or (CONTENT_W)
+        self.height = height
+
+    def wrap(self, aw, ah):
+        self.width = aw
+        return self.width, self.height
+
+    def draw(self):
+        c = self.canv
+        W, H = self.width, self.height
+        boxes = ["Sprint\nPlanning", "Daily Scrum\n(diária)", "Sprint\nReview", "Sprint\nRetrospectiva"]
+        n = len(boxes)
+        gap = 0.9 * cm
+        bw = (W - gap * (n - 1)) / n
+        bh = 1.5 * cm
+        by = H - bh - 0.55 * cm
+        for i, label in enumerate(boxes):
+            bx = i * (bw + gap)
+            c.setFillColor(colors.HexColor("#1F4E79"))
+            c.setStrokeColor(colors.HexColor("#1F4E79"))
+            c.roundRect(bx, by, bw, bh, 0.18 * cm, fill=1, stroke=1)
+            c.setFillColor(WHITE)
+            lines = label.split("\n")
+            c.setFont("Helvetica-Bold", 9)
+            ty = by + bh / 2 + (len(lines) - 1) * 5.5
+            for ln in lines:
+                c.drawCentredString(bx + bw / 2, ty - 4, ln)
+                ty -= 11
+            if i < n - 1:
+                ax = bx + bw + 0.1 * cm
+                ay = by + bh / 2
+                c.setStrokeColor(BLACK)
+                c.setLineWidth(1.2)
+                c.line(ax, ay, ax + gap - 0.2 * cm, ay)
+                c.setFillColor(BLACK)
+                tipx = ax + gap - 0.2 * cm
+                c.line(tipx, ay, tipx - 0.14 * cm, ay + 0.1 * cm)
+                c.line(tipx, ay, tipx - 0.14 * cm, ay - 0.1 * cm)
+        c.setFillColor(colors.HexColor("#555555"))
+        c.setFont("Helvetica-Oblique", 8)
+        c.drawCentredString(W / 2, 0.12 * cm, "Cadência por Sprint de 2 a 3 semanas - cerimônias Scrum-like sincronizadas no GitHub Projects")
+
+
+# ----------------------------------------------------------------------------
+# New sections - Sprint #05, artefacts and agile metrics
+# ----------------------------------------------------------------------------
+
+
+def historias_criterios_story(styles):
+    story = [Paragraph(
+        "15&nbsp;&nbsp;Histórias de Usuário e Critérios de Aceitação",
+        styles["H1Section"],
+    )]
+    story.append(Paragraph(
+        "As funcionalidades do FastInBox foram elicitadas e descritas como "
+        "histórias de usuário, no formato preconizado por Cohn (2005) - "
+        "<i>\"Como &lt;perfil&gt;, quero &lt;ação&gt;, para &lt;benefício&gt;\"</i> - "
+        "e priorizadas por sprint (S1 a S5) na coluna de prioridade. Cada "
+        "história é rastreável a um ou mais requisitos funcionais (RF) e às "
+        "regras de negócio da Seção 16, garantindo continuidade entre a "
+        "elicitação, o backlog mantido no GitHub Projects e os critérios de "
+        "aceitação que orientam o teste de cada entrega.",
+        styles["Body"],
+    ))
+
+    story.append(Paragraph("15.1&nbsp;&nbsp;Histórias de Usuário", styles["H2Section"]))
+    rows = [["ID", "Perfil", "História", "Prior.", "RF"]]
+    hus = [
+        ("HU-001", "Visitante", "Como visitante, quero ver a landing pública para entender o produto.", "S1", "RF019"),
+        ("HU-002", "Visitante", "Como visitante, quero consultar o status do meu pedido pelo código único, sem login.", "S1", "RF005"),
+        ("HU-003", "Visitante", "Como visitante, quero criar uma conta como paciente para receber pedidos.", "S1", "RF002"),
+        ("HU-004", "Usuário", "Como usuário, quero recuperar minha senha por e-mail para retomar o acesso.", "S2", "RF001"),
+        ("HU-005", "Nutricionista", "Como nutricionista, quero autenticar com e-mail e senha para acessar minha área.", "S1", "RF001"),
+        ("HU-006", "Nutricionista", "Como nutricionista, quero cadastrar pacientes com restrições alimentares para personalizar pedidos.", "S1", "RF002"),
+        ("HU-007", "Nutricionista", "Como nutricionista, quero editar dados de paciente existente para manter o cadastro atualizado.", "S2", "RF002"),
+        ("HU-008", "Nutricionista", "Como nutricionista, quero criar pedido com múltiplas marmitas para atender o plano alimentar semanal.", "S1", "RF003"),
+        ("HU-009", "Nutricionista", "Como nutricionista, quero ver o código único do pedido gerado para enviar ao paciente.", "S1", "RF003"),
+        ("HU-010", "Nutricionista", "Como nutricionista, quero ver o resumo financeiro do pedido (valor, comissão, repasse) para conferir antes de enviar.", "S1", "RF013"),
+        ("HU-011", "Nutricionista", "Como nutricionista, quero acompanhar o status de cada pedido criado para responder ao paciente.", "S2", "RF008"),
+        ("HU-012", "Nutricionista", "Como nutricionista, quero configurar a identidade visual da clínica para aplicar o white label.", "S2", "RF004"),
+        ("HU-013", "Paciente", "Como paciente, quero acessar o pedido informando o código único para ver os detalhes.", "S1", "RF005"),
+        ("HU-014", "Paciente", "Como paciente, quero revisar itens, observações e valor antes de confirmar para garantir que está correto.", "S1", "RF006"),
+        ("HU-015", "Paciente", "Como paciente, quero confirmar o pedido para liberar o pagamento sem voltar à etapa de edição.", "S1", "RF006"),
+        ("HU-016", "Paciente", "Como paciente, quero pagar diretamente na plataforma para não depender de canal externo.", "S2", "RF007"),
+        ("HU-017", "Paciente", "Como paciente, quero ver o histórico de status do pedido em <i>timeline</i> para saber o que está acontecendo.", "S2", "RF008"),
+        ("HU-018", "Paciente", "Como paciente, quero receber notificação de mudança crítica de status para não consultar manualmente.", "S5", "RF010"),
+        ("HU-019", "Cozinha", "Como cozinha, quero autenticar com credencial dedicada para acessar o painel operacional.", "S1", "RF001"),
+        ("HU-020", "Cozinha", "Como cozinha, quero ver o kanban com pedidos pagos para priorizar a produção.", "S1", "RF009"),
+        ("HU-021", "Cozinha", "Como cozinha, quero arrastar o pedido entre colunas para atualizar o status com trilha de auditoria.", "S1", "RF010"),
+        ("HU-022", "Cozinha", "Como cozinha, quero abrir o detalhe de cada pedido para conferir restrições e observações.", "S2", "RF009"),
+        ("HU-023", "Administrador", "Como admin, quero ver dashboard consolidado com volume, receita e status para monitorar a operação.", "S2", "RF011"),
+        ("HU-024", "Administrador", "Como admin, quero listar e filtrar usuários por perfil para gerir contas.", "S2", "RF011"),
+        ("HU-025", "Administrador", "Como admin, quero ver a auditoria de eventos sensíveis para responder a incidentes.", "S2", "RF014"),
+        ("HU-026", "Administrador", "Como admin, quero ver o diagnóstico de saúde da plataforma (banco, fila, gateway) para detectar problemas.", "S5", "RF011"),
+        ("HU-027", "Administrador", "Como admin, quero exportar relatório de comissões por período para repasse contábil.", "S5", "RF013"),
+        ("HU-028", "Sistema", "Como sistema, quero gerar código único de pedido não colidente para garantir o acesso seguro do paciente.", "S3", "RF003"),
+    ]
+    for hu in hus:
+        rows.append(list(hu))
+    story.append(caption("Quadro 7 - Histórias de usuário", styles))
+    story.append(styled_table(rows, [1.55 * cm, 2.35 * cm, 9.45 * cm, 1.25 * cm, 1.4 * cm], styles))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
+
+    story.append(Spacer(1, 0.3 * cm))
+    story.append(Paragraph("15.2&nbsp;&nbsp;Critérios de Aceitação", styles["H2Section"]))
+    story.append(Paragraph(
+        "Os critérios de aceitação são especificados no formato Gherkin "
+        "(Dado / Quando / Então), conforme a prática de <i>Behavior Driven "
+        "Development</i>, tornando cada história verificável de forma objetiva. "
+        "Reproduzem-se a seguir os critérios das histórias prioritárias, que "
+        "deram origem aos casos de teste apresentados nas Seções 14 e 17.",
+        styles["Body"],
+    ))
+
+    blocks = [
+        ("HU-002 - Rastreio do pedido por código", [
+            ("CA-002.1", ["Dado que informo o código FIB-2026-001 no atalho de rastreio",
+                          "Quando confirmo a busca",
+                          "Então sou redirecionado para a página de status do pedido",
+                          "E vejo a <i>timeline</i> atual do pedido"]),
+        ]),
+        ("HU-005 - Autenticação do nutricionista", [
+            ("CA-005.1", ["Dado credenciais válidas",
+                          "Quando faço login como nutricionista",
+                          "Então sou redirecionado para a área /nutricionista"]),
+            ("CA-005.2", ["Dado credenciais inválidas",
+                          "Quando tento o login",
+                          "Então permaneço em /login com mensagem de erro"]),
+        ]),
+        ("HU-006 - Cadastro de paciente", [
+            ("CA-006.1", ["Dado que estou em /nutricionista/pacientes",
+                          "Quando preencho nome, contato, plano, objetivo e restrições e clico em Salvar",
+                          "Então o paciente aparece na lista e fica disponível para criar pedido"]),
+        ]),
+        ("HU-008 - Criação de pedido", [
+            ("CA-008.1", ["Dado um paciente selecionado",
+                          "Quando adiciono uma ou mais marmitas com itens e observações e confirmo",
+                          "Então o pedido é criado com status Aguardando_Confirmacao",
+                          "E o código único FIB-AAAA-NNN é exibido"]),
+            ("CA-008.2", ["Dado um pedido com itens",
+                          "Quando tento confirmar sem janela de entrega",
+                          "Então recebo erro de validação e o pedido não é salvo"]),
+        ]),
+        ("HU-010 - Resumo financeiro e comissão", [
+            ("CA-010.1", ["Dado um pedido em construção",
+                          "Quando adiciono itens com preços",
+                          "Então vejo valor base, comissão FastInBox e repasse ao nutricionista",
+                          "E os valores são atualizados em tempo real conforme edito o pedido"]),
+        ]),
+        ("HU-015 - Confirmação do pedido", [
+            ("CA-015.1", ["Dado um pedido em status Aguardando_Confirmacao",
+                          "Quando reviso e clico em Confirmar",
+                          "Então o status muda para Aguardando_Pagamento e o botão Pagar é habilitado"]),
+        ]),
+        ("HU-016 - Pagamento integrado", [
+            ("CA-016.1", ["Dado um pedido em Aguardando_Pagamento",
+                          "Quando seleciono o meio de pagamento e confirmo (gateway simulado)",
+                          "Então o status muda para Pago e o webhook é validado por HMAC de forma idempotente"]),
+            ("CA-016.2", ["Dado um pagamento que falha",
+                          "Quando o gateway recusa",
+                          "Então o status retorna para Aguardando_Pagamento e o paciente pode tentar novamente"]),
+        ]),
+        ("HU-020 / HU-021 - Painel kanban da cozinha", [
+            ("CA-020.1", ["Dada a cozinha autenticada",
+                          "Quando acesso /cozinha",
+                          "Então vejo as colunas Recebido, Em preparo, Pronto e Entregue",
+                          "E apenas pedidos com status Pago em diante são exibidos"]),
+            ("CA-021.1", ["Dado um pedido na coluna Recebido",
+                          "Quando o arrasto para Em preparo",
+                          "Então o status é persistido no servidor",
+                          "E o evento é registrado em production_events com data/hora e usuário"]),
+        ]),
+        ("HU-025 - Auditoria de eventos", [
+            ("CA-025.1", ["Dado o admin em /admin/auditoria",
+                          "Quando consulto os eventos das últimas 24 horas",
+                          "Então vejo registros de login, criação de pedido, mudança de status e pagamento",
+                          "E cada evento mostra ator, IP e data/hora"]),
+        ]),
+        ("HU-027 - Exportação de relatório de comissões (Sprint 5)", [
+            ("CA-027.1", ["Dado o admin em /admin/relatorios",
+                          "Quando filtro por período e clico em Exportar",
+                          "Então é gerado um arquivo CSV com clinicId, nutritionistId, ordersCount, subtotal, comissão e repasse",
+                          "E o cabeçalho e as linhas são consistentes com os totais exibidos em tela"]),
+        ]),
+    ]
+    story.extend(_criterios_render(blocks, styles))
+    story.append(PageBreak())
+    return story
+
+
+def _criterios_render(blocks, styles):
+    flow = []
+    head = ParagraphStyle(
+        name="CAHead", parent=styles["Body"], fontName="Helvetica-Bold",
+        fontSize=10, leading=13, spaceBefore=6, spaceAfter=1, alignment=TA_LEFT,
+    )
+    cid = ParagraphStyle(
+        name="CAId", parent=styles["Body"], fontName="Helvetica-Bold",
+        fontSize=9.5, leading=12, leftIndent=10, spaceBefore=3, spaceAfter=0,
+        textColor=colors.HexColor("#1F4E79"),
+    )
+    line = ParagraphStyle(
+        name="CALine", parent=styles["Body"], fontSize=9.5, leading=12.5,
+        leftIndent=24, alignment=TA_LEFT, spaceAfter=0,
+    )
+    for header, cas in blocks:
+        flow.append(Paragraph(header, head))
+        for ca, lines in cas:
+            flow.append(Paragraph(ca, cid))
+            for ln in lines:
+                flow.append(Paragraph(f"&bull;&nbsp;&nbsp;{ln}", line))
+    return flow
+
+
+def regras_negocio_story(styles):
+    story = [Paragraph("16&nbsp;&nbsp;Regras de Negócio", styles["H1Section"])]
+    story.append(Paragraph(
+        "As regras de negócio (RNB) consolidam as restrições e políticas do "
+        "domínio que governam o comportamento do FastInBox, independentemente "
+        "da tecnologia de implementação. Foram extraídas da Especificação de "
+        "Requisitos de Software (ERS) e mapeadas aos requisitos funcionais que "
+        "as concretizam, fechando a cadeia de rastreabilidade história de "
+        "usuário &rarr; requisito funcional &rarr; regra de negócio &rarr; caso "
+        "de teste.",
+        styles["Body"],
+    ))
+    rows = [["Código", "Regra de Negócio", "RF relacionados"]]
+    rnbs = [
+        ("RNB-001", "Todos os pedidos, embalagens e experiências voltadas ao cliente final devem priorizar a identidade visual da clínica do nutricionista (logotipo, nome e marca); a marca FastInBox atua como fornecedora em segundo plano.", "RF004"),
+        ("RNB-002", "O paciente somente pode confirmar e pagar o pedido após revisar as informações obrigatórias. Edições são permitidas apenas antes da confirmação final e do pagamento.", "RF006, RF007"),
+        ("RNB-003", "Cada pedido possui valor base e valor final configurável, permitindo ao nutricionista ampliar a margem; o sistema deve calcular, registrar e disponibilizar relatórios da comissão de cada pedido.", "RF003, RF013, RF014"),
+        ("RNB-004", "Pedidos devem ser consolidados em dias ou janelas de entrega definidas pela operação, com possibilidade de concentração em dias específicos e expansão futura conforme a demanda.", "RF003, RF010"),
+        ("RNB-005", "Todo acesso e transação deve ocorrer em ambiente seguro, com armazenamento protegido de credenciais e dados sensíveis, criptografia adequada e tráfego sob HTTPS.", "RF001, RF002, RF008"),
+        ("RNB-006", "A plataforma deve utilizar checkout integrado, aceitando diferentes meios de pagamento sem redirecionar o usuário para domínio externo.", "RF007"),
+        ("RNB-007", "O sistema deve garantir segregação de acesso por perfil, liberando apenas as funcionalidades e dados autorizados para nutricionistas, pacientes, cozinhas e administradores.", "RF001, RF005, RF009, RF010, RF011, RF014"),
+    ]
+    for r in rnbs:
+        rows.append(list(r))
+    story.append(caption("Quadro 8 - Regras de negócio", styles))
+    story.append(styled_table(rows, [2.2 * cm, 11.4 * cm, 2.4 * cm], styles))
+    story.append(fonte("elaborado pela equipe FastInBox (2026), com base na ERS.", styles))
+    story.append(PageBreak())
+    return story
+
+
+def sprint5_story(styles):
+    story = [Paragraph("17&nbsp;&nbsp;Governança Ágil e Sprint #05", styles["H1Section"])]
+    story.append(Paragraph(
+        "A condução do FastInBox segue um processo ágil <i>Scrum-like</i> "
+        "(Schwaber &amp; Sutherland, 2020) adaptado ao contexto acadêmico do "
+        "Projeto Integrador, com sprints de duas a três semanas e cerimônias "
+        "sincronizadas no GitHub Projects. Esta seção documenta a quinta "
+        "sprint - dedicada à camada administrativa, observabilidade e "
+        "endurecimento de segurança - incluindo o registro das reuniões "
+        "diárias, o backlog executado, os impedimentos com seu plano de "
+        "contingência e a validação funcional da entrega.",
+        styles["Body"],
+    ))
+    story.append(Paragraph("17.1&nbsp;&nbsp;Cerimônias e Cadência", styles["H2Section"]))
+    story.append(caption("Figura 5 - Cadência das cerimônias Scrum", styles))
+    story.append(ScrumCadenceDiagram(width=CONTENT_W))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
+    story.append(Spacer(1, 0.15 * cm))
+    story.append(Paragraph(
+        "Cada sprint inicia com o <b>Sprint Planning</b> (definição do objetivo "
+        "e seleção do backlog estimado em pontos de história), mantém "
+        "<b>Daily Scrums</b> assíncronas e síncronas para alinhamento diário, "
+        "encerra com a <b>Sprint Review</b> (demonstração do incremento e "
+        "validação dos critérios de aceitação) e a <b>Retrospectiva</b> "
+        "(melhoria contínua do processo). O refinamento do backlog ocorre 48 "
+        "horas antes do planning, prática adotada após a retrospectiva das "
+        "Sprints 1 a 3.",
+        styles["Body"],
+    ))
+
+    story.append(Paragraph("17.2&nbsp;&nbsp;Objetivo e Sprint Backlog #05", styles["H2Section"]))
+    story.append(Paragraph(
+        "<b>Objetivo da Sprint 5:</b> entregar a camada administrativa da "
+        "plataforma e elevar a maturidade operacional com observabilidade, "
+        "segurança e relatórios financeiros exportáveis. O quadro abaixo "
+        "consolida os itens do Sprint Backlog #05 e seu status de fechamento "
+        "(7 de 7 itens concluídos).",
+        styles["Body"],
+    ))
+    rows = [["Item / Tarefa", "Responsável", "Pts", "Status"]]
+    backlog = [
+        ("[Infra] Logs centralizados, métricas e alertas por <i>threshold</i>", "João Vitor (DevOps)", "8", "Concluído"),
+        ("[Infra] Rate limiting, MFA do admin e hardening transacional", "João Vitor (DevOps)", "8", "Concluído"),
+        ("[Back] APIs administrativas (usuários, cozinhas e pedidos)", "Thiago Lucas", "13", "Concluído"),
+        ("[Back] Gestão de cozinhas parceiras (cadastro e vínculo)", "Thiago Lucas", "8", "Concluído"),
+        ("[Back] Relatórios de comissão exportáveis (período, fábrica, status)", "Thiago Lucas", "13", "Concluído"),
+        ("[Front] Telas de comissão e conciliação financeira (exportação CSV)", "João Vitor (Front)", "8", "Concluído"),
+        ("[QA] Cobertura de RBAC admin e validação de relatórios (TC-016 a TC-021)", "Gabriel Pahl", "5", "Concluído"),
+    ]
+    for b in backlog:
+        rows.append(list(b))
+    rows.append(["<b>Total da Sprint 5</b>", "", "<b>45</b>", "<b>42 entregues</b>"])
+    story.append(caption("Quadro 9 - Sprint Backlog #05", styles))
+    story.append(styled_table(rows, [9.6 * cm, 3.4 * cm, 1.0 * cm, 2.5 * cm], styles))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
+
+    story.append(Paragraph("17.3&nbsp;&nbsp;Reunião Diária (Daily Scrum)", styles["H2Section"]))
+    story.append(Paragraph(
+        "As reuniões diárias foram registradas no ALM (GitHub Projects) "
+        "respondendo às três perguntas clássicas. Apresentam-se a seguir os "
+        "registros representativos do período.",
+        styles["Body"],
+    ))
+    rows = [["Data", "Feito", "A fazer", "Impedimentos"]]
+    dailies = [
+        ("15/05", "ReportsService criado; endpoints /admin/reports/operations e /commissions em desenvolvimento", "Finalizar exportação CSV; iniciar telas admin", "Nenhum"),
+        ("17/05", "/admin/diagnostics com health profundo (orders, payments, audit); AdminRelatoriosPage com KPIs e gráfico", "Integrar menu Relatórios ao AdminLayout; testes de RBAC", "Nenhum"),
+        ("19/05", "RBAC consolidado com matriz auditável; @Roles('admin') em todos os endpoints; audit_log de acessos negados", "QA: cobrir cenários críticos TC-016 a TC-021", "Nenhum"),
+        ("21/05", "Hardening: CORS restrito, rawBody, HMAC <i>timing-safe</i> em webhooks e janela anti-replay (+/- 5 min)", "Revisão final de segurança; validar alertas em produção", "Nenhum"),
+        ("22/05", "Sprint fechada com 7/7 itens em Done; evidências consolidadas e parecer assinado", "Preparar Sprint 6 (autoatendimento do paciente)", "Nenhum"),
+    ]
+    for d in dailies:
+        rows.append(list(d))
+    story.append(caption("Quadro 10 - Registros das reuniões diárias (Daily Scrum)", styles))
+    story.append(styled_table(rows, [1.3 * cm, 6.6 * cm, 5.2 * cm, 3.4 * cm], styles))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
+
+    story.append(Paragraph("17.4&nbsp;&nbsp;Impedimentos e Plano de Contingência", styles["H2Section"]))
+    rows = [["Impedimento (risco)", "Impacto", "Plano de contingência", "Status"]]
+    imps = [
+        ("Divergência de valores nos relatórios financeiros", "Perda de confiança da gestão", "Cálculo de referência documentado e testes por caso conhecido", "Resolvido"),
+        ("MFA causando bloqueio (lockout) do admin", "Bloqueio operacional", "Procedimento de recuperação de MFA documentado antes do rollout", "Resolvido"),
+        ("Alertas ruidosos (fadiga de alerta)", "Baixa resposta a incidentes reais", "Revisão de thresholds no meio da sprint e silenciamento de não acionáveis", "Resolvido"),
+        ("Hardening bloqueando clientes legítimos", "Impacto no usuário final", "Rate limit por perfil com whitelists temporárias monitoradas", "Resolvido"),
+        ("Instabilidade em API/serviço externo", "Atraso de até 3 dias na integração; sem impacto na entrega do MVP (So What?)", "Implementação de mock do serviço para mitigar e desbloquear o desenvolvimento", "Resolvido"),
+        ("Ausência de membro-chave da equipe", "Impacto nulo no cronograma (So What?)", "Redistribuição de tarefas via ALM, com cobertura por pares", "Resolvido"),
+    ]
+    for r in imps:
+        rows.append(list(r))
+    story.append(caption("Quadro 11 - Impedimentos e plano de contingência", styles))
+    story.append(styled_table(rows, [4.4 * cm, 3.4 * cm, 6.6 * cm, 2.1 * cm], styles))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
+
+    story.append(Paragraph("17.5&nbsp;&nbsp;Testes e Validação da Sprint #05", styles["H2Section"]))
+    story.append(Paragraph(
+        "A entrega foi validada por seis casos de teste (TC-016 a TC-021) "
+        "cobrindo diagnóstico, agregação de relatórios, exportação CSV e "
+        "segregação de acesso, com 100% de aprovação. Destacam-se: TC-016 "
+        "(GET /admin/diagnostics retorna 200 OK), TC-019 (CSV com cabeçalho "
+        "válido e linhas alinhadas), TC-020 (perfil nutricionista recebe 403 "
+        "em /admin/reports/*) e TC-021 (audit_log registra a tentativa negada). "
+        "As evidências - coleção de requisições autenticadas, capturas do "
+        "endpoint de diagnóstico (orders: 30, payments aprovados: 24, "
+        "audit: 184 entradas), telas do módulo de relatórios e os commits em "
+        "<i>main</i> (reports.service.ts, auth.guard.ts, AdminRelatoriosPage.tsx) "
+        "- foram anexadas ao registro da sprint no ALM.",
+        styles["Body"],
+    ))
+    story.extend(figure_block(
+        ROOT / "tmp" / "pi_iii_assets" / "admin-montage.png",
+        "Figura 6 - Painéis administrativos (Sprint #05): dashboard "
+        "administrativo e auditoria operacional.",
+        styles, max_w=16 * cm, max_h=21 * cm,
+    ))
+
+    story.append(Paragraph("17.6&nbsp;&nbsp;Comparativo de Evidências de Entrega", styles["H2Section"]))
+    story.append(Paragraph(
+        "A maturidade técnica entre as sprints é evidenciada pela evolução do "
+        "tipo de prova entregue: na concepção (Sprint #02), as evidências são de "
+        "intenção e design; na fase de maturidade (Sprints #04 e #05), são de "
+        "software funcional em ambiente web, conforme o quadro a seguir.",
+        styles["Body"],
+    ))
+    rows = [["Tipo de evidência", "Sprint #02 (Concepção/Inicial)", "Sprints #04-#05 (Maturidade Técnica)"]]
+    comp = [
+        ("Vídeos demonstrativos", "Navegação em protótipos e apresentação dos fluxos iniciais do sistema.", "Demonstração das funcionalidades implementadas e operacionais em ambiente web."),
+        ("Prints de tela", "Wireframes, mockups e representações preliminares da interface.", "Capturas do sistema funcional (Figura 4), evidenciando a execução e os registros de sucesso."),
+        ("Registros de devolutiva", "Documentação de reuniões e alinhamentos de escopo.", "Feedbacks de validação, homologação das entregas e encerramento formal da sprint."),
+    ]
+    for c in comp:
+        rows.append(list(c))
+    story.append(caption("Quadro 12 - Comparativo de evidências de entrega por sprint", styles))
+    story.append(styled_table(rows, [3.2 * cm, 6.0 * cm, 6.8 * cm], styles))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
+
+    story.append(PageBreak())
+    return story
+
+
+def figure_block(path, caption, styles, max_w=16.0 * cm, max_h=9.0 * cm):
+    flow = []
+    cap_style = ParagraphStyle(
+        name="FigCap", parent=styles["Body"], fontName="Helvetica",
+        fontSize=9, leading=12, alignment=TA_CENTER,
+        textColor=colors.HexColor("#333333"), spaceBefore=4, spaceAfter=2,
+    )
+    src_style = ParagraphStyle(
+        name="FigSrc", parent=cap_style, fontName="Helvetica-Oblique", fontSize=8,
+        textColor=colors.HexColor("#666666"), spaceBefore=0, spaceAfter=6,
+    )
+    if path.exists():
+        flow.append(Paragraph(caption, cap_style))
+        img = Image(str(path), width=max_w, height=max_h, kind="proportional")
+        img.hAlign = "CENTER"
+        flow.append(img)
+        flow.append(Paragraph("Fonte: elaborado pela equipe FastInBox (2026).", src_style))
+    return [KeepTogether(flow)] if flow else []
+
+
+def metricas_story(styles):
+    story = [Paragraph("18&nbsp;&nbsp;Métricas Ágeis", styles["H1Section"])]
+    story.append(Paragraph(
+        "A produtividade e a qualidade do projeto são acompanhadas por um "
+        "conjunto de métricas ágeis configuradas no ALM (GitHub Projects para "
+        "fluxo e estimativas; QASE.IO e a suíte automatizada para qualidade). "
+        "As cinco métricas exigidas - velocidade da equipe, tempo de ciclo, "
+        "taxa de defeitos, NPS e WIP - são definidas a seguir com sua forma de "
+        "medição e os valores observados nas Sprints 1 a 5.",
+        styles["Body"],
+    ))
+
+    story.append(Paragraph("18.1&nbsp;&nbsp;Velocidade da Equipe (Velocity)", styles["H2Section"]))
+    story.append(Paragraph(
+        "<b>Definição:</b> quantidade de trabalho concluído por sprint, medida "
+        "em pontos de história entregues (Cohn, 2005). Serve de <i>baseline</i> "
+        "para o planejamento. <b>Medição:</b> soma dos pontos dos itens que "
+        "atingem o status <i>Done</i> ao fechamento da sprint, no GitHub "
+        "Projects.",
+        styles["Body"],
+    ))
+    rows = [["Sprint", "Pts planejados", "Pts entregues", "Itens", "Observação"]]
+    vel = [
+        ("Sprint 1", "60", "54", "26", "Fundação e MVP navegável"),
+        ("Sprint 2", "25", "21", "8", "Sprint curta"),
+        ("Sprint 3", "50", "48", "20", "Persistência e API"),
+        ("Sprint 4", "55", "52", "18", "Pagamento e fila"),
+        ("Sprint 5", "45", "42", "7", "Admin, observabilidade, hardening"),
+    ]
+    for v in vel:
+        rows.append(list(v))
+    rows.append(["<b>Total</b>", "<b>235</b>", "<b>217</b>", "<b>79</b>", "<b>Aderência de 92,3%</b>"])
+    story.append(caption("Tabela 2 - Velocidade planejada e entregue por sprint", styles))
+    story.append(styled_table(rows, [2.1 * cm, 2.9 * cm, 2.9 * cm, 1.5 * cm, 6.6 * cm], styles))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
+    story.append(Spacer(1, 0.25 * cm))
+    story.append(caption("Figura 7 - Velocidade da equipe por sprint", styles))
+    story.append(VelocityChart(
+        planned=[60, 25, 50, 55, 45],
+        delivered=[54, 21, 48, 52, 42],
+        labels=["S1", "S2", "S3", "S4", "S5"],
+        width=CONTENT_W,
+    ))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
+    story.append(Paragraph(
+        "Velocidade média de <b>43,4 pontos por sprint</b>; desconsiderando a "
+        "Sprint 2 (curta), a equipe estabiliza entre 47 e 54 pontos, indicando "
+        "previsibilidade adequada para o planejamento do PI IV.",
+        styles["Body"],
+    ))
+    story.append(PageBreak())
+
+    story.append(Paragraph("18.2&nbsp;&nbsp;Tempo de Ciclo (Cycle Time)", styles["H2Section"]))
+    story.append(Paragraph(
+        "<b>Definição:</b> tempo decorrido entre o início do trabalho em um "
+        "item (<i>In Progress</i>) e sua conclusão (merge em <i>main</i> com "
+        "CI/CD verde). O <i>lead time</i> agrega ainda o tempo de fila anterior "
+        "(Reinertsen, 2009). <b>Medição:</b> diferença entre os carimbos de "
+        "tempo das transições registradas nas issues do GitHub.",
+        styles["Body"],
+    ))
+    rows = [["Sprint", "Ciclo médio (dias)", "Mínimo", "Máximo"]]
+    cyc = [
+        ("Sprint 1", "2,8", "0,5", "4,2"),
+        ("Sprint 2", "3,2", "1,1", "5,5"),
+        ("Sprint 3", "2,4", "0,8", "4,8"),
+        ("Sprint 4", "2,2", "0,6", "3,9"),
+        ("Sprint 5", "2,1", "0,5", "3,5"),
+    ]
+    for cc in cyc:
+        rows.append(list(cc))
+    rows.append(["<b>Média geral</b>", "<b>2,5</b>", "-", "-"])
+    story.append(caption("Tabela 3 - Tempo de ciclo por sprint", styles))
+    story.append(styled_table(rows, [3.0 * cm, 4.0 * cm, 3.0 * cm, 3.0 * cm], styles))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
+    story.append(Paragraph(
+        "O tempo de ciclo médio de <b>2,5 dias</b> (lead time ponta a ponta de "
+        "3,5 a 4 dias) é sustentado por <i>Trunk-Based Development</i> com "
+        "<i>main</i> protegida, CI/CD ativo desde a Sprint 1 e pair programming "
+        "nas rotas críticas (autenticação e pagamento). O gráfico de burndown a "
+        "seguir ilustra o consumo de pontos ao longo da Sprint 5.",
+        styles["Body"],
+    ))
+    story.append(Spacer(1, 0.2 * cm))
+    story.append(Paragraph(
+        "<b>Burndown da Sprint 5</b> (45 pontos)", styles["H2Section"],
+    ))
+    story.append(caption("Figura 8 - Burndown da Sprint 5", styles))
+    story.append(BurndownChart(
+        total=45,
+        actual=[45, 45, 38, 30, 30, 21, 13, 5, 0],
+        day_labels=["D0", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8"],
+        width=CONTENT_W,
+    ))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
+    story.append(PageBreak())
+
+    story.append(Paragraph("18.3&nbsp;&nbsp;Taxa de Defeitos (Defect Rate)", styles["H2Section"]))
+    story.append(Paragraph(
+        "<b>Definição:</b> razão entre defeitos identificados e volume de "
+        "testes executados; a <i>Defect Removal Efficiency</i> (DRE) mede o "
+        "percentual de defeitos corrigidos no mesmo ciclo (Kan, 2002; ISO/IEC "
+        "25010). <b>Medição:</b> defeitos triados em GitHub Issues com rótulo "
+        "<i>bug</i> e severidade, frente às camadas de teste. A tabela "
+        "reconcilia as duas camadas de validação do projeto.",
+        styles["Body"],
+    ))
+    rows = [["Camada de teste", "Casos", "Defeitos", "Taxa", "DRE"]]
+    defs = [
+        ("Testes internos de módulo (S1-S2)", "75", "4", "5,3%", "100%"),
+        ("Cenários consolidados de aceitação / E2E (S1-S5)", "21", "0*", "0,0%", "100%"),
+    ]
+    for d in defs:
+        rows.append(list(d))
+    rows.append(["<b>Total consolidado</b>", "<b>96</b>", "<b>4</b>", "<b>4,2%</b>", "<b>100%</b>"])
+    story.append(caption("Tabela 4 - Taxa de defeitos por camada de teste", styles))
+    story.append(styled_table(rows, [7.4 * cm, 1.8 * cm, 2.2 * cm, 1.9 * cm, 1.7 * cm], styles))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
+    story.append(Paragraph(
+        "* As duas ocorrências registradas na camada de aceitação (OC-001 - "
+        "formatação de payload no roteiro; OC-002 - retorno 403 correto por "
+        "regra de RBAC) foram reclassificadas como ajuste de ambiente e "
+        "validação de regra, e não como defeitos de produto. A densidade de "
+        "defeitos resultante (cerca de 0,2 defeito por KLOC) situa-se "
+        "confortavelmente abaixo do <i>baseline</i> industrial de 1 a 3 por "
+        "KLOC, e não há defeitos bloqueantes em aberto.",
+        styles["Body"],
+    ))
+
+    story.append(Paragraph("18.4&nbsp;&nbsp;NPS (Net Promoter Score)", styles["H2Section"]))
+    story.append(Paragraph(
+        "<b>Definição:</b> NPS = (% de promotores) - (% de detratores), em "
+        "escala de 0 a 10, onde 9-10 são promotores, 7-8 passivos e 0-6 "
+        "detratores (Reichheld, 2003). <b>Medição:</b> formulário pós-teste "
+        "aplicado na sessão de validação guiada (teste alfa), com a pergunta "
+        "\"Qual a probabilidade de você recomendar o FastInBox a um colega?\". "
+        "Amostra inicial de 3 respondentes (1 nutricionista convidada e 2 "
+        "docentes): 2 promotores (notas 9), 1 passivo (nota 8), 0 detratores, "
+        "resultando em <b>NPS = 66,7</b> (faixa de excelência). A amostra será "
+        "ampliada no teste Beta do PI IV, com 10 a 15 clínicas parceiras.",
+        styles["Body"],
+    ))
+
+    story.append(Paragraph("18.5&nbsp;&nbsp;WIP (Work in Progress)", styles["H2Section"]))
+    story.append(Paragraph(
+        "<b>Definição:</b> limite máximo de itens simultâneos por coluna do "
+        "Kanban, que reduz gargalos e o tempo de ciclo (Anderson, 2010). "
+        "<b>Medição:</b> contagem de itens por coluna no quadro do GitHub "
+        "Projects (Backlog &rarr; Todo &rarr; In Progress &rarr; In Review "
+        "&rarr; Done). Os limites foram definidos na retrospectiva das Sprints "
+        "1 a 3. O gráfico compara o limite e o WIP médio observado no período "
+        "de estabilidade (Sprints 4 e 5).",
+        styles["Body"],
+    ))
+    story.append(caption("Figura 9 - WIP médio versus limite por coluna", styles))
+    story.append(WipChart(
+        rows=[("Todo", 15, 8.5), ("In Progress", 3, 2.1), ("In Review", 5, 2.8)],
+        xmax=15,
+        width=CONTENT_W,
+    ))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
+    story.append(Paragraph(
+        "O WIP médio de 2,1 itens em <i>In Progress</i> (limite 3, equivalente "
+        "a um item por desenvolvedor) revela fluxo saudável com margem de "
+        "segurança, sem situações de bloqueio. O <i>throughput</i> de 6,2 "
+        "pontos por dia mantém o tempo de espera em revisão abaixo do alvo de "
+        "3 dias.",
+        styles["Body"],
+    ))
+
+    story.append(Paragraph("18.6&nbsp;&nbsp;Quadro-resumo dos Indicadores", styles["H2Section"]))
+    rows = [["Métrica", "Valor atual", "Meta", "Status"]]
+    resumo = [
+        ("Velocidade média", "43,4 pts/sprint", "&ge; 40 pts/sprint", "Atingida"),
+        ("Tempo de ciclo médio", "2,5 dias", "&lt; 3 dias", "Atingida"),
+        ("Taxa de aprovação (cenários)", "100% (21/21)", "&ge; 98%", "Atingida"),
+        ("Taxa de defeitos", "4,2% (4/96)", "&lt; 10%", "Atingida"),
+        ("Defect Removal Efficiency", "100%", "100%", "Atingida"),
+        ("NPS", "66,7", "&ge; 50", "Atingida"),
+        ("WIP (In Progress)", "2,1 itens", "&le; 3 itens", "Atingida"),
+        ("Cobertura de RF (MVP)", "14/14", "100%", "Atingida"),
+        ("Taxa de sucesso de build (CI)", "98%", "&ge; 99%", "Parcial"),
+    ]
+    for r in resumo:
+        rows.append(list(r))
+    story.append(caption("Quadro 13 - Quadro-resumo dos indicadores ágeis", styles))
+    story.append(styled_table(rows, [5.6 * cm, 3.8 * cm, 3.4 * cm, 2.2 * cm], styles))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
+    story.append(Paragraph(
+        "<b>Parecer de consolidação:</b> o FastInBox encerra as Sprints 1 a 5 "
+        "com qualidade robusta (zero defeitos bloqueantes, DRE de 100%, "
+        "aprovação de 100% nos cenários), velocidade previsível (43,4 "
+        "pontos/sprint, ciclo de 2,5 dias), fluxo Kanban eficiente (WIP de 2,1) "
+        "e satisfação de stakeholders validada (NPS de 66,7), constituindo "
+        "base sólida para a continuidade no Projeto Integrador IV.",
+        styles["Body"],
+    ))
+    story.append(PageBreak())
+    return story
+
+
+def rastreabilidade_story(styles):
+    story = [Paragraph("19&nbsp;&nbsp;Rastreabilidade dos Requisitos", styles["H1Section"])]
+    story.append(Paragraph(
+        "O Documento de Visão e o Backlog do Produto, estabelecidos no início do "
+        "ciclo e priorizados em seguida por valor para o parceiro e viabilidade "
+        "técnica, constituem a <b>âncora de verdade</b> do projeto: cada linha de "
+        "código possui justificativa originada no plano inicial. A hierarquia de "
+        "desdobramento - <b>Visão &rarr; Backlog priorizado &rarr; História de "
+        "Usuário &rarr; Regra de Negócio &rarr; Critério de Aceitação &rarr; "
+        "tarefa/commit &rarr; entrega</b> - é mantida no ALM (GitHub Projects), "
+        "que atua como fonte da verdade com commits, histórico de branches e "
+        "status das tarefas. O alinhamento dessa cadeia evita o <i>risco de "
+        "produto</i> (entregar funcionalidades tecnicamente estáveis, porém "
+        "desprovidas de valor para o parceiro atendido). O quadro a seguir "
+        "consolida a rastreabilidade das funcionalidades centrais do MVP.",
+        styles["Body"],
+    ))
+    rows = [["Funcionalidade (origem na Visão)", "RF", "HU", "RNB", "CA", "Entrega (Sprint)"]]
+    rastro = [
+        ("Pedido white label de marmitas", "RF003, RF004", "HU-008", "RNB-001, RNB-003", "CA-008.1", "Entregue (S1, S3)"),
+        ("Acesso do paciente por código único", "RF005", "HU-013", "RNB-002", "CA-002.1", "Entregue (S1)"),
+        ("Revisão e confirmação do pedido", "RF006", "HU-014, HU-015", "RNB-002", "CA-015.1", "Entregue (S2)"),
+        ("Checkout integrado", "RF007", "HU-016", "RNB-006", "CA-016.1", "Entregue (S3)"),
+        ("Painel kanban da cozinha", "RF009, RF010", "HU-020, HU-021", "RNB-007", "CA-021.1", "Entregue (S2, S4)"),
+        ("Comissão e relatórios exportáveis", "RF013", "HU-010, HU-027", "RNB-003", "CA-027.1", "Entregue (S5)"),
+        ("Dashboard administrativo", "RF011", "HU-023, HU-026", "RNB-007", "CA-023.1", "Entregue (S5)"),
+        ("Trilha de auditoria de eventos", "RF014", "HU-025", "RNB-005", "CA-025.1", "Entregue (S3, S5)"),
+    ]
+    for r in rastro:
+        rows.append(list(r))
+    story.append(caption("Quadro 14 - Matriz de rastreabilidade dos requisitos", styles))
+    story.append(styled_table(rows, [4.0 * cm, 1.7 * cm, 1.7 * cm, 2.0 * cm, 2.0 * cm, 4.6 * cm], styles))
+    story.append(fonte("elaborado pela equipe FastInBox (2026).", styles))
+    story.append(Paragraph(
+        "Além das funcionalidades acima, o ambiente de ALM mantém o vínculo "
+        "fino entre tarefas, <i>commits</i> e <i>pull requests</i> em "
+        "<i>main</i> protegida, de modo que cada entrega seja auditável da "
+        "necessidade do parceiro até o artefato publicado em produção.",
+        styles["Body"],
+    ))
+    story.append(PageBreak())
+    return story
+
+
+def conclusao_story(styles):
+    story = [Paragraph("21&nbsp;&nbsp;Conclusão e Próximos Passos", styles["H1Section"])]
+    story.append(Paragraph(
+        "Neste marco de controle, o FastInBox apresenta maturidade técnica "
+        "compatível com a fase de <b>Avaliação (todos envolvidos)</b> do "
+        "framework Fases_ACE: o ciclo de desenvolvimento web encontra-se "
+        "consolidado e a rastreabilidade integral - da Visão ao código em "
+        "produção - é o que separa um projeto profissional de uma "
+        "implementação amadora. A entrega reúne MVP web funcional e publicado, "
+        "100% de aprovação nos cenários de teste, governança ágil mantida por "
+        "Daily Scrums e ALM, e indicadores de qualidade e produtividade dentro "
+        "das metas (Seção 18), atendendo às competências C19 (Garantia de "
+        "Qualidade) e C21 (Gerenciamento de Projetos).",
+        styles["Body"],
+    ))
+    story.append(Paragraph(
+        "Com o encerramento das Sprints #06 e #07, o ciclo do MVP foi "
+        "concluído e levado a produção, conforme detalhado a seguir:",
+        styles["Body"],
+    ))
+    story.extend(bullet_list([
+        "<b>O quê:</b> escala comercial na Sprint #06 (autoatendimento do "
+        "paciente por código, assinaturas recorrentes e previsão de demanda) e "
+        "go-live na Sprint #07.",
+        "<b>Como:</b> hardening final (security headers, rate limiting), "
+        "readiness e smoke de release verde, com runbooks e checklist de "
+        "go-live assinados.",
+        "<b>Quem:</b> execução conforme o Sprint Backlog no ALM, com o quadro "
+        "da equipe definido por perfil (produto, back, front e "
+        "arquitetura/QA).",
+    ], styles))
+    story.append(Paragraph(
+        "Com a cadeia de evidências preservada - da Visão ao código em "
+        "produção - a 3ª Avaliação Parcial (26/06), que representa 50% da "
+        "menção final, é sustentada por artefatos rastreáveis. A diretriz "
+        "mantida foi o rigor técnico e a governança via ALM, garantindo a "
+        "integridade do produto entregue ao parceiro e a base para a evolução "
+        "pós-go-live.",
+        styles["Body"],
+    ))
     story.append(PageBreak())
     return story
 
 
 def marketing_story(styles):
     story = [Paragraph(
-        '15.&nbsp;&nbsp;Marketing Digital '
-        '<font backcolor="#FFF59D">(PI IV)</font>',
+        '20&nbsp;&nbsp;Marketing Digital '
+        '(PI IV)',
         styles["H1Section"],
     )]
     story.append(Paragraph(
@@ -1741,7 +2920,7 @@ def marketing_story(styles):
         styles["Body"],
     ))
 
-    story.append(Paragraph("15.1.&nbsp;&nbsp;Plano de Marketing", styles["H2Section"]))
+    story.append(Paragraph("20.1&nbsp;&nbsp;Plano de Marketing", styles["H2Section"]))
     plano = [
         "<b>Estratégia de Monetização:</b> comissão progressiva por pedido + "
         "plano de assinatura para clínicas com volume superior a 100 pedidos/mês "
@@ -1764,7 +2943,7 @@ def marketing_story(styles):
     ]
     story.extend(bullet_list(plano, styles))
 
-    story.append(Paragraph("15.2.&nbsp;&nbsp;Vídeo Promocional", styles["H2Section"]))
+    story.append(Paragraph("20.2&nbsp;&nbsp;Vídeo Promocional", styles["H2Section"]))
     story.append(Paragraph(
         "Vídeo institucional de 60 a 90 segundos, apresentando o problema "
         "(operação fragmentada da clínica), a proposta de valor (plataforma "
@@ -1773,7 +2952,7 @@ def marketing_story(styles):
         styles["Body"],
     ))
 
-    story.append(Paragraph("15.3.&nbsp;&nbsp;Vídeo de Instrução de Uso do Produto", styles["H2Section"]))
+    story.append(Paragraph("20.3&nbsp;&nbsp;Vídeo de Instrução de Uso do Produto", styles["H2Section"]))
     story.append(Paragraph(
         "Série curta de tutoriais (1 a 3 minutos cada) cobrindo: cadastro de "
         "paciente, criação de pedido, configuração da clínica white label, "
@@ -1782,7 +2961,7 @@ def marketing_story(styles):
         styles["Body"],
     ))
 
-    story.append(Paragraph("15.4.&nbsp;&nbsp;Insights de Mercado (Google Looker)", styles["H2Section"]))
+    story.append(Paragraph("20.4&nbsp;&nbsp;Insights de Mercado (Google Looker)", styles["H2Section"]))
     story.append(Paragraph(
         "Painel de Looker Studio (Google) consolidando volume de pedidos por "
         "clínica, taxa de conversão do paciente, ticket médio, lead time da "
@@ -1795,60 +2974,93 @@ def marketing_story(styles):
 
 
 def bibliografia_story(styles):
-    story = [Paragraph("16.&nbsp;&nbsp;Bibliografia", styles["H1Section"])]
+    story = [Paragraph("22&nbsp;&nbsp;Referências", styles["H1Section"])]
     story.append(Paragraph(
-        "<i>Referências utilizadas na fundamentação do modelo de negócio, "
-        "estabelecimento do problema/oportunidade e nas atividades técnicas, "
-        "no formato APA (estilo da ferramenta 'Citações' do Google Docs).</i>",
+        "As referências são apresentadas em ordem alfabética e formatadas "
+        "segundo a ABNT NBR 6023:2018, com alinhamento à esquerda, "
+        "espaçamento simples interno e o título do documento em destaque.",
         styles["Body"],
     ))
     refs = [
-        "ABIA - Associação Brasileira das Indústrias da Alimentação. (2024). "
-        "<i>Relatório anual da indústria da alimentação 2024.</i> São Paulo: ABIA.",
-        "CFN - Conselho Federal de Nutricionistas. (2024). <i>Estatísticas de "
-        "profissionais inscritos no Sistema CFN/CRN.</i> Brasília: CFN.",
-        "Comitê Gestor da Internet no Brasil - CGI.br. (2024). <i>TIC E-commerce "
-        "2024: pesquisa sobre o uso das tecnologias de informação e comunicação "
-        "nas empresas brasileiras.</i> São Paulo: NIC.br.",
-        "Datafolha. (2024). <i>Hábitos alimentares e saúde no Brasil.</i> São "
-        "Paulo: Datafolha.",
-        "Gartner. (2025). <i>Hype Cycle for Digital Commerce.</i> Stamford, CT: "
-        "Gartner Inc.",
-        "IBGE - Instituto Brasileiro de Geografia e Estatística. (2024). "
-        "<i>Índice Nacional de Preços ao Consumidor Amplo - IPCA.</i> Rio de "
-        "Janeiro: IBGE.",
-        "ISO/IEC 25010. (2011). <i>Systems and software engineering - Systems "
-        "and software Quality Requirements and Evaluation (SQuaRE) - System "
-        "and software quality models.</i>",
-        "OSTERWALDER, A.; PIGNEUR, Y. (2010). <i>Business Model Generation: a "
-        "Handbook for Visionaries, Game Changers, and Challengers.</i> Hoboken: "
-        "Wiley.",
-        "PRESSMAN, R. S.; MAXIM, B. R. (2021). <i>Engenharia de Software: uma "
-        "abordagem profissional</i> (9. ed.). Porto Alegre: AMGH.",
-        "PROJECT MANAGEMENT INSTITUTE. (2021). <i>A Guide to the Project "
-        "Management Body of Knowledge (PMBOK Guide)</i> (7th ed.). Newtown "
-        "Square: PMI.",
-        "SEBRAE. (2023). <i>Pequenos negócios em números: setor de alimentação "
-        "fora do lar.</i> Brasília: SEBRAE.",
-        "SOMMERVILLE, I. (2019). <i>Engenharia de Software</i> (10. ed.). São "
-        "Paulo: Pearson.",
-        "W3C. (2018). <i>Web Content Accessibility Guidelines (WCAG) 2.1.</i> "
-        "World Wide Web Consortium.",
+        "ANDERSON, D. J. <b>Kanban</b>: successful evolutionary change for your "
+        "technology business. Sequim: Blue Hole Press, 2010.",
+        "ASSOCIAÇÃO BRASILEIRA DAS INDÚSTRIAS DA ALIMENTAÇÃO (ABIA). <b>Relatório "
+        "anual da indústria da alimentação 2024</b>. São Paulo: ABIA, 2024.",
+        "CAROLI, P. <b>Lean Inception</b>: como alinhar pessoas e construir o "
+        "produto certo. São Paulo: Caroli.org, 2018.",
+        "CENTRO UNIVERSITÁRIO DE BRASÍLIA (CEUB). <b>Plano de ensino</b>: "
+        "Projeto Integrador III - Ciência da Computação. Brasília: CEUB, 2026.",
+        "COHN, M. <b>Agile estimating and planning</b>. Upper Saddle River: "
+        "Prentice Hall, 2005.",
+        "COHN, M. <b>Succeeding with agile</b>: software development using Scrum. "
+        "Upper Saddle River: Addison-Wesley, 2009.",
+        "COMITÊ GESTOR DA INTERNET NO BRASIL (CGI.br). <b>TIC e-commerce "
+        "2024</b>: pesquisa sobre o uso das tecnologias de informação e "
+        "comunicação nas empresas brasileiras. São Paulo: NIC.br, 2024.",
+        "CONSELHO FEDERAL DE NUTRICIONISTAS (CFN). <b>Estatísticas de "
+        "profissionais inscritos no Sistema CFN/CRN</b>. Brasília: CFN, 2024.",
+        "DATAFOLHA. <b>Hábitos alimentares e saúde no Brasil</b>. São Paulo: "
+        "Datafolha, 2024.",
+        "GARTNER. <b>Hype cycle for digital commerce</b>. Stamford: Gartner "
+        "Inc., 2025.",
+        "INSTITUTE OF ELECTRICAL AND ELECTRONICS ENGINEERS (IEEE). <b>IEEE Std "
+        "829-2008</b>: standard for software and system test documentation. New "
+        "York: IEEE, 2008.",
+        "INSTITUTO BRASILEIRO DE GEOGRAFIA E ESTATÍSTICA (IBGE). <b>Índice "
+        "Nacional de Preços ao Consumidor Amplo (IPCA)</b>. Rio de Janeiro: "
+        "IBGE, 2024.",
+        "INTERNATIONAL ORGANIZATION FOR STANDARDIZATION. <b>ISO/IEC 25010</b>: "
+        "systems and software engineering - systems and software quality "
+        "requirements and evaluation (SQuaRE) - system and software quality "
+        "models. Geneva: ISO, 2011.",
+        "KAN, S. H. <b>Metrics and models in software quality engineering</b>. "
+        "2. ed. Boston: Addison-Wesley, 2002.",
+        "NIELSEN, J. <b>Usability engineering</b>. San Francisco: Morgan "
+        "Kaufmann, 1994.",
+        "OLIVEIRA, K. V. R. <b>Guia orientativo - Unidade 2</b>: "
+        "desenvolvimento da aplicação web. Material da disciplina Projeto "
+        "Integrador III. Brasília: CEUB, 2026.",
+        "OSTERWALDER, A.; PIGNEUR, Y. <b>Business model generation</b>: a "
+        "handbook for visionaries, game changers, and challengers. Hoboken: "
+        "Wiley, 2010.",
+        "PRESSMAN, R. S.; MAXIM, B. R. <b>Engenharia de software</b>: uma "
+        "abordagem profissional. 9. ed. Porto Alegre: AMGH, 2021.",
+        "PROJECT MANAGEMENT INSTITUTE (PMI). <b>A guide to the Project "
+        "Management Body of Knowledge (PMBOK Guide)</b>. 7. ed. Newtown Square: "
+        "PMI, 2021.",
+        "REICHHELD, F. F. The one number you need to grow. <b>Harvard Business "
+        "Review</b>, [s. l.], v. 81, n. 12, p. 46-54, 2003.",
+        "REINERTSEN, D. G. <b>The principles of product development flow</b>: "
+        "second generation lean product development. Redondo Beach: Celeritas, "
+        "2009.",
+        "RIES, E. <b>A startup enxuta</b>: como os empreendedores atuais "
+        "utilizam a inovação contínua. São Paulo: Lua de Papel, 2011.",
+        "SCHWABER, K.; SUTHERLAND, J. <b>The Scrum Guide</b>: o guia definitivo "
+        "para o Scrum - as regras do jogo. [S. l.]: Scrum.org, 2020.",
+        "SEBRAE. <b>Pequenos negócios em números</b>: setor de alimentação fora "
+        "do lar. Brasília: Sebrae, 2023.",
+        "SOMMERVILLE, I. <b>Engenharia de software</b>. 10. ed. São Paulo: "
+        "Pearson, 2019.",
+        "W3C - WORLD WIDE WEB CONSORTIUM. <b>Web Content Accessibility "
+        "Guidelines (WCAG) 2.1</b>. [S. l.]: W3C, 2018.",
     ]
+    ref_style = ParagraphStyle(
+        name="ref",
+        parent=styles["Body"],
+        alignment=TA_LEFT,
+        firstLineIndent=0,
+        leftIndent=0,
+        leading=14,
+        spaceAfter=12,
+    )
     for r in refs:
-        story.append(Paragraph(r, ParagraphStyle(
-            name="ref",
-            parent=styles["Body"],
-            firstLineIndent=0,
-            leftIndent=18,
-            spaceAfter=6,
-        )))
+        story.append(Paragraph(r, ref_style))
     story.append(PageBreak())
     return story
 
 
 def apendice_story(styles):
-    story = [Paragraph("APÊNDICE I - TECNOLOGIAS UTILIZADAS", styles["H1Section"])]
+    story = [Paragraph("APÊNDICE A - TECNOLOGIAS UTILIZADAS", styles["H1Section"])]
     story.append(Paragraph(
         "Este apêndice consolida o conjunto completo de tecnologias, "
         "ferramentas e serviços empregados no desenvolvimento, gestão, teste, "
@@ -1927,21 +3139,21 @@ def apendice_story(styles):
 class PiDoc(BaseDocTemplate):
     def __init__(self, filename, **kwargs):
         super().__init__(filename, **kwargs)
-        self.page_offset = 2  # cover (page 1) is unnumbered, "Pagina 1" starts at SUMARIO
+        # ABNT pagination is handled in footer_canvas via doc.first_textual_page.
 
-        # Cover (portrait, no footer)
+        # Cover (portrait, no pagination) - capa is not counted
         cover_frame = Frame(
             2.5 * cm, 1.5 * cm,
             PAGE_W - 5 * cm, PAGE_H - 3 * cm,
             id="cover",
         )
-        # Body (portrait, with footer)
+        # Body (portrait): ABNT margins left/top 3 cm, right/bottom 2 cm
         body_frame = Frame(
-            2 * cm, 2 * cm,
-            PAGE_W - 4 * cm, PAGE_H - 4 * cm,
+            3 * cm, 2 * cm,
+            CONTENT_W, PAGE_H - 5 * cm,
             id="body",
         )
-        # EAP (landscape, with footer)
+        # EAP (landscape): left/top 3 cm, right/bottom 2 cm
         eap_frame = Frame(
             2 * cm, 2 * cm,
             LAND_W - 4 * cm, LAND_H - 4 * cm,
@@ -1961,18 +3173,24 @@ def main():
     doc = PiDoc(
         str(OUTPUT_PDF),
         pagesize=A4,
-        leftMargin=2 * cm,
+        leftMargin=3 * cm,
         rightMargin=2 * cm,
-        topMargin=2 * cm,
+        topMargin=3 * cm,
         bottomMargin=2 * cm,
         title="FastInBox - Projeto Integrador III",
         author="Equipe FastInBox",
     )
+    doc.first_textual_page = 10  # ABNT: numbers shown from the first textual page
 
     story = []
     story.extend(cover_story(styles))
-    story.extend(toc_story(styles))
+    story.extend(folha_rosto_story(styles))
+    story.extend(resumo_story(styles))
+    story.extend(lista_figuras_story(styles))
+    story.extend(lista_quadros_story(styles))
+    story.extend(lista_tabelas_story(styles))
     story.extend(glossary_story(styles))
+    story.extend(toc_story(styles))
     story.extend(descricao_story(styles))
     story.extend(eap_story(styles))
     story.extend(problema_story(styles))
@@ -1985,7 +3203,13 @@ def main():
     story.extend(mvp_story(styles))
     story.extend(modelo_dados_story(styles))
     story.extend(testes_story(styles))
+    story.extend(historias_criterios_story(styles))
+    story.extend(regras_negocio_story(styles))
+    story.extend(sprint5_story(styles))
+    story.extend(metricas_story(styles))
+    story.extend(rastreabilidade_story(styles))
     story.extend(marketing_story(styles))
+    story.extend(conclusao_story(styles))
     story.extend(bibliografia_story(styles))
     story.extend(apendice_story(styles))
 
